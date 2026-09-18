@@ -1,0 +1,205 @@
+identifier	classic_refs	kind	defined_in
+bashPPScope	40	runner-field	api.go
+bashPPAgentic	26	runner-field	api.go
+bashPPConcurrent	20	runner-field	api.go
+bashPPFuncScopes	18	runner-field	api.go
+bashPPWriter	14	runner-method	bashpp_concurrency.go
+bashPPMethods	12	runner-field	api.go
+bashPPFuncs	12	runner-field	api.go
+bashPPGoSource	11	runner-field	api.go
+bashPPDecoratedFuncs	11	runner-field	api.go
+bashPPAgenticFuncs	11	runner-field	api.go
+bashPPFunc	10	type	bashpp_func.go
+bashPPClosures	10	runner-field	api.go
+bashPPTypes	9	runner-field	api.go
+bashPPArmBeforeBlock	9	runner-method	bashpp_concurrency.go
+bashPPTools	8	runner-field	api.go
+bashPPTaskContext	8	runner-method	bashpp_concurrency.go
+bashPPHostedDecls	8	runner-field	api.go
+bashPPGoSourceFile	8	runner-field	api.go
+bashPPGoSourceDecls	8	runner-field	api.go
+bashPPDeclRefused	8	runner-field	api.go
+GoSource	8	unknown	
+BashPPDeclaration	8	type	declaration_policy.go
+bashPPTaskCanceled	7	runner-field	api.go
+bashPPHostedTask	7	runner-field	api.go
+bashPPFIFORef	7	func	bashpp_fifo.go
+bashPPCustomOpen	7	runner-field	api.go
+goSourceTesting	6	runner-field	api.go
+goSourceEnvironment	6	runner-field	api.go
+bashPPTaskState	6	runner-field	api.go
+bashPPIssuedHandles	6	runner-field	api.go
+bashPPGoTask	6	runner-field	api.go
+bashPPEnv	6	runner-method	bashpp_scope.go
+bashPPEnabled	6	unknown	
+bashPPBranch	6	runner-field	api.go
+bashPPImports	5	runner-field	api.go
+bashPPForwardedDeath	5	runner-field	api.go
+bashPPCell	5	type	bashpp_scope.go
+bashPPTypeParamArgs	4	runner-field	api.go
+bashPPPushScope	4	runner-method	bashpp_scope.go
+bashPPNativeDecorators	4	runner-field	api.go
+bashPPHasRuntimeHandle	4	runner-method	bashpp_concurrency.go
+bashPPGotoLabel	4	runner-field	api.go
+bashPPGoSourceSharableCells	4	runner-field	api.go
+bashPPGoSourcePending	4	runner-field	api.go
+bashPPGoSourceCapture	4	runner-field	api.go
+bashPPDecoratorStack	4	runner-field	api.go
+bashPPAdvice	4	runner-field	api.go
+bashPPTaskFailed	3	runner-field	api.go
+bashPPRecoverSeq	3	runner-field	api.go
+bashPPPredeclaredCall	3	runner-field	api.go
+bashPPHasFIFOs	3	runner-method	bashpp_eval.go
+bashPPGoSourcePin	3	runner-field	api.go
+bashPPFuncActive	3	runner-field	api.go
+bashPPForeignModules	3	runner-field	api.go
+bashPPForeignImports	3	runner-field	api.go
+bashPPForeignFuncs	3	runner-field	api.go
+bashPPFileRun	3	runner-field	api.go
+bashPPDecoratorChains	3	runner-field	api.go
+bashPPDecoratedShellFunc	3	runner-method	bashpp_decorator.go
+bashPPDecorated	3	type	bashpp_decorator.go
+bashPPChanBoundary	3	runner-field	api.go
+bashPPAgenticFunc	3	runner-method	bashpp_agentic.go
+gosource_task_capture	2	unknown	
+gosource	2	unknown	
+goSourcePCs	2	runner-field	api.go
+goSourceLiteralNameIndex	2	runner-field	api.go
+goSourceFrameSeq	2	runner-field	api.go
+goSourceFault	2	runner-field	api.go
+bashPPType	2	type	bashpp_func.go
+bashPPTransportPath	2	runner-field	api.go
+bashPPTaskOpen	2	runner-method	bashpp_concurrency.go
+bashPPTaskFailCode	2	runner-field	api.go
+bashPPSourcePackages	2	runner-field	api.go
+bashPPShortTxn	2	runner-field	api.go
+bashPPShortFailureSeq	2	runner-field	api.go
+bashPPShadowedTypes	2	runner-field	api.go
+bashPPRewriteAssign	2	runner-method	bashpp_func.go
+bashPPReturn	2	runner-field	api.go
+bashPPResultCells	2	runner-field	api.go
+bashPPReconcileFIFOs	2	runner-method	bashpp_fifo.go
+bashPPPrepareSourceBlocks	2	runner-method	bashpp_polyglot.go
+bashPPPanicking	2	runner-method	bashpp_panic.go
+bashPPPanic	2	runner-field	api.go
+bashPPObserve	2	runner-method	bashpp_concurrency.go
+bashPPLocalTypes	2	runner-field	api.go
+bashPPGotoTarget	2	runner-method	bashpp_p1.go
+bashPPGoSourceSharable	2	runner-method	gosource_task_capture.go
+bashPPFn	2	unknown	
+bashPPFIFOPublish	2	runner-method	bashpp_fifo.go
+bashPPDeferStack	2	runner-field	api.go
+bashPPDeferDepth	2	runner-field	api.go
+bashPPCloner	2	type	bashpp_scope.go
+bashPPClearBranch	2	runner-method	bashpp_p1.go
+bashPPChannel	2	runner-method	bashpp_concurrency.go
+bashPPCallSpread	2	runner-field	api.go
+bashPPBranchNone	2	var-or-const	bashpp_p1.go
+bashPPBranchGoto	2	unknown	
+bashPPBranchDepth	2	runner-field	api.go
+BashPPReturn	2	unknown	
+BashPPImport	2	unknown	
+BashPPFuncDecl	2	unknown	
+BashPPDecl	2	unknown	
+BashPPAgenticBlock	2	unknown	
+gosource_struct_identity	1	unknown	
+goSourceTask	1	var-or-const	bashpp_scope.go
+goSourceStackFrame	1	type	bashpp_sprint162_nilptr2_stack.go
+goSourcePackageAt	1	runner-method	gosource_struct_identity.go
+goSourceLocalTypeIndex	1	type	bashpp_sprint162_type_scope.go
+goSourceFaultStack	1	type	bashpp_sprint162_nilptr2_stack.go
+bashPPWait	1	runner-method	bashpp_concurrency.go
+bashPPVariableHasRuntimeHandle	1	runner-method	bashpp_concurrency.go
+bashPPValidatePackageInitOrder	1	runner-method	bashpp_p1.go
+bashPPUpdate	1	runner-method	bashpp_update.go
+bashPPUnwind	1	runner-method	bashpp_panic.go
+bashPPToolchain	1	type	bashpp_import.go
+bashPPTaskSnapshot	1	runner-method	bashpp_concurrency.go
+bashPPTaskFiles	1	runner-field	api.go
+bashPPSwitch	1	runner-method	bashpp_p1.go
+bashPPStartGoSourceBridge	1	runner-method	bashpp_native_bridge.go
+bashPPSourcePackagesFile	1	runner-field	api.go
+bashPPShortDeclTxn	1	type	bashpp_p1.go
+bashPPShortDecl	1	runner-method	bashpp_p1.go
+bashPPShadowedType	1	type	bashpp_func.go
+bashPPShadowLocalType	1	runner-method	bashpp_func.go
+bashPPSend	1	runner-method	bashpp_concurrency.go
+bashPPSelect	1	runner-method	bashpp_concurrency.go
+bashPPRewriteCommandArgs	1	runner-method	bashpp_func.go
+bashPPReturnStmt	1	runner-method	bashpp_func.go
+bashPPReturnState	1	type	bashpp_func.go
+bashPPRegisterDecorators	1	runner-method	bashpp_decorator.go
+bashPPReceive	1	runner-method	bashpp_concurrency.go
+bashPPRange	1	runner-method	bashpp_concurrency.go
+bashPPPrintDecorators	1	runner-method	bashpp_decorator.go
+bashPPPredeclared	1	runner-method	bashpp_panic.go
+bashPPPanicState	1	type	bashpp_panic.go
+bashPPPanicHalts	1	runner-method	bashpp_panic.go
+bashPPNativeExitStatus	1	runner-method	bashpp_native_exit.go
+bashPPLogicalDepth	1	runner-field	api.go
+bashPPLockLogicalOutput	1	runner-method	bashpp_concurrency.go
+bashPPInterfaceValue	1	type	bashpp_interface.go
+bashPPIncDec	1	runner-method	bashpp_p1.go
+bashPPImport	1	runner-method	bashpp_import.go
+bashPPIf	1	runner-method	bashpp_p1.go
+bashPPHandleProvenance	1	type	bashpp_concurrency.go
+bashPPGotoStmt	1	runner-method	bashpp_p1.go
+bashPPGoSourceRegisterTypes	1	runner-method	gosource_type_registry.go
+bashPPGo	1	runner-method	bashpp_concurrency.go
+bashPPFuncNest	1	runner-method	bashpp_eval.go
+bashPPFuncDecl	1	runner-method	bashpp_func.go
+bashPPForAssign	1	runner-method	bashpp_p1.go
+bashPPFor	1	runner-method	bashpp_p1.go
+bashPPFIFOEntry	1	type	bashpp_fifo.go
+bashPPFIFOCloser	1	runner-method	bashpp_fifo.go
+bashPPDirectChannel	1	runner-method	bashpp_p1.go
+bashPPDeferred	1	type	bashpp_func.go
+bashPPDeferStmt	1	runner-method	bashpp_func.go
+bashPPDecoratorFailSeq	1	runner-field	api.go
+bashPPDecoratorChain	1	type	bashpp_decorator.go
+bashPPDeclare	1	runner-method	bashpp_p1.go
+bashPPConstGroup	1	runner-method	bashpp_const.go
+bashPPConcurrency	1	runner-method	bashpp_concurrency.go
+bashPPCommandCall	1	runner-method	bashpp_p1.go
+bashPPClose	1	runner-method	bashpp_concurrency.go
+bashPPCallInterfaces	1	runner-field	api.go
+bashPPCallDecorated	1	runner-method	bashpp_decorator.go
+bashPPCallChannels	1	runner-field	api.go
+bashPPCallCells	1	runner-field	api.go
+bashPPCall	1	runner-method	bashpp_p1.go
+bashPPBranchStmt	1	runner-method	bashpp_p1.go
+bashPPBranchKind	1	type	bashpp_p1.go
+bashPPBindSwitch	1	runner-method	bashpp_generic_body.go
+bashPPBindShortDecl	1	runner-method	bashpp_generic_body.go
+bashPPBindReturn	1	runner-method	bashpp_generic_body.go
+bashPPBindDecl	1	runner-method	bashpp_generic_body.go
+bashPPBindConstGroup	1	runner-method	bashpp_generic_body.go
+bashPPBindCallNode	1	runner-method	bashpp_generic_body.go
+bashPPBindAssign	1	runner-method	bashpp_generic_body.go
+bashPPAssign	1	runner-method	bashpp_readonly.go
+bashPPAgenticCallError	1	runner-method	bashpp_agentic.go
+GoSourceTestingSession	1	type	gosource_testing.go
+BashPPValidIdent	1	unknown	
+BashPPUpdate	1	unknown	
+BashPPTypeExpr	1	unknown	
+BashPPSwitch	1	unknown	
+BashPPShortDecl	1	unknown	
+BashPPSend	1	unknown	
+BashPPSelect	1	unknown	
+BashPPReceive	1	unknown	
+BashPPRange	1	unknown	
+BashPPLabeled	1	unknown	
+BashPPIncDec	1	unknown	
+BashPPIf	1	unknown	
+BashPPGoto	1	unknown	
+BashPPGo	1	unknown	
+BashPPFuncLit	1	unknown	
+BashPPForAssign	1	unknown	
+BashPPFor	1	unknown	
+BashPPDefer	1	unknown	
+BashPPConstGroup	1	unknown	
+BashPPCommandCall	1	unknown	
+BashPPClose	1	unknown	
+BashPPCall	1	unknown	
+BashPPBranch	1	unknown	
+BashPPAssign	1	unknown	
