@@ -43,7 +43,26 @@ polyglot islands and the `bashpp` binary:
 - Go packages: none yet. Sprint 207 measured the seam and left the dialect
   code in `sh` on purpose — see `CLAUDE.md` §What stays in sh and why.
 
-The conformance gate is [`bashpp-tests`](https://github.com/qiangli/bashpp-tests).
+## Companions
+
+Bash++ is a language, not a userland. The commands a Bash++ program calls
+come from its siblings, all pure Go, one identical toolset on Linux, macOS
+and Windows:
+
+- [`qiangli/coreutils`](https://github.com/qiangli/coreutils) — **the full,
+  rounded set of Unix utilities**: the 116 POSIX-required names ∪ GNU
+  coreutils (`ls`, `sed`, `awk`, `grep`, `find`, `sort`, `pax`, `make`, …),
+  the certified POSIX package this language's clause 2 stands on.
+- [`qiangli/sh`](https://github.com/qiangli/sh) — the Bash 5.3 engine
+  (parser, expansion, interpreter) Bash++ extends.
+- [`qiangli/yoke`](https://github.com/qiangli/yoke) — the agentic userland
+  (`tar`, `jq`, `tree`, `git`, the fleet/kb/meet hub) and the managed
+  toolchains the fenced languages run on.
+- [`qiangli/bashy`](https://github.com/qiangli/bashy) — the shell that fronts
+  all of the above (`bashy --bashpp`).
+- [`qiangli/bashpp-tests`](https://github.com/qiangli/bashpp-tests) — the
+  conformance gate.
+
 Read `CLAUDE.md` before changing anything here.
 
 ## The goal, in one line
