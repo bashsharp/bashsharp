@@ -14,6 +14,7 @@
 package main
 
 import (
+	"bytes"
 	"context"
 	"errors"
 	"fmt"
@@ -128,10 +129,15 @@ func runShell(operand, command string, commandSet, noExec bool, args []string) i
 	default:
 		src, name = os.Stdin, "bashpp"
 	}
+	data, err := io.ReadAll(src)
+	if err != nil {
+		return failure(err)
+	}
 	parser := syntax.NewParser(syntax.Variant(syntax.LangBashPP))
+	file, perr := parser.Parse(bytes.NewReader(data), name)
 	if noExec {
-		if _, err := parser.Parse(src, name); err != nil {
-			fmt.Fprintln(os.Stderr, err)
+		if perr != nil {
+			fmt.Fprintln(os.Stderr, perr)
 			return 2
 		}
 		return 0
@@ -140,29 +146,39 @@ func runShell(operand, command string, commandSet, noExec bool, args []string) i
 	if err != nil {
 		return failure(err)
 	}
-	// Like bash (and bashy's stream loop), the program runs statement by
-	// statement: a statement's runtime error is reported by the engine and
-	// the script goes on, its exit status being the LAST statement's; a
-	// syntax error is reported where it is reached, after everything before
-	// it has run. bashy's bash-format diagnostics and its recovery past a
-	// syntax error are its own Bash 5.3 compatibility layer, not this front's.
+	// The engine reports diagnostics as `<name>: line N: …` and echoes the
+	// offending source the way bash does when it knows the script's bytes.
+	if err := interp.WithIncrementalFilename(name)(r); err != nil {
+		return failure(err)
+	}
+	if err := interp.WithBashSource(data)(r); err != nil {
+		return failure(err)
+	}
 	ctx := context.Background()
 	r.Reset()
-	var runErr error
-	for stmt, perr := range parser.StmtsSeq(src) {
-		if perr != nil {
-			fmt.Fprintln(os.Stderr, perr)
-			return 2
-		}
-		runErr = r.Run(ctx, stmt)
-		if r.Exited() {
+	if perr == nil {
+		return exit(r.Run(ctx, file))
+	}
+	// Like bash, everything before a syntax error still runs; the error is
+	// then reported where it is reached and the script ends with status 2.
+	// bashy's bash-format diagnostics and its recovery PAST the error are its
+	// own Bash 5.3 compatibility layer, not this front's.
+	prefix := &syntax.File{Name: name}
+	for stmt, err := range parser.StmtsSeq(bytes.NewReader(data)) {
+		if err != nil {
 			break
 		}
+		prefix.Stmts = append(prefix.Stmts, stmt)
 	}
-	if err := r.Run(ctx, &syntax.File{}); err != nil && runErr == nil {
-		runErr = err
+	if len(prefix.Stmts) > 0 {
+		if err := r.Run(ctx, prefix); err != nil || r.Exited() {
+			if r.Exited() {
+				return exit(err)
+			}
+		}
 	}
-	return exit(runErr)
+	fmt.Fprintln(os.Stderr, perr)
+	return 2
 }
 
 // runGoSource mirrors bashy's --source=go path: collect the original bytes,
