@@ -27,11 +27,31 @@ source**: never write hostnames, user paths, IPs, tokens, or proprietary
     gc-observation, cgo, assembly-companion) are defined there; a
     `blocked-design` family is a target with a prerequisite, never an
     exclusion.
-- Go packages: **none yet.** The dialect code stays in `sh` for now; the
-  next section records the measurement that decided it, so nobody re-derives
-  it.
+- Go packages (Sprint 211): the language's **front door**, moved here from
+  bashy so the language is usable and testable without it.
+  - `front/` — the dialect selector (`--bashpp`/`--bash++`/`--no-bashpp`,
+    `BASHY_BASHPP`, `.bpp`, binary default; `ResolveBashPP`, `LangVariant`,
+    `ParserOptions`) and the direct Go-source interface (`--source=go`,
+    `--go-package`, `--go-import-path`, `--check`, `--go-list`;
+    `StripGoSourceInvocationFlags`, `ResolveGoSource`, `CollectGoSources`,
+    `LoadGoSource`). `GoSourceLoad` / `GoSourcePackageFiles` /
+    `GoSourceModuleDir` are package variables a binary wires — nil means "no
+    Go front end in this build" and is a refusal, never a shell fallback.
+    `Prog` is the name refusals are prefixed with.
+  - `transpile/` — wires `sh/gosource` + `sh/lower` onto those hooks at
+    init, and owns `transpile` (`Main(args) int`: `-o`, `--map`, library
+    mode, `--go-native-unit`). Importing it is what turns the front end on.
+  - `cmd/bashpp/` — the binary: runs a `.bpp` / `-c` / stdin / `--source=go`
+    program, `--check`, `--go-list`, `transpile`, `--version`, over the sh
+    engine alone (stdio, PATH toolchains, no AgentOS). It takes the argv the
+    corpus harness gives bashy, so `BASHPP_TOOL` can name it.
+  - `front/import_graph_test.go` is the D1 ratchet: this module imports the
+    sh engine and nothing from bashy, coreutils or yoke. It builds and tests
+    in a checkout holding only `bashpp` and `../sh`.
+  - What is NOT here: the evaluator, `lower`, `gosource`, `polyglot` and the
+    `LangBashPP` grammar — the next section and `docs/seam.md` say why.
 
-## What stays in sh and why (Sprint 207, measured 2026-09-18)
+## What stays in sh and why (Sprint 207 measured 2026-09-18; Sprint 211 re-measured the seam — `docs/seam.md`)
 
 The 207 card allowed a code move only as "import rewrites" behind at most
 one small exported hook, and said to stop and record otherwise. Measured:
@@ -62,18 +82,20 @@ Bash++ evaluator TESTS sit behind the `full` build tag (`go test -tags full`).
 The repo boundary that DID land is the one that costs nothing:
 coreutils/yoke (Sprint 208). What would unlock a code move is a design
 change, not a mechanical one — an exported evaluator seam plus an
-evaluator test harness that does not live in `package interp`. That is a
-card of its own; until it exists, **Bash++ code changes still land in
-`sh/interp`, `sh/lower`, `sh/gosource`**, and this repo is the dialect's
-docs, status and decision record.
+evaluator test harness that does not live in `package interp`. Sprint 211
+measured that seam (`docs/seam.md`: 204 distinct identifiers, 636
+references, 71 `Runner` fields, 73 methods) and confirmed it is an engine
+redesign, tracked as `todo:af65f24e` in the umbrella. Until it lands,
+**Bash++ engine changes still land in `sh/interp`, `sh/lower`,
+`sh/gosource`**; the front door, the binary and the docs live here.
 
 ## Relationship to the siblings
 
 | repo | role | this repo's dependency direction |
 |---|---|---|
 | `sh` | the engine: parser (`syntax`, carries the `BashPP*` nodes), `interp` (incl. the Bash++ evaluator), `lower`, `gosource`, `expand` | bashpp **imports** sh; sh must never import bashpp — see §What stays in sh and why |
-| `bashy` | the CLI that fronts both | imports both |
-| `bashpp-tests` | the gate: Go 1.27.1 corpus, oracle, Tour, GbE, POSIX/Bash conformance | consumes the built `bashy` |
+| `bashy` | the CLI that fronts both (`--bashpp`, `transpile`, `bashy agentic`) | imports `bashpp/front` + `bashpp/transpile` (`replace ../bashpp`) and sh |
+| `bashpp-tests` | the gate: Go 1.27.1 corpus, oracle, Tour, GbE, POSIX/Bash conformance | the corpus harness measures `cmd/bashpp` (`BASHPP_TOOL`); Tour/GbE and the classic OFF/ON lanes measure the built `bashy`/`bash` |
 | `coreutils` | the POSIX-required ∪ GNU coreutils applets | unrelated to the dialect |
 
 Flat-sibling layout: every cross-repo `replace` is `github.com/qiangli/<X> =>
