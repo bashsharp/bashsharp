@@ -1,5 +1,26 @@
 # bashpp — Bash++ / Bash#
 
+**The home of the Bash++ language.** Bash++ is what runs when you type
+`bashy --bashpp` (and, after Sprint 211, `bashpp`): a strict superset of GNU
+Bash 5.3 that admits Go 1.27.1 inside shell text, fenced code in other
+languages, and `agentic` bodies delegated to a model under deterministic
+contracts. This repo carries the language's definition, its design decisions,
+its Go-corpus status, and — as of Sprint 211 — its evaluator, lowering
+compiler, Go-source front end, polyglot islands and the `bashpp` binary. The
+Bash engine it extends stays in [`qiangli/sh`](https://github.com/qiangli/sh);
+the Bash++ grammar (the `LangBashPP` parser variant) lives there too, frozen
+except at this repo's request.
+
+**Conformance is measured elsewhere, on purpose:**
+[`qiangli/bashpp-tests`](https://github.com/qiangli/bashpp-tests) is the
+gate — the upstream Go 1.27.1 test corpus (3,400 files) with its oracle,
+the Go Tour and Go by Example, the lowering, decorator, agentic and polyglot
+suites, and the Bash 5.3 / POSIX classic lanes. It is TDD-first and
+deliberately red where the language is not finished; a claim about Bash++
+that is not a `bashpp-tests` result is not a claim. Read its `README.md`
+before quoting any number, and `docs/go-corpus-targets.md` here for what
+each failing root means.
+
 **Bash++ is a programming language for agents: the bash you already know,
 Go where you need types, any fenced language where you need a library, and
 `agentic` where you need a model — with contracts so a model's output is
