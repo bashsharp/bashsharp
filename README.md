@@ -1,100 +1,125 @@
-# bashsharp — Bash#
+# Bash#
 
-> Renamed from Bash++ on 2026-09-18: [rail5/bashpp](https://github.com/rail5/bashpp) already owns that name, the `bashpp` slug and `.bpp`. The engine identifiers keep their `BashPP` spelling; every user-facing spelling is Bash# — see `docs/naming-collision.md`. The Bash++-era flags, env var and `.bpp` keep working as deprecated aliases for one minor release.
+**Bash#** ("bash sharp") is a programming language for agents: *the bash you
+already know, Go where you need types, any fenced language where you need a
+library, and `agentic` where you need a model — with contracts so a model's
+output is judged, never trusted.*
 
-**The home of the Bash# language.** Bash# is what runs when you type
-`bashy --bashsharp` (or `bashsharp`): a strict superset of GNU
-Bash 5.3 that admits Go 1.27.1 inside shell text, fenced code in other
-languages, and `agentic` bodies delegated to a model under deterministic
-contracts. This repo carries the language's definition, its design decisions,
-its Go-corpus status, and — as of Sprint 211 — its evaluator, lowering
-compiler, Go-source front end, polyglot islands and the `bashsharp` binary. The
-Bash engine it extends stays in [`qiangli/sh`](https://github.com/qiangli/sh);
-the Bash# grammar (the `LangBashPP` parser variant) lives there too, frozen
-except at this repo's request.
+It runs inside [bashy](https://github.com/qiangli/bashy), a pure-Go Bash 5.3
+for Linux, macOS and Windows. This repo is the language: its definition, its
+front door (`front/`, `transpile/`, `cmd/bashsharp`), its design decisions,
+and the status pages that say exactly what is measured. The engine that parses
+and runs it lives in [qiangli/sh](https://github.com/qiangli/sh); the tests
+that decide every claim live in
+[qiangli/bashsharp-tests](https://github.com/qiangli/bashsharp-tests).
 
-**Conformance is measured elsewhere, on purpose:**
-[`qiangli/bashsharp-tests`](https://github.com/qiangli/bashsharp-tests) is the
-gate — the upstream Go 1.27.1 test corpus (3,400 files) with its oracle,
-the Go Tour and Go by Example, the lowering, decorator, agentic and polyglot
-suites, and the Bash 5.3 / POSIX classic lanes. It is TDD-first and
-deliberately red where the language is not finished; a claim about Bash#
-that is not a `bashsharp-tests` result is not a claim. Read its `README.md`
-before quoting any number, and `docs/go-corpus-targets.md` here for what
-each failing root means.
+> **Alpha.** Syntax may change before 1.0. The way to change it is a two-page
+> RFC (see [ROADMAP.md](ROADMAP.md)); the way to help is the conformance suite,
+> which is red on purpose where the language is not finished.
 
-**Bash# is a programming language for agents: the bash you already know,
-Go where you need types, any fenced language where you need a library, and
-`agentic` where you need a model — with contracts so a model's output is
-judged, never trusted.**
+## Ten minutes
 
-Five clauses, in order of precedence, each with its gate:
+Install bashy (one static binary; [releases](https://github.com/qiangli/bashy/releases/latest)),
+then take the tour — 27 small programs, each with its transcript, and one
+script that runs them all on your machine. It also comes as a procedure your
+coding agent can drive.
 
-1. **Base — GNU Bash 5.3.** A strict superset: every Bash 5.3 program is a
-   Bash# program with the same meaning. Gate: the 86-fixture suite, OFF
-   86/86 and ON 79 + 7.
-2. **Standard — POSIX.1-2016.** Through the same engine and the certified
-   [coreutils](https://github.com/qiangli/coreutils); in `--posix`/cert mode
-   the dialect is inert. Gate: the POSIX arms.
-3. **Typed core — Go 1.27.1, mixed.** Go declarations, types, expressions,
-   control flow, generics and the reviewed standard library inside shell
-   text, interpreted and lowered to ordinary Go; whole Go programs via
-   `--source=go`. Gate: the upstream Go 1.27.1 corpus (Barrier D by ID),
-   Tour, Go by Example.
-4. **Polyglot — fenced code blocks.** `~~~python`, `~~~typescript`,
-   `~~~rust`, `~~~c`/`~~~cpp`, plus `~~~go` and `~~~bash`/`~~~sh` islands,
-   exposed as ordinary callables with typed values crossing the boundary.
-   Gate: the polyglot gates.
-5. **Agentic — the word `agentic` is reserved for agentic features.** It is
-   the language's `unsafe`: an `agentic { … }` body is delegated to a model
-   and is the one place determinism moves from the translator to the judge;
-   `@require`/`@ensure` contracts, decorators and advice are its
-   deterministic guards. No other construct uses the word; no agentic
-   feature is spelled without it. Gate: the agentic, decorator and contract
-   suites.
+**→ [qiangli/bashsharp-tour](https://github.com/qiangli/bashsharp-tour)**
 
-The engine that parses and runs Bash stays in
-[`sh`](https://github.com/qiangli/sh) (the certified Bash 5.3 interpreter);
-this repo holds the language — today its docs, decisions and status, and
-(Sprint 211) its evaluator, lowering compiler, Go-source front end,
-polyglot islands and the `bashsharp` binary:
+The shortest possible version:
 
-- `docs/` — the language contract, design decisions, and the **Go corpus
-  status pages** (`go-corpus-state-*.md`, `go-corpus-targets.{md,tsv}`),
-  regenerated at every full barrier so one page always states where Bash#
-  Go stands.
-- Go packages: none yet. Sprint 207 measured the seam and left the dialect
-  code in `sh` on purpose — see `CLAUDE.md` §What stays in sh and why.
+```bash
+@guard(effects: "read")
+@require('test -n "$1"')
+@ensure('test "$1" != lie')
+agentic function summarize() { ... }
+
+agentic {
+    summarize ok        # 0
+    summarize ""        # 3 — precondition failed; the body never ran
+    summarize lie       # 3 — the body said fine; the postcondition disagreed
+    summarize yield     # 6 — "I need input": a yield, not a made-up answer
+}
+```
+
+The interpreter never calls a model. `agentic` marks the one place a program
+may hand work to one; it can only be *called* from inside an explicit
+`agentic { }` scope; the contracts around it are ordinary shell commands, run
+deterministically; and status 6 is a defined *yield* that reaches whoever ran
+the script.
+
+## What it is, in five clauses
+
+Each clause names its gate; the numbers are in [docs/claims.md](docs/claims.md).
+
+1. **Base — GNU Bash 5.3, a strict superset.** Every Bash 5.3 program is a
+   Bash# program with the same meaning; with the flag off the dialect does not
+   exist. *Gate: Bash's own 86-fixture suite, dialect off 86/86, on 79 + 7.*
+2. **Standard — POSIX.1-2016.** Through the same engine and the pure-Go
+   [coreutils](https://github.com/qiangli/coreutils); under `--posix` the
+   dialect is inert. *Gate: the licensed VSC shell arm, yash's POSIX suite.*
+3. **Typed core — Go 1.27, mixed.** Go declarations, typed functions, calls
+   written as words, imports, control flow inside bodies; whole Go programs
+   (generics and all) via `--source=go`; every construct lowers to ordinary
+   Go. *Gate: the upstream Go 1.27.1 test corpus, the Go Tour, Go by Example.*
+4. **Polyglot — fenced islands.** `~~~python`, `~~~typescript`, `~~~rust`,
+   `~~~c`/`~~~cpp`, `~~~go`, `~~~bash`/`~~~sh` blocks become ordinary
+   callables with typed values crossing the boundary, on the compilers you
+   already have. *Gate: the polyglot suites.*
+5. **Agentic — the reserved word.** `agentic` is the language's `unsafe`; the
+   `@require`/`@ensure`/`@guard` contracts, decorators and advice are its
+   deterministic guards. No other construct uses the word. *Gate: the
+   agentic, decorator and contract suites.*
+
+And a sixth thing that is not a clause but what shell people ask for first —
+the **Sharp** tier: decorators (`@name(args)`, a function taking `c *Call`),
+keyword and default arguments, exhaustive enums, deep `readonly`, and a
+null-safety **check** (`bashy check`). Admitted only when it lowers to plain
+Go and collides with nothing bash already accepts.
+
+## Using it
+
+- `bashy --bashsharp file.bsh` (or `#!/usr/bin/env -S bashy --bashsharp`); a
+  `.bsh` extension turns it on by itself. `--no-bashsharp` and `--posix` turn
+  it off.
+- `bashy --bashsharp --source=go program.go` runs a whole Go program.
+- `bashy transpile --bashsharp file.bsh -o file.go` lowers a file to Go.
+- `bashy check --bashsharp file.bsh` runs the static checks (null safety).
+- `bashsharp` (this repo's `cmd/bashsharp`) is the same front door over the
+  engine alone — what the conformance harness measures.
+
+The Bash++-era spellings (`--bashpp`, `BASHY_BASHPP`, `.bpp`) still work as
+deprecated aliases for one minor release. The language was called Bash++
+until 2026-09-18: [rail5/bashpp](https://github.com/rail5/bashpp) has that
+name, and had it first — [docs/naming-collision.md](docs/naming-collision.md).
+
+## What's here
+
+| path | what |
+|---|---|
+| [docs/claims.md](docs/claims.md) | every number and its corpus; what is not claimed |
+| [ROADMAP.md](ROADMAP.md) | the five clauses by stage, the open design calls, the RFC process |
+| [docs/go-corpus-state-2026-09-17.md](docs/go-corpus-state-2026-09-17.md) · [docs/go-corpus-targets.md](docs/go-corpus-targets.md) | the Go-corpus status and every failing root by class |
+| [docs/bashpp-posix-superset-syntax.md](docs/bashpp-posix-superset-syntax.md) | the syntax contract: which shapes are admitted and why they are safe (the collision map) |
+| [docs/bashsharp-ergonomics-tier.md](docs/bashsharp-ergonomics-tier.md) · [docs/bashpp-decorators-and-advice.md](docs/bashpp-decorators-and-advice.md) | the Sharp tier and decorators/advice |
+| [docs/bashpp-agentic-mvp-plan.md](docs/bashpp-agentic-mvp-plan.md) | the `agentic` contract |
+| `front/` · `transpile/` · `cmd/bashsharp/` | the dialect selector, the Go-source interface, the lowering entry point, the binary |
+
+Design notes under `docs/` keep their original file names (many say `bashpp`)
+and their engineering register — they are the decisions of record, not
+tutorials. Start with the tour.
 
 ## Companions
 
-Bash# is a language, not a userland. The commands a Bash# program calls
-come from its siblings, all pure Go, one identical toolset on Linux, macOS
-and Windows:
+All pure Go, one identical toolset on Linux, macOS and Windows:
 
-- [`qiangli/coreutils`](https://github.com/qiangli/coreutils) — **the full,
-  rounded set of Unix utilities**: the 116 POSIX-required names ∪ GNU
-  coreutils (`ls`, `sed`, `awk`, `grep`, `find`, `sort`, `pax`, `make`, …),
-  the certified POSIX package this language's clause 2 stands on.
-- [`qiangli/sh`](https://github.com/qiangli/sh) — the Bash 5.3 engine
-  (parser, expansion, interpreter) Bash# extends.
-- [`qiangli/yoke`](https://github.com/qiangli/yoke) — the agentic userland
-  (`tar`, `jq`, `tree`, `git`, the fleet/kb/meet hub) and the managed
-  toolchains the fenced languages run on.
-- [`qiangli/bashy`](https://github.com/qiangli/bashy) — the shell that fronts
-  all of the above (`bashy --bashsharp`).
-- [`qiangli/bashsharp-tests`](https://github.com/qiangli/bashsharp-tests) — the
-  conformance gate.
-
-Read `CLAUDE.md` before changing anything here.
-
-## The goal, in one line
-
-Every root of the upstream Go 1.27.1 test corpus passes every *applicable*
-Bash# mode (interpreted and compiled). The only admissible exclusions are
-compiler artifacts, listed by ID with one of seven reasons — see
-`docs/go-corpus-targets.md`.
+- [qiangli/bashy](https://github.com/qiangli/bashy) — the shell you install; Bash# is what `bashy --bashsharp` speaks.
+- [qiangli/sh](https://github.com/qiangli/sh) — the Bash 5.3 engine, a fork of [mvdan/sh](https://github.com/mvdan/sh).
+- [qiangli/coreutils](https://github.com/qiangli/coreutils) — the POSIX-required and GNU coreutils applets.
+- [qiangli/yoke](https://github.com/qiangli/yoke) — the agentic userland (`git`, `jq`, `tar`, the fleet/kb/meet hub, managed toolchains).
+- [qiangli/bashsharp-tests](https://github.com/qiangli/bashsharp-tests) — the conformance gate.
+- [qiangli/bashsharp-tour](https://github.com/qiangli/bashsharp-tour) — getting started.
 
 ## License
 
-BSD-3-Clause, the same as `sh` (derived from `mvdan.cc/sh`).
+BSD-3-Clause, the same as `sh` (derived from `mvdan.cc/sh`). See [NOTICE](NOTICE).

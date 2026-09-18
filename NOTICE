@@ -1,0 +1,7 @@
+Bash# (github.com/qiangli/bashsharp)
+Copyright (c) 2026 Qiang Li
+
+The Bash engine Bash# extends, github.com/qiangli/sh, is a fork of
+mvdan.cc/sh by Daniel Martí (https://github.com/mvdan/sh), BSD-3-Clause.
+The parser, expansion and interpreter that run every Bash# program are his
+work with the Bash 5.3 conformance and dialect patches carried in the fork.
