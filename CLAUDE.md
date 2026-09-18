@@ -1,6 +1,10 @@
 # CLAUDE.md — bashpp
 
-Bash++ / Bash# — the dialect over the `sh` engine. This repo is **open
+Bash++ / Bash# — the language over the `sh` engine: GNU Bash 5.3 superset ·
+POSIX.1-2016 · Go 1.27.1 mixed · fenced python/typescript/rust/c/c++ ·
+`agentic` reserved for agentic features (the five clauses in README.md; the
+plan of record for the code move is the umbrella's
+`docs/sprint-211-master-execution-plan.md`). This repo is **open
 source**: never write hostnames, user paths, IPs, tokens, or proprietary
 (cloudbox/kg/umbrella) details into any file, commit message, issue or PR.
 
