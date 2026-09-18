@@ -88,6 +88,12 @@ Go and collides with nothing bash already accepts.
 - `bashsharp` (this repo's `cmd/bashsharp`) is the same front door over the
   engine alone — what the conformance harness measures.
 
+Add `--standalone` to either transpile front door to write a `go.mod` beside
+the `-o` output. The module pins the forked shell runtime used by generated Go,
+so `go build -mod=mod .` works without a sibling checkout; it requires Go 1.27
+or newer. Standalone mode requires `-o` and refuses an existing `go.mod`
+unless `--force` is also given. See [docs/transpile.md](docs/transpile.md).
+
 The Bash++-era spellings (`--bashpp`, `BASHY_BASHPP`, `.bpp`) still work as
 deprecated aliases for one minor release. The language was called Bash++
 until 2026-09-18: [rail5/bashpp](https://github.com/rail5/bashpp) has that
@@ -103,6 +109,7 @@ name, and had it first — [docs/naming-collision.md](docs/naming-collision.md).
 | [docs/bashpp-posix-superset-syntax.md](docs/bashpp-posix-superset-syntax.md) | the syntax contract: which shapes are admitted and why they are safe (the collision map) |
 | [docs/bashsharp-ergonomics-tier.md](docs/bashsharp-ergonomics-tier.md) · [docs/bashpp-decorators-and-advice.md](docs/bashpp-decorators-and-advice.md) | the Sharp tier and decorators/advice |
 | [docs/bashpp-agentic-mvp-plan.md](docs/bashpp-agentic-mvp-plan.md) | the `agentic` contract |
+| [docs/transpile.md](docs/transpile.md) | generated Go, source maps and standalone module output |
 | `front/` · `transpile/` · `cmd/bashsharp/` | the dialect selector, the Go-source interface, the lowering entry point, the binary |
 
 Design notes under `docs/` keep their original file names (many say `bashpp`)

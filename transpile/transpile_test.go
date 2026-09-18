@@ -50,6 +50,18 @@ func TestTranspileDispatchArgs(t *testing.T) {
 			wantStderr: "transpile: missing -o OUTPUT.go\n",
 		},
 		{
+			name:       "standalone missing output",
+			args:       []string{"--bashpp", "--standalone", "input.sh"},
+			wantExit:   2,
+			wantStderr: "transpile: --standalone requires -o OUTPUT.go\n",
+		},
+		{
+			name:       "force without standalone",
+			args:       []string{"--bashpp", "--force", "input.sh", "-o", "out.go"},
+			wantExit:   2,
+			wantStderr: "transpile: --force requires --standalone\n",
+		},
+		{
 			name:       "missing input",
 			args:       []string{"--bashpp", "-o", "out.go"},
 			wantExit:   2,
@@ -86,6 +98,130 @@ func TestTranspileDispatchArgs(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestTranspileStandaloneOnlyAddsModule(t *testing.T) {
+	dir := t.TempDir()
+	input := filepath.Join(dir, "input.bsh")
+	if err := os.WriteFile(input, []byte("printf '%s\\n' standalone\n"), 0644); err != nil {
+		t.Fatal(err)
+	}
+	normalDir := filepath.Join(dir, "normal")
+	standaloneDir := filepath.Join(dir, "standalone")
+	normalOut := filepath.Join(normalDir, "main.go")
+	standaloneOut := filepath.Join(standaloneDir, "main.go")
+	if exit := Main([]string{"--bashsharp", input, "-o", normalOut}); exit != 0 {
+		t.Fatalf("normal transpile exited %d", exit)
+	}
+	if exit := Main([]string{"--bashsharp", "--standalone", input, "-o", standaloneOut}); exit != 0 {
+		t.Fatalf("standalone transpile exited %d", exit)
+	}
+
+	for _, name := range []string{"main.go", "main.go.map"} {
+		normalData, err := os.ReadFile(filepath.Join(normalDir, name))
+		if err != nil {
+			t.Fatal(err)
+		}
+		standaloneData, err := os.ReadFile(filepath.Join(standaloneDir, name))
+		if err != nil {
+			t.Fatal(err)
+		}
+		if !bytes.Equal(normalData, standaloneData) {
+			t.Errorf("%s differs with --standalone", name)
+		}
+	}
+	if _, err := os.Stat(filepath.Join(normalDir, "go.mod")); !os.IsNotExist(err) {
+		t.Fatalf("normal transpile wrote go.mod: %v", err)
+	}
+	moduleData, err := os.ReadFile(filepath.Join(standaloneDir, "go.mod"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	revision, err := shellRuntimeRevision()
+	if err != nil {
+		t.Fatal(err)
+	}
+	wantModule := fmt.Sprintf("module main\n\ngo 1.27\n\nrequire mvdan.cc/sh/v3 v3.13.1\n\nreplace mvdan.cc/sh/v3 => github.com/qiangli/sh/v3 %s\n", revision)
+	if string(moduleData) != wantModule {
+		t.Errorf("go.mod = %q, want %q", moduleData, wantModule)
+	}
+}
+
+func TestTranspileStandaloneGoModRequiresForce(t *testing.T) {
+	dir := t.TempDir()
+	input := filepath.Join(dir, "input.bsh")
+	output := filepath.Join(dir, "main.go")
+	module := filepath.Join(dir, "go.mod")
+	if err := os.WriteFile(input, []byte("echo hi\n"), 0644); err != nil {
+		t.Fatal(err)
+	}
+	const existing = "module existing\n"
+	if err := os.WriteFile(module, []byte(existing), 0644); err != nil {
+		t.Fatal(err)
+	}
+	if exit := Main([]string{"--bashsharp", "--standalone", input, "-o", output}); exit != 2 {
+		t.Fatalf("standalone over existing go.mod exited %d, want 2", exit)
+	}
+	if _, err := os.Stat(output); !os.IsNotExist(err) {
+		t.Fatalf("refused standalone transpile wrote output: %v", err)
+	}
+	got, err := os.ReadFile(module)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if string(got) != existing {
+		t.Fatalf("refused standalone transpile changed go.mod to %q", got)
+	}
+
+	if exit := Main([]string{"--bashsharp", "--standalone", "--force", input, "-o", output}); exit != 0 {
+		t.Fatalf("forced standalone transpile exited %d", exit)
+	}
+	got, err = os.ReadFile(module)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if bytes.Equal(got, []byte(existing)) {
+		t.Fatal("forced standalone transpile did not replace go.mod")
+	}
+}
+
+func TestTranspileStandaloneGoBuild(t *testing.T) {
+	proxy := exec.Command("go", "env", "GOPROXY")
+	if out, err := proxy.Output(); err == nil && strings.TrimSpace(string(out)) == "off" {
+		t.Skip("module proxy is disabled")
+	}
+	dir := t.TempDir()
+	input := filepath.Join(dir, "input.bsh")
+	output := filepath.Join(dir, "main.go")
+	if err := os.WriteFile(input, []byte("echo standalone\n"), 0644); err != nil {
+		t.Fatal(err)
+	}
+	if exit := Main([]string{"--bashsharp", "--standalone", input, "-o", output}); exit != 0 {
+		t.Fatalf("standalone transpile exited %d", exit)
+	}
+	cmd := exec.Command("go", "build", "-mod=mod", ".")
+	cmd.Dir = dir
+	cmd.Env = append(os.Environ(), "GOWORK=off")
+	out, err := cmd.CombinedOutput()
+	if err == nil {
+		return
+	}
+	message := strings.ToLower(string(out))
+	for _, unavailable := range []string{
+		"goproxy=off", "module lookup disabled", "dial tcp", "lookup ",
+		"no such host", "network is unreachable", "connection refused",
+		"connection reset", "tls handshake timeout", "i/o timeout",
+		"proxyconnect tcp", "unexpected eof", "502 bad gateway",
+		"503 service unavailable", "504 gateway timeout", "toolchain not available",
+	} {
+		if strings.Contains(message, unavailable) {
+			t.Skipf("module proxy or network unavailable: %s", strings.TrimSpace(string(out)))
+		}
+	}
+	if strings.Contains(message, "requires go >= 1.27") && strings.Contains(message, "gotoolchain=local") {
+		t.Skipf("Go 1.27 toolchain unavailable: %s", strings.TrimSpace(string(out)))
+	}
+	t.Fatalf("go build failed: %v\n%s", err, out)
 }
 
 func TestTranspilePathCollisionsAndAliases(t *testing.T) {

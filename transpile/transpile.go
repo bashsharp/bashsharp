@@ -2,12 +2,14 @@ package transpile
 
 import (
 	"crypto/sha256"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"io"
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/qiangli/bashsharp/front"
 
@@ -15,28 +17,22 @@ import (
 	"mvdan.cc/sh/v3/syntax"
 )
 
-// Reproducible Standalone Build Instructions:
-//
-// To compile a transpiled Go output into a standalone binary:
-// 1. Transpile Bash++ script to Go source:
-//    bashy transpile --bashsharp input.bsh -o output.go
-// 2. Setup dependency clone (deps/sh pinned to published commit 7146b30e1c1c8c845f6565c9f5c5609f4de93172)
-//    and configure module replace directive in app directory (mvdan.cc/sh/v3 => ../deps/sh):
-//    cd workspace/app
-//    go mod init app
-//    go mod edit -require=mvdan.cc/sh/v3@v3.0.0
-//    go mod edit -replace=mvdan.cc/sh/v3=../deps/sh
-//    go mod tidy
-// 3. Build a reproducible binary against the standard library / shell runtime:
-//    go build -mod=mod -o myapp output.go
-//
 // Standalone binaries emitted by the lower compiler depend on the plain runtime
 // base (mvdan.cc/sh/v3/lower/shellrt) using standard Go library primitives.
 // Dynamic features requiring the shell execution engine are compiled to explicit
 // shellrt bridge calls rather than unanalyzed interp invocations.
 // See docs/transpile.md for complete build recipe and runtime details.
 
-const sourceMapSchemaVersion = "bashy-transpile-map-v1"
+const (
+	sourceMapSchemaVersion = "bashy-transpile-map-v1"
+	shellRuntimeVersion    = "v3.13.1"
+)
+
+// ShellRuntimeCommit is the qiangli/sh revision written by --standalone. Bashy
+// release builds stamp it and its commit time from the exact sibling pin with
+// -ldflags -X; both are needed to form the canonical Go pseudo-version.
+var ShellRuntimeCommit = "d41a702bb4823523deabdfa4ce698a7ae1dbb580"
+var ShellRuntimeCommitTime = "2026-09-18T10:41:04-07:00"
 
 type mapEntry struct {
 	GoLine       int    `json:"go_line"`
@@ -162,6 +158,8 @@ func Main(args []string) int {
 	var goTestBuiltinsSeen bool
 	var goCheckerBranchErrors, goCheckerBranchErrorsSeen bool
 	var goCheckAfterSyntaxErrors, goCheckAfterSyntaxErrorsSeen bool
+	var standalone bool
+	var force bool
 
 	inFlags := true
 	for i := 0; i < len(args); i++ {
@@ -172,6 +170,10 @@ func Main(args []string) int {
 		}
 		if inFlags && (arg == "--bashsharp" || arg == "--bashpp") {
 			bashpp = true
+		} else if inFlags && arg == "--standalone" {
+			standalone = true
+		} else if inFlags && arg == "--force" {
+			force = true
 		} else if inFlags && arg == "--source" {
 			if i+1 < len(args) {
 				sourceKind = args[i+1]
@@ -386,6 +388,14 @@ func Main(args []string) int {
 		fmt.Fprintln(os.Stderr, "transpile: --go-file cannot be combined with a file operand")
 		return 2
 	}
+	if standalone && output == "" {
+		fmt.Fprintln(os.Stderr, "transpile: --standalone requires -o OUTPUT.go")
+		return 2
+	}
+	if force && !standalone {
+		fmt.Fprintln(os.Stderr, "transpile: --force requires --standalone")
+		return 2
+	}
 	if input == "" && len(goFiles) == 0 && len(goTestFiles) == 0 && len(goXTestFiles) == 0 {
 		fmt.Fprintln(os.Stderr, "transpile: missing INPUT")
 		return 2
@@ -438,6 +448,24 @@ func Main(args []string) int {
 			mapFile = output + ".map"
 		}
 	}
+	modulePath := ""
+	var moduleData []byte
+	if standalone {
+		modulePath = filepath.Join(filepath.Dir(output), "go.mod")
+		var err error
+		moduleData, err = standaloneModuleData()
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "transpile: %v\n", err)
+			return 2
+		}
+		if code := checkStandaloneModule(modulePath, force); code != 0 {
+			return code
+		}
+		if isSameFileOrAlias(output, modulePath) || isSameFileOrAlias(mapFile, modulePath) {
+			fmt.Fprintln(os.Stderr, "transpile: standalone go.mod path collides with an output path")
+			return 2
+		}
+	}
 
 	// Reject all path collisions, including every explicit Go package file.
 	// A directory operand's members are only known after collection, so they
@@ -446,10 +474,18 @@ func Main(args []string) int {
 		if code := checkTranspileInputCollision(name, output, mapFile); code != 0 {
 			return code
 		}
+		if standalone && isSameFileOrAlias(name, modulePath) {
+			fmt.Fprintln(os.Stderr, "transpile: input and standalone go.mod path cannot be the same file")
+			return 2
+		}
 	}
 	if input != "" && input != "-" {
 		if code := checkTranspileInputCollision(input, output, mapFile); code != 0 {
 			return code
+		}
+		if standalone && isSameFileOrAlias(input, modulePath) {
+			fmt.Fprintln(os.Stderr, "transpile: input and standalone go.mod path cannot be the same file")
+			return 2
 		}
 	}
 	if isSameFileOrAlias(output, mapFile) {
@@ -499,6 +535,10 @@ func Main(args []string) int {
 			}
 			if code := checkTranspileInputCollision(f.Name, output, mapFile); code != 0 {
 				return code
+			}
+			if standalone && isSameFileOrAlias(f.Name, modulePath) {
+				fmt.Fprintln(os.Stderr, "transpile: input and standalone go.mod path cannot be the same file")
+				return 2
 			}
 		}
 		packages, err := front.ReadGoSourcePackages(goPackages)
@@ -627,6 +667,12 @@ func Main(args []string) int {
 		return 2
 	}
 
+	if standalone {
+		return writeOutputsAtomic(output, res.Source, mapFile, mapData, atomicOutput{
+			path: modulePath,
+			data: moduleData,
+		})
+	}
 	return writeOutputsAtomic(output, res.Source, mapFile, mapData)
 }
 
@@ -766,115 +812,126 @@ func transpileLibraryMap(generated lower.FileResult, prog *front.GoSourceProgram
 	return data, nil
 }
 
-func writeOutputsAtomic(outputPath string, outputData []byte, mapPath string, mapData []byte) int {
-	outDir := filepath.Dir(outputPath)
-	if err := os.MkdirAll(outDir, 0755); err != nil {
-		fmt.Fprintf(os.Stderr, "transpile: %v\n", err)
-		return 2
-	}
-	mapDir := filepath.Dir(mapPath)
-	if err := os.MkdirAll(mapDir, 0755); err != nil {
-		fmt.Fprintf(os.Stderr, "transpile: %v\n", err)
-		return 2
-	}
+type atomicOutput struct {
+	path string
+	data []byte
+}
 
-	tmpOut, err := os.CreateTemp(outDir, ".transpile-out-*.tmp")
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "transpile: %v\n", err)
-		return 2
-	}
-	tmpOutName := tmpOut.Name()
-	defer os.Remove(tmpOutName)
+type preparedOutput struct {
+	atomicOutput
+	tempPath string
+	origData []byte
+	origMode os.FileMode
+	existed  bool
+}
 
-	if _, err := tmpOut.Write(outputData); err != nil {
-		tmpOut.Close()
-		fmt.Fprintf(os.Stderr, "transpile: %v\n", err)
-		return 2
-	}
-	if err := tmpOut.Sync(); err != nil {
-		tmpOut.Close()
-		fmt.Fprintf(os.Stderr, "transpile: %v\n", err)
-		return 2
-	}
-	if err := tmpOut.Close(); err != nil {
-		fmt.Fprintf(os.Stderr, "transpile: %v\n", err)
-		return 2
-	}
-
-	tmpMap, err := os.CreateTemp(mapDir, ".transpile-map-*.tmp")
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "transpile: %v\n", err)
-		return 2
-	}
-	tmpMapName := tmpMap.Name()
-	defer os.Remove(tmpMapName)
-
-	if _, err := tmpMap.Write(mapData); err != nil {
-		tmpMap.Close()
-		fmt.Fprintf(os.Stderr, "transpile: %v\n", err)
-		return 2
-	}
-	if err := tmpMap.Sync(); err != nil {
-		tmpMap.Close()
-		fmt.Fprintf(os.Stderr, "transpile: %v\n", err)
-		return 2
-	}
-	if err := tmpMap.Close(); err != nil {
-		fmt.Fprintf(os.Stderr, "transpile: %v\n", err)
-		return 2
-	}
-
-	var origOutData []byte
-	var origOutMode os.FileMode = 0644
-	outExisted := false
-	if st, err := os.Stat(outputPath); err == nil {
-		if data, err := os.ReadFile(outputPath); err == nil {
-			origOutData = data
-			origOutMode = st.Mode().Perm()
-			outExisted = true
+func writeOutputsAtomic(outputPath string, outputData []byte, mapPath string, mapData []byte, extra ...atomicOutput) int {
+	outputs := []atomicOutput{{path: outputPath, data: outputData}, {path: mapPath, data: mapData}}
+	outputs = append(outputs, extra...)
+	prepared := make([]preparedOutput, 0, len(outputs))
+	for _, output := range outputs {
+		dir := filepath.Dir(output.path)
+		if err := os.MkdirAll(dir, 0755); err != nil {
+			fmt.Fprintf(os.Stderr, "transpile: %v\n", err)
+			return 2
 		}
-	}
-
-	var origMapData []byte
-	var origMapMode os.FileMode = 0644
-	mapExisted := false
-	if st, err := os.Stat(mapPath); err == nil {
-		if data, err := os.ReadFile(mapPath); err == nil {
-			origMapData = data
-			origMapMode = st.Mode().Perm()
-			mapExisted = true
+		tmp, err := os.CreateTemp(dir, ".transpile-*.tmp")
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "transpile: %v\n", err)
+			return 2
 		}
-	}
-
-	if err := os.Rename(tmpOutName, outputPath); err != nil {
-		fmt.Fprintf(os.Stderr, "transpile: %v\n", err)
-		return 2
-	}
-
-	if err := os.Rename(tmpMapName, mapPath); err != nil {
-		if outExisted {
-			if rerr := os.WriteFile(outputPath, origOutData, origOutMode); rerr != nil {
-				fmt.Fprintf(os.Stderr, "transpile: rollback failed restoring output file: %v\n", rerr)
-			} else if cerr := os.Chmod(outputPath, origOutMode); cerr != nil {
-				fmt.Fprintf(os.Stderr, "transpile: rollback failed setting permissions on output file: %v\n", cerr)
-			}
-		} else {
-			if rerr := os.Remove(outputPath); rerr != nil && !os.IsNotExist(rerr) {
-				fmt.Fprintf(os.Stderr, "transpile: rollback failed removing output file: %v\n", rerr)
+		tempPath := tmp.Name()
+		defer os.Remove(tempPath)
+		if _, err := tmp.Write(output.data); err != nil {
+			tmp.Close()
+			fmt.Fprintf(os.Stderr, "transpile: %v\n", err)
+			return 2
+		}
+		if err := tmp.Sync(); err != nil {
+			tmp.Close()
+			fmt.Fprintf(os.Stderr, "transpile: %v\n", err)
+			return 2
+		}
+		if err := tmp.Close(); err != nil {
+			fmt.Fprintf(os.Stderr, "transpile: %v\n", err)
+			return 2
+		}
+		item := preparedOutput{atomicOutput: output, tempPath: tempPath, origMode: 0644}
+		if st, err := os.Stat(output.path); err == nil {
+			if data, err := os.ReadFile(output.path); err == nil {
+				item.origData = data
+				item.origMode = st.Mode().Perm()
+				item.existed = true
 			}
 		}
-		if mapExisted {
-			if rerr := os.WriteFile(mapPath, origMapData, origMapMode); rerr != nil {
-				fmt.Fprintf(os.Stderr, "transpile: rollback failed restoring map file: %v\n", rerr)
-			} else if cerr := os.Chmod(mapPath, origMapMode); cerr != nil {
-				fmt.Fprintf(os.Stderr, "transpile: rollback failed setting permissions on map file: %v\n", cerr)
-			}
-		}
-		fmt.Fprintf(os.Stderr, "transpile: %v\n", err)
-		return 2
+		prepared = append(prepared, item)
 	}
 
+	for i := range prepared {
+		if err := os.Rename(prepared[i].tempPath, prepared[i].path); err != nil {
+			for j := i - 1; j >= 0; j-- {
+				item := prepared[j]
+				if item.existed {
+					if rerr := os.WriteFile(item.path, item.origData, item.origMode); rerr != nil {
+						fmt.Fprintf(os.Stderr, "transpile: rollback failed restoring %s: %v\n", filepath.Base(item.path), rerr)
+					} else if cerr := os.Chmod(item.path, item.origMode); cerr != nil {
+						fmt.Fprintf(os.Stderr, "transpile: rollback failed setting permissions on %s: %v\n", filepath.Base(item.path), cerr)
+					}
+				} else if rerr := os.Remove(item.path); rerr != nil && !os.IsNotExist(rerr) {
+					fmt.Fprintf(os.Stderr, "transpile: rollback failed removing %s: %v\n", filepath.Base(item.path), rerr)
+				}
+			}
+			fmt.Fprintf(os.Stderr, "transpile: %v\n", err)
+			return 2
+		}
+	}
 	return 0
+}
+
+func checkStandaloneModule(path string, force bool) int {
+	st, err := os.Lstat(path)
+	if os.IsNotExist(err) {
+		return 0
+	}
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "transpile: %v\n", err)
+		return 2
+	}
+	if st.IsDir() {
+		fmt.Fprintf(os.Stderr, "transpile: go.mod path is a directory: %s\n", path)
+		return 2
+	}
+	if !force {
+		fmt.Fprintf(os.Stderr, "transpile: refusing to overwrite existing go.mod without --force: %s\n", path)
+		return 2
+	}
+	return 0
+}
+
+func standaloneModuleData() ([]byte, error) {
+	revision, err := shellRuntimeRevision()
+	if err != nil {
+		return nil, err
+	}
+	return []byte(fmt.Sprintf("module main\n\ngo 1.27\n\nrequire mvdan.cc/sh/v3 %s\n\nreplace mvdan.cc/sh/v3 => github.com/qiangli/sh/v3 %s\n", shellRuntimeVersion, revision)), nil
+}
+
+func shellRuntimeRevision() (string, error) {
+	commit := strings.TrimSpace(ShellRuntimeCommit)
+	if commit == "" || strings.ContainsAny(commit, " \t\r\n") {
+		return "", fmt.Errorf("standalone shell runtime commit is invalid")
+	}
+	if len(commit) != 40 {
+		return commit, nil
+	}
+	if _, err := hex.DecodeString(commit); err != nil {
+		return "", fmt.Errorf("standalone shell runtime commit is invalid")
+	}
+	commitTime, err := time.Parse(time.RFC3339, ShellRuntimeCommitTime)
+	if err != nil {
+		return "", fmt.Errorf("standalone shell runtime commit time is invalid")
+	}
+	return fmt.Sprintf("v3.0.0-%s-%s", commitTime.UTC().Format("20060102150405"), commit[:12]), nil
 }
 
 // checkTranspileInputCollision refuses to write an output or map file over an

@@ -9,7 +9,7 @@
 // `bashy --bashsharp --source=go …` can point BASHPP_TOOL here unchanged.
 //
 //	bashsharp [--bashsharp] [--source=go] [go-source flags] [-c CMD | FILE] [ARGS...]
-//	bashsharp transpile --bashsharp [--source=go] INPUT -o OUTPUT.go [--map MAP]
+//	bashsharp transpile --bashsharp [--source=go] INPUT -o OUTPUT.go [--map MAP] [--standalone [--force]]
 //	bashsharp --version
 package main
 
@@ -307,7 +307,7 @@ func commit() string {
 }
 
 const usage = `usage: bashsharp [--bashsharp] [--source=go] [go-source flags] [-n] [-c CMD | FILE] [ARGS...]
-       bashsharp transpile --bashsharp [--source=go] INPUT -o OUTPUT.go [--map MAP]
+       bashsharp transpile --bashsharp [--source=go] INPUT -o OUTPUT.go [--map MAP] [--standalone [--force]]
        bashsharp --version
 
 Runs a Bash# program: a .bsh script, a -c command, stdin, or — with
