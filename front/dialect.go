@@ -74,12 +74,14 @@ func (b BashPPBinary) bashPPDefault() bool {
 }
 
 // BashPPSource names which precedence tier decided a [BashPPResolution].
+// (The Go identifiers keep the BashPP prefix from the Bash++ era; the
+// language is Bash# — see docs/naming-collision.md.)
 type BashPPSource string
 
 const (
-	BashPPSourceCLI           BashPPSource = "cli"            // --bashpp / --bash++ / --no-bashpp
-	BashPPSourceEnv           BashPPSource = "env"            // BASHY_BASHPP=1|0
-	BashPPSourceExtension     BashPPSource = "extension"      // .bpp
+	BashPPSourceCLI           BashPPSource = "cli"            // --bashsharp / --no-bashsharp (+ deprecated --bashpp / --bash++ / --no-bashpp)
+	BashPPSourceEnv           BashPPSource = "env"            // BASHY_BASHSHARP=1|0 (BASHY_BASHPP deprecated)
+	BashPPSourceExtension     BashPPSource = "extension"      // .bsh (.bpp deprecated)
 	BashPPSourceBinaryDefault BashPPSource = "binary-default" // bash off, bashy on
 )
 
@@ -120,6 +122,26 @@ type BashPPResolution struct {
 	Enabled bool
 	Source  BashPPSource
 	Posix   bool
+	// Deprecated is the Bash++-era spelling that decided this resolution
+	// ("--bashpp", "BASHY_BASHPP", ".bpp"), or "" when a Bash# spelling or a
+	// default did. The aliases are kept for one minor release (Sprint 212
+	// D3, the rail5/bashpp collision); a front prints [DeprecationNotice]
+	// once when it is non-empty.
+	Deprecated string
+}
+
+// DeprecationNotice is the one-line stderr notice for a deprecated spelling.
+func (r BashPPResolution) DeprecationNotice() string {
+	switch r.Deprecated {
+	case "":
+		return ""
+	case ".bpp":
+		return "warning: the .bpp extension is deprecated; name Bash# scripts .bsh (the alias is removed after one minor release)"
+	case "BASHY_BASHPP":
+		return "warning: BASHY_BASHPP is deprecated; use BASHY_BASHSHARP (the alias is removed after one minor release)"
+	default:
+		return "warning: " + r.Deprecated + " is deprecated; use " + strings.Replace(strings.Replace(r.Deprecated, "bash++", "bashsharp", 1), "bashpp", "bashsharp", 1) + " (the alias is removed after one minor release)"
+	}
 }
 
 // LangVariant returns the concrete construction-time interpreter dialect.
@@ -158,44 +180,85 @@ func (r BashPPResolution) ParserOptions(base syntax.LangVariant, extra ...syntax
 // startup POSIX semantics while disabling Bash++ grammar/runtime, regardless
 // of which selector tier won. Source still reports that tier.
 func ResolveBashPP(sel BashPPSelector) (BashPPResolution, error) {
-	enabled, source := ResolveBashPPTiers(sel)
+	enabled, source, deprecated := resolveTiers(sel)
 	if sel.Binary == BashPPBinaryBash && sel.Posix && enabled {
-		return BashPPResolution{Source: source}, nil
+		return BashPPResolution{Source: source, Deprecated: deprecated}, nil
 	}
-	return BashPPResolution{Enabled: enabled && !sel.Posix, Source: source, Posix: sel.Posix}, nil
+	return BashPPResolution{Enabled: enabled && !sel.Posix, Source: source, Posix: sel.Posix, Deprecated: deprecated}, nil
 }
 
+// ResolveBashPPTiers is the precedence chain alone: the effective selector
+// and the tier that decided it, before the POSIX policy.
 func ResolveBashPPTiers(sel BashPPSelector) (bool, BashPPSource) {
-	if enabled, seen := CommandLineBashPP(sel.Args); seen {
-		return enabled, BashPPSourceCLI
-	}
-	if enabled, seen := envBashPP(sel.LookupEnv); seen {
-		return enabled, BashPPSourceEnv
-	}
-	if sel.Binary == BashPPBinaryBashy && strings.HasSuffix(sel.Filename, ".bpp") {
-		return true, BashPPSourceExtension
-	}
-	return sel.Binary.bashPPDefault(), BashPPSourceBinaryDefault
+	enabled, source, _ := resolveTiers(sel)
+	return enabled, source
 }
 
-// CommandLineBashPP resolves the last of --bashpp/--bash++/--no-bashpp on
-// the command line, mirroring commandLinePosixMode's shape in main.go:
-// scanning stops at "--", at "-c" (whose operand is a command string, not a
-// further flag), or at the first operand that does not start with "-" (the
-// script path, after which remaining words are script arguments). --bashpp
-// and --bash++ are exact aliases per the design of record; neither creates a
-// separate mode.
+func resolveTiers(sel BashPPSelector) (bool, BashPPSource, string) {
+	if enabled, seen, word := scanCommandLine(sel.Args); seen {
+		return enabled, BashPPSourceCLI, deprecatedFlag(word)
+	}
+	if enabled, seen, name := envBashPP(sel.LookupEnv); seen {
+		deprecated := ""
+		if name == "BASHY_BASHPP" {
+			deprecated = name
+		}
+		return enabled, BashPPSourceEnv, deprecated
+	}
+	if sel.Binary == BashPPBinaryBashy {
+		if strings.HasSuffix(sel.Filename, ".bsh") {
+			return true, BashPPSourceExtension, ""
+		}
+		if strings.HasSuffix(sel.Filename, ".bpp") {
+			return true, BashPPSourceExtension, ".bpp"
+		}
+	}
+	return sel.Binary.bashPPDefault(), BashPPSourceBinaryDefault, ""
+}
+
+// deprecatedFlag names a Bash++-era selector flag, or "" for a Bash# one.
+func deprecatedFlag(word string) string {
+	switch word {
+	case "--bashpp", "--bash++", "--no-bashpp":
+		return word
+	}
+	return ""
+}
+
+// CommandLineBashPP resolves the last of --bashsharp/--no-bashsharp (and the
+// deprecated --bashpp/--bash++/--no-bashpp aliases) on the command line,
+// mirroring commandLinePosixMode's shape in main.go: scanning stops at "--",
+// at "-c" (whose operand is a command string, not a further flag), or at the
+// first operand that does not start with "-" (the script path, after which
+// remaining words are script arguments). The spellings are exact aliases;
+// none creates a separate mode.
 func CommandLineBashPP(args []string) (enabled, seen bool) {
+	enabled, seen, _ = scanCommandLine(args)
+	return enabled, seen
+}
+
+// IsSelectorFlag reports whether arg is one of the dialect selector flags, in
+// any spelling — for argv scanners that must consume them before Go's flag
+// package sees them.
+func IsSelectorFlag(arg string) bool {
+	switch arg {
+	case "--bashsharp", "--no-bashsharp", "--bashpp", "--bash++", "--no-bashpp":
+		return true
+	}
+	return false
+}
+
+func scanCommandLine(args []string) (enabled, seen bool, word string) {
 	for i := 1; i < len(args); i++ {
 		switch args[i] {
 		case "--":
-			return enabled, seen
-		case "--bashpp", "--bash++":
-			enabled, seen = true, true
-		case "--no-bashpp":
-			enabled, seen = false, true
+			return enabled, seen, word
+		case "--bashsharp", "--bashpp", "--bash++":
+			enabled, seen, word = true, true, args[i]
+		case "--no-bashsharp", "--no-bashpp":
+			enabled, seen, word = false, true, args[i]
 		case "-c":
-			return enabled, seen
+			return enabled, seen, word
 		default:
 			// A value-taking invocation option consumes the following token.
 			// It is not a script operand, so selectors after it must still be
@@ -207,32 +270,34 @@ func CommandLineBashPP(args []string) (enabled, seen bool) {
 				continue
 			}
 			if !strings.HasPrefix(args[i], "-") {
-				return enabled, seen
+				return enabled, seen, word
 			}
 		}
 	}
-	return enabled, seen
+	return enabled, seen, word
 }
 
-// envBashPP resolves BASHY_BASHPP=1|0. Any other value (unset, or set to
-// something other than "1"/"0") is treated as this tier having no opinion,
-// falling through to the next precedence tier, rather than as an error —
-// this mirrors how the equivalent POSIXLY_CORRECT/SHELLOPTS checks in
-// main.go treat presence, not spelling validation, as the signal.
-func envBashPP(lookupEnv func(string) (string, bool)) (enabled, seen bool) {
+// envBashPP resolves BASHY_BASHSHARP=1|0, then the deprecated BASHY_BASHPP.
+// Any other value (unset, or set to something other than "1"/"0") is treated
+// as this tier having no opinion, falling through to the next precedence
+// tier, rather than as an error — this mirrors how the equivalent
+// POSIXLY_CORRECT/SHELLOPTS checks in main.go treat presence, not spelling
+// validation, as the signal. The third result names the variable that decided.
+func envBashPP(lookupEnv func(string) (string, bool)) (enabled, seen bool, name string) {
 	if lookupEnv == nil {
-		return false, false
+		return false, false, ""
 	}
-	raw, ok := lookupEnv("BASHY_BASHPP")
-	if !ok {
-		return false, false
+	for _, name := range []string{"BASHY_BASHSHARP", "BASHY_BASHPP"} {
+		raw, ok := lookupEnv(name)
+		if !ok {
+			continue
+		}
+		switch raw {
+		case "1":
+			return true, true, name
+		case "0":
+			return false, true, name
+		}
 	}
-	switch raw {
-	case "1":
-		return true, true
-	case "0":
-		return false, true
-	default:
-		return false, false
-	}
+	return false, false, ""
 }

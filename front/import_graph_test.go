@@ -17,7 +17,7 @@ import (
 // TestBinaryImportGraphsIsolateGfy (an import-graph guard, not a runtime
 // check).
 func TestBashPPImportsOnlyTheEngine(t *testing.T) {
-	out, err := exec.Command("go", "list", "-deps", "github.com/qiangli/bashpp/...").CombinedOutput()
+	out, err := exec.Command("go", "list", "-deps", "github.com/qiangli/bashsharp/...").CombinedOutput()
 	if err != nil {
 		t.Skipf("go list unavailable (%v): %s", err, out)
 	}

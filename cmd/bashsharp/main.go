@@ -1,16 +1,16 @@
 // Copyright (c) 2026 qiangli
 // See LICENSE for licensing information
 
-// Command bashpp is the Bash++ language's own front door: it runs a Bash++
-// program (a .bpp script, -c, stdin, or an unchanged Go program under
+// Command bashsharp is the Bash# language's own front door: it runs a Bash++
+// program (a .bsh script, -c, stdin, or an unchanged Go program under
 // --source=go), checks it, lists its import resolutions, or transpiles it to
 // ordinary Go — over the sh engine alone, with no AgentOS surface. It takes
 // the same invocation vocabulary bashy fronts, so a harness pinned to
-// `bashy --bashpp --source=go …` can point BASHPP_TOOL here unchanged.
+// `bashy --bashsharp --source=go …` can point BASHPP_TOOL here unchanged.
 //
-//	bashpp [--bashpp] [--source=go] [go-source flags] [-c CMD | FILE] [ARGS...]
-//	bashpp transpile --bashpp [--source=go] INPUT -o OUTPUT.go [--map MAP]
-//	bashpp --version
+//	bashsharp [--bashsharp] [--source=go] [go-source flags] [-c CMD | FILE] [ARGS...]
+//	bashsharp transpile --bashsharp [--source=go] INPUT -o OUTPUT.go [--map MAP]
+//	bashsharp --version
 package main
 
 import (
@@ -23,8 +23,8 @@ import (
 	"runtime/debug"
 	"strings"
 
-	"github.com/qiangli/bashpp/front"
-	"github.com/qiangli/bashpp/transpile"
+	"github.com/qiangli/bashsharp/front"
+	"github.com/qiangli/bashsharp/transpile"
 	"mvdan.cc/sh/v3/expand"
 	"mvdan.cc/sh/v3/interp"
 	"mvdan.cc/sh/v3/syntax"
@@ -35,7 +35,7 @@ import (
 const version = "0.1.0-dev"
 
 func main() {
-	front.Prog = "bashpp"
+	front.Prog = "bashsharp"
 	os.Exit(run(os.Args))
 }
 
@@ -43,7 +43,7 @@ func run(args []string) int {
 	if len(args) > 1 {
 		switch args[1] {
 		case "--version":
-			fmt.Printf("bashpp, Bash++ (GNU Bash 5.3 superset), version %s (%s)\n", version, commit())
+			fmt.Printf("bashsharp, Bash# (GNU Bash 5.3 superset), version %s (%s)\n", version, commit())
 			return 0
 		case "transpile":
 			return transpile.Main(args[2:])
@@ -81,11 +81,12 @@ func run(args []string) int {
 			i = len(rest)
 		case arg == "-n":
 			noExec = true
-		case arg == "--bashpp", arg == "--bash++":
-			// Bash++ is this program's only dialect; the selector is accepted
-			// so bashy-shaped invocations run unchanged.
-		case arg == "--no-bashpp":
-			return failure(front.Errorf("--no-bashpp: this is the Bash++ front door; use bash or bashy for Classic"))
+		case arg == "--bashsharp", arg == "--bashpp", arg == "--bash++":
+			// Bash# is this program's only dialect; the selector (and its
+			// deprecated Bash++ spellings) is accepted so bashy-shaped
+			// invocations run unchanged.
+		case arg == "--no-bashsharp", arg == "--no-bashpp":
+			return failure(front.Errorf("%s: this is the Bash# front door; use bash or bashy for Classic", arg))
 		case arg == "-" || !strings.HasPrefix(arg, "-"):
 			operands = append(operands, rest[i:]...)
 			i = len(rest)
@@ -114,7 +115,7 @@ func run(args []string) int {
 	return runShell(operand, command, commandSet, noExec, operands)
 }
 
-// runShell parses and runs a Bash++ program from a file, -c or stdin.
+// runShell parses and runs a Bash# program from a file, -c or stdin.
 func runShell(operand, command string, commandSet, noExec bool, args []string) int {
 	var (
 		src  io.Reader
@@ -122,7 +123,7 @@ func runShell(operand, command string, commandSet, noExec bool, args []string) i
 	)
 	switch {
 	case commandSet:
-		src, name = strings.NewReader(command), "bashpp"
+		src, name = strings.NewReader(command), "bashsharp"
 		if len(args) > 0 {
 			name, args = args[0], args[1:]
 		}
@@ -134,7 +135,7 @@ func runShell(operand, command string, commandSet, noExec bool, args []string) i
 		defer f.Close()
 		src, name = f, operand
 	default:
-		src, name = os.Stdin, "bashpp"
+		src, name = os.Stdin, "bashsharp"
 	}
 	data, err := io.ReadAll(src)
 	if err != nil {
@@ -305,11 +306,11 @@ func commit() string {
 	return "unknown"
 }
 
-const usage = `usage: bashpp [--bashpp] [--source=go] [go-source flags] [-n] [-c CMD | FILE] [ARGS...]
-       bashpp transpile --bashpp [--source=go] INPUT -o OUTPUT.go [--map MAP]
-       bashpp --version
+const usage = `usage: bashsharp [--bashsharp] [--source=go] [go-source flags] [-n] [-c CMD | FILE] [ARGS...]
+       bashsharp transpile --bashsharp [--source=go] INPUT -o OUTPUT.go [--map MAP]
+       bashsharp --version
 
-Runs a Bash++ program: a .bpp script, a -c command, stdin, or — with
+Runs a Bash# program: a .bsh script, a -c command, stdin, or — with
 --source=go — an unchanged Go program. --check validates without running;
 --go-list prints the import resolutions. transpile lowers to ordinary Go.
 `

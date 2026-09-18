@@ -1,4 +1,4 @@
-module github.com/qiangli/bashpp
+module github.com/qiangli/bashsharp
 
 go 1.26.5
 
@@ -14,7 +14,7 @@ require (
 	golang.org/x/tools v0.38.0 // indirect
 )
 
-// Bash++ is a language over the qiangli/sh fork of mvdan.cc/sh (the engine
+// Bash# (formerly Bash++) is a language over the qiangli/sh fork of mvdan.cc/sh (the engine
 // that carries the Bash++ evaluator, lowering compiler, Go front end and
-// fences). Flat sibling, umbrella convention: dhnt/sh next to dhnt/bashpp.
+// fences). Flat sibling, umbrella convention: dhnt/sh next to dhnt/bashsharp.
 replace mvdan.cc/sh/v3 => ../sh

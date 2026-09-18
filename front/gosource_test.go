@@ -130,7 +130,7 @@ func TestResolveGoSourceRefusals(t *testing.T) {
 			name: "go without Bash++",
 			sel:  goSel,
 			ctx:  GoSourceContext{Binary: BashPPBinaryBashy},
-			want: "bashy: --source=go requires --bashpp",
+			want: "bashy: --source=go requires --bashsharp",
 		},
 		{
 			name: "go under POSIX",

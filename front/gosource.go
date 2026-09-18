@@ -566,7 +566,7 @@ func ResolveGoSource(sel GoSourceSelection, ctx GoSourceContext) (GoSourceResolu
 		return GoSourceResolution{}, Errorf("--source=go is not available in POSIX mode")
 	}
 	if !ctx.BashPP {
-		return GoSourceResolution{}, Errorf("--source=go requires --bashpp")
+		return GoSourceResolution{}, Errorf("--source=go requires --bashsharp")
 	}
 	if ctx.Binary != BashPPBinaryBashy {
 		return GoSourceResolution{}, Errorf("--source=go requires the bashy front door")

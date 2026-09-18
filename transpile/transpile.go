@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/qiangli/bashpp/front"
+	"github.com/qiangli/bashsharp/front"
 
 	"mvdan.cc/sh/v3/lower"
 	"mvdan.cc/sh/v3/syntax"
@@ -19,7 +19,7 @@ import (
 //
 // To compile a transpiled Go output into a standalone binary:
 // 1. Transpile Bash++ script to Go source:
-//    bashy transpile --bashpp input.bpp -o output.go
+//    bashy transpile --bashsharp input.bsh -o output.go
 // 2. Setup dependency clone (deps/sh pinned to published commit 7146b30e1c1c8c845f6565c9f5c5609f4de93172)
 //    and configure module replace directive in app directory (mvdan.cc/sh/v3 => ../deps/sh):
 //    cd workspace/app
@@ -136,7 +136,7 @@ func isSameFileOrAlias(pathA, pathB string) bool {
 }
 
 // Main handles
-// 'bashy transpile --bashpp [--source=go] INPUT -o OUTPUT.go [--map MAPFILE]'.
+// 'bashy transpile --bashsharp [--source=go] INPUT -o OUTPUT.go [--map MAPFILE]'.
 //
 // Sprint 118: --source=go takes the SAME selector as the shell entry point, so
 // a corpus recipe spells one language for both product modes. The Go bytes are
@@ -170,7 +170,7 @@ func Main(args []string) int {
 			inFlags = false
 			continue
 		}
-		if inFlags && arg == "--bashpp" {
+		if inFlags && (arg == "--bashsharp" || arg == "--bashpp") {
 			bashpp = true
 		} else if inFlags && arg == "--source" {
 			if i+1 < len(args) {
@@ -391,7 +391,7 @@ func Main(args []string) int {
 		return 2
 	}
 	if !bashpp {
-		fmt.Fprintln(os.Stderr, "transpile: --bashpp is required")
+		fmt.Fprintln(os.Stderr, "transpile: --bashsharp is required")
 		return 2
 	}
 	if output == "" && goLibrary == "" {

@@ -41,7 +41,7 @@ func TestTranspileDispatchArgs(t *testing.T) {
 			name:       "missing bashpp",
 			args:       []string{"input.sh", "-o", "out.go"},
 			wantExit:   2,
-			wantStderr: "transpile: --bashpp is required\n",
+			wantStderr: "transpile: --bashsharp is required\n",
 		},
 		{
 			name:       "missing output",

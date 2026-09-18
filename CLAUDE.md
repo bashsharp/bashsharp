@@ -1,6 +1,6 @@
-# CLAUDE.md — bashpp
+# CLAUDE.md — bashsharp
 
-Bash++ / Bash# — the language over the `sh` engine: GNU Bash 5.3 superset ·
+**Bash#** (`bashsharp`; formerly Bash++ — `docs/naming-collision.md`: rail5/bashpp owns that name) — the language over the `sh` engine: GNU Bash 5.3 superset ·
 POSIX.1-2016 · Go 1.27.1 mixed · fenced python/typescript/rust/c/c++ ·
 `agentic` reserved for agentic features (the five clauses in README.md; the
 plan of record for the code move is the umbrella's
@@ -10,7 +10,7 @@ source**: never write hostnames, user paths, IPs, tokens, or proprietary
 
 ## What lives here
 
-- `docs/` — Bash++ design and status. Two kinds of page:
+- `docs/` — Bash# design and status. Two kinds of page:
   - **Contracts and decisions** (`bashpp-posix-superset-syntax.md`,
     `bashpp-go-implementation-claim.md`, `bashpp-decorators-and-advice.md`,
     `bashsharp-ergonomics-tier.md`, `bashpp-import-resolution.md`, …). These
@@ -29,8 +29,8 @@ source**: never write hostnames, user paths, IPs, tokens, or proprietary
     exclusion.
 - Go packages (Sprint 211): the language's **front door**, moved here from
   bashy so the language is usable and testable without it.
-  - `front/` — the dialect selector (`--bashpp`/`--bash++`/`--no-bashpp`,
-    `BASHY_BASHPP`, `.bpp`, binary default; `ResolveBashPP`, `LangVariant`,
+  - `front/` — the dialect selector (`--bashsharp`/`--no-bashsharp`, `BASHY_BASHSHARP`, `.bsh`, binary default —
+    the Bash#-era spellings are deprecated aliases reported on `Resolution.Deprecated`; `ResolveBashPP`, `LangVariant`,
     `ParserOptions`) and the direct Go-source interface (`--source=go`,
     `--go-package`, `--go-import-path`, `--check`, `--go-list`;
     `StripGoSourceInvocationFlags`, `ResolveGoSource`, `CollectGoSources`,
@@ -41,13 +41,13 @@ source**: never write hostnames, user paths, IPs, tokens, or proprietary
   - `transpile/` — wires `sh/gosource` + `sh/lower` onto those hooks at
     init, and owns `transpile` (`Main(args) int`: `-o`, `--map`, library
     mode, `--go-native-unit`). Importing it is what turns the front end on.
-  - `cmd/bashpp/` — the binary: runs a `.bpp` / `-c` / stdin / `--source=go`
+  - `cmd/bashsharp/` — the binary: runs a `.bsh` (`.bpp` deprecated) / `-c` / stdin / `--source=go`
     program, `--check`, `--go-list`, `transpile`, `--version`, over the sh
     engine alone (stdio, PATH toolchains, no AgentOS). It takes the argv the
     corpus harness gives bashy, so `BASHPP_TOOL` can name it.
   - `front/import_graph_test.go` is the D1 ratchet: this module imports the
     sh engine and nothing from bashy, coreutils or yoke. It builds and tests
-    in a checkout holding only `bashpp` and `../sh`.
+    in a checkout holding only `bashsharp` and `../sh`.
   - What is NOT here: the evaluator, `lower`, `gosource`, `polyglot` and the
     `LangBashPP` grammar — the next section and `docs/seam.md` say why.
 
@@ -78,7 +78,7 @@ one small exported hook, and said to stop and record otherwise. Measured:
 So the isolation in force is the one that already ships: under
 `VSC_PROFILE=cert` the evaluator is nil and the parser dialect is inert
 (`bashpp-tests/tools/classic-gate.sh` proves OFF 86/86, ON 79 + 7), and the
-Bash++ evaluator TESTS sit behind the `full` build tag (`go test -tags full`).
+Bash# evaluator TESTS sit behind the `full` build tag (`go test -tags full`).
 The repo boundary that DID land is the one that costs nothing:
 coreutils/yoke (Sprint 208). What would unlock a code move is a design
 change, not a mechanical one — an exported evaluator seam plus an
@@ -86,16 +86,16 @@ evaluator test harness that does not live in `package interp`. Sprint 211
 measured that seam (`docs/seam.md`: 204 distinct identifiers, 636
 references, 71 `Runner` fields, 73 methods) and confirmed it is an engine
 redesign, tracked as `todo:af65f24e` in the umbrella. Until it lands,
-**Bash++ engine changes still land in `sh/interp`, `sh/lower`,
+**Bash# engine changes still land in `sh/interp`, `sh/lower`,
 `sh/gosource`**; the front door, the binary and the docs live here.
 
 ## Relationship to the siblings
 
 | repo | role | this repo's dependency direction |
 |---|---|---|
-| `sh` | the engine: parser (`syntax`, carries the `BashPP*` nodes), `interp` (incl. the Bash++ evaluator), `lower`, `gosource`, `expand` | bashpp **imports** sh; sh must never import bashpp — see §What stays in sh and why |
-| `bashy` | the CLI that fronts both (`--bashpp`, `transpile`, `bashy agentic`) | imports `bashpp/front` + `bashpp/transpile` (`replace ../bashpp`) and sh |
-| `bashpp-tests` | the gate: Go 1.27.1 corpus, oracle, Tour, GbE, POSIX/Bash conformance | the corpus harness measures `cmd/bashpp` (`BASHPP_TOOL`); Tour/GbE and the classic OFF/ON lanes measure the built `bashy`/`bash` |
+| `sh` | the engine: parser (`syntax`, carries the `BashPP*` nodes), `interp` (incl. the Bash# evaluator), `lower`, `gosource`, `expand` | bashpp **imports** sh; sh must never import bashpp — see §What stays in sh and why |
+| `bashy` | the CLI that fronts both (`--bashsharp`, `transpile`, `bashy agentic`) | imports `bashsharp/front` + `bashsharp/transpile` (`replace ../bashsharp`) and sh |
+| `bashsharp-tests` | the gate: Go 1.27.1 corpus, oracle, Tour, GbE, POSIX/Bash conformance | the corpus harness measures `cmd/bashsharp` (`BASHPP_TOOL`); Tour/GbE and the classic OFF/ON lanes measure the built `bashy`/`bash` |
 | `coreutils` | the POSIX-required ∪ GNU coreutils applets | unrelated to the dialect |
 
 Flat-sibling layout: every cross-repo `replace` is `github.com/qiangli/<X> =>
@@ -111,9 +111,9 @@ scope.
 
 ## Gates
 
-- `bashpp-tests/tools/classic-gate.sh` — Bash 5.3 OFF 86/86 and ON 79 + 7
+- `bashsharp-tests/tools/classic-gate.sh` — Bash 5.3 OFF 86/86 and ON 79 + 7
   (the seven intentional raw reserved-`func` failures).
-- `bashpp-tests/tools/upstream-harness/barrier-run.sh` — the full Go corpus
+- `bashsharp-tests/tools/upstream-harness/barrier-run.sh` — the full Go corpus
   replay (≈ 100 min on the certification host); a refactor is green only when
   its barrier equals the previous one **by ID**.
-- A Bash++-ON change that is not Class R needs a collision-map row before code.
+- A Bash#-ON change that is not Class R needs a collision-map row before code.

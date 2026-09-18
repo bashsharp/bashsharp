@@ -11,7 +11,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/qiangli/bashpp/front"
+	"github.com/qiangli/bashsharp/front"
 
 	"mvdan.cc/sh/v3/gosource"
 	"mvdan.cc/sh/v3/lower"
@@ -301,7 +301,7 @@ func TestTranspileSourceSelectorRefusals(t *testing.T) {
 			// --bashpp stays required; --source=go does not imply it.
 			name: "go still requires --bashpp",
 			args: []string{"--source=go", src, "-o", out},
-			want: "transpile: --bashpp is required",
+			want: "transpile: --bashsharp is required",
 		},
 	}
 	for _, tc := range tests {
