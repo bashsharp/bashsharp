@@ -11,8 +11,8 @@ engine that parses and runs Bash stays in [`sh`](https://github.com/qiangli/sh)
   status pages** (`go-corpus-state-*.md`, `go-corpus-targets.{md,tsv}`),
   regenerated at every full barrier so one page always states where Bash++
   Go stands.
-- Go packages (arriving with Sprint 207): the lowering compiler (`lower`), the
-  Go-source front end (`gosource`), and the typed JSON codec (`syntax/typedjson`).
+- Go packages: none yet. Sprint 207 measured the seam and left the dialect
+  code in `sh` on purpose — see `CLAUDE.md` §What stays in sh and why.
 
 The conformance gate is [`bashpp-tests`](https://github.com/qiangli/bashpp-tests).
 Read `CLAUDE.md` before changing anything here.
