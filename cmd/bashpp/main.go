@@ -61,11 +61,15 @@ func run(args []string) int {
 		commandSet bool
 		noExec     bool
 		operands   []string
+		// sawDoubleDash: operands after `--` are program arguments even
+		// beside --go-file (the refusal is for a second PROGRAM operand).
+		sawDoubleDash bool
 	)
 	for i := 1; i < len(rest); i++ {
 		arg := rest[i]
 		switch {
 		case arg == "--":
+			sawDoubleDash = true
 			operands = append(operands, rest[i+1:]...)
 			i = len(rest)
 		case arg == "-c":
@@ -89,14 +93,17 @@ func run(args []string) int {
 			return failure(front.Errorf("%s: unknown option", arg))
 		}
 	}
+	// The program is the first operand — unless --go-file already named the
+	// program's files, in which case every operand is a program ARGUMENT
+	// (`--go-file=args.go -- arg1 arg2`), exactly as bashy reads them.
 	operand := ""
-	if !commandSet && len(operands) > 0 {
+	if !commandSet && len(sel.Files) == 0 && len(operands) > 0 {
 		operand, operands = operands[0], operands[1:]
 	}
 	res, err := front.ResolveGoSource(sel, front.GoSourceContext{
 		Binary:     front.BashPPBinaryBashy,
 		BashPP:     true,
-		HasOperand: operand != "",
+		HasOperand: !commandSet && len(operands) > 0 && !sawDoubleDash,
 	})
 	if err != nil {
 		return failure(err)
