@@ -24,7 +24,7 @@ then take the tour — 27 small programs, each with its transcript, and one
 script that runs them all on your machine. It also comes as a procedure your
 coding agent can drive.
 
-**→ [bashsharp/bashsharp-tour](https://github.com/bashsharp/bashsharp-tour)**
+**→ [bashsharp/tour](https://github.com/bashsharp/tour)**
 
 The shortest possible version:
 
@@ -128,7 +128,7 @@ All pure Go, one identical toolset on Linux, macOS and Windows:
 - [qiangli/coreutils](https://github.com/qiangli/coreutils) — the POSIX-required and GNU coreutils applets.
 - [qiangli/yoke](https://github.com/qiangli/yoke) — the agentic userland (`git`, `jq`, `tar`, the fleet/kb/meet hub, managed toolchains).
 - [bashsharp/bashsharp-tests](https://github.com/bashsharp/bashsharp-tests) — the conformance gate.
-- [bashsharp/bashsharp-tour](https://github.com/bashsharp/bashsharp-tour) — getting started.
+- [bashsharp/tour](https://github.com/bashsharp/tour) — getting started.
 
 ## License
 

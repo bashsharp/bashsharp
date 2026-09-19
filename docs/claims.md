@@ -19,7 +19,7 @@ Current release: **bashy v0.23.0** (2026-09-18) — bashy `1c66439`, engine
 | Go 1.27.1 mixed and whole-program support | the upstream Go 1.27.1 test corpus (`test/`, typechecker roots, package roots): 3,497 roots, 3,458 applicable | **2,827 PASS · 631 FAIL · 39 SKIP** — PASS means the native oracle passes *and* both Bash# modes (interpreted, and lowered-then-compiled) reproduce it | Barrier D, 2026-09-17, `go-corpus-state-2026-09-17.md` |
 | Go by Example | all 255 programs | **255/255** | same revisions as Barrier D |
 | A Tour of Go | all 291 programs | **291/291** | same revisions as Barrier D |
-| The getting-started tour | 29 cases with pinned transcripts | **all chapters pass on Linux, macOS and Windows** against the latest release (the badge on [bashsharp-tour](https://github.com/bashsharp/bashsharp-tour)), on two legs per OS — the runner's toolchains on `PATH`, and every toolchain stripped off it — with identical transcripts; nothing skipped, no known-failing cases | GitHub's ubuntu/macos/windows runners, daily; from v0.24.0 |
+| The getting-started tour | 29 cases with pinned transcripts | **all chapters pass on Linux, macOS and Windows** against the latest release (the badge on [tour](https://github.com/bashsharp/tour)), on two legs per OS — the runner's toolchains on `PATH`, and every toolchain stripped off it — with identical transcripts; nothing skipped, no known-failing cases | GitHub's ubuntu/macos/windows runners, daily; from v0.24.0 |
 | Fenced islands need no toolchain on the host | the six island languages (`~~~py` `~~~ts` `~~~rs` `~~~c` `~~~cxx` `~~~go`) and `--source=go` | bashy provisions Go 1.27.1, `zig cc`, a uv-managed CPython 3.13, Node 22 + `typescript@5.9.3`, a rustup toolchain — downloaded from the vendor, checksum-verified, cached; a host tool on `PATH` is never consulted (`BASHPP_*` names one explicitly) | the tour's stripped-PATH leg; from v0.24.0 |
 
 ## The 631 failing Go roots, honestly
@@ -60,5 +60,5 @@ downward). Whole-corpus 3,497/3,497 will not be claimed.
 - Bash 5.3: `cd bashy && make test-bash` (serial; needs a controlling terminal).
 - yash POSIX: `cd bashy && scripts/yash-posix-suite.sh` (needs a container runtime).
 - Go corpus / Tour / GbE: `bashsharp-tests/tools/upstream-harness/barrier-run.sh` (≈ 100 min).
-- The tour: `git clone https://github.com/bashsharp/bashsharp-tour && cd bashsharp-tour && ./check.sh`.
+- The tour: `git clone https://github.com/bashsharp/tour && cd tour && ./check.sh`.
 - The VSC shell arm needs the licensed suite; the run's ledger, host manifest and provider list are archived with the release evidence.
