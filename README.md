@@ -64,8 +64,11 @@ Each clause names its gate; the numbers are in [docs/claims.md](docs/claims.md).
    Go. *Gate: the upstream Go 1.27.1 test corpus, the Go Tour, Go by Example.*
 4. **Polyglot — fenced islands.** `~~~python`, `~~~typescript`, `~~~rust`,
    `~~~c`/`~~~cpp`, `~~~go`, `~~~bash`/`~~~sh` blocks become ordinary
-   callables with typed values crossing the boundary, on the compilers you
-   already have. *Gate: the polyglot suites.*
+   callables with typed values crossing the boundary. A fence never
+   resolves its tool from `PATH`: under bashy each island's toolchain is
+   provisioned — pinned, checksum-verified, cached — so the same program
+   means the same thing on every machine; `BASHPP_*` names a program
+   explicitly. *Gate: the polyglot suites; the tour's stripped-PATH leg.*
 5. **Agentic — the reserved word.** `agentic` is the language's `unsafe`; the
    `@require`/`@ensure`/`@guard` contracts, decorators and advice are its
    deterministic guards. No other construct uses the word. *Gate: the

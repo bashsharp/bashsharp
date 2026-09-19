@@ -117,7 +117,24 @@ The resolved plan uses this precedence, highest first:
 2. explicit Bash++ invocation override;
 3. `bashpp.yaml` or `bashpp.json` binding;
 4. recognized ecosystem project and lock metadata;
-5. an explicitly inherited active environment or executable on `PATH`.
+5. an explicitly inherited active environment;
+6. the embedder's **tool resolver** — under bashy, the toolchain bashy
+   provisions for that island (pinned, checksum-verified, cached) —
+   or, for a standalone engine with no resolver, an executable on `PATH`.
+
+**A fence never resolves its tool from `PATH` under bashy** (decided
+2026-09-18, Sprint 213). The engine exposes `polyglot.ToolResolver`, a
+materializing hook (it may download before it answers, which is why it is
+not the shell's side-effect-free `type`/`command -v` resolver); once set, the
+`PATH` rung is never consulted for any island tool name, and the resolved
+argv (a prefix such as `zig cc` is allowed, carried as
+`EnvironmentPlan.ExecutableArgs`) participates in the fingerprint, which is
+then host-independent. A project-declared version (`.python-version`, a
+`go.mod` `toolchain`, `rust-toolchain.toml`) is honoured by the provisioned
+manager, so a pin reproduces on every host; a project-declared program (a
+`.venv`) still wins as rung 4. The `BASHPP_*` invocation overrides (rung 2)
+are the one explicit escape. Under `VSC_PROFILE=cert` and in `cmd/bashsharp`
+no resolver is set and rung 6 is the `PATH` lookup, unchanged.
 
 Discovery starts from the Bash++ source location, not an incidental process
 cwd, and walks toward a declared workspace/VCS boundary. An explicit project
@@ -180,6 +197,13 @@ global install, or fallback to a different manager.
 Initial Sprints 183 and 184 implement read-only discovery, selection,
 fingerprinting and worker launch only. `env sync` is a named follow-up unless a
 separate reviewed story adds its mutation, locking and policy gates.
+
+Toolchain provisioning (Sprint 213) is the one exception, and it is bashy's,
+not the engine's: the first island that needs a toolchain triggers its
+download through the resolver — one pinned archive per toolchain, verified
+against a digest in bashy's source, never a project dependency install.
+`bashy check --prepare [SCRIPT...]` performs exactly that step ahead of a
+run (optional; on demand stays the default; idempotent).
 
 ## Ownership across Sprints 183 and 184
 
