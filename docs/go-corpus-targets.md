@@ -33,26 +33,26 @@ are the exclusion list; nothing else is.
 
 | class | roots | keys | meaning | what closes it |
 |---|---:|---:|---|---|
-| **repair** | **296** | 326 | a Bash++ defect with a first cause and an owner (evaluator 151, runtime 153, lowering 152, diagnostics 154, unclassified, one package) | code fix + reproducer + leaf; Barrier E |
+| **repair** | **291** | 316 | a Bash++ defect with a first cause and an owner (evaluator 151, runtime 153, lowering 152, diagnostics 154, unclassified, one package) | code fix + reproducer + leaf; Barrier E |
 | **review** | 6 | 6 | `unsafe.Pointer` rows not yet decided (repair or D7 by ID) | a decision on `todo:364913686dc6` |
 | **blocked-design** | 71 | 73 | achievable in principle but needs a design, not a batch: multi-package interpreted execution (26), interpreter per-call cost / deadline (21), retained callbacks (12), harness generate phase (6), interpreter stack (5), reflect writeback (2), `blank.go` unsafe (1) | a design decision per family; until then FAIL by ID, never excluded |
-| **excluded** | 258 | 260 | not achievable by an interpreter — see the table below | nothing; listed by ID with reason |
+| **excluded** | 263 | 270 | not achievable by an interpreter — see the table below | nothing; listed by ID in `docs/go-corpus-exclusions.tsv` with reason |
 
 Precedence when a root has keys in several classes: repair > review >
 blocked-design > excluded (3 roots are mixed).
 
-`296 + 6 + 71 + 258 = 631` failing roots; `2,827 + 631 + 39 = 3,497`.
+`291 + 6 + 71 + 263 = 631` failing roots; `2,827 + 631 + 39 = 3,497`.
 
-## Why the excluded 258 cannot pass (by family)
+## Why the excluded 263 cannot pass (by family)
 
 | family | roots | reason (the test asserts something only a compiler has) | evidence |
 |---|---:|---|---|
 | **compiler-diagnostic** | 103 | the root's expected output *is* gc's optimizer report: `-m` inlining/escape lines, `-d=` dumps, "can inline F", intrinsic substitution. An interpreter has no optimizer and no such report. Every one of these passes **compiled**. | `retained` rows; `errorcheck -m` files |
-| **asmcheck** | 73 | codegen tests match regexes against the generated `linux/amd64` assembly; an interpreter emits no machine code. Pass compiled. | `test/codegen/*.go`, action `none` |
+| **asmcheck** | 74 | codegen tests match regexes against the generated `linux/amd64` assembly; an interpreter emits no machine code. Pass compiled. | `test/codegen/*.go`, action `none` |
 | **gc-only-check** | 29 | `errorcheck` expects a diagnostic only gc's front end produces; `go/types` (the checker Bash++ uses) cannot express it | D5 (162) |
 | **unsafe-reinterpretation** | 26 | `unsafe.Pointer` casts that reinterpret raw memory layout (struct ↔ bytes, `unsafe.SliceData`, `abi/part_live*`): the interpreter has no native memory model to reinterpret | D7 (162), ledger `unsafe-slice-data` |
 | **gc-observation** | 20 | `runtime.SetFinalizer` + `runtime.GC`, `testing.AllocsPerRun`, finalizer ordering: they observe the *native* garbage collector acting on interpreter-owned values, which it never sees | D7 note, D9 (165) |
-| **cgo** | 6 | `import "C"` / `//go:build cgo`: the pure-Go product declares cgo out of scope | D4 (162) |
+| **cgo** | 11 | `import "C"` / `//go:build cgo`: the pure-Go product declares cgo out of scope | D4 (162) |
 | **assembly-companion** | 2 | execute-phase `.s` companions: assembly must run natively | D3b (162) |
 
 These are the **only** admissible exclusion reasons. Any new exclusion must
@@ -70,14 +70,14 @@ name one of them; a row that cannot is a repair or a blocked-design item.
 | reflect-writeback | 2 | reflection writeback into interpreter-owned values across the ownership boundary | claim D3 |
 | unsafe (blank.go) | 1 | reinterpretation of an anonymous composite into named types | `todo:27f3e89e5692` |
 
-## The repair 296 — by owner and first cause
+## The repair 291 — by owner and first cause
 
 | owner | keys | first causes (count) |
 |---|---:|---|
 | 151 evaluator | 200 | `BASHPP-ECOLLECTION-ELEMENT` 16 · `EEXPR-OPERAND` 13 · `EEXPR-CONVERT` 13 · `EBUILTIN-TYPE` 9 · `EPOINTER-TARGET` 7 · `EEXPR-FORM` 7 · `EEXPR-UNDEFINED` 6 · `gosource: unsupported call target` 6 (incl. `fixedbugs/issue80976.go`) · `ECOLLECTION-BOUNDS` 5 · tail of 2–3-key codes |
 | 153 runtime | 53 | output barrier 7 · `panic: interface conversion` 7 · `panic: runtime error` 5 · dependency mutation 4 · `panic: FAIL` 4 · native slice writeback 2 · deadline 2 · misc |
 | unclassified | 39 | typechecker wording rows 6 · carrier capacity 2 · `amask` 2 · singletons — triage by first cause |
-| 152 lowering | 29 | `could not import C` compiled 10 (→ cgo exclusion if true cgo roots) · unsupported execute phases 4 · unused imports 4 · diagnostic rows 4 (→ compiler-diagnostic if they are) · `LOWER-ETYPE` regression 1 · misc |
+| 152 lowering | 19 | unsupported execute phases 4 · unused imports 4 · diagnostic rows 4 (→ compiler-diagnostic if they are) · `LOWER-ETYPE` regression 1 · misc (`could not import C` compiled 10 reclassified to cgo exclusion) |
 | 154 diagnostics | 4 | parser diagnostics: parenthesized `go` expression, `expected at most 2 expressions` |
 | package | 1 | `cmd/compile/internal/importer` compiled: `importer.Default()` type |
 
@@ -87,10 +87,10 @@ should execute and print the expected output, not diagnostics.
 
 ## How the catalog is used
 
-- Sprint 209 S0 turns the `excluded` rows into `docs/go-corpus-exclusions.tsv`
-  (same IDs, same reasons) and publishes the adjusted denominator beside the
-  original: **3,497 roots; 260 excluded keys on 258 roots** → 100 % means
-  every other key passes.
+- `docs/go-corpus-exclusions.tsv` lists every excluded key by root/mode ID with
+  reason and decision provenance.  Original denominator: **3,497 roots**.
+  Adjusted: **270 excluded keys on 263 roots** → 100 % means every other key
+  passes.
 - `blocked-design` rows are targets with a prerequisite, never exclusions;
   each family gets one decision, and a decision to *not* build it moves the
   family to `excluded` only if it can cite one of the seven reasons above —

@@ -41,18 +41,18 @@ modes — `interpreted` (`bashy --bashpp --source=go`) and `compiled`
 | class | roots | keys | meaning |
 |---|---:|---:|---|
 | **Compiler-artifact rows** (`retained`) | 183 | 183 | interpreted mode asks for gc optimizer diagnostics (`-m` inlining, `-d=`), asmcheck codegen patterns (`linux/amd64/v1`), cgo or generate phases. **Every one of them passes compiled.** An interpreter cannot emit a compiler's diagnostics; these belong on the exclusion list for the interpreted mode only. |
-| **By-ID decisions (D1–D10)** | 138 | 142 | D9 finalizer/MakeFunc 29 · D5 gc-only checks 29 · D7 `unsafe.Pointer` memory reinterpretation 26 · D1 compiler packages run interpreted 25 · D2/D10 deadline family 24 · D4 cgo 6 · D3b front end 2; plus 5 roots on ledger-recorded limitations (unsafe slice data, reflect-owned mutation, gc stack budget). |
-| **Recorded-only subtotal** | **327** | 331 | fail only on the classes above |
-| **Repair work** | **304** | 334 | 301 roots fail only on repairable keys, 3 mixed; **300 of the 334 keys are interpreted-mode** |
+| **By-ID decisions (D1–D10)** | 143 | 152 | D9 finalizer/MakeFunc 29 · D5 gc-only checks 29 · D7 `unsafe.Pointer` memory reinterpretation 26 · D1 compiler packages run interpreted 25 · D2/D10 deadline family 24 · D4 cgo 16 · D3b front end 2; plus 5 roots on ledger-recorded limitations (unsafe slice data, reflect-owned mutation, gc stack budget). |
+| **Recorded-only subtotal** | **332** | 341 | fail only on the classes above |
+| **Repair work** | **299** | 324 | 296 roots fail only on repairable keys, 3 mixed; **290 of the 324 keys are interpreted-mode** |
 
-## The 304 repairable roots, by owner and first cause
+## The 299 repairable roots, by owner and first cause
 
 | owner (D partition) | keys | dominant first causes |
 |---|---:|---|
 | 151 evaluator | 207 | `BASHPP-ECOLLECTION-ELEMENT` 16 · `EEXPR-OPERAND` 13 · `EEXPR-CONVERT` 13 · `EBUILTIN-TYPE` 9 · `EPOINTER-TARGET` 7 · `EEXPR-FORM` 7 · `EEXPR-UNDEFINED` 6 · `gosource: unsupported call target` 6 (incl. the new go1.27.1 root `fixedbugs/issue80976.go`, instantiated method type arguments) · `ECOLLECTION-BOUNDS` 5 · a long tail of 2–3-key codes (selector, compare, assert, update, assign, nil) |
 | 153 runtime | 54 | output barrier (stray output where `.out` is absent) 7 · `panic: interface conversion` 7 · `panic: runtime error` 5 · dependency mutation of the interpreter 4 · `panic: FAIL` 4 · native slice writeback 2 · deadline 2 · misc |
 | unclassified + 154 | 43 | typechecker diagnostic-wording rows (`check_test.go:288`) 6 · interpreter carrier capacity 2 · `amask` assertions 2 · parser diagnostics (parenthesized `go` expression, `expected at most 2 expressions`) 4 · singletons |
-| 152 lowering | 29 | `could not import C` in compiled mode 10 (candidate for D4 by ID) · unsupported execute/generate phases 7 · unused-import diagnostics 4 · inlining/`nilptr3` diagnostics 4 · `LOWER-ETYPE` regression `fixedbugs/issue43164.go` 1 · misc |
+| 152 lowering | 19 | unsupported execute/generate phases 7 · unused-import diagnostics 4 · inlining/`nilptr3` diagnostics 4 · `LOWER-ETYPE` regression `fixedbugs/issue43164.go` 1 · misc (`could not import C` compiled 10 reclassified to cgo exclusion) |
 | package | 1 | `cmd/compile/internal/importer` compiled: `cannot use importer.Default()` |
 | unsafe policy review | 6 | ledger rows not covered by D7; decide by ID or repair |
 
@@ -68,7 +68,7 @@ Owner cards: `todo:11f3abf68a13` (151) · `todo:c794caf2c0e2` (153) ·
 
 ## What 100 % can honestly mean
 
-The per-root catalog with class, family and reason is `docs/go-corpus-targets.md` / `.tsv` (repair 296 · review 6 · blocked-design 71 · excluded 258 roots); Sprint 209 carries it as a gate-required goal that cannot close with residue.
+The per-root catalog with class, family and reason is `docs/go-corpus-targets.md` / `.tsv` (repair 291 · review 6 · blocked-design 71 · excluded 263 roots); the exclusion list is `docs/go-corpus-exclusions.tsv` (270 keys on 263 roots). Original denominator: **3,497 roots**. Adjusted: **270 excluded keys on 263 roots**. Sprint 209 carries it as a gate-required goal that cannot close with residue.
 
 `bashpp-go-implementation-claim.md` D1 allows an adjusted denominator only when
 it is published beside the original with every exclusion by root/mode ID and
