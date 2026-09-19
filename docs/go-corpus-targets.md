@@ -39,11 +39,13 @@ are the exclusion list; nothing else is.
 | **excluded** | 263 | 270 | not achievable by an interpreter — see the table below | nothing; listed by ID in `docs/go-corpus-exclusions.tsv` with reason |
 
 Precedence when a root has keys in several classes: repair > review >
-blocked-design > excluded (3 roots are mixed).
+blocked-design > excluded. The exclusion file has 270 keys on 265 distinct
+root IDs; two also have repair keys, so 263 roots are overall-classed
+`excluded`.
 
 `291 + 6 + 71 + 263 = 631` failing roots; `2,827 + 631 + 39 = 3,497`.
 
-## Why the excluded 263 cannot pass (by family)
+## Why the 270 excluded keys cannot pass (seven families)
 
 | family | roots | reason (the test asserts something only a compiler has) | evidence |
 |---|---:|---|---|
@@ -88,9 +90,10 @@ should execute and print the expected output, not diagnostics.
 ## How the catalog is used
 
 - `docs/go-corpus-exclusions.tsv` lists every excluded key by root/mode ID with
-  reason and decision provenance.  Original denominator: **3,497 roots**.
-  Adjusted: **270 excluded keys on 263 roots** → 100 % means every other key
-  passes.
+  reason and decision provenance. Original denominator: **3,497 roots**.
+  Adjusted: **270 excluded keys on 265 IDs** (263 overall-classed excluded;
+  two are mixed repair roots). The non-excluded Sprint target is **368 roots /
+  395 keys** → 100 % means every other key passes.
 - `blocked-design` rows are targets with a prerequisite, never exclusions;
   each family gets one decision, and a decision to *not* build it moves the
   family to `excluded` only if it can cite one of the seven reasons above —
