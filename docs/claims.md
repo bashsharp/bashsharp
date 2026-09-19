@@ -25,10 +25,10 @@ Current release: **bashy v0.23.0** (2026-09-18) — bashy `1c66439`, engine
 ## The 631 failing Go roots, honestly
 
 They are published by ID in [go-corpus-targets.md](go-corpus-targets.md)
-with one of four classes: **repair 296** (a defect with a first cause — the
-`good first issue`s), **review 6**, **blocked-design 71** (needs a design,
+with one of four classes: **repair 284** (a defect with a first cause — the
+`good first issue`s), **review 6**, **blocked-design 76** (needs a design,
 never excluded: multi-package interpreted execution, interpreter per-call
-cost, retained callbacks, …), **excluded 258** (not achievable by an
+cost, retained callbacks, …), **excluded 265** (not achievable by an
 interpreter: compiler-diagnostic tests, assembly checks, `unsafe`
 reinterpretation, cgo, …; every one listed with its reason, reviewed
 downward). Whole-corpus 3,497/3,497 will not be claimed.

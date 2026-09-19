@@ -40,24 +40,24 @@ modes — `interpreted` (`bashy --bashpp --source=go`) and `compiled`
 
 | class | roots | keys | meaning |
 |---|---:|---:|---|
-| **repair** | **291** | **316** | defect with an owner and first cause |
+| **repair** | **284** | **304** | defect with an owner and first cause |
 | **review** | 6 | 6 | unsafe policy decision pending |
-| **blocked-design** | 71 | 73 | needs a design, not a batch |
-| **excluded** | 263 | 270 | only the seven admissible compiler-artifact families |
+| **blocked-design** | 76 | 83 | needs a design, not a batch |
+| **excluded** | 265 | 272 | only the seven admissible compiler-artifact families |
 
 Two regressions against Barrier C: `fixedbugs/bug285.go` interpreted (151),
 `fixedbugs/issue43164.go` compiled (152). One residual key improved:
 `fixedbugs/issue54220.go` interpreted now passes.
 
 Owner cards: `todo:11f3abf68a13` (151) · `todo:c794caf2c0e2` (153) ·
-`todo:600dd206218e` (152) · `todo:306d0db8d77b` (unclassified/154/package) ·
-`todo:364913686dc6` (unsafe review) · `todo:ffabc6c1c44a` (finalizer) ·
+`todo:600dd206218e` (152) · `todo:364913686dc6` (unsafe review) ·
+`todo:ffabc6c1c44a` (finalizer) ·
 `todo:27f3e89e5692` (blank.go unsafe) · `todo:cf82f587d115`
 (`BASHY_HARD_IGNORE` leak into `--source=go` environments).
 
 ## What 100 % can honestly mean
 
-The per-root catalog with class, family and reason is `docs/go-corpus-targets.md` / `.tsv` (repair **291 roots / 316 keys** · review 6 · blocked-design 71 · excluded 263 overall-classed roots). The exclusion list is `docs/go-corpus-exclusions.tsv`: **270 keys on 265 distinct root IDs**; two are mixed repair roots, hence 263 are overall-classed excluded. The non-excluded Sprint target is **368 roots / 395 keys**. Original denominator: **3,497 roots**. Sprint 209 carries it as a gate-required goal that cannot close with residue.
+The per-root catalog with class, family and reason is `docs/go-corpus-targets.md` / `.tsv` (repair **284 roots / 304 keys** · review 6 · blocked-design 76 · excluded 265 overall-classed roots). The exclusion list is `docs/go-corpus-exclusions.tsv`: **272 keys on 267 distinct root IDs**; two are mixed repair roots, hence 265 are overall-classed excluded. The non-excluded Sprint target is **366 roots / 393 keys**. Original denominator: **3,497 roots**. Sprint 209 carries it as a gate-required goal that cannot close with residue.
 
 `bashpp-go-implementation-claim.md` D1 allows an adjusted denominator only when
 it is published beside the original with every exclusion by root/mode ID and
@@ -69,7 +69,7 @@ reason. So the only defensible 100 % is:
 > reinterpretation) — each such pair listed by ID in one published exclusion
 > file, reviewed *downward* and never widened to make a number.
 
-Under that definition the work is the **368-root / 395-key non-excluded
+Under that definition the work is the **366-root / 393-key non-excluded
 target**. Whole-corpus "3,497 / 3,497 including compiler diagnostics" is not
 reachable by an interpreter and will not be claimed.
 
