@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/qiangli/bashsharp/front"
+	"github.com/bashsharp/bashsharp/front"
 
 	"mvdan.cc/sh/v3/interp"
 )

@@ -1,4 +1,4 @@
-module github.com/qiangli/bashsharp
+module github.com/bashsharp/bashsharp
 
 go 1.26.5
 

@@ -9,8 +9,8 @@ index, so this one is renamed **Bash#** ("bash sharp"):
 
 | surface | Bash# (canonical) | Bash++ era (deprecated alias, one minor release) |
 |---|---|---|
-| repos | `qiangli/bashsharp`, `qiangli/bashsharp-tests` | GitHub redirects from `bashpp`, `bashpp-tests` |
-| module | `github.com/qiangli/bashsharp` | — |
+| repos | `bashsharp/bashsharp`, `bashsharp/bashsharp-tests`, `bashsharp/bashsharp-tour` (org, 2026-09-19) | GitHub redirects from `qiangli/bashpp`, `qiangli/bashpp-tests` and `qiangli/bashsharp*` — never recreate a repo at any of those names |
+| module | `github.com/bashsharp/bashsharp` | `github.com/qiangli/bashsharp` (pre-org path, one Sprint; the redirect still resolves it) |
 | binary | `cmd/bashsharp` → `bashsharp` | — |
 | script extension | `.bsh` | `.bpp` (warns) |
 | invocation flag | `--bashsharp` / `--no-bashsharp` | `--bashpp`, `--bash++`, `--no-bashpp` (warn) |

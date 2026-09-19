@@ -23,8 +23,8 @@ import (
 	"runtime/debug"
 	"strings"
 
-	"github.com/qiangli/bashsharp/front"
-	"github.com/qiangli/bashsharp/transpile"
+	"github.com/bashsharp/bashsharp/front"
+	"github.com/bashsharp/bashsharp/transpile"
 	"mvdan.cc/sh/v3/expand"
 	"mvdan.cc/sh/v3/interp"
 	"mvdan.cc/sh/v3/syntax"

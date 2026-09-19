@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/qiangli/bashsharp/front"
+	"github.com/bashsharp/bashsharp/front"
 )
 
 func TestGoSourceVersionWiring(t *testing.T) {

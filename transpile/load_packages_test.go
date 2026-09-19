@@ -7,7 +7,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/qiangli/bashsharp/front"
+	"github.com/bashsharp/bashsharp/front"
 )
 
 // TestGoSourcePackageMapEndToEnd loads a two-package set with a relative

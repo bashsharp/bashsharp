@@ -5,7 +5,7 @@ three doors:
 
 1. **A bug** — a Bash 5.3 program that means something different, a POSIX
    case, a Go-corpus root: file it (or fix it) in
-   [bashsharp-tests](https://github.com/qiangli/bashsharp-tests/blob/main/CONTRIBUTING.md),
+   [bashsharp-tests](https://github.com/bashsharp/bashsharp-tests/blob/main/CONTRIBUTING.md),
    where every claim is measured. The `corpus-repair` `good first issue`s are
    bounded and come with their first cause.
 2. **A syntax change** — anything a program cannot write today: a two-page
@@ -27,5 +27,5 @@ Read [ROADMAP.md](ROADMAP.md) for what is stable, alpha, and open.
 Rules: every number names its corpus ([docs/claims.md](docs/claims.md));
 no private details in public repos; DCO sign-off on commits (`git commit -s`).
 
-Questions go to [Discussions](https://github.com/qiangli/bashsharp/discussions);
+Questions go to [Discussions](https://github.com/bashsharp/bashsharp/discussions);
 the pinned FAQ has the common ones.

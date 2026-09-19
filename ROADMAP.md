@@ -32,7 +32,7 @@ certification.
 - **A bug** (a Bash 5.3 program that means something different; a POSIX
   case; a corpus root in the *repair* class): open an issue with the
   reproducer, or pick a `good first issue` in
-  [bashsharp-tests](https://github.com/qiangli/bashsharp-tests) — each carries
+  [bashsharp-tests](https://github.com/bashsharp/bashsharp-tests) — each carries
   the failing root and its oracle diff.
 - **A syntax change** (anything a program could not write today): a two-page
   RFC under `rfcs/` — the shape, its collision class (stock bash rejects it, or

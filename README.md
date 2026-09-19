@@ -11,7 +11,7 @@ front door (`front/`, `transpile/`, `cmd/bashsharp`), its design decisions,
 and the status pages that say exactly what is measured. The engine that parses
 and runs it lives in [qiangli/sh](https://github.com/qiangli/sh); the tests
 that decide every claim live in
-[qiangli/bashsharp-tests](https://github.com/qiangli/bashsharp-tests).
+[bashsharp/bashsharp-tests](https://github.com/bashsharp/bashsharp-tests).
 
 > **Alpha.** Syntax may change before 1.0. The way to change it is a two-page
 > RFC (see [ROADMAP.md](ROADMAP.md)); the way to help is the conformance suite,
@@ -24,7 +24,7 @@ then take the tour — 27 small programs, each with its transcript, and one
 script that runs them all on your machine. It also comes as a procedure your
 coding agent can drive.
 
-**→ [qiangli/bashsharp-tour](https://github.com/qiangli/bashsharp-tour)**
+**→ [bashsharp/bashsharp-tour](https://github.com/bashsharp/bashsharp-tour)**
 
 The shortest possible version:
 
@@ -127,8 +127,8 @@ All pure Go, one identical toolset on Linux, macOS and Windows:
 - [qiangli/sh](https://github.com/qiangli/sh) — the Bash 5.3 engine, a fork of [mvdan/sh](https://github.com/mvdan/sh).
 - [qiangli/coreutils](https://github.com/qiangli/coreutils) — the POSIX-required and GNU coreutils applets.
 - [qiangli/yoke](https://github.com/qiangli/yoke) — the agentic userland (`git`, `jq`, `tar`, the fleet/kb/meet hub, managed toolchains).
-- [qiangli/bashsharp-tests](https://github.com/qiangli/bashsharp-tests) — the conformance gate.
-- [qiangli/bashsharp-tour](https://github.com/qiangli/bashsharp-tour) — getting started.
+- [bashsharp/bashsharp-tests](https://github.com/bashsharp/bashsharp-tests) — the conformance gate.
+- [bashsharp/bashsharp-tour](https://github.com/bashsharp/bashsharp-tour) — getting started.
 
 ## License
 
