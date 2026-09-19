@@ -15,9 +15,9 @@ which are open, and how a change gets in. Numbers live in
 | 5 Agentic — `agentic` + contracts | **alpha, syntax open** | the scope rule, `@require`/`@ensure`/`@guard`, yield = 6, decorators, advice | the canonical written form of an `agentic` action across files; what a harness should do with exit 6 (an RFC with Claude Code / OpenCode / Codex in the room) |
 | Sharp tier | **alpha, syntax open** | decorators, keyword/default args, exhaustive enums, deep `readonly`, null-safety check | the standard decorator set (`trace`, `guard`, `retry`, …); enum syntax; what `readonly` freezes across a subshell; a `(T, error)` return in shell text |
 
-Also planned, not clause-bound: `transpile --standalone` (the emitted Go
-imports the engine's runtime, which needs a `qiangli/sh` checkout today);
-carrying host UTF-8 locales beyond `C.UTF-8` and the macOS default.
+Also planned, not clause-bound: carrying host UTF-8 locales beyond `C.UTF-8`
+and the macOS default. (`transpile --standalone` shipped 2026-09-18 — see
+[docs/transpile.md](docs/transpile.md).)
 
 ## Toward 1.0
 
