@@ -8,6 +8,8 @@ plan of record for the code move is the umbrella's
 source**: never write hostnames, user paths, IPs, tokens, or proprietary
 (cloudbox/kg/umbrella) details into any file, commit message, issue or PR.
 
+**`bashy sprint` is the source of requests, plans and details for every agent** — every todo is tracked and accounted for as a STORY in a sprint: read the sprint card (spec-ref, acceptance, continuity) for what to do, and never pick up a todo without a story in a `bashy sprint` (file one first). Delivery commits carry `Sprint:` / `Story:` / `Story-ID:` trailers.
+
 ## What lives here
 
 - `docs/` — Bash# design and status. Two kinds of page:
