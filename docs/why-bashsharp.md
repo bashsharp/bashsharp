@@ -51,8 +51,10 @@ What it is not: not "100 % Go" (an enumerated profile, 2,827 of 3,497
 upstream roots pass both modes); not POSIX *certified* (493/493 on the
 licensed shell arm is a pre-flight); not fast (≈ 2× slower than GNU bash on
 microbenchmarks); islands are not a sandbox (they run with your
-permissions); and the Windows bash-fixture suite has not been measured yet
-(the tour has).
+permissions); and not Windows parity on the bash 5.3 fixture suite — a
+release candidate now measures it at 23/86 pass, 61 fail, 2 time out (same
+run's Linux leg: 86/86; [claims.md](claims.md)), which is a measurement, not
+a parity claim.
 
 ## When to use it — ranked
 
@@ -70,9 +72,16 @@ greet(retries: 7, name: "Cy")   # keywords, any order
 ```
 
 Shipped: the pure-Go engine, the applets, the provisioned toolchains, the
-three-OS tour gate. Planned: running bash's own fixture suite on a Windows
-runner (today: tour only); drive-path spellings `C:\x` = `/c/x` = `/mnt/c/x`
-in every applet, `wslpath`, `pwd -W`, process substitution on Windows.
+three-OS tour gate. Delivered on a release candidate not yet in that tour
+gate (`sh 3ee22f2`, `yoke da6d602`, `bashy 0f73f42`): a first hour of
+Windows mechanisms — shared path conversion, `wslpath`/`cygpath`, `pwd -W`,
+drive-letter cwd, special operands, in-process pipes, named-pipe process
+substitution, declared path/list environment conversion via `BASHYENV`, and
+a register fix. Measured on that same candidate, not parity:
+bash's own fixture suite on a Windows runner is 23/86 passing, 61 failing, 2
+timed out, 0 skipped (the same run's Linux leg: 86/86 — [claims.md](claims.md)).
+Planned: closing that gap; `C:\x` = `/c/x` = `/mnt/c/x` equivalence in every
+applet.
 
 ### 2. Deploying automation without a base image
 
@@ -90,8 +99,15 @@ Which shapes are honestly one artifact today:
 | Python / TypeScript islands | a pinned CPython / Node provisioned at first use | no — `bashy check --prepare` at image build bakes it in; two layers, still no distro |
 
 Say "smaller *supply-chain* surface", not "sandboxed": an island runs with
-the task's host authority. A worked `FROM scratch` example is on the
-roadmap; the shapes above follow from the static build.
+the task's host authority, and the ten pinned external providers named
+above still apply if a script calls one. Measured, not roadmap: three
+`FROM scratch` images for the three Sprint 216 delivery shapes, built from candidate
+`bashy 0f73f42` and run green — row 1 (bashy + `.bsh`) 109,412,490 B /
+49,502,560 B gzip; row 2 (`transpile --standalone` binary) 1,994,912 B /
+876,537 B gzip, SBOM `mvdan.cc/sh/v3 v3.13.1`; row 3 (bashy + a Python
+island with CPython prepared at build time and no runtime download)
+166,720,052 B / 68,927,404 B gzip
+([claims.md](claims.md)).
 
 ### 3. The best language per sub-task, in one file
 
@@ -246,9 +262,11 @@ Nothing here is promised for a date. Each item names its status.
 
 | use case | planned item | status |
 |---|---|---|
-| same file every OS | bash's 86-fixture suite on a Windows runner | not yet measured |
-| | `C:\x` = `/c/x` = `/mnt/c/x` everywhere, `wslpath`, `pwd -W`, `<(…)` on Windows | filed |
-| no base image | a worked `FROM scratch` example with measured size | filed |
+| same file every OS | bash's 86-fixture suite on a Windows runner | measured on a candidate: 23/86 ([claims.md](claims.md)) |
+| | closing that Windows fixture gap to parity | filed |
+| | `wslpath`/`cygpath`, `pwd -W`, drive-letter cwd, special operands, in-process pipes, named-pipe process substitution, declared path/list env conversion via `BASHYENV` | delivered on a candidate (`sh 3ee22f2`, `yoke da6d602`, `bashy 0f73f42`) |
+| | `C:\x` = `/c/x` = `/mnt/c/x` equivalence in every applet | filed |
+| no base image | a worked `FROM scratch` example with measured size | measured on a candidate ([claims.md](claims.md)) |
 | one file, many languages | list/dict values both ways; island function as a pipeline filter; Rust on the persistent worker; `import python` by path | filed |
 | judged, never trusted | attestation for functions and `agentic {}`; the canonical `agentic` written form; exit-6 handling per harness | open RFC |
 | task graph | `Effects:` enforced | filed |

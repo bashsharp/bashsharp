@@ -9,6 +9,10 @@ page changes with it.
 Current release: **bashy v0.23.0** (2026-09-18) — bashy `1c66439`, engine
 `sh acbaef8d`, `coreutils 4f4e3507`, `yoke 2854c03`, `bashsharp 4167be8`.
 
+Candidate under measurement, not yet tagged: **bashy `0f73f42`** (engine
+`sh 3ee22f2`, `yoke da6d602`), CI as of 2026-09-20. The two rows below are
+this candidate's numbers, kept separate from the v0.23.0 baseline above.
+
 ## Claimed
 
 | claim | corpus | result | where measured |
@@ -21,6 +25,8 @@ Current release: **bashy v0.23.0** (2026-09-18) — bashy `1c66439`, engine
 | A Tour of Go | all 291 programs | **291/291** | same revisions as Barrier D |
 | The getting-started tour | 29 cases with pinned transcripts | **all chapters pass on Linux, macOS and Windows** against the latest release (the badge on [tour](https://github.com/bashsharp/tour)), on two legs per OS — the runner's toolchains on `PATH`, and every toolchain stripped off it — with identical transcripts; nothing skipped, no known-failing cases | GitHub's ubuntu/macos/windows runners, daily; from v0.24.0 |
 | Fenced islands need no toolchain on the host | the six island languages (`~~~py` `~~~ts` `~~~rs` `~~~c` `~~~cxx` `~~~go`) and `--source=go` | bashy provisions Go 1.27.1, `zig cc`, a uv-managed CPython 3.13, Node 22 + `typescript@5.9.3`, a rustup toolchain — downloaded from the vendor, checksum-verified, cached; a host tool on `PATH` is never consulted (`BASHPP_*` names one explicitly) | the tour's stripped-PATH leg; from v0.24.0 |
+| Bash 5.3 fixtures on Windows — a measurement, not an 86/86 claim | GNU Bash 5.3's own test suite, every runnable fixture (86), Git-Bash/MSYS2 shell | **23 passed, 61 failed, 2 timed out**, 0 skipped, of 86 listed/runnable; the same run's canonical Linux leg: **86/86** | GitHub Actions run [35503573404](https://github.com/qiangli/bashy/actions/runs/35503573404), candidate `bashy 0f73f42`, `GNU bash 5.3.0(1)-bashy`, `Windows MINGW64_NT-10.0-26100`, 2026-09-20 |
+| No-base-image deployment shapes, sized | three required `FROM scratch` images: bashy + `.bsh`, standalone transpilation, and a Python island prepared at build time | all three green — **A** (bashy + `.bsh`) 109,412,490 B / 49,502,560 B gzip; **B** (`transpile --standalone` binary) image 1,994,912 B / 876,537 B gzip, bare binary 1,994,912 B / 873,571 B gzip, SBOM `mvdan.cc/sh/v3 v3.13.1`; **C** (bashy + prepared CPython island; no runtime download) 166,720,052 B / 68,927,404 B gzip | GitHub Actions run [35503564934](https://github.com/qiangli/bashy/actions/runs/35503564934), candidate `bashy 0f73f42`, 2026-09-20 |
 
 ## The 631 failing Go roots, honestly
 
@@ -54,6 +60,19 @@ downward). Whole-corpus 3,497/3,497 will not be claimed.
   digest pinned in bashy's source; the `rustup` toolchain is `stable` at the
   time of that first install, not a fixed version. `bashy check --prepare`
   is the way to pay that download ahead of an offline run.
+- **Windows parity with the bash 5.3 fixture suite.** The candidate run
+  above is 23/86, not 86/86. Windows first-hour mechanisms landed on that
+  candidate (shared path conversion, `wslpath`/`cygpath`, `pwd -W`,
+  drive-letter cwd, special operands, in-process pipes, named-pipe process
+  substitution, declared path/list environment conversion via `BASHYENV`,
+  and a register fix — `sh 3ee22f2`, `yoke da6d602`,
+  `bashy 0f73f42`); that is a first hour of work, not parity, and it is not
+  the three-OS tour gate, which is measured separately against v0.24.0.
+- **A scratch-image deploy as sandboxed.** The three green images above are
+  a smaller *supply-chain* surface — one Go module graph, no distro layer —
+  not an isolation boundary; an island still runs with the task's host
+  authority, and the ten pinned external POSIX providers (`m4 man ctags ar
+  nm strip ex vi lp localedef`) still apply if a script calls one.
 
 ## How to reproduce any row
 
@@ -62,3 +81,6 @@ downward). Whole-corpus 3,497/3,497 will not be claimed.
 - Go corpus / Tour / GbE: `bashsharp-tests/tools/upstream-harness/barrier-run.sh` (≈ 100 min).
 - The tour: `git clone https://github.com/bashsharp/tour && cd tour && ./check.sh`.
 - The VSC shell arm needs the licensed suite; the run's ledger, host manifest and provider list are archived with the release evidence.
+- Windows fixture measurement: `cd bashy && scripts/ci-bash53-windows.sh` on
+  Windows. Scratch images: `cd bashy && scripts/quickstart-container-smoke.sh`.
+  The authoritative CI runs are linked above.
