@@ -17,6 +17,7 @@ index, so this one is renamed **Bash#** ("bash sharp"):
 | environment | `BASHY_BASHSHARP=1\|0` | `BASHY_BASHPP` (warns; loses to `BASHY_BASHSHARP` when both are set) |
 | shell option | `set -o bashsharp` | `set -o bashpp` (accepted; `set -o` still lists `bashpp` this release) |
 | shebang | `#!/usr/bin/env -S bashy --bashsharp` | |
+| dag body tag (`dag.md`, a skill's `tasks.md`) | ```` ```bsh ```` / ```` ```bashsharp ```` | ```` ```bashpp ```` / ```` ```bash++ ```` — kept as **aliases, not deprecated**: they name the middle rung of the ladder bash → bash++ (the Go typed core) → bash# (fences, decorators, keyword params); no warning, no expiry |
 
 **What is NOT renamed, deliberately.** The `sh` engine's identifiers —
 `syntax.LangBashPP`, `interp/bashpp_*.go`, the `bashPP*` methods, the
