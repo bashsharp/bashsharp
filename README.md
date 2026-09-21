@@ -20,7 +20,7 @@ that decide every claim live in
 ## Ten minutes
 
 Install bashy (one static binary; [releases](https://github.com/qiangli/bashy/releases/latest)),
-then take the tour — 27 small programs, each with its transcript, and one
+then take the tour — 39 small programs, each with its transcript, and one
 script that runs them all on your machine. It also comes as a procedure your
 coding agent can drive.
 

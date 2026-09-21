@@ -6,15 +6,20 @@ suite it was measured on, the revision, and the host. Numbers are copied
 from their status pages, never edited by hand; when a new run lands, this
 page changes with it.
 
-Current release: **bashy v0.26.0** (2026-09-21) — bashy `dfb0d96`
-(the `v0.26.0-dev` candidate promoted unchanged), engine `sh 8baf2588`,
-`bashsharp 34071a3`. Re-measured on this tag: the Bash 5.3 suite (86/86 in
-the container conformance gate, run
-[35592456086](https://github.com/qiangli/bashy/actions/runs/35592456086))
+Current release: **bashy v0.27.0** (2026-09-21) — bashy `5220744`
+(the `v0.27.0-dev` candidate promoted unchanged), engine `sh 89e98e2d`,
+`bashsharp 6a324af`. Re-measured on this tag: the Bash 5.3 suite (86/86
+serial on a macOS host and in the container conformance gate, run
+[35657932441](https://github.com/qiangli/bashy/actions/runs/35657932441))
 and the three-OS tour against `releases/latest` (6/6 legs, run
-[35602050865](https://github.com/bashsharp/tour/actions/runs/35602050865),
-2026-09-21). Every other row keeps the run it names — those corpora were
-not re-run on this tag, and the row says which revision it measured.
+[35661066840](https://github.com/bashsharp/tour/actions/runs/35661066840),
+2026-09-21 — the first run of the tour's fences chapters, 39 cases). Every
+other row keeps the run it names — those corpora were not re-run on this
+tag, and the row says which revision it measured.
+
+Previous: **bashy v0.26.0** (2026-09-21) — bashy `dfb0d96`, engine `sh
+8baf2588`, `bashsharp 34071a3`; Bash 5.3 86/86 (run 35592456086), tour 6/6
+(run 35602050865, 29 cases).
 
 Previous baseline: **bashy v0.23.0** (2026-09-18) — bashy `1c66439`, engine
 `sh acbaef8d`, `coreutils 4f4e3507`, `yoke 2854c03`, `bashsharp 4167be8`;
@@ -31,7 +36,7 @@ the Windows-fixture and image-size rows were measured on the then-candidate
 | Go 1.27.1 mixed and whole-program support | the upstream Go 1.27.1 test corpus (`test/`, typechecker roots, package roots): 3,497 roots, 3,458 applicable | **2,827 PASS · 631 FAIL · 39 SKIP** — PASS means the native oracle passes *and* both Bash# modes (interpreted, and lowered-then-compiled) reproduce it | Barrier D, 2026-09-17, `go-corpus-state-2026-09-17.md` |
 | Go by Example | all 255 programs | **255/255** | same revisions as Barrier D |
 | A Tour of Go | all 291 programs | **291/291** | same revisions as Barrier D |
-| The getting-started tour | 29 cases with pinned transcripts | **all chapters pass on Linux, macOS and Windows** against the latest release (the badge on [tour](https://github.com/bashsharp/tour)), on two legs per OS — the runner's toolchains on `PATH`, and every toolchain stripped off it — with identical transcripts; nothing skipped, no known-failing cases | GitHub's ubuntu/macos/windows runners, daily; from v0.24.0 |
+| The getting-started tour | 39 cases with pinned transcripts (28 + the two fences chapters) | **every case passes on Linux, macOS and Windows** against the latest release (the badge on [tour](https://github.com/bashsharp/tour)), on two legs per OS — the runner's toolchains on `PATH`, and every toolchain stripped off it — with identical transcripts; nothing skipped. Known-failing, each on a card in `cases.tsv` and failing the gate if it ever passes: the two container-engine cases on macOS/Windows (the hosted runners have no engine), and on Windows two commands cases (a PATH entry re-spelled) and four manifest rows (CR kept in a value, `TMP` re-spelled, make recipes through `/bin/sh`) | GitHub's ubuntu/macos/windows runners, daily; from v0.24.0; fences chapters from v0.27.0 |
 | Fenced islands need no toolchain on the host | the six island languages (`~~~py` `~~~ts` `~~~rs` `~~~c` `~~~cxx` `~~~go`) and `--source=go` | bashy provisions Go 1.27.1, `zig cc`, a uv-managed CPython 3.13, Node 22 + `typescript@5.9.3`, a rustup toolchain — downloaded from the vendor, checksum-verified, cached; a host tool on `PATH` is never consulted (`BASHPP_*` names one explicitly) | the tour's stripped-PATH leg; from v0.24.0 |
 | Bash 5.3 fixtures on Windows — a measurement, not an 86/86 claim | GNU Bash 5.3's own test suite, every runnable fixture (86), Git-Bash/MSYS2 shell | **23 passed, 61 failed, 2 timed out**, 0 skipped, of 86 listed/runnable; the same run's canonical Linux leg: **86/86** | GitHub Actions run [35503573404](https://github.com/qiangli/bashy/actions/runs/35503573404), candidate `bashy 0f73f42`, `GNU bash 5.3.0(1)-bashy`, `Windows MINGW64_NT-10.0-26100`, 2026-09-20 |
 | No-base-image deployment shapes, sized | three required `FROM scratch` images: bashy + `.bsh`, standalone transpilation, and a Python island prepared at build time | all three green — **A** (bashy + `.bsh`) 109,412,490 B / 49,502,560 B gzip; **B** (`transpile --standalone` binary) image 1,994,912 B / 876,537 B gzip, bare binary 1,994,912 B / 873,571 B gzip, SBOM `mvdan.cc/sh/v3 v3.13.1`; **C** (bashy + prepared CPython island; no runtime download) 166,720,052 B / 68,927,404 B gzip | GitHub Actions run [35503564934](https://github.com/qiangli/bashy/actions/runs/35503564934), candidate `bashy 0f73f42`, 2026-09-20 |
