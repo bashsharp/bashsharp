@@ -177,3 +177,29 @@ functions. Today the code fence discovers the checkout's nearest `go.mod`;
 taking the manifest fence's `go.mod` as the code fence's module is a
 follow-up if it is not a one-line change. `bun` as the `package` row's
 alternative processor waits on a `bashy bun` verb (p2).
+
+## Rod vs fish (Sprint 238, S238.4)
+
+The rows are fish; the rod is the runner. Validated on the installed binary
+(`make smoke-runners`, `bashy/examples/runners/`): an **interpreter** for a
+language with no fence (awk) through a runner registered once with
+`bashy commands register` and named from a script that declares nothing; a
+**compiler** (Zig, a language with no fence, compiled by the toolchain bashy
+already provisions for its C fences — `bashy zig` is fronted now) through an
+inline `func builder`; a **config** for a tool with no row (an env file)
+through an inline shell function; an unregistered PATH program refused. What
+the rod guarantees: the caller's directory and environment at call time,
+`methods` asked once per prepare, a `signature` honored by the bridge, the
+same error surface and the same `@guard` boundary as a row, a stable scratch
+directory per fence body (the directory of `BASHPP_FENCE_FILE`). A Bash#
+function runner may return its value or print it.
+
+What a built-in row can do that a runner cannot today — the honest gap:
+
+| row capability | runner today | follow-up |
+|---|---|---|
+| `Shadow` — link caller entries beside the manifest | the runner does it itself (`ln -s "$PWD/src" "${2%/*}/"`) | a `shadow` field in the `methods` answer, if a second runner wants it |
+| `{overlay}` — present the manifest at the caller's directory | the runner writes its own overlay | same |
+| `ModuleFor` — be another fence's module | no | with the above |
+| lowering | interpreted only (the row: embedded bytes) | Sprint 237 |
+| a type without `!runner` | a runner fence always names its runner | by design: the table is the enumerated set |
