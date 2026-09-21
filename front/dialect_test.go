@@ -452,41 +452,34 @@ func TestCommandLineBashPPSkipsOptionValues(t *testing.T) {
 	}
 }
 
-// TestBashSharpSpellingsAndDeprecatedAliases pins Sprint 212 D3: the Bash#
-// spellings are canonical and the Bash++-era flag/env ones still resolve
-// identically but are reported as deprecated, so a front can warn once. The
-// .bpp extension is an alias like bashpp/bash++ and never warns.
-func TestBashSharpSpellingsAndDeprecatedAliases(t *testing.T) {
+// TestBashSharpSpellingsAndAliases pins Sprint 212 D3 as amended 2026-09-21:
+// the Bash# spellings are canonical and the Bash++-era ones are exact
+// aliases — same resolution, same tier, nothing reported, nothing printed.
+func TestBashSharpSpellingsAndAliases(t *testing.T) {
 	cases := []struct {
-		name       string
-		sel        BashPPSelector
-		enabled    bool
-		source     BashPPSource
-		deprecated string
+		name    string
+		sel     BashPPSelector
+		enabled bool
+		source  BashPPSource
 	}{
-		{"--bashsharp", BashPPSelector{Binary: BashPPBinaryBash, Args: []string{"bash", "--bashsharp", "x"}}, true, BashPPSourceCLI, ""},
-		{"--no-bashsharp", BashPPSelector{Binary: BashPPBinaryBashy, Args: []string{"bashy", "--no-bashsharp", "x"}}, false, BashPPSourceCLI, ""},
-		{"--bashpp alias", BashPPSelector{Binary: BashPPBinaryBash, Args: []string{"bash", "--bashpp", "x"}}, true, BashPPSourceCLI, "--bashpp"},
-		{"--bash++ alias", BashPPSelector{Binary: BashPPBinaryBash, Args: []string{"bash", "--bash++", "x"}}, true, BashPPSourceCLI, "--bash++"},
-		{"BASHY_BASHSHARP", BashPPSelector{Binary: BashPPBinaryBash, LookupEnv: envLookup(map[string]string{"BASHY_BASHSHARP": "1"})}, true, BashPPSourceEnv, ""},
-		{"BASHY_BASHPP alias", BashPPSelector{Binary: BashPPBinaryBash, LookupEnv: envLookup(map[string]string{"BASHY_BASHPP": "1"})}, true, BashPPSourceEnv, "BASHY_BASHPP"},
-		{"BASHY_BASHSHARP wins over the alias", BashPPSelector{Binary: BashPPBinaryBash, LookupEnv: envLookup(map[string]string{"BASHY_BASHSHARP": "0", "BASHY_BASHPP": "1"})}, false, BashPPSourceEnv, ""},
-		{".bsh", BashPPSelector{Binary: BashPPBinaryBashy, Filename: "prog.bsh"}, true, BashPPSourceExtension, ""},
-		{".bpp alias — accepted, never deprecated", BashPPSelector{Binary: BashPPBinaryBashy, Filename: "prog.bpp"}, true, BashPPSourceExtension, ""},
+		{"--bashsharp", BashPPSelector{Binary: BashPPBinaryBash, Args: []string{"bash", "--bashsharp", "x"}}, true, BashPPSourceCLI},
+		{"--no-bashsharp", BashPPSelector{Binary: BashPPBinaryBashy, Args: []string{"bashy", "--no-bashsharp", "x"}}, false, BashPPSourceCLI},
+		{"--bashpp alias", BashPPSelector{Binary: BashPPBinaryBash, Args: []string{"bash", "--bashpp", "x"}}, true, BashPPSourceCLI},
+		{"--bash++ alias", BashPPSelector{Binary: BashPPBinaryBash, Args: []string{"bash", "--bash++", "x"}}, true, BashPPSourceCLI},
+		{"--no-bashpp alias", BashPPSelector{Binary: BashPPBinaryBashy, Args: []string{"bashy", "--no-bashpp", "x"}}, false, BashPPSourceCLI},
+		{"BASHY_BASHSHARP", BashPPSelector{Binary: BashPPBinaryBash, LookupEnv: envLookup(map[string]string{"BASHY_BASHSHARP": "1"})}, true, BashPPSourceEnv},
+		{"BASHY_BASHPP alias", BashPPSelector{Binary: BashPPBinaryBash, LookupEnv: envLookup(map[string]string{"BASHY_BASHPP": "1"})}, true, BashPPSourceEnv},
+		{"BASHY_BASHSHARP wins over the alias", BashPPSelector{Binary: BashPPBinaryBash, LookupEnv: envLookup(map[string]string{"BASHY_BASHSHARP": "0", "BASHY_BASHPP": "1"})}, false, BashPPSourceEnv},
+		{".bsh", BashPPSelector{Binary: BashPPBinaryBashy, Filename: "prog.bsh"}, true, BashPPSourceExtension},
+		{".bpp alias", BashPPSelector{Binary: BashPPBinaryBashy, Filename: "prog.bpp"}, true, BashPPSourceExtension},
 	}
 	for _, tc := range cases {
 		res, err := ResolveBashPP(tc.sel)
 		if err != nil {
 			t.Fatalf("%s: %v", tc.name, err)
 		}
-		if res.Enabled != tc.enabled || res.Source != tc.source || res.Deprecated != tc.deprecated {
-			t.Errorf("%s: got enabled=%v source=%s deprecated=%q, want %v %s %q", tc.name, res.Enabled, res.Source, res.Deprecated, tc.enabled, tc.source, tc.deprecated)
+		if res.Enabled != tc.enabled || res.Source != tc.source {
+			t.Errorf("%s: got enabled=%v source=%s, want %v %s", tc.name, res.Enabled, res.Source, tc.enabled, tc.source)
 		}
-		if (res.DeprecationNotice() != "") != (tc.deprecated != "") {
-			t.Errorf("%s: notice %q for deprecated %q", tc.name, res.DeprecationNotice(), tc.deprecated)
-		}
-	}
-	if got := (BashPPResolution{Deprecated: "--bashpp"}).DeprecationNotice(); got != "warning: --bashpp is deprecated; use --bashsharp (the alias is removed after one minor release)" {
-		t.Errorf("notice = %q", got)
 	}
 }

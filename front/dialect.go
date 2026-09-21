@@ -79,8 +79,8 @@ func (b BashPPBinary) bashPPDefault() bool {
 type BashPPSource string
 
 const (
-	BashPPSourceCLI           BashPPSource = "cli"            // --bashsharp / --no-bashsharp (+ deprecated --bashpp / --bash++ / --no-bashpp)
-	BashPPSourceEnv           BashPPSource = "env"            // BASHY_BASHSHARP=1|0 (BASHY_BASHPP deprecated)
+	BashPPSourceCLI           BashPPSource = "cli"            // --bashsharp / --no-bashsharp (aliases --bashpp / --bash++ / --no-bashpp)
+	BashPPSourceEnv           BashPPSource = "env"            // BASHY_BASHSHARP=1|0 (alias BASHY_BASHPP)
 	BashPPSourceExtension     BashPPSource = "extension"      // .bsh (.bpp alias)
 	BashPPSourceBinaryDefault BashPPSource = "binary-default" // bash off, bashy on
 )
@@ -122,26 +122,14 @@ type BashPPResolution struct {
 	Enabled bool
 	Source  BashPPSource
 	Posix   bool
-	// Deprecated is the Bash++-era spelling that decided this resolution
-	// ("--bashpp", "BASHY_BASHPP"), or "" when a Bash# spelling, the .bpp
-	// alias or a default did. The flag/env aliases are kept for one minor
-	// release (Sprint 212 D3, the rail5/bashpp collision); a front prints
-	// [DeprecationNotice] once when it is non-empty. The .bpp extension is
-	// not on this list: it is an accepted alias, not a deprecation.
-	Deprecated string
 }
 
-// DeprecationNotice is the one-line stderr notice for a deprecated spelling.
-func (r BashPPResolution) DeprecationNotice() string {
-	switch r.Deprecated {
-	case "":
-		return ""
-	case "BASHY_BASHPP":
-		return "warning: BASHY_BASHPP is deprecated; use BASHY_BASHSHARP (the alias is removed after one minor release)"
-	default:
-		return "warning: " + r.Deprecated + " is deprecated; use " + strings.Replace(strings.Replace(r.Deprecated, "bash++", "bashsharp", 1), "bashpp", "bashsharp", 1) + " (the alias is removed after one minor release)"
-	}
-}
+// The Bash++-era spellings — --bashpp / --bash++ / --no-bashpp,
+// BASHY_BASHPP, the .bpp extension, ```bashpp — are ALIASES of the Bash#
+// ones, not deprecations: they name the middle rung of the ladder
+// bash → bash++ (the Go typed core) → bash# (fences, decorators, keyword
+// params). They resolve identically, print nothing and have no expiry;
+// the documents simply promote the Bash# spelling.
 
 // LangVariant returns the concrete construction-time interpreter dialect.
 func (r BashPPResolution) LangVariant() syntax.LangVariant {
@@ -179,30 +167,25 @@ func (r BashPPResolution) ParserOptions(base syntax.LangVariant, extra ...syntax
 // startup POSIX semantics while disabling Bash++ grammar/runtime, regardless
 // of which selector tier won. Source still reports that tier.
 func ResolveBashPP(sel BashPPSelector) (BashPPResolution, error) {
-	enabled, source, deprecated := resolveTiers(sel)
+	enabled, source := resolveTiers(sel)
 	if sel.Binary == BashPPBinaryBash && sel.Posix && enabled {
-		return BashPPResolution{Source: source, Deprecated: deprecated}, nil
+		return BashPPResolution{Source: source}, nil
 	}
-	return BashPPResolution{Enabled: enabled && !sel.Posix, Source: source, Posix: sel.Posix, Deprecated: deprecated}, nil
+	return BashPPResolution{Enabled: enabled && !sel.Posix, Source: source, Posix: sel.Posix}, nil
 }
 
 // ResolveBashPPTiers is the precedence chain alone: the effective selector
 // and the tier that decided it, before the POSIX policy.
 func ResolveBashPPTiers(sel BashPPSelector) (bool, BashPPSource) {
-	enabled, source, _ := resolveTiers(sel)
-	return enabled, source
+	return resolveTiers(sel)
 }
 
-func resolveTiers(sel BashPPSelector) (bool, BashPPSource, string) {
-	if enabled, seen, word := scanCommandLine(sel.Args); seen {
-		return enabled, BashPPSourceCLI, deprecatedFlag(word)
+func resolveTiers(sel BashPPSelector) (bool, BashPPSource) {
+	if enabled, seen, _ := scanCommandLine(sel.Args); seen {
+		return enabled, BashPPSourceCLI
 	}
-	if enabled, seen, name := envBashPP(sel.LookupEnv); seen {
-		deprecated := ""
-		if name == "BASHY_BASHPP" {
-			deprecated = name
-		}
-		return enabled, BashPPSourceEnv, deprecated
+	if enabled, seen, _ := envBashPP(sel.LookupEnv); seen {
+		return enabled, BashPPSourceEnv
 	}
 	if sel.Binary == BashPPBinaryBashy {
 		// .bsh is the official extension; .bpp is an alias, never deprecated:
@@ -210,23 +193,14 @@ func resolveTiers(sel BashPPSelector) (bool, BashPPSource, string) {
 		// extension (.sh, .bash, .bpp, .bsh) runs as Bash# on this binary —
 		// the extension labels the tier, it never gates the content.
 		if strings.HasSuffix(sel.Filename, ".bsh") || strings.HasSuffix(sel.Filename, ".bpp") {
-			return true, BashPPSourceExtension, ""
+			return true, BashPPSourceExtension
 		}
 	}
-	return sel.Binary.bashPPDefault(), BashPPSourceBinaryDefault, ""
-}
-
-// deprecatedFlag names a Bash++-era selector flag, or "" for a Bash# one.
-func deprecatedFlag(word string) string {
-	switch word {
-	case "--bashpp", "--bash++", "--no-bashpp":
-		return word
-	}
-	return ""
+	return sel.Binary.bashPPDefault(), BashPPSourceBinaryDefault
 }
 
 // CommandLineBashPP resolves the last of --bashsharp/--no-bashsharp (and the
-// deprecated --bashpp/--bash++/--no-bashpp aliases) on the command line,
+// --bashpp/--bash++/--no-bashpp aliases) on the command line,
 // mirroring commandLinePosixMode's shape in main.go: scanning stops at "--",
 // at "-c" (whose operand is a command string, not a further flag), or at the
 // first operand that does not start with "-" (the script path, after which
@@ -277,7 +251,7 @@ func scanCommandLine(args []string) (enabled, seen bool, word string) {
 	return enabled, seen, word
 }
 
-// envBashPP resolves BASHY_BASHSHARP=1|0, then the deprecated BASHY_BASHPP.
+// envBashPP resolves BASHY_BASHSHARP=1|0, then its alias BASHY_BASHPP.
 // Any other value (unset, or set to something other than "1"/"0") is treated
 // as this tier having no opinion, falling through to the next precedence
 // tier, rather than as an error — this mirrors how the equivalent

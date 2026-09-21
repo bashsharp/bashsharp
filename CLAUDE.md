@@ -32,7 +32,7 @@ source**: never write hostnames, user paths, IPs, tokens, or proprietary
 - Go packages (Sprint 211): the language's **front door**, moved here from
   bashy so the language is usable and testable without it.
   - `front/` — the dialect selector (`--bashsharp`/`--no-bashsharp`, `BASHY_BASHSHARP`, `.bsh`, binary default —
-    the Bash#-era spellings are deprecated aliases reported on `Resolution.Deprecated`; `ResolveBashPP`, `LangVariant`,
+    the Bash++-era spellings `--bashpp`/`--bash++`/`BASHY_BASHPP`/`.bpp` are silent aliases, never warned; `ResolveBashPP`, `LangVariant`,
     `ParserOptions`) and the direct Go-source interface (`--source=go`,
     `--go-package`, `--go-import-path`, `--check`, `--go-list`;
     `StripGoSourceInvocationFlags`, `ResolveGoSource`, `CollectGoSources`,

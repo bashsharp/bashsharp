@@ -101,9 +101,10 @@ unless `--force` is also given. See [docs/transpile.md](docs/transpile.md).
 
 Every extension runs as Bash# in bashy — `.sh`, `.bash`, `.bpp`, `.bsh`; the
 name never gates the content. `.bsh` is the official one; `.bpp` is an
-accepted alias (the middle rung of bash → bash++ → bash#). The Bash++-era
-flag and variable (`--bashpp`, `BASHY_BASHPP`) still work as deprecated
-aliases for one minor release. The language was called Bash++
+accepted alias (the middle rung of bash → bash++ → bash#), as are the
+Bash++-era flag and variable (`--bashpp`, `BASHY_BASHPP`) — aliases, not
+deprecations: they resolve identically, print nothing and have no expiry;
+only the Bash# spellings are promoted. The language was called Bash++
 until 2026-09-18: [rail5/bashpp](https://github.com/rail5/bashpp) has that
 name, and had it first — [docs/naming-collision.md](docs/naming-collision.md).
 

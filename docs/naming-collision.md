@@ -7,14 +7,14 @@ this project and owns the name, the `bashpp` slug, the `bpp` binary, the
 with two `.bpp` extensions would mislead every reader and every package
 index, so this one is renamed **Bash#** ("bash sharp"):
 
-| surface | Bash# (canonical) | Bash++ era (deprecated alias, one minor release) |
+| surface | Bash# (canonical, the only spelling the docs promote) | Bash++ era — **aliases**, accepted silently, no expiry (the middle rung of bash → bash++ → bash#) |
 |---|---|---|
 | repos | `bashsharp/bashsharp`, `bashsharp/bashsharp-tests`, `bashsharp/bashsharp-tour` (org, 2026-09-19) | GitHub redirects from `qiangli/bashpp`, `qiangli/bashpp-tests` and `qiangli/bashsharp*` — never recreate a repo at any of those names |
 | module | `github.com/bashsharp/bashsharp` | `github.com/qiangli/bashsharp` (pre-org path, one Sprint; the redirect still resolves it) |
 | binary | `cmd/bashsharp` → `bashsharp` | — |
 | script extension | `.bsh` | `.bpp` — an **alias, not deprecated**: no warning, no expiry. Every extension (`.sh`, `.bash`, `.bpp`, `.bsh`) runs as Bash# in bashy; the name labels the selector tier, it never gates what the file may contain |
-| invocation flag | `--bashsharp` / `--no-bashsharp` | `--bashpp`, `--bash++`, `--no-bashpp` (warn) |
-| environment | `BASHY_BASHSHARP=1\|0` | `BASHY_BASHPP` (warns; loses to `BASHY_BASHSHARP` when both are set) |
+| invocation flag | `--bashsharp` / `--no-bashsharp` | `--bashpp`, `--bash++`, `--no-bashpp` |
+| environment | `BASHY_BASHSHARP=1\|0` | `BASHY_BASHPP` (loses to `BASHY_BASHSHARP` when both are set) |
 | shell option | `set -o bashsharp` | `set -o bashpp` (accepted; `set -o` still lists `bashpp` this release) |
 | shebang | `#!/usr/bin/env -S bashy --bashsharp` | |
 | dag body tag (`dag.md`, a skill's `tasks.md`) | ```` ```bsh ```` / ```` ```bashsharp ```` | ```` ```bashpp ```` / ```` ```bash++ ```` — kept as **aliases, not deprecated**: they name the middle rung of the ladder bash → bash++ (the Go typed core) → bash# (fences, decorators, keyword params); no warning, no expiry |

@@ -83,7 +83,7 @@ func run(args []string) int {
 			noExec = true
 		case arg == "--bashsharp", arg == "--bashpp", arg == "--bash++":
 			// Bash# is this program's only dialect; the selector (and its
-			// deprecated Bash++ spellings) is accepted so bashy-shaped
+			// Bash++-era alias spellings) is accepted so bashy-shaped
 			// invocations run unchanged.
 		case arg == "--no-bashsharp", arg == "--no-bashpp":
 			return failure(front.Errorf("%s: this is the Bash# front door; use bash or bashy for Classic", arg))
