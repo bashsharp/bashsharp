@@ -6,12 +6,20 @@ suite it was measured on, the revision, and the host. Numbers are copied
 from their status pages, never edited by hand; when a new run lands, this
 page changes with it.
 
-Current release: **bashy v0.23.0** (2026-09-18) — bashy `1c66439`, engine
-`sh acbaef8d`, `coreutils 4f4e3507`, `yoke 2854c03`, `bashsharp 4167be8`.
+Current release: **bashy v0.26.0** (2026-09-21) — bashy `dfb0d96`
+(the `v0.26.0-dev` candidate promoted unchanged), engine `sh 8baf2588`,
+`bashsharp 34071a3`. Re-measured on this tag: the Bash 5.3 suite (86/86 in
+the container conformance gate, run
+[35592456086](https://github.com/qiangli/bashy/actions/runs/35592456086))
+and the three-OS tour against `releases/latest` (6/6 legs, run
+[35602050865](https://github.com/bashsharp/tour/actions/runs/35602050865),
+2026-09-21). Every other row keeps the run it names — those corpora were
+not re-run on this tag, and the row says which revision it measured.
 
-Candidate under measurement, not yet tagged: **bashy `0f73f42`** (engine
-`sh 3ee22f2`, `yoke da6d602`), CI as of 2026-09-20. The two rows below are
-this candidate's numbers, kept separate from the v0.23.0 baseline above.
+Previous baseline: **bashy v0.23.0** (2026-09-18) — bashy `1c66439`, engine
+`sh acbaef8d`, `coreutils 4f4e3507`, `yoke 2854c03`, `bashsharp 4167be8`;
+the Windows-fixture and image-size rows were measured on the then-candidate
+`bashy 0f73f42` (CI of 2026-09-20), now shipped in v0.24.9 and later.
 
 ## Claimed
 
