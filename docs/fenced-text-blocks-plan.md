@@ -1,6 +1,17 @@
 # Fenced text blocks in Bash# — decision + plan (catalog item B30)
 
-**Status:** FILED 2026-09-21. One sprint, six stories S.0–S.5, in order.
+**Status:** DELIVERED 2026-09-21 (Sprint 234, S.0–S.5). What delivery
+settled beyond the decisions below: a command runner's stdout loses its
+trailing newlines (as a command substitution reads it) while a Bash#
+function runner returns its value as is; a denied verb binds the zero value
+of each result so a `:=` site stays well-formed and reads status 126; every
+text fence, row or runner, needs an alias (its methods are known only after
+preparation); a `!runner` names a function declared anywhere in its unit
+(the declaration is evaluated at prepare); built-in rows lower with the body
+embedded, `dag`/`skill` and runner fences run interpreted only and lowering
+refuses them by name (follow-up filed); a verb reads the caller's directory
+and environment at call time; `kubectl` verbs are wired and provisioned but
+were exercised only through the row's local `podman kube play` target.
 
 ## The question
 
@@ -56,7 +67,8 @@ detect the format on its own?
    an optional effect atom). That list *is* the alias's export set:
    `alias.<undeclared>()` is a prepare-time unknown-callable error, and an
    empty or malformed answer is a refusal (`runner declared no methods`),
-   never a fall back to dynamic dispatch. Built-in rows answer the same
+   never a fall back to dynamic dispatch. `effects` (a list) or `effect` (a
+   comma-joined string) name the atoms. Built-in rows answer the same
    protocol from their table (the `dag` row answers it from the dag's own
    target list), and the declared effect is what `@guard` reads — built-in and
    custom alike. With a runner, `<type>` may be any identifier; without one,
@@ -95,13 +107,13 @@ detect the format on its own?
 | kind | type (aliases) | processor | exports |
 |---|---|---|---|
 | code | `python` (`py`), `typescript` (`ts`), `rust` (`rs`), `c`, `cpp` (`cxx`), `go`, `bash`, `sh` | existing runtimes | parsed from the body |
-| text | `dockerfile` | embedded podman | `build` → image ref, `run` |
-| text | `tf` (`tofu`, `hcl`) | `tofu` (registry row) | `init`, `plan`, `apply`†, `destroy`† |
-| text | `k8s` (`kube`) | provisioned kubectl / `podman kube play` (local) | `apply`†, `delete`†, `get`, `diff` |
-| text | `helm` | provisioned helm | `template`, `install`†, `upgrade`†, `uninstall`† |
-| text | `compose` | podman compose provider (stub) | `up`†, `down`†, `ps`, `logs` |
-| text | `dag` | the host's dag runner | its targets |
-| text | `skill` | the host's skills runner | `run`, `verify`, `probe` |
+| text | `dockerfile` | embedded podman | `build` → image id (`net,write`), `run` (`exec`) |
+| text | `tf` (`tofu`, `hcl`) | `tofu` (registry row) | `validate`, `init`†, `plan` (`net,read`), `apply`† (`net,write,spend`), `destroy`† (`net,destroy,spend`), `output` |
+| text | `k8s` (`kube`) | provisioned kubectl; `play`/`down` through podman (local) | `apply`†, `delete`†, `get`, `diff`, `play`†, `down`† |
+| text | `helm` | provisioned helm, from the caller's directory | `template`, `install`†, `upgrade`†, `uninstall`† |
+| text | `compose` | reserved — refuses by name | `up`†, `down`†, `ps`, `logs` |
+| text | `dag` | the host's dag runner, from the caller's directory | its targets, each with its `Effects:` |
+| text | `skill` | the host's skills runner over a private ring | `run`, `verify`, `probe` |
 | any | `<ident> !runner` | a function in the unit or a registered command | whatever `runner methods <file>` declares |
 
 † carries an effect atom; `@guard` without it exits 126. Every row, built-in
