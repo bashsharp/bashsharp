@@ -134,3 +134,46 @@ rows' answer written down.
 S.1 pays for itself alone. S.2 is the language change; S.3–S.4 are rows;
 S.5 is the gate. Later, on demand: `import tf "./main.tf"` (B9 family),
 `~~~tf[workspace=prod]` attributes (B10 family), the compose implementation.
+
+## Manifest fences (Sprint 238)
+
+The rows of the toolchains bashy already provisions: a script carries its
+project manifest inline and drives the toolchain's verbs from the directory
+`awd` chose. Rows are data over the Sprint 234 runtime — no grammar, no Go
+type per tool, processors are bashy's own verbs re-entered (`bashy cargo`,
+`uv`, `npm`, `cmake`, `go`, `make`), and **nothing is ever written into the
+caller's tree**: the manifest, dependency caches and build outputs live under
+the fence root. Two out-of-tree conventions, measured before they were chosen:
+
+- **Native** — the tool takes the manifest from elsewhere: `uv --project
+  {dir}` (the environment from the fenced pyproject, the code from `{cwd}`),
+  `make -f {file}` run in `{cwd}` (POSIX make has no `-C`; bashy's
+  in-process make is POSIX — a GNU Makefile is driven with `env make`),
+  `cmake -S {dir} -B {root}/build -DBASHPP_CWD={cwd}` (the fenced
+  CMakeLists.txt names its sources as `${BASHPP_CWD}/…`), and `go` through
+  the same `-overlay` the `~~~go` code fence uses: `-modfile` refuses to set a
+  module root, but an overlay that maps `{cwd}/go.mod` (and `go.sum`) to the
+  fenced files makes `{cwd}` the module without a byte on disk.
+- **Shadow project** — the tool insists the manifest sit beside the sources:
+  `cargo` gets `{dir}/Cargo.toml` with `src`, `tests`, `examples`, `benches`
+  and `build.rs` linked from `{cwd}` (a copy where links are unavailable),
+  `CARGO_TARGET_DIR={root}/target`; `npm --prefix {dir}` keeps
+  `node_modules` under the fence root and runs its scripts there with
+  `INIT_CWD` naming the caller's directory, which is how a fenced script
+  reaches `$INIT_CWD/src`.
+
+| type (aliases) | file | processor | verbs (effects) | convention |
+|---|---|---|---|---|
+| `cargo` | `Cargo.toml` | `bashy cargo` | `build` `test` `check` (`net,write`), `run` (`net,write,exec`) | shadow (`src` …) |
+| `pyproject` (`uv`) | `pyproject.toml` | `bashy uv` | `sync` (`net,write`), `run` `test` (`net,write,exec`), `build` (`net,write`) | native `--project` |
+| `gomod` (`go`)* | `go.mod` | `bashy go` | `build` `vet` (`net,write`), `test` `run` (`net,write,exec`) | native `-overlay` |
+| `cmake` | `CMakeLists.txt` | `bashy cmake` | `configure` `build` (`write,exec`), `test` (`exec`), `install` (`write`) | native `-S {dir} -B {root}/build` |
+| `makefile` (`make`) | `Makefile` | `bashy make` | `build` `test` `clean` (`write,exec`), `target(name…)` (`write,exec`) | native `-f`, in `{cwd}` |
+| `package` (`npm`) | `package.json` | `bashy npm` | `install` (`net,write`), `run` `test` `build` (`exec`) | shadow `--prefix`, `INIT_CWD` |
+
+\* the type is `gomod`, never `go`: `~~~go` is the code fence. A script may
+carry both — the manifest fence drives the toolchain, the code fence exposes
+functions. Today the code fence discovers the checkout's nearest `go.mod`;
+taking the manifest fence's `go.mod` as the code fence's module is a
+follow-up if it is not a one-line change. `bun` as the `package` row's
+alternative processor waits on a `bashy bun` verb (p2).
