@@ -8,8 +8,10 @@ of each result so a `:=` site stays well-formed and reads status 126; every
 text fence, row or runner, needs an alias (its methods are known only after
 preparation); a `!runner` names a function declared anywhere in its unit
 (the declaration is evaluated at prepare); built-in rows lower with the body
-embedded, `dag`/`skill` and runner fences run interpreted only and lowering
-refuses them by name (follow-up filed); a verb reads the caller's directory
+embedded; a Bash# `func` runner fence lowers with the program (Sprint 237,
+`lowered-runner-fences.md`), while `dag`/`skill` and every other runner shape
+run interpreted only and lowering refuses them by name with the route — a
+transpiled binary never depends on a shell on the target; a verb reads the caller's directory
 and environment at call time; `kubectl` verbs are wired and provisioned but
 were exercised only through the row's local `podman kube play` target.
 
@@ -201,5 +203,5 @@ What a built-in row can do that a runner cannot today — the honest gap:
 | `Shadow` — link caller entries beside the manifest | the runner does it itself (`ln -s "$PWD/src" "${2%/*}/"`) | a `shadow` field in the `methods` answer, if a second runner wants it |
 | `{overlay}` — present the manifest at the caller's directory | the runner writes its own overlay | same |
 | `ModuleFor` — be another fence's module | no | with the above |
-| lowering | interpreted only (the row: embedded bytes) | Sprint 237 |
+| lowering | a Bash# `func` runner with the runner signature lowers (Sprint 237, `lowered-runner-fences.md`); a shell-function, builtin or registered-command runner is refused with the route; a `func` runner that calls a host-shell verb (`"$BASH" zig`) lowers but its binary then needs that shell — keep it interpreted | a cap plane for lowered programs (D5 there) |
 | a type without `!runner` | a runner fence always names its runner | by design: the table is the enumerated set |
