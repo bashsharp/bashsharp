@@ -49,7 +49,7 @@ import (
 //
 // # Precedence
 //
-// explicit CLI > environment > .bpp extension > binary default
+// explicit CLI > environment > .bsh/.bpp extension > binary default
 //
 // each tier is winner-take-all: the first tier that expresses an opinion
 // decides the result and lower tiers are not consulted.
@@ -81,7 +81,7 @@ type BashPPSource string
 const (
 	BashPPSourceCLI           BashPPSource = "cli"            // --bashsharp / --no-bashsharp (+ deprecated --bashpp / --bash++ / --no-bashpp)
 	BashPPSourceEnv           BashPPSource = "env"            // BASHY_BASHSHARP=1|0 (BASHY_BASHPP deprecated)
-	BashPPSourceExtension     BashPPSource = "extension"      // .bsh (.bpp deprecated)
+	BashPPSourceExtension     BashPPSource = "extension"      // .bsh (.bpp alias)
 	BashPPSourceBinaryDefault BashPPSource = "binary-default" // bash off, bashy on
 )
 
@@ -123,10 +123,11 @@ type BashPPResolution struct {
 	Source  BashPPSource
 	Posix   bool
 	// Deprecated is the Bash++-era spelling that decided this resolution
-	// ("--bashpp", "BASHY_BASHPP", ".bpp"), or "" when a Bash# spelling or a
-	// default did. The aliases are kept for one minor release (Sprint 212
-	// D3, the rail5/bashpp collision); a front prints [DeprecationNotice]
-	// once when it is non-empty.
+	// ("--bashpp", "BASHY_BASHPP"), or "" when a Bash# spelling, the .bpp
+	// alias or a default did. The flag/env aliases are kept for one minor
+	// release (Sprint 212 D3, the rail5/bashpp collision); a front prints
+	// [DeprecationNotice] once when it is non-empty. The .bpp extension is
+	// not on this list: it is an accepted alias, not a deprecation.
 	Deprecated string
 }
 
@@ -135,8 +136,6 @@ func (r BashPPResolution) DeprecationNotice() string {
 	switch r.Deprecated {
 	case "":
 		return ""
-	case ".bpp":
-		return "warning: the .bpp extension is deprecated; name Bash# scripts .bsh (the alias is removed after one minor release)"
 	case "BASHY_BASHPP":
 		return "warning: BASHY_BASHPP is deprecated; use BASHY_BASHSHARP (the alias is removed after one minor release)"
 	default:
@@ -170,8 +169,8 @@ func (r BashPPResolution) ParserOptions(base syntax.LangVariant, extra ...syntax
 }
 
 // ResolveBashPP resolves the initial Bash++ dialect for one selector,
-// applying the documented precedence (explicit CLI > environment > .bpp
-// extension > binary default). For the pure bash front door, .bpp is only a
+// applying the documented precedence (explicit CLI > environment > .bsh/.bpp
+// extension > binary default). For the pure bash front door, the extension is only a
 // filename and an affirmative Bash++ selector paired with startup POSIX mode
 // selects the Sprint 114 inertness profile: both extensions and POSIX-mode
 // parser/runtime differences are disabled so its result is byte-identical to
@@ -206,11 +205,12 @@ func resolveTiers(sel BashPPSelector) (bool, BashPPSource, string) {
 		return enabled, BashPPSourceEnv, deprecated
 	}
 	if sel.Binary == BashPPBinaryBashy {
-		if strings.HasSuffix(sel.Filename, ".bsh") {
+		// .bsh is the official extension; .bpp is an alias, never deprecated:
+		// it names the middle rung of bash → bash++ → bash#, and every
+		// extension (.sh, .bash, .bpp, .bsh) runs as Bash# on this binary —
+		// the extension labels the tier, it never gates the content.
+		if strings.HasSuffix(sel.Filename, ".bsh") || strings.HasSuffix(sel.Filename, ".bpp") {
 			return true, BashPPSourceExtension, ""
-		}
-		if strings.HasSuffix(sel.Filename, ".bpp") {
-			return true, BashPPSourceExtension, ".bpp"
 		}
 	}
 	return sel.Binary.bashPPDefault(), BashPPSourceBinaryDefault, ""

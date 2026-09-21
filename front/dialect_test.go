@@ -453,8 +453,9 @@ func TestCommandLineBashPPSkipsOptionValues(t *testing.T) {
 }
 
 // TestBashSharpSpellingsAndDeprecatedAliases pins Sprint 212 D3: the Bash#
-// spellings are canonical and the Bash++-era ones still resolve identically
-// but are reported as deprecated, so a front can warn once.
+// spellings are canonical and the Bash++-era flag/env ones still resolve
+// identically but are reported as deprecated, so a front can warn once. The
+// .bpp extension is an alias like bashpp/bash++ and never warns.
 func TestBashSharpSpellingsAndDeprecatedAliases(t *testing.T) {
 	cases := []struct {
 		name       string
@@ -471,7 +472,7 @@ func TestBashSharpSpellingsAndDeprecatedAliases(t *testing.T) {
 		{"BASHY_BASHPP alias", BashPPSelector{Binary: BashPPBinaryBash, LookupEnv: envLookup(map[string]string{"BASHY_BASHPP": "1"})}, true, BashPPSourceEnv, "BASHY_BASHPP"},
 		{"BASHY_BASHSHARP wins over the alias", BashPPSelector{Binary: BashPPBinaryBash, LookupEnv: envLookup(map[string]string{"BASHY_BASHSHARP": "0", "BASHY_BASHPP": "1"})}, false, BashPPSourceEnv, ""},
 		{".bsh", BashPPSelector{Binary: BashPPBinaryBashy, Filename: "prog.bsh"}, true, BashPPSourceExtension, ""},
-		{".bpp alias", BashPPSelector{Binary: BashPPBinaryBashy, Filename: "prog.bpp"}, true, BashPPSourceExtension, ".bpp"},
+		{".bpp alias — accepted, never deprecated", BashPPSelector{Binary: BashPPBinaryBashy, Filename: "prog.bpp"}, true, BashPPSourceExtension, ""},
 	}
 	for _, tc := range cases {
 		res, err := ResolveBashPP(tc.sel)

@@ -43,7 +43,7 @@ source**: never write hostnames, user paths, IPs, tokens, or proprietary
   - `transpile/` — wires `sh/gosource` + `sh/lower` onto those hooks at
     init, and owns `transpile` (`Main(args) int`: `-o`, `--map`, library
     mode, `--go-native-unit`). Importing it is what turns the front end on.
-  - `cmd/bashsharp/` — the binary: runs a `.bsh` (`.bpp` deprecated) / `-c` / stdin / `--source=go`
+  - `cmd/bashsharp/` — the binary: runs a `.bsh` (`.bpp` alias) / `-c` / stdin / `--source=go`
     program, `--check`, `--go-list`, `transpile`, `--version`, over the sh
     engine alone (stdio, PATH toolchains, no AgentOS). It takes the argv the
     corpus harness gives bashy, so `BASHPP_TOOL` can name it.
