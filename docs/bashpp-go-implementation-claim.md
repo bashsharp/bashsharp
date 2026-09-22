@@ -6,6 +6,62 @@ counts and proposed “100%” headings. Sprint 198 implements the syntax contra
 Sprint198 is delivered. Its exact candidate and verified, bounded regression results are recorded in
 `sprint-198-delivery-evidence.json`.
 
+## Language, not implementation: what Bash# does not mimic
+
+**Operator decision, 2026-09-22 (Sprint 249).** Bash# is a programming
+language in its own right. Its Go compatibility means **Go's language
+semantics**: what a program does. It does not mean reproducing every
+feature, diagnostic or artifact of the `gc` toolchain. Bash# does not need to
+mimic each and every Go feature, and it does not try to.
+
+The line is the one every alternative Go implementation (gccgo, TinyGo,
+interpreters) already draws. The Go specification defines program
+behaviour. It says nothing about optimizer reports, generated machine code or
+runtime internals; those belong to one compiler, and they change from release
+to release.
+
+| In scope: the language (Bash# must match Go) | Out of scope: gc implementation (Bash# does not mimic) |
+|---|---|
+| Types, values, conversions, constants | Optimizer diagnostics: `-m` inlining and escape reports, `-d=ssa/...` pass output (e.g. `prove`), `-live` liveness, `-d=nil` nil-check removal |
+| Control flow, closures, methods, interfaces, generics | Generated machine code and opcode patterns (`asmcheck`, `codegen/`) |
+| Goroutines, channels, `select`, `defer`, `panic`/`recover` | gc-only checks: compiler-specific error text, flags and limits |
+| Observable output, exit status, run-time panics | Runtime observations: allocation counts, stack layout, finalizer and GC timing (`gc-observation`) |
+| The standard library as programs use it | `unsafe` memory reinterpretation and runtime-internal `linkname` dependencies |
+
+Consequences:
+
+- **Accounting.** An upstream test that asserts a gc artifact is not
+  applicable to the language. It stays listed by exact root and mode ID with
+  its admissible reason (`compiler-diagnostic`, `asmcheck`, `gc-only-check`,
+  `gc-observation`, `unsafe-reinterpretation`; see D1 and
+  `go-corpus-targets.md`). It is never counted as PASS, never silently dropped,
+  and the original denominator is always published next to any adjusted one.
+- **Replacement tests.** Where such a test also touches behaviour Bash# does
+  own, a replacement conformance test checks that behaviour against native
+  Go in interpreted and compiled mode. For example, `prove.go` asserts the
+  bounds-proof pass's output; its replacement asserts that a source bounds
+  guard controls whether indexing happens.
+- **No imitation.** A missing gc artifact is never faked: no synthesized
+  expected diagnostic text, no source-path-specific matching, and no running
+  the tested source natively to borrow gc's answer.
+- **Bash#'s own reporting.** If Bash# ever reports on its own optimisation or
+  lowering, that is a Bash# feature with its own flags, messages and tests.
+  It is not a copy of gc's text.
+- **Interop is not imitation.** Calling native code is an execution boundary,
+  not a gc artifact. From Sprint 249, same-package assembly companions
+  (including assembly that calls back into interpreted Go) and cgo
+  `import "C"` packages run as native companions while the Go source stays
+  Bash#-executed. The `assembly-companion` and `cgo` exclusion reasons
+  therefore cover only shapes that still refuse precisely. The next barrier
+  re-derives them; they are not edited by hand.
+
+Applied in Sprint 249 to `closure3.go` (`-m` inlining), `codegen/switch.go`
+(opcode patterns), `live_regabi.go` (`-live`), `nilptr3.go` (`-d=nil`) and
+`prove.go` (`-d=ssa/prove`): both modes of each stay FAIL-by-ID with the
+decision recorded, and `TestS249CompilerArtifactReplacementConformance` in
+`sh` covers the behaviour Bash# owns
+(`sh/docs/bashpp-compiler-artifact-contracts.md`).
+
 ## Current claim
 
 Bashy provides a Bash-compatible shell, an opt-in mixed Bash++ dialect, and
