@@ -51,10 +51,9 @@ What it is not: not "100 % Go" (an enumerated profile, 2,827 of 3,497
 upstream roots pass both modes); not POSIX *certified* (493/493 on the
 licensed shell arm is a pre-flight); not fast (≈ 2× slower than GNU bash on
 microbenchmarks); islands are not a sandbox (they run with your
-permissions); and not Windows parity on the bash 5.3 fixture suite — a
-release candidate now measures it at 23/86 pass, 61 fail, 2 time out (same
-run's Linux leg: 86/86; [claims.md](claims.md)), which is a measurement, not
-a parity claim.
+permissions). The current candidate passes all 86 runnable Bash 5.3 fixtures
+on Windows, Linux, and macOS; that fixture result does not establish complete
+interactive Bash compatibility ([claims.md](claims.md)).
 
 ## When to use it — ranked
 
@@ -77,11 +76,11 @@ gate (`sh 3ee22f2`, `yoke da6d602`, `bashy 0f73f42`): a first hour of
 Windows mechanisms — shared path conversion, `wslpath`/`cygpath`, `pwd -W`,
 drive-letter cwd, special operands, in-process pipes, named-pipe process
 substitution, declared path/list environment conversion via `BASHYENV`, and
-a register fix. Measured on that same candidate, not parity:
-bash's own fixture suite on a Windows runner is 23/86 passing, 61 failing, 2
-timed out, 0 skipped (the same run's Linux leg: 86/86 — [claims.md](claims.md)).
-Planned: closing that gap; `C:\x` = `/c/x` = `/mnt/c/x` equivalence in every
-applet.
+a register fix. That first candidate measured 23/86 on Windows. Later Sprint
+253 production pins passed 86/86 on Windows and Linux, and the Sprint 257
+timezone candidate passed 86/86 on two Windows builds, native macOS, and two
+Ubuntu test droplets ([claims.md](claims.md)). Planned: `C:\x` = `/c/x` =
+`/mnt/c/x` equivalence in every applet.
 
 ### 2. Deploying automation without a base image
 
@@ -262,8 +261,8 @@ Nothing here is promised for a date. Each item names its status.
 
 | use case | planned item | status |
 |---|---|---|
-| same file every OS | bash's 86-fixture suite on a Windows runner | measured on a candidate: 23/86 ([claims.md](claims.md)) |
-| | closing that Windows fixture gap to parity | filed |
+| same file every OS | bash's 86-fixture suite on Windows, macOS, and Linux | 86/86 on the current measured candidate ([claims.md](claims.md)) |
+| | closing the historical Windows fixture gap | delivered in Sprint 253; Sprint 257 timezone follow-up verified |
 | | `wslpath`/`cygpath`, `pwd -W`, drive-letter cwd, special operands, in-process pipes, named-pipe process substitution, declared path/list env conversion via `BASHYENV` | delivered on a candidate (`sh 3ee22f2`, `yoke da6d602`, `bashy 0f73f42`) |
 | | `C:\x` = `/c/x` = `/mnt/c/x` equivalence in every applet | filed |
 | no base image | a worked `FROM scratch` example with measured size | measured on a candidate ([claims.md](claims.md)) |
