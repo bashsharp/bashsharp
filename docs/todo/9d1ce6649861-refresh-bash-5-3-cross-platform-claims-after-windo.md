@@ -3,7 +3,7 @@ id: 9d1ce6649861
 kind: doc
 title: Refresh Bash 5.3 cross-platform claims after Windows timezone fix
 seq: 1
-status: assigned
+status: done
 priority: p1
 labels:
     - windows
@@ -12,6 +12,8 @@ assignee: codex-gpt-5.5
 sprint: 257
 sprint_id: 14e6cca7-6d3d-5712-b474-70aa075ad503
 sprint_title: Verify final Sprint 253 Bash 5.3 candidate on Windows
+closed: 2026-09-23T08:10:37.556725Z
+closed_by: codex-gpt-5.5
 ---
 
 Preserve historical measurements, add the verified current 86-fixture results for Windows builds and macOS, and remove outdated present-tense statements that deny Windows parity. Use build numbers and generic descriptions only.
