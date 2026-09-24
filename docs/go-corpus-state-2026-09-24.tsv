@@ -1,0 +1,408 @@
+root	mode	group	vs_2026_09_17	first_line
+package:cmd/compile	interpreted	G1-import-resolution		bash++ import "cmd/compile/internal/amd64": package is not in the reviewed Go standard library
+package:cmd/compile/internal/abt	interpreted	G1-import-resolution		src/cmd/compile/internal/abt/avlint32.go:592:4: BASHPP-EASSIGN-TYPE: cannot assign *__gosource_pkg_0_node32 to __gosource_pkg_0_node32
+package:cmd/compile/internal/amd64	compiled	G1-import-resolution		src/cmd/compile/internal/amd64/galign.go:12:1: LOWER-EUNDEFINED: undefined: obj
+package:cmd/compile/internal/amd64	interpreted	G1-import-resolution		gosource: build dependency bridge: exit status 2: internal/abi.FuncPCABI0·f: relocation target internal/abi.FuncPCABI0 not defined
+package:cmd/compile/internal/base	compiled	G1-import-resolution		src/cmd/compile/internal/base/flag.go:300:2: LOWER-EUNDEFINED: undefined: goarch
+package:cmd/compile/internal/devirtualize	interpreted	G1-import-resolution		
+package:cmd/compile/internal/dwarfgen	compiled	G1-import-resolution		src/cmd/compile/internal/dwarfgen/linenum_test.go:73:3: LOWER-EUNDEFINED: undefined: __gosource_import_5_1
+package:cmd/compile/internal/dwarfgen	interpreted	G1-import-resolution		src/cmd/compile/internal/dwarfgen/scope_test.go:515:6: gosource: program exited
+package:cmd/compile/internal/importer	interpreted	G1-import-resolution		BASHPP-ECOLLECTION-ELEMENT: cannot use value as map[string]*__gosource_import_0_3_2.Package
+package:cmd/compile/internal/inline/inlheur	interpreted	G1-import-resolution		src/cmd/compile/internal/inline/inlheur/analyze_func_callsites.go:21:1: BASHPP-ECOLLECTION-KEY: unsupported map key type __gosource_import_0_2_0.Node
+package:cmd/compile/internal/ir	compiled	G1-import-resolution		src/cmd/compile/internal/ir/func.go:426:3: LOWER-EUNDEFINED: undefined: errors
+package:cmd/compile/internal/ir	interpreted	G1-import-resolution		function _ redeclared in this session
+package:cmd/compile/internal/liveness	interpreted	G1-import-resolution		gosource: build dependency bridge: exit status 2: internal/abi.FuncPCABI0·f: relocation target internal/abi.FuncPCABI0 not defined
+package:cmd/compile/internal/logopt	interpreted	G1-import-resolution		BASHPP-EBUILTIN-TYPE: append first argument must be a slice
+package:cmd/compile/internal/loopvar	interpreted	G1-import-resolution		BASHPP-EBUILTIN-TYPE: append first argument must be a slice
+package:cmd/compile/internal/noder	compiled	G1-import-resolution		src/cmd/compile/internal/noder/irgen.go:113:6: LOWER-EUNDEFINED: undefined: __gosource_import_16_3
+package:cmd/compile/internal/noder	interpreted	G1-import-resolution		src/cmd/compile/internal/noder/lex.go:25:2: BASHPP-ECONST-TYPE: const initializer has unsupported type __gosource_import_0_17_10.PragmaFlag
+package:cmd/compile/internal/rangefunc	interpreted	G1-import-resolution		gosource: build dependency bridge: exit status 2: internal/abi.FuncPCABI0·f: relocation target internal/abi.FuncPCABI0 not defined
+package:cmd/compile/internal/reflectdata	interpreted	G1-import-resolution		gosource: build dependency bridge: exit status 2: internal/abi.FuncPCABI0·f: relocation target internal/abi.FuncPCABI0 not defined
+package:cmd/compile/internal/ssa	compiled	G1-import-resolution		src/cmd/compile/internal/ssa/prove.go:1686:4: LOWER-ETYPE: invalid operation: cannot call branch (variable of int type branch): branch is not a function
+package:cmd/compile/internal/ssa	interpreted	G1-import-resolution		Bash++ gotest backend: non-Go inputs
+package:cmd/compile/internal/ssagen	compiled	G1-import-resolution		src/cmd/compile/internal/ssagen/abi.go:156:5: LOWER-EUNDEFINED: undefined: errors
+package:cmd/compile/internal/ssagen	interpreted	G1-import-resolution		gosource: build dependency bridge: exit status 2: internal/abi.FuncPCABI0·f: relocation target internal/abi.FuncPCABI0 not defined
+package:cmd/compile/internal/syntax	compiled	G1-import-resolution		src/cmd/compile/internal/syntax/parser.go:437:3: LOWER-ETYPE: cannot use p.tok (variable of uint type token) as int value in assignment
+package:cmd/compile/internal/syntax	interpreted	G1-import-resolution		function _ redeclared in this session
+package:cmd/compile/internal/test	interpreted	G2-interpreter-speed		scalar call interrupted
+package:cmd/compile/internal/typecheck	interpreted	G1-import-resolution		src/cmd/compile/internal/typecheck/universe.go:15:1: BASHPP-ECOLLECTION-LENGTH: invalid array length __gosource_import_0_16_1.OEND
+package:cmd/compile/internal/types	interpreted	G1-import-resolution		function _ redeclared in this session
+package:cmd/compile/internal/types2	interpreted	G1-import-resolution		src/cmd/compile/internal/types2/alias.go:24:1: BASHPP-ECOLLECTION-KEY: unsupported map key type __gosource_pkg_0_Type
+package:cmd/internal/testdir	compiled	G1-import-resolution		src/cmd/internal/testdir/testdir_test.go:2019:4: LOWER-ETYPE: invalid operation: cannot call rune (variable of type rune): rune is not a function
+package:cmd/internal/testdir	interpreted	G1-import-resolution		src/cmd/internal/testdir/testdir_test.go:218:1: gosource: asynchronous or retained original function callbacks are unsupported for __gosource_import_0_0_22.OnceValue
+package:go/types	interpreted	G1-import-resolution		gosource: build dependency bridge: exit status 2: main.__gosource_pkg_0_badlinkname_Checker_infer·f: relocation target main.__gosource_pkg_0_badlinkname_Checker_infer not defined
+testdir:64bit.go	interpreted	G2-interpreter-speed		command exceeded time limit
+testdir:abi/fibish.go	interpreted	G2-interpreter-speed		command exceeded time limit
+testdir:abi/fibish_closure.go	interpreted	G2-interpreter-speed		command exceeded time limit
+testdir:abi/part_live.go	interpreted	excluded:unsafe-reinterpretation		abi/part_live.go:34:34: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPAddressExpr
+testdir:abi/part_live_2.go	interpreted	excluded:unsafe-reinterpretation		abi/part_live_2.go:39:34: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPAddressExpr
+testdir:abi/result_live.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:abi/uglyfib.go	interpreted	G2-interpreter-speed		command exceeded time limit
+testdir:asmhdr.go	interpreted	G5-backend-scope-review		Bash++ backend unsupported generate phase: compile input "<run>" is not a Go source file
+testdir:atomicload.go	interpreted	G2-interpreter-speed	new	command exceeded time limit
+testdir:bloop.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:bounds.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:chan/fifo.go	interpreted	G6-runtime-one-offs	new	bad receive
+testdir:chan/nonblock.go	interpreted	G2-interpreter-speed	new	command exceeded time limit
+testdir:chan/select3.go	interpreted	G2-interpreter-speed	new	command exceeded time limit
+testdir:checkbce.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:closure.go	interpreted	G6-runtime-one-offs		newfunc allocated unexpectedly
+testdir:closure3.go	compiled	G5-backend-scope-review		test/closure3.dir/main.go:16:9: can inline main.func1
+testdir:closure3.go	interpreted	G5-backend-scope-review		main.go:15: missing error "can inline main.func1"
+testdir:cmp.go	interpreted	excluded:unsafe-reinterpretation		cmp.go:20:43: BASHPP-EUNSAFE-VIEW: target uintptr is not a supported blank-field struct
+testdir:codegen/addrcalc.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/alloc.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/append.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/arithmetic.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/atomics.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/bits.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/bmi.go	interpreted	excluded:asmcheck		linux/amd64/v3
+testdir:codegen/bool.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/clobberdead.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/clobberdeadreg.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/comparisons.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/condmove.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/constants.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/copy.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/deadstore.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/floats.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/fuse.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/generics.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/ifaces.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/issue22703.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/issue25378.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/issue31618.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/issue33580.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/issue38554.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/issue48054.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/issue52635.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/issue54467.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/issue56440.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/issue58166.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/issue59297.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/issue60324.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/issue61356.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/issue63332.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/issue66585.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/issue68845.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/issue69635.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/issue70409.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/issue72832.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/issue74485.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/issue74788.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/issue75203.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/issue77375.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/known_bits.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/load_type_from_itab.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/logic.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/mapaccess.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/maps.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/math.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/mathbits.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/memcombine.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/memops.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/moveload.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/multiply.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/race.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/reflect_type.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/regabi_regalloc.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/retpoline.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/rotate.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/schedule.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/select.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/shape_assert.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/shift.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/shortcircuit.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/slices.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/smallintiface.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/spectre.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/stack.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/strings.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/structs.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/switch.go	compiled	G5-backend-scope-review		codegen/switch.go:249: linux/amd64/v1: opcode not found: `^CMPL \(.*\), \$1836345390$`
+testdir:codegen/switch.go	interpreted	G5-backend-scope-review		linux/amd64/v1
+testdir:codegen/typeswitch.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/unique.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/unsafe.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/writebarrier.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:codegen/zerosize.go	interpreted	excluded:asmcheck		linux/amd64/v1
+testdir:copy.go	interpreted	G2-interpreter-speed		command exceeded time limit
+testdir:decl.go	interpreted	G6-runtime-one-offs	new	x() failed
+testdir:defererrcheck.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:devirt.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:devirtualization.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:devirtualization_with_type_assertions_interleaved.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:divmod.go	interpreted	G2-interpreter-speed		command exceeded time limit
+testdir:escape2.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:escape2n.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:escape4.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:escape5.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:escape6.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:escape_array.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:escape_bloop.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:escape_calls.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:escape_closure.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:escape_field.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:escape_goto.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:escape_hash_maphash.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:escape_iface.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:escape_iface_data.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:escape_indir.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:escape_level.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:escape_make_non_const.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:escape_map.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:escape_mutations.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:escape_param.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:escape_reflect.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:escape_runtime_atomic.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:escape_selfassign.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:escape_slice.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:escape_struct_param1.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:escape_struct_param2.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:escape_struct_return.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:escape_sync_atomic.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:escape_unique.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:escape_unsafe.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:finprofiled.go	interpreted	excluded:gc-observation		got 464 want >= 4194272
+testdir:fixedbugs/bug246.go	interpreted	G4-language-type-gaps		BASHPP-EUNSAFE-ADDRESS: unsafe.Pointer operand is not an interpreter-owned live pointer (BASHPP-EPOINTER-TARGET: addr is not a pointer)
+testdir:fixedbugs/bug260.go	interpreted	G6-runtime-one-offs		exit status 1
+testdir:fixedbugs/bug385_64.go	interpreted	excluded:gc-only-check		compilation succeeded unexpectedly
+testdir:fixedbugs/bug398.go	interpreted	excluded:gc-only-check		compilation succeeded unexpectedly
+testdir:fixedbugs/bug513.go	interpreted	excluded:unsafe-reinterpretation		fixedbugs/bug513.go:20:7: fixedbugs/bug513.go:20:57: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPAddressExpr
+testdir:fixedbugs/bug514.go	interpreted	excluded:cgo		bash++ import "runtime/cgo": package requires cgo, which this pure-Go shell does not provide
+testdir:fixedbugs/issue11256.go	interpreted	G2-interpreter-speed		command exceeded time limit
+testdir:fixedbugs/issue11656.go	interpreted	excluded:unsafe-reinterpretation		BASHPP-ECOLLECTION-ELEMENT: <run>:70:31: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPAddressExpr
+testdir:fixedbugs/issue11771.go	compiled	G1-import-resolution	new	fixedbugs/issue11771.go:52:2: LOWER-EUNDEFINED: undefined: fs
+testdir:fixedbugs/issue11771.go	interpreted	G1-import-resolution	new	fixedbugs/issue11771.go:52:70: BASHPP-EEXPR-CONVERT: cannot convert Int to fs.FileMode
+testdir:fixedbugs/issue12006.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:fixedbugs/issue12588.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:fixedbugs/issue13169.go	interpreted	G2-interpreter-speed		command exceeded time limit
+testdir:fixedbugs/issue13587.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:fixedbugs/issue13799.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:fixedbugs/issue14999.go	interpreted	excluded:gc-only-check		compilation succeeded unexpectedly
+testdir:fixedbugs/issue15277.go	interpreted	G6-runtime-one-offs		signal: killed
+testdir:fixedbugs/issue15281.go	interpreted	excluded:gc-observation		gosource: non-nil reference print is not implemented
+testdir:fixedbugs/issue15329.go	interpreted	G4-language-type-gaps		fixedbugs/issue15329.go:44:2: fixedbugs/issue15329.go:44:8: BASHPP-EUNSAFE-ADDRESS: uintptr 28448539625528 is not an interpreter-owned live pointer; refusing conversion to unsafe.Pointer
+testdir:fixedbugs/issue15747.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:fixedbugs/issue16037_run.go	compiled	G1-import-resolution		fixedbugs/issue16037_run.go:63:2: LOWER-EUNDEFINED: undefined: fs
+testdir:fixedbugs/issue16037_run.go	interpreted	G1-import-resolution		fixedbugs/issue16037_run.go:63:48: BASHPP-EEXPR-CONVERT: cannot convert Int to fs.FileMode
+testdir:fixedbugs/issue16241.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:fixedbugs/issue16241_64.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:fixedbugs/issue16249.go	interpreted	G2-interpreter-speed		command exceeded time limit
+testdir:fixedbugs/issue16331.go	interpreted	G3-native-bridge-callbacks		gosource: dependency mutation of interpreter-owned references is unsupported for Interface
+testdir:fixedbugs/issue16369.go	interpreted	excluded:gc-only-check		compilation succeeded unexpectedly
+testdir:fixedbugs/issue17318.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:fixedbugs/issue17381.go	interpreted	excluded:unsafe-reinterpretation		fixedbugs/issue17381.go:38:61: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPAddressExpr
+testdir:fixedbugs/issue18459.go	interpreted	excluded:gc-only-check		compilation succeeded unexpectedly
+testdir:fixedbugs/issue18882.go	interpreted	excluded:gc-only-check		compilation succeeded unexpectedly
+testdir:fixedbugs/issue18895.go	interpreted	excluded:compiler-diagnostic		p.go:7: missing error "can inline"
+testdir:fixedbugs/issue19078.go	interpreted	G4-language-type-gaps		fixedbugs/issue19078.go:20:15: BASHPP-EEXPR-CONVERT: cannot convert String to unsafe.Pointer
+testdir:fixedbugs/issue19113.go	interpreted	G3-native-bridge-callbacks		fixedbugs/issue19113.go:76:3: gosource: asynchronous or retained original function callbacks are unsupported for reflect.ValueOf
+testdir:fixedbugs/issue19168.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:fixedbugs/issue19261.go	interpreted	excluded:compiler-diagnostic		p.go:7: missing error "can inline F"
+testdir:fixedbugs/issue19658.go	compiled	G1-import-resolution	new	fixedbugs/issue19658.go:74:3: LOWER-EUNDEFINED: undefined: fs
+testdir:fixedbugs/issue19658.go	interpreted	G1-import-resolution	new	fixedbugs/issue19658.go:74:46: BASHPP-EEXPR-CONVERT: cannot convert Int to fs.FileMode
+testdir:fixedbugs/issue19743.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:fixedbugs/issue20014.go	interpreted	G3-native-bridge-callbacks		gosource: build dependency bridge: exit status 2: <run>:411:103: tracked field must be in named struct type
+testdir:fixedbugs/issue20027.go	interpreted	excluded:gc-only-check		compilation succeeded unexpectedly
+testdir:fixedbugs/issue20250.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:fixedbugs/issue20529.go	interpreted	excluded:gc-only-check		compilation succeeded unexpectedly
+testdir:fixedbugs/issue20780.go	interpreted	excluded:gc-only-check		compilation succeeded unexpectedly
+testdir:fixedbugs/issue20780b.go	interpreted	G2-interpreter-speed		command exceeded time limit
+testdir:fixedbugs/issue21576.go	compiled	G1-import-resolution	new	fixedbugs/issue21576.go:44:2: LOWER-EUNDEFINED: undefined: fs
+testdir:fixedbugs/issue21576.go	interpreted	G1-import-resolution	new	fixedbugs/issue21576.go:44:49: BASHPP-EEXPR-CONVERT: cannot convert Int to fs.FileMode
+testdir:fixedbugs/issue21709.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:fixedbugs/issue22200.go	interpreted	excluded:gc-only-check		compilation succeeded unexpectedly
+testdir:fixedbugs/issue22200b.go	interpreted	excluded:gc-only-check		compilation succeeded unexpectedly
+testdir:fixedbugs/issue22781.go	interpreted	G2-interpreter-speed	new	command exceeded time limit
+testdir:fixedbugs/issue22877.go	interpreted	G5-backend-scope-review		Bash++ backend unsupported generate phase: compile input "<run>" is not a Go source file
+testdir:fixedbugs/issue23521.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:fixedbugs/issue24491a.go	interpreted	excluded:gc-observation		fixedbugs/issue24491a.go:21:24: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPAddressExpr
+testdir:fixedbugs/issue24491b.go	interpreted	excluded:gc-observation		fixedbugs/issue24491b.go:22:24: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPAddressExpr
+testdir:fixedbugs/issue24651a.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:fixedbugs/issue24651b.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:fixedbugs/issue24801.go	compiled	G1-import-resolution	new	test/fixedbugs/issue24801.dir/main.go:10:2: LOWER-ETYPE: name main not exported by package a
+testdir:fixedbugs/issue25507.go	interpreted	excluded:gc-only-check		compilation succeeded unexpectedly
+testdir:fixedbugs/issue25897a.go	interpreted	G3-native-bridge-callbacks		bash++: task failed: gosource: dependency mutation of interpreter-owned references is unsupported for
+testdir:fixedbugs/issue26335.go	interpreted	G3-native-bridge-callbacks		fixedbugs/issue26335.go:28:18: gosource: original callback signature requires value-semantics parameters and supported results
+testdir:fixedbugs/issue26411.go	compiled	G1-import-resolution	new	fixedbugs/issue26411.go:75:3: LOWER-EUNDEFINED: undefined: fs
+testdir:fixedbugs/issue26411.go	interpreted	G1-import-resolution	new	fixedbugs/issue26411.go:75:59: BASHPP-EEXPR-CONVERT: cannot convert Int to fs.FileMode
+testdir:fixedbugs/issue27518b.go	interpreted	excluded:gc-observation		panic: heap object finalized at the wrong time
+testdir:fixedbugs/issue27557.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:fixedbugs/issue27695b.go	interpreted	excluded:unsafe-reinterpretation		fixedbugs/issue27695b.go:28:11: fixedbugs/issue27695b.go:28:34: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPAddressExpr
+testdir:fixedbugs/issue27695c.go	interpreted	excluded:unsafe-reinterpretation		fixedbugs/issue27695c.go:29:11: fixedbugs/issue27695c.go:29:34: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPAddressExpr
+testdir:fixedbugs/issue27732a.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:fixedbugs/issue28748.go	interpreted	G6-runtime-one-offs		native dependency panic: reflect: function created by MakeFunc using closure returned zero Value
+testdir:fixedbugs/issue29362.go	interpreted	excluded:unsafe-reinterpretation		fixedbugs/issue29362.go:25:11: fixedbugs/issue29362.go:25:34: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPAddressExpr
+testdir:fixedbugs/issue29362b.go	interpreted	excluded:unsafe-reinterpretation		fixedbugs/issue29362b.go:25:11: fixedbugs/issue29362b.go:25:34: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPAddressExpr
+testdir:fixedbugs/issue30041.go	interpreted	excluded:unsafe-reinterpretation		fixedbugs/issue30041.go:27:11: fixedbugs/issue30041.go:27:34: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPAddressExpr
+testdir:fixedbugs/issue30862.go	interpreted	G6-runtime-one-offs		test failed: fail 1
+testdir:fixedbugs/issue30898.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:fixedbugs/issue31573.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:fixedbugs/issue32187.go	interpreted	G6-runtime-one-offs	new	panic: runtime error: invalid memory address or nil pointer dereference
+testdir:fixedbugs/issue32477.go	interpreted	excluded:gc-observation		panic: heap object finalized at the wrong time
+testdir:fixedbugs/issue33555.go	compiled	G1-import-resolution	new	fixedbugs/issue33555.go:67:2: LOWER-EUNDEFINED: undefined: fs
+testdir:fixedbugs/issue33555.go	interpreted	G1-import-resolution	new	fixedbugs/issue33555.go:67:46: BASHPP-EEXPR-CONVERT: cannot convert Int to fs.FileMode
+testdir:fixedbugs/issue34723.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:fixedbugs/issue35027.go	interpreted	excluded:unsafe-reinterpretation		BASHPP-EUNSAFE-VIEW: target reflect.SliceHeader is not a supported blank-field struct
+testdir:fixedbugs/issue35073a.go	interpreted	G4-language-type-gaps		fixedbugs/issue35073a.go:21:6: fixedbugs/issue35073a.go:21:6: BASHPP-EUNSAFE-ADDRESS: uintptr 67137963648768 is not an interpreter-owned live pointer; refusing conversion to unsafe.Pointer
+testdir:fixedbugs/issue35073b.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:fixedbugs/issue35518.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:fixedbugs/issue36516.go	interpreted	excluded:gc-observation		gosource: asynchronous or retained original function callbacks are unsupported for testing.AllocsPerRun
+testdir:fixedbugs/issue36705.go	interpreted	excluded:cgo		gosource: cgo package "main" function C.CString parameter 0: unsupported C ABI type string
+testdir:fixedbugs/issue37513.go	interpreted	G5-backend-scope-review		Bash++ backend unsupported generate phase: compile input "<run>" is not a Go source file
+testdir:fixedbugs/issue37837.go	interpreted	excluded:compiler-diagnostic		a.go:7: missing error "can inline F"
+testdir:fixedbugs/issue39292.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:fixedbugs/issue39541.go	interpreted	G3-native-bridge-callbacks		bash++: task failed: gosource: dependency mutation of interpreter-owned references is unsupported for
+testdir:fixedbugs/issue40917.go	interpreted	excluded:unsafe-reinterpretation		fixedbugs/issue40917.go:16:6: fixedbugs/issue40917.go:16:21: BASHPP-EEXPR-CONVERT: cannot convert String to uintptr
+testdir:fixedbugs/issue40954.go	interpreted	excluded:cgo		bash++ import "runtime/cgo": package requires cgo, which this pure-Go shell does not provide
+testdir:fixedbugs/issue4099.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:fixedbugs/issue41635.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:fixedbugs/issue42032.go	interpreted	excluded:cgo		bash++ import "runtime/cgo": package requires cgo, which this pure-Go shell does not provide
+testdir:fixedbugs/issue42058a.go	interpreted	excluded:gc-only-check		compilation succeeded unexpectedly
+testdir:fixedbugs/issue42058b.go	interpreted	excluded:gc-only-check		compilation succeeded unexpectedly
+testdir:fixedbugs/issue42076.go	interpreted	excluded:cgo		bash++ import "runtime/cgo": package requires cgo, which this pure-Go shell does not provide
+testdir:fixedbugs/issue42284.go	interpreted	excluded:compiler-diagnostic		a.go:10: missing error "can inline T.M"
+testdir:fixedbugs/issue42944.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:fixedbugs/issue45045.go	interpreted	excluded:gc-observation		gosource: original callback signature requires value-semantics parameters and supported results
+testdir:fixedbugs/issue4585.go	interpreted	excluded:unsafe-reinterpretation		BASHPP-EUNSAFE-VIEW: target [16]byte is not a supported blank-field struct
+testdir:fixedbugs/issue4618.go	interpreted	excluded:gc-observation		gosource: asynchronous or retained original function callbacks are unsupported for testing.AllocsPerRun
+testdir:fixedbugs/issue46234.go	compiled	G1-import-resolution	new	test/fixedbugs/issue46234.go:89:2: LOWER-EUNDEFINED: undefined: fs
+testdir:fixedbugs/issue46234.go	interpreted	G1-import-resolution	new	test/fixedbugs/issue46234.go:89:49: BASHPP-EEXPR-CONVERT: cannot convert Int to fs.FileMode
+testdir:fixedbugs/issue4667.go	interpreted	excluded:gc-observation		gosource: asynchronous or retained original function callbacks are unsupported for testing.AllocsPerRun
+testdir:fixedbugs/issue46903.go	interpreted	excluded:cgo		bash++ import "runtime/cgo": package requires cgo, which this pure-Go shell does not provide
+testdir:fixedbugs/issue46938.go	interpreted	excluded:unsafe-reinterpretation		fixedbugs/issue46938.go:28:6: fixedbugs/issue46938.go:28:6: BASHPP-EUNSAFE-VIEW: target [10]int64 is not a supported blank-field struct
+testdir:fixedbugs/issue47227.go	interpreted	excluded:cgo		gosource: cgo package "main" selector C.int has unsupported kind "unsupported"
+testdir:fixedbugs/issue47317.go	interpreted	G5-backend-scope-review		Bash++ backend unsupported generate phase: compile input "<run>" is not a Go source file
+testdir:fixedbugs/issue47928.go	interpreted	G6-runtime-one-offs		panic: FAIL
+testdir:fixedbugs/issue48097.go	interpreted	excluded:gc-only-check		compilation succeeded unexpectedly
+testdir:fixedbugs/issue49767.go	interpreted	excluded:gc-only-check		compilation succeeded unexpectedly
+testdir:fixedbugs/issue49814.go	interpreted	excluded:gc-only-check		compilation succeeded unexpectedly
+testdir:fixedbugs/issue50372.go	compiled	G5-backend-scope-review		test/fixedbugs/issue50372.go:16:19: expected at most 2 expressions
+testdir:fixedbugs/issue50372.go	interpreted	G5-backend-scope-review		test/fixedbugs/issue50372.go:16:19: expected at most 2 expressions
+testdir:fixedbugs/issue51733.go	interpreted	excluded:cgo		bash++ import "runtime/cgo": package requires cgo, which this pure-Go shell does not provide
+testdir:fixedbugs/issue52193.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:fixedbugs/issue52612.go	interpreted	excluded:unsafe-reinterpretation		BASHPP-EUNSAFE-VIEW: target eface contains observable field typ
+testdir:fixedbugs/issue52697.go	interpreted	excluded:gc-only-check		compilation succeeded unexpectedly
+testdir:fixedbugs/issue52788.go	interpreted	G3-native-bridge-callbacks		gosource: asynchronous or retained original function callbacks are unsupported for reflect.ValueOf
+testdir:fixedbugs/issue52788a.go	interpreted	G3-native-bridge-callbacks		gosource: asynchronous or retained original function callbacks are unsupported for reflect.ValueOf
+testdir:fixedbugs/issue54159.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:fixedbugs/issue54343.go	interpreted	excluded:gc-observation		panic: never GC'd
+testdir:fixedbugs/issue5493.go	interpreted	G2-interpreter-speed		command exceeded time limit
+testdir:fixedbugs/issue56103.go	interpreted	excluded:gc-only-check		compilation succeeded unexpectedly
+testdir:fixedbugs/issue56280.go	interpreted	excluded:compiler-diagnostic		a.go:7: missing error "can inline F"
+testdir:fixedbugs/issue57184.go	interpreted	G3-native-bridge-callbacks		gosource: original callback with copied slice references is unsupported
+testdir:fixedbugs/issue57823.go	interpreted	excluded:unsafe-reinterpretation		gosource: original callback signature requires value-semantics parameters and supported results
+testdir:fixedbugs/issue58300.go	interpreted	G3-native-bridge-callbacks		fixedbugs/issue58300.go:23:35: gosource: asynchronous or retained original function callbacks are unsupported for reflect.ValueOf
+testdir:fixedbugs/issue58300b.go	interpreted	G3-native-bridge-callbacks		fixedbugs/issue58300b.go:34:44: gosource: original callback signature requires value-semantics parameters and supported results
+testdir:fixedbugs/issue59293.go	interpreted	excluded:unsafe-reinterpretation		fixedbugs/issue59293.go:18:9: BASHPP-EUNSAFE-STRINGDATA: unsafe.StringData of an empty string names no interpreter storage
+testdir:fixedbugs/issue5963.go	interpreted	G2-interpreter-speed		command exceeded time limit
+testdir:fixedbugs/issue59680.go	interpreted	G2-interpreter-speed		command exceeded time limit
+testdir:fixedbugs/issue63333.go	interpreted	excluded:gc-only-check		compilation succeeded unexpectedly
+testdir:fixedbugs/issue67255.go	interpreted	G2-interpreter-speed		command exceeded time limit
+testdir:fixedbugs/issue67329.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:fixedbugs/issue74626.go	interpreted	excluded:gc-only-check		compilation succeeded unexpectedly
+testdir:fixedbugs/issue75278.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:fixedbugs/issue75365.go	interpreted	excluded:unsafe-reinterpretation		BASHPP-EUNSAFE-VIEW: target [2]uintptr is not a supported blank-field struct
+testdir:fixedbugs/issue78081.go	interpreted	G2-interpreter-speed		command exceeded time limit
+testdir:fixedbugs/issue78355.go	interpreted	excluded:gc-only-check		compilation succeeded unexpectedly
+testdir:fixedbugs/issue79186.go	interpreted	G2-interpreter-speed		command exceeded time limit
+testdir:fixedbugs/issue7921.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:fixedbugs/issue79258.go	interpreted	excluded:gc-only-check		compilation succeeded unexpectedly
+testdir:fixedbugs/issue80004.go	interpreted	excluded:unsafe-reinterpretation		fixedbugs/issue80004.go:51:11: fixedbugs/issue80004.go:51:34: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPAddressExpr
+testdir:fixedbugs/issue8004.go	interpreted	G4-language-type-gaps		BASHPP-EUNSAFE-VIEW: target reflect.SliceHeader is not a supported blank-field struct
+testdir:fixedbugs/issue80188.go	interpreted	G2-interpreter-speed		command exceeded time limit
+testdir:fixedbugs/issue80196.go	interpreted	G2-interpreter-speed		command exceeded time limit
+testdir:fixedbugs/issue8606b.go	interpreted	G4-language-type-gaps		BASHPP-ESELECTOR-ASSIGN: target is not a structured value
+testdir:fixedbugs/issue9110.go	interpreted	G6-runtime-one-offs		output should be empty when (optional) expected-output file fixedbugs/issue9110.out is not present. Instead saw
+testdir:fixedbugs/issue9604b.go	interpreted	G2-interpreter-speed		command exceeded time limit
+testdir:fixedbugs/notinheap.go	interpreted	excluded:gc-only-check		compilation succeeded unexpectedly
+testdir:fixedbugs/notinheap2.go	interpreted	excluded:gc-only-check		compilation succeeded unexpectedly
+testdir:fixedbugs/notinheap3.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:fuse.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:gc2.go	interpreted	excluded:gc-observation		too many objects left: 22663
+testdir:gcgort.go	interpreted	G2-interpreter-speed		command exceeded time limit
+testdir:heapsampling.go	interpreted	G2-interpreter-speed		command exceeded time limit
+testdir:init1.go	interpreted	excluded:gc-observation		command exceeded time limit
+testdir:inline.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:inline_big.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:inline_endian.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:inline_literal.go	interpreted	G3-native-bridge-callbacks		gosource: asynchronous or retained original function callbacks are unsupported for reflect.ValueOf
+testdir:inline_math_bits_rotate.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:inline_sync.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:inline_variadic.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:interface/assertinline.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:interface/noeq.go	interpreted	G6-runtime-one-offs	new	interface/noeq.go:26:9: native dependency panic: reflect.Value.Equal: values of type func() are not comparable
+testdir:internal/runtime/sys/inlinegcpc.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:intrinsic.go	interpreted	excluded:compiler-diagnostic		main.go:26: missing error "intrinsic substitution for TrailingZeros64"
+testdir:intrinsic_atomic.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:ken/chan.go	interpreted	G2-interpreter-speed	new	command exceeded time limit
+testdir:ken/cplx3.go	interpreted	excluded:unsafe-reinterpretation		BASHPP-EUNSAFE-VIEW: target complex128 is not a supported blank-field struct
+testdir:ken/divconst.go	interpreted	G2-interpreter-speed		command exceeded time limit
+testdir:ken/modconst.go	interpreted	G2-interpreter-speed		command exceeded time limit
+testdir:known_bits.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:linkname.go	interpreted	excluded:compiler-diagnostic		linkname1.go:3: missing error "xs does not escape"
+testdir:linkname3.go	interpreted	excluded:gc-only-check		compilation succeeded unexpectedly
+testdir:linknameasm.go	interpreted	G5-backend-scope-review		Bash++ backend unsupported generate phase: compile input "<run>" is not a Go source file
+testdir:linkobj.go	compiled	G1-import-resolution	new	linkobj.go:138:2: LOWER-EUNDEFINED: undefined: fs
+testdir:linkobj.go	interpreted	G1-import-resolution	new	linkobj.go:145:46: BASHPP-EEXPR-CONVERT: cannot convert Int to fs.FileMode
+testdir:live2.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:live_regabi.go	compiled	G5-backend-scope-review		test/live_regabi.go:123: stack object x string
+testdir:live_regabi.go	interpreted	G5-backend-scope-review		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:live_uintptrkeepalive.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:loopbce.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:maymorestack.go	interpreted	G6-runtime-one-offs		panic: mayMoreStack not called
+testdir:nilcheck.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:nilptr.go	interpreted	G6-runtime-one-offs		fatal error: runtime: out of memory
+testdir:nilptr3.go	compiled	G5-backend-scope-review		test/nilptr3.go:253: generated nil check
+testdir:nilptr3.go	interpreted	G5-backend-scope-review		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:nilptr5.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:nosplit.go	compiled	G1-import-resolution	new	nosplit.go:235:2: LOWER-EUNDEFINED: undefined: fs
+testdir:nosplit.go	interpreted	G1-import-resolution	new	nosplit.go:235:95: BASHPP-EEXPR-CONVERT: cannot convert Int to fs.FileMode
+testdir:nowritebarrier.go	interpreted	excluded:gc-only-check		compilation succeeded unexpectedly
+testdir:opt_branchlikely.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:peano.go	interpreted	G6-runtime-one-offs		runtime: goroutine stack exceeds 1000000000-byte limit
+testdir:phiopt.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:prove.go	compiled	G5-backend-scope-review		test/prove.go:2867: Proved Leq64U
+testdir:prove.go	interpreted	G5-backend-scope-review		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:prove_constant_folding.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:prove_invert_loop_with_unused_iterators.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:rangegen.go	compiled	G2-interpreter-speed		command exceeded time limit
+testdir:rangegen.go	interpreted	G2-interpreter-speed		command exceeded time limit
+testdir:retjmp.go	interpreted	G5-backend-scope-review		Bash++ backend unsupported generate phase: compile input "<run>" is not a Go source file
+testdir:slice3.go	interpreted	G4-language-type-gaps		<run>:47:23: BASHPP-EEXPR-CONVERT: cannot convert String to unsafe.Pointer
+testdir:slicecap.go	interpreted	excluded:unsafe-reinterpretation		BASHPP-EUNSAFE-VIEW: target uintptr is not a supported blank-field struct
+testdir:sliceopt.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:stack.go	interpreted	G2-interpreter-speed		command exceeded time limit
+testdir:stackobj.go	interpreted	excluded:gc-observation		panic: heap object never collected
+testdir:stackobj3.go	interpreted	excluded:gc-observation		panic: bad liveness
+testdir:strcopy.go	interpreted	G4-language-type-gaps		strcopy.go:26:5: BASHPP-ESELECTOR-ROOT: subh is not a structured value
+testdir:tailcall.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:typeparam/chans.go	interpreted	excluded:gc-observation		command exceeded time limit
+testdir:typeparam/chansimp.go	interpreted	excluded:gc-observation		command exceeded time limit
+testdir:typeparam/issue44688.go	compiled	G4-language-type-gaps	new	typeparam/issue44688.go:72:2: LOWER-ETYPE: d.C undefined (type D[T] has no field or method C)
+testdir:typeparam/issue47272.go	interpreted	G2-interpreter-speed	new	command exceeded time limit
+testdir:typeparam/issue50419.go	interpreted	G2-interpreter-speed	new	command exceeded time limit
+testdir:typeparam/issue50481b.go	interpreted	G2-interpreter-speed	new	command exceeded time limit
+testdir:typeparam/issue54497.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:typeparam/issue54765.go	interpreted	excluded:gc-only-check		compilation succeeded unexpectedly
+testdir:typeparam/list2.go	interpreted	G6-runtime-one-offs		panic: elt[0](0xed63ba5d2f0).Prev() = 0xed63ba5da70, want 0x0
+testdir:typeparam/listimp2.go	interpreted	G6-runtime-one-offs		panic: elt[0](0x3a2e8b0032f0).Prev() = 0x3a2e8b003a70, want 0x0
+testdir:typeparam/mdempsky/15.go	interpreted	G6-runtime-one-offs		output should be empty when (optional) expected-output file typeparam/mdempsky/15.out is not present. Instead saw
+testdir:typeparam/nested.go	interpreted	G3-native-bridge-callbacks		unregistered bridge type "T[bppScoped_bebe963425e8cea422195e504c92946ac18991bcc6672b67a0fb84dbe78e38fc[int]]"
+testdir:typeparam/orderedmap.go	interpreted	G3-native-bridge-callbacks		typeparam/orderedmap.go:251:2: gosource: mixed native/interpreted channel select requires atomic arbitration
+testdir:typeparam/orderedmapsimp.go	interpreted	G3-native-bridge-callbacks		test/typeparam/orderedmapsimp.dir/a.go:191:2: gosource: mixed native/interpreted channel select requires atomic arbitration
+testdir:typeparam/pragma.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:uintptrescapes.go	interpreted	excluded:unsafe-reinterpretation		command exceeded time limit
+testdir:uintptrescapes2.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+testdir:uintptrescapes3.go	interpreted	excluded:gc-observation		uintptrescapes3.go:61:3: uintptrescapes3.go:61:8: BASHPP-EEXPR-CONVERT: cannot convert String to unsafe.Pointer
+testdir:uintptrkeepalive.go	interpreted	excluded:gc-only-check		compilation succeeded unexpectedly
+testdir:unsafe_slice_data.go	interpreted	excluded:unsafe-reinterpretation		BASHPP-EUNSAFE-VIEW: target reflect.SliceHeader is not a supported blank-field struct
+testdir:unsafe_string_data.go	interpreted	excluded:unsafe-reinterpretation		BASHPP-EUNSAFE-VIEW: target reflect.StringHeader is not a supported blank-field struct
+testdir:writebarrier.go	interpreted	excluded:compiler-diagnostic		Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+typechecker:go/types/TestCheck/decls2	compiled	G6-runtime-one-offs		check_test.go:288: ../../internal/types/testdata/check/decls2/decls2a.go:89:47: got col = 47; want 6
+typechecker:go/types/TestCheck/decls2	interpreted	G6-runtime-one-offs		check_test.go:288: ../../internal/types/testdata/check/decls2/decls2a.go:89:47: got col = 47; want 6
+typechecker:go/types/TestCheck/expr3.go	compiled	G6-runtime-one-offs		check_test.go:288: ../../internal/types/testdata/check/expr3.go:22:46: got col = 46; want 8
+typechecker:go/types/TestCheck/expr3.go	interpreted	G6-runtime-one-offs		check_test.go:288: ../../internal/types/testdata/check/expr3.go:22:46: got col = 46; want 8
+typechecker:go/types/TestCheck/stmt0.go	compiled	G6-runtime-one-offs		check_test.go:288: ../../internal/types/testdata/check/stmt0.go:803:53: got col = 53; want 22
+typechecker:go/types/TestCheck/stmt0.go	interpreted	G6-runtime-one-offs		check_test.go:288: ../../internal/types/testdata/check/stmt0.go:803:53: got col = 53; want 22
