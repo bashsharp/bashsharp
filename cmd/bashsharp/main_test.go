@@ -59,7 +59,7 @@ func TestGoPackageAssemblyFlagWiring(t *testing.T) {
 	called := false
 	front.GoSourceLoad = func(_ []front.GoSourceFile, opts front.GoSourceOptions) (*front.GoSourceProgram, error) {
 		called = true
-		if len(opts.Packages) != 1 || opts.Packages[0].Path != "example/p" || opts.Packages[0].SourceDir != dir || len(opts.Packages[0].CompanionFiles) != 1 || opts.Packages[0].CompanionFiles[0] != assembly {
+		if len(opts.Packages) != 1 || opts.Packages[0].Path != "example/p" || opts.Packages[0].SourceDir != dir || len(opts.Packages[0].CompanionFiles) != 1 || opts.Packages[0].CompanionFiles[0] != "p.s" {
 			t.Fatalf("packages = %+v", opts.Packages)
 		}
 		return nil, errors.New("stop after option capture")

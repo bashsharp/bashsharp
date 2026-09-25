@@ -692,9 +692,20 @@ func ReadGoSourcePackages(specs []GoSourcePackageSpec) ([]GoSourcePackage, error
 				if dir != sourceDir {
 					return nil, Errorf("--go-package-asm %q must be in the same directory as --go-package %q", name, spec.Path)
 				}
+				// gosource resolves companions from SourceDir, so pass the
+				// validated file in that coordinate system rather than as it was
+				// spelled on the command line.
+				absolute, err := filepath.Abs(name)
+				if err != nil {
+					return nil, err
+				}
+				relative, err := filepath.Rel(sourceDir, absolute)
+				if err != nil {
+					return nil, err
+				}
+				pkg.CompanionFiles = append(pkg.CompanionFiles, relative)
 			}
 			pkg.SourceDir = sourceDir
-			pkg.CompanionFiles = append([]string(nil), spec.CompanionFiles...)
 		}
 		out = append(out, pkg)
 	}
