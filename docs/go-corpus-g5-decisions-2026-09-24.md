@@ -44,3 +44,20 @@ lowering/action investigation before implementation. The two `builddir` rows
 require the harness to distinguish Go source selection from assembly inputs;
 the `issue50372` pair requires the already-recorded source-preserving front
 end work. None supplies one of the seven reasons for another exact exclusion.
+
+## Resolution (Sprint 270, story #760, 2026-09-25)
+
+All nine keys pass locally on darwin/arm64 through the unchanged upstream
+runner with the backend seam (`codegen/switch.go` with `-all_codegen`, since
+its asmcheck environments are linux-only). No exclusion was added.
+
+| keys | first cause | fix |
+|---|---|---|
+| `closure3.go`, `codegen/switch.go`, `live_regabi.go`, `nilptr3.go`, `prove.go` / compiled | the lowered unit put operands on other lines than the source: statement-level `//line` only, an `if`/`switch` initializer hoisted into an enclosing block, case clauses without a position, multi-line operands collapsed onto one line, a statement anchored at its fault line so earlier operands moved down | `sh/lower`: initializer kept in the Go header; each case clause positioned at its keyword; an operand on another source line (and the `[`/selector of an index/selector operation written on a later line) led by an inline `/*line file:L:C*/` directive; statements anchored at their own position |
+| `fixedbugs/issue50372.go` / compiled + interpreted | `go/parser` rejects a range clause with more than two variables (`expected at most 2 expressions`) and drops the statement; gc's parser accepts it and types2 diagnoses it | `sh/gosource`: range clause arity follows gc — go/parser sees the checked two-variable clause (extra variables blanked in place, positions unchanged) and the front end reports types2's diagnostic |
+| `fixedbugs/issue22877.go`, `fixedbugs/issue47317.go` / interpreted | the builddir seam refused `.s` companions in interpreted mode although builddir executes nothing | `bashsharp-tests` backend seam: interpreted builddir checks the Go files with Bash++ and runs upstream's assembler argv natively (the compiled-mode D3(a) phase); interpreted `buildrundir` keeps its refusal |
+
+Regression check (local darwin/arm64, whole testdir corpus, compiled mode,
+candidate sh b6a049bd + c167a88d): 2,663 PASS, 61 SKIP, 4 FAIL —
+`fixedbugs/{issue5614,issue24801,bug504,bug392}.go` (`LOWER-ETYPE`), which
+fail identically on the base sh 8b4eafc1.
