@@ -32,7 +32,7 @@ main.go`, `GOEXPERIMENT=fieldtrack`).
 
 | key | evidence | note |
 |---|---|---|
-| `fixedbugs/issue19078.go` (G4) | rc=0 in 12 s locally at the lane base | the leaf's 60 s timeout predates the collector pacing (`dc563272`) and printer reuse (`ace86713`) now in the base; needs the Linux replay to confirm. The bound was not raised |
+| `fixedbugs/issue19078.go` (G4) | rc=0 locally; see the second round below (sh `0c3f4a4b`) | the leaf's 60 s timeout was an unbounded live heap, not evaluation speed; needs the Linux replay to confirm. The bound was not raised |
 
 ## Excluded (exact root + interpreted mode)
 
@@ -57,3 +57,12 @@ Also pre-existing on darwin/arm64 (unchanged by these commits):
 | `fixedbugs/bug260.go` (G6) | `fmt.Sprintf("%p", &b1[0])` vs `&b1[1]`: element pointers of an interpreter array cross to the native `fmt` as independent descriptors, so their addresses are not `base + i*sizeof(T)`. Needs a layout-consistent address model for interpreter arrays; no unsafe, no GC observation — not one of the seven families |
 | `nilptr.go` (G6) | `var dummy [256 << 20]byte` is materialised as one boxed cell per byte (`fatal error: runtime: out of memory`). The opaque address word of `&dummy` is already small (the `> 256<<20` guard passes) and the p1–p16 probes are nil dereferences the interpreter raises; the gap is a compact representation for large zero arrays |
 | `peano.go` (G6) | native stack per interpreted call: measured locally, a plain `rec(n-1)+1` recursion overflows gc's 1 GB goroutine stack between depth 20 000 and 50 000; peano needs `count` depth 362 880. `interpreter-stack` blocked-design (165 D10e); deep recursion is not excludable |
+
+## Round 2 (sh `0c3f4a4b`, `993ac3e2` on `5fa0acda`, branch `s270-g46b-cornice`)
+
+Local timings: darwin/arm64, `GOMAXPROCS=2 bashsharp --bashpp --source=go
+--go-file <root>` run from the root's directory.
+
+| key | status | cause and change |
+|---|---|---|
+| `fixedbugs/issue19078.go` (G4) | fixed locally (rc=0, 8 s / 4.6 GB peak → 7 s / 26 MB) | every evaluated function literal was appended to the append-only closure registry, including a literal that is the callee of its own call. `liveReturnSlot`'s `defer func() {}()` ran a million times, so a million closures and their scope snapshots stayed live and every collection rescanned a heap growing past 4 GB. Such a literal never becomes a value (no handle to it can exist), so it is now built without a registry entry; literal values still register. Test `TestS270G4ImmediateClosuresAreNotRegistered`. Awaiting the Linux replay against the 60 s bound |
