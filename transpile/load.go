@@ -62,7 +62,7 @@ func loadGoSource(files []front.GoSourceFile, opts front.GoSourceOptions) (*fron
 	// gets a chance to resolve it.
 	packages := make([]gosource.PackageSpec, 0, len(opts.Packages))
 	for _, pkg := range opts.Packages {
-		spec := gosource.PackageSpec{Path: pkg.Path}
+		spec := gosource.PackageSpec{Path: pkg.Path, SourceDir: pkg.SourceDir, CompanionFiles: pkg.CompanionFiles}
 		for _, f := range pkg.Files {
 			spec.Sources = append(spec.Sources, gosource.Source{Name: f.Name, Data: f.Data})
 		}

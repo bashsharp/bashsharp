@@ -3,6 +3,8 @@ package front
 
 import (
 	"bytes"
+	"os"
+	"path/filepath"
 	"slices"
 	"strings"
 	"testing"
@@ -10,7 +12,7 @@ import (
 
 func TestStripGoSourcePackageFlags(t *testing.T) {
 	got, sel, err := StripGoSourceInvocationFlags([]string{"bashy", "--source=go", "--go-list",
-		"--go-package", "test/a=a.go", "--go-package=test/b=b.go,b2.go", "--go-import-base", "test", "--go-import-path=test/c", "--go-file", "c.go"})
+		"--go-package", "test/a=a.go", "--go-package=test/b=b.go,b2.go", "--go-package-asm", "test/a=a.s", "--go-package-asm=test/a=b.s", "--go-import-base", "test", "--go-import-path=test/c", "--go-file", "c.go"})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -19,7 +21,8 @@ func TestStripGoSourcePackageFlags(t *testing.T) {
 	}
 	if !sel.List || sel.ImportBase != "test" || sel.ImportPath != "test/c" || len(sel.Packages) != 2 ||
 		sel.Packages[0].Path != "test/a" || !slices.Equal(sel.Packages[0].Files, []string{"a.go"}) ||
-		sel.Packages[1].Path != "test/b" || !slices.Equal(sel.Packages[1].Files, []string{"b.go", "b2.go"}) {
+		sel.Packages[1].Path != "test/b" || !slices.Equal(sel.Packages[1].Files, []string{"b.go", "b2.go"}) ||
+		len(sel.PackageAssemblies) != 2 || sel.PackageAssemblies[0] != (GoSourcePackageAssemblySpec{Path: "test/a", File: "a.s"}) || sel.PackageAssemblies[1] != (GoSourcePackageAssemblySpec{Path: "test/a", File: "b.s"}) {
 		t.Errorf("selection = %+v", sel)
 	}
 	for _, bad := range [][]string{
@@ -27,12 +30,51 @@ func TestStripGoSourcePackageFlags(t *testing.T) {
 		{"bashy", "--source=go", "--go-package", "nofiles"},
 		{"bashy", "--source=go", "--go-package", "=a.go"},
 		{"bashy", "--source=go", "--go-package", "p=a.go,"},
+		{"bashy", "--source=go", "--go-package-asm"},
+		{"bashy", "--source=go", "--go-package-asm", "p=a.go"},
+		{"bashy", "--source=go", "--go-package-asm", "p=a.s,b.s"},
 		{"bashy", "--source=go", "--go-import-base"},
 		{"bashy", "--source=go", "--go-import-base="},
 	} {
 		if _, _, err := StripGoSourceInvocationFlags(bad); err == nil {
 			t.Errorf("%q: want a usage error", bad)
 		}
+	}
+}
+
+func TestGoSourcePackageAssemblyIsQualifiedAndSameDirectory(t *testing.T) {
+	dir := t.TempDir()
+	source := filepath.Join(dir, "p.go")
+	assembly := filepath.Join(dir, "p.s")
+	if err := os.WriteFile(source, []byte("package p\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(assembly, nil, 0o644); err != nil {
+		t.Fatal(err)
+	}
+	_, sel, err := StripGoSourceInvocationFlags([]string{"bashy", "--source=go", "--go-package-asm=p=" + assembly, "--go-package=p=" + source})
+	if err != nil {
+		t.Fatal(err)
+	}
+	res, err := ResolveGoSource(sel, GoSourceContext{Binary: BashPPBinaryBashy, BashPP: true})
+	if err != nil {
+		t.Fatal(err)
+	}
+	pkgs, err := ReadGoSourcePackages(res.Packages)
+	if err != nil || len(pkgs) != 1 || pkgs[0].SourceDir != dir || !slices.Equal(pkgs[0].CompanionFiles, []string{assembly}) {
+		t.Fatalf("packages = %+v, %v", pkgs, err)
+	}
+
+	_, sel, err = StripGoSourceInvocationFlags([]string{"bashy", "--source=go", "--go-package-asm=q=" + assembly, "--go-package=p=" + source})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err := ResolveGoSource(sel, GoSourceContext{Binary: BashPPBinaryBashy, BashPP: true}); err == nil {
+		t.Fatal("unqualified assembly companion was accepted")
+	}
+	other := filepath.Join(t.TempDir(), "p.s")
+	if _, err := ReadGoSourcePackages([]GoSourcePackageSpec{{Path: "p", Files: []string{source}, CompanionFiles: []string{other}}}); err == nil {
+		t.Fatal("cross-directory assembly companion was accepted")
 	}
 }
 
@@ -45,6 +87,7 @@ func TestResolveGoSourcePackageRefusals(t *testing.T) {
 		want string
 	}{
 		{"package without go", GoSourceSelection{Packages: pkg}, "bashy: --go-package requires --source=go"},
+		{"assembly without go", GoSourceSelection{PackageAssemblies: []GoSourcePackageAssemblySpec{{Path: "test/a", File: "a.s"}}}, "bashy: --go-package-asm requires --source=go"},
 		{"base without go", GoSourceSelection{ImportBase: "test"}, "bashy: --go-import-base requires --source=go"},
 		{"list without go", GoSourceSelection{List: true}, "bashy: --go-list requires --source=go"},
 		{"path without go", GoSourceSelection{ImportPath: "test/b"}, "bashy: --go-import-path requires --source=go"},

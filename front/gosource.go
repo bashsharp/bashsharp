@@ -103,8 +103,10 @@ type GoSourceOptions struct {
 // registered under and its exact files. The path is an identity, never a
 // directory.
 type GoSourcePackage struct {
-	Path  string
-	Files []GoSourceFile
+	Path           string
+	Files          []GoSourceFile
+	SourceDir      string
+	CompanionFiles []string
 }
 
 // GoSourceResolution is one recorded import resolution, as the front end
@@ -230,6 +232,9 @@ type GoSourceSelection struct {
 	// Packages records every --go-package <path>=<file>[,<file>...], in the
 	// order given; order is the dependency order the front end checks in.
 	Packages []GoSourcePackageSpec
+	// PackageAssemblies records every --go-package-asm <path>=<file.s>.
+	// Each entry is attached only to its explicitly named --go-package path.
+	PackageAssemblies []GoSourcePackageAssemblySpec
 	// ImportBase records --go-import-base.
 	ImportBase string
 	// ImportPath records --go-import-path, the program package's own path
@@ -247,14 +252,23 @@ type GoSourceSelection struct {
 // GoSourcePackageSpec is one --go-package as spelled: an import path and the
 // file names that make up the package.
 type GoSourcePackageSpec struct {
-	Path  string
-	Files []string
+	Path           string
+	Files          []string
+	CompanionFiles []string
+}
+
+// GoSourcePackageAssemblySpec is one explicit assembly companion for a
+// --go-package path. It is deliberately separate from Go source files: the
+// Go front end must never parse an assembler input as Go.
+type GoSourcePackageAssemblySpec struct {
+	Path string
+	File string
 }
 
 // Requested reports whether any flag in this group was spelled at all.
 func (s GoSourceSelection) Requested() bool {
 	return s.LanguageSeen || s.GoVersionSeen || s.TestBuiltinsSeen || s.CheckerBranchErrorsSeen || s.CheckAfterSyntaxErrorsSeen || s.GoTypesParserDiagnosticsSeen || s.Check || s.List || len(s.Files) > 0 ||
-		len(s.Packages) > 0 || s.ImportBase != "" || s.ImportPath != ""
+		len(s.Packages) > 0 || len(s.PackageAssemblies) > 0 || s.ImportBase != "" || s.ImportPath != ""
 }
 
 // ParseGoSourcePackage splits one --go-package value into its path and files.
@@ -271,6 +285,16 @@ func ParseGoSourcePackage(value string) (GoSourcePackageSpec, error) {
 		spec.Files = append(spec.Files, name)
 	}
 	return spec, nil
+}
+
+// ParseGoSourcePackageAssembly splits one --go-package-asm value into the
+// package path it qualifies and its one explicit .s companion.
+func ParseGoSourcePackageAssembly(value string) (GoSourcePackageAssemblySpec, error) {
+	path, file, ok := strings.Cut(value, "=")
+	if !ok || path == "" || file == "" || strings.Contains(file, ",") || filepath.Ext(file) != ".s" {
+		return GoSourcePackageAssemblySpec{}, Errorf("--go-package-asm: want <importpath>=<file.s>, got %q", value)
+	}
+	return GoSourcePackageAssemblySpec{Path: path, File: file}, nil
 }
 
 // GoSourceContext is everything resolution needs beyond the raw selection.
@@ -440,6 +464,19 @@ func StripGoSourceInvocationFlags(args []string) ([]string, GoSourceSelection, e
 			}
 			sel.Packages = append(sel.Packages, spec)
 			continue
+		case arg == "--go-package-asm", strings.HasPrefix(arg, "--go-package-asm="):
+			value, ok := strings.CutPrefix(arg, "--go-package-asm=")
+			if !ok {
+				if value, ok = goSourceFlagValue(args, &i); !ok {
+					return nil, sel, Errorf("--go-package-asm: missing argument")
+				}
+			}
+			spec, err := ParseGoSourcePackageAssembly(value)
+			if err != nil {
+				return nil, sel, err
+			}
+			sel.PackageAssemblies = append(sel.PackageAssemblies, spec)
+			continue
 		case arg == "--go-import-base", strings.HasPrefix(arg, "--go-import-base="):
 			value, ok := strings.CutPrefix(arg, "--go-import-base=")
 			if !ok {
@@ -497,7 +534,7 @@ func StripGoSourceInvocationFlags(args []string) ([]string, GoSourceSelection, e
 func InvocationFlagTakesValue(arg string) bool {
 	switch arg {
 	case "-o", "-O", "--rcfile", "--init-file", "-bashy-plus-o", "-bashy-plus-O",
-		"--source", "--go-file", "--go-version", "--go-package", "--go-import-base", "--go-import-path":
+		"--source", "--go-file", "--go-version", "--go-package", "--go-package-asm", "--go-import-base", "--go-import-path":
 		return true
 	}
 	return false
@@ -560,6 +597,9 @@ func ResolveGoSource(sel GoSourceSelection, ctx GoSourceContext) (GoSourceResolu
 		if len(sel.Packages) > 0 {
 			return GoSourceResolution{}, Errorf("--go-package requires --source=go")
 		}
+		if len(sel.PackageAssemblies) > 0 {
+			return GoSourceResolution{}, Errorf("--go-package-asm requires --source=go")
+		}
 		if sel.ImportBase != "" {
 			return GoSourceResolution{}, Errorf("--go-import-base requires --source=go")
 		}
@@ -602,9 +642,22 @@ func ResolveGoSource(sel GoSourceSelection, ctx GoSourceContext) (GoSourceResolu
 	if sel.TestMain && sel.ImportPath == "" {
 		return GoSourceResolution{}, Errorf("--go-test-main asserts the identity of the program and requires --go-import-path")
 	}
+	packages := append([]GoSourcePackageSpec(nil), sel.Packages...)
+	for _, assembly := range sel.PackageAssemblies {
+		found := false
+		for i := range packages {
+			if packages[i].Path == assembly.Path {
+				packages[i].CompanionFiles = append(packages[i].CompanionFiles, assembly.File)
+				found = true
+			}
+		}
+		if !found {
+			return GoSourceResolution{}, Errorf("--go-package-asm %q has no matching --go-package", assembly.Path)
+		}
+	}
 	return GoSourceResolution{Enabled: true, Check: sel.Check || sel.List, Files: sel.Files, GoVersion: sel.GoVersion,
 		TestBuiltins: sel.TestBuiltins, CheckerBranchErrors: sel.CheckerBranchErrors, CheckAfterSyntaxErrors: sel.CheckAfterSyntaxErrors, GoTypesParserDiagnostics: sel.GoTypesParserDiagnostics,
-		Packages: sel.Packages, ImportBase: sel.ImportBase, ImportPath: sel.ImportPath, TestMain: sel.TestMain, List: sel.List}, nil
+		Packages: packages, ImportBase: sel.ImportBase, ImportPath: sel.ImportPath, TestMain: sel.TestMain, List: sel.List}, nil
 }
 
 // ReadGoSourcePackages reads the exact bytes of every --go-package file. It
@@ -613,12 +666,35 @@ func ReadGoSourcePackages(specs []GoSourcePackageSpec) ([]GoSourcePackage, error
 	out := make([]GoSourcePackage, 0, len(specs))
 	for _, spec := range specs {
 		pkg := GoSourcePackage{Path: spec.Path}
+		var sourceDir string
 		for _, name := range spec.Files {
+			dir, err := filepath.Abs(filepath.Dir(name))
+			if err != nil {
+				return nil, err
+			}
+			if sourceDir == "" {
+				sourceDir = dir
+			} else if len(spec.CompanionFiles) > 0 && sourceDir != dir {
+				return nil, Errorf("--go-package %q source files must share a directory with --go-package-asm", spec.Path)
+			}
 			data, err := os.ReadFile(name)
 			if err != nil {
 				return nil, err
 			}
 			pkg.Files = append(pkg.Files, GoSourceFile{Name: name, Data: data})
+		}
+		if len(spec.CompanionFiles) > 0 {
+			for _, name := range spec.CompanionFiles {
+				dir, err := filepath.Abs(filepath.Dir(name))
+				if err != nil {
+					return nil, err
+				}
+				if dir != sourceDir {
+					return nil, Errorf("--go-package-asm %q must be in the same directory as --go-package %q", name, spec.Path)
+				}
+			}
+			pkg.SourceDir = sourceDir
+			pkg.CompanionFiles = append([]string(nil), spec.CompanionFiles...)
 		}
 		out = append(out, pkg)
 	}
