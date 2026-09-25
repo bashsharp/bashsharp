@@ -20,6 +20,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"path/filepath"
 	"runtime/debug"
 	"strings"
 
@@ -110,7 +111,7 @@ func run(args []string) int {
 		return failure(err)
 	}
 	if res.Enabled {
-		return runGoSource(res, operand, command, commandSet, noExec, operands)
+		return runGoSource(res, args, operand, command, commandSet, noExec, operands)
 	}
 	return runShell(operand, command, commandSet, noExec, operands)
 }
@@ -191,7 +192,7 @@ func runShell(operand, command string, commandSet, noExec bool, args []string) i
 
 // runGoSource mirrors bashy's --source=go path: collect the original bytes,
 // load them through the Go front end, and run the positioned Bash++ AST.
-func runGoSource(res front.GoSourceResolution, operand, command string, commandSet, noExec bool, args []string) int {
+func runGoSource(res front.GoSourceResolution, invocation []string, operand, command string, commandSet, noExec bool, args []string) int {
 	var stdin io.Reader
 	if operand == "" && !commandSet && len(res.Files) == 0 {
 		stdin = os.Stdin
@@ -232,7 +233,15 @@ func runGoSource(res front.GoSourceResolution, operand, command string, commandS
 	if commandSet && len(args) > 0 {
 		argv0, args = args[0], args[1:]
 	}
-	r, err := newRunner(argv0, args)
+	var runnerOpts []interp.RunnerOption
+	if res.TestMain {
+		plan, err := currentGoSourceReexecPlan(invocation)
+		if err != nil {
+			return failure(err)
+		}
+		runnerOpts = append(runnerOpts, interp.GoSourceReexecPlan(plan...))
+	}
+	r, err := newRunner(argv0, args, runnerOpts...)
 	if err != nil {
 		return failure(err)
 	}
@@ -250,7 +259,7 @@ func runGoSource(res front.GoSourceResolution, operand, command string, commandS
 	return exit(r.Run(context.Background(), prog.File))
 }
 
-func newRunner(argv0 string, args []string) (*interp.Runner, error) {
+func newRunner(argv0 string, args []string, runnerOpts ...interp.RunnerOption) (*interp.Runner, error) {
 	environ := os.Environ()
 	opts := []interp.RunnerOption{
 		interp.Lang(syntax.LangBashPP),
@@ -265,7 +274,37 @@ func newRunner(argv0 string, args []string) (*interp.Runner, error) {
 	if len(args) > 0 {
 		opts = append(opts, interp.Params(append([]string{"--"}, args...)...))
 	}
+	opts = append(opts, runnerOpts...)
 	return interp.New(opts...)
+}
+
+// currentGoSourceReexecPlan returns the launcher argv used by generated Go
+// test mains. Its final -- makes the interpreter append the child argv without
+// re-parsing it as Bashsharp input.
+func currentGoSourceReexecPlan(invocation []string) ([]string, error) {
+	executable, err := os.Executable()
+	if err != nil {
+		return nil, err
+	}
+	executable, err = filepath.Abs(executable)
+	if err != nil {
+		return nil, err
+	}
+	return goSourceReexecPlan(executable, invocation), nil
+}
+
+// goSourceReexecPlan preserves the Go source invocation that identifies the
+// test program and its packages. The original test arguments are deliberately
+// omitted: the runner appends its child argv after the final --.
+func goSourceReexecPlan(executable string, invocation []string) []string {
+	plan := []string{executable}
+	for _, arg := range invocation[1:] {
+		if arg == "--" {
+			break
+		}
+		plan = append(plan, arg)
+	}
+	return append(plan, "--")
 }
 
 // exit maps a run result onto the process status the way a shell does.
