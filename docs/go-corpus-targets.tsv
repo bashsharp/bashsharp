@@ -55,7 +55,7 @@ testdir:chancap.go	testdir	run	interpreted	repair	153		todo:c794caf2c0e2	native 
 testdir:chanlinear.go	testdir	run	interpreted	repair	151		todo:11f3abf68a13	BASHPP-EBUILTIN-TYPE: BASHPP-ECOLLECTION-ELEMENT: scalar cannot be used as chan bool
 testdir:checkbce.go	testdir	errorcheck	interpreted	excluded	compiler-diagnostic	test asserts gc optimizer output (-m/-d=); an interpreter has no optimizer to report on	recorded-limitation:retained-artifact-row	Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
 testdir:closedchan.go	testdir	run	interpreted	repair	151		todo:11f3abf68a13	closedchan.go:322:39: BASHPP-EEXPR-OPERAND: c is not a scalar
-testdir:closure.go	testdir	run	interpreted	blocked-design	interpreter-stack	goroutine stack exceeds under interpretation: native stack per interpreted frame (D10e)	recorded-limitation:D2-deadline	newfunc allocated unexpectedly
+testdir:closure.go	testdir	run	interpreted	excluded	gc-observation	runtime.ReadMemStats.Mallocs asserts that two interpreter-owned closures cause no native Go allocations	recorded-limitation:2026-09-24-g6	newfunc allocated unexpectedly
 testdir:closure3.go	testdir	errorcheckandrundir	compiled	repair	152		todo:600dd206218e	test/closure3.dir/main.go:16:9: can inline main.func1
 testdir:closure3.go	testdir	errorcheckandrundir	interpreted	repair	152		todo:600dd206218e	"main.go:15: missing error ""can inline main.func1"""
 testdir:cmp.go	testdir	run	interpreted	excluded	unsafe-reinterpretation	unsafe.Pointer memory reinterpretation: the interpreter has no native memory model	recorded-limitation:D7-unsafe-pointer	cmp.go:20:70: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPAddressExpr
