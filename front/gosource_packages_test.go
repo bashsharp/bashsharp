@@ -43,36 +43,52 @@ func TestStripGoSourcePackageFlags(t *testing.T) {
 }
 
 func TestGoSourcePackageAssemblyIsQualifiedAndSameDirectory(t *testing.T) {
-	dir := t.TempDir()
+	root := t.TempDir()
+	dir := filepath.Join(root, "p")
 	source := filepath.Join(dir, "p.go")
-	assembly := filepath.Join(dir, "p.s")
+	assembly := filepath.Join(dir, "asm_arm64.s")
+	if err := os.Mkdir(dir, 0o755); err != nil {
+		t.Fatal(err)
+	}
 	if err := os.WriteFile(source, []byte("package p\n"), 0o644); err != nil {
 		t.Fatal(err)
 	}
 	if err := os.WriteFile(assembly, nil, 0o644); err != nil {
 		t.Fatal(err)
 	}
-	_, sel, err := StripGoSourceInvocationFlags([]string{"bashy", "--source=go", "--go-package-asm=p=" + assembly, "--go-package=p=" + source})
-	if err != nil {
-		t.Fatal(err)
-	}
-	res, err := ResolveGoSource(sel, GoSourceContext{Binary: BashPPBinaryBashy, BashPP: true})
-	if err != nil {
-		t.Fatal(err)
-	}
-	pkgs, err := ReadGoSourcePackages(res.Packages)
-	if err != nil || len(pkgs) != 1 || pkgs[0].SourceDir != dir || !slices.Equal(pkgs[0].CompanionFiles, []string{assembly}) {
-		t.Fatalf("packages = %+v, %v", pkgs, err)
+	for _, tc := range []struct {
+		name, source, assembly string
+	}{
+		{"absolute", source, assembly},
+		{"relative", filepath.Join("p", "p.go"), filepath.Join("p", "asm_arm64.s")},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			if tc.name == "relative" {
+				t.Chdir(root)
+			}
+			_, sel, err := StripGoSourceInvocationFlags([]string{"bashy", "--source=go", "--go-package-asm=p=" + tc.assembly, "--go-package=p=" + tc.source})
+			if err != nil {
+				t.Fatal(err)
+			}
+			res, err := ResolveGoSource(sel, GoSourceContext{Binary: BashPPBinaryBashy, BashPP: true})
+			if err != nil {
+				t.Fatal(err)
+			}
+			pkgs, err := ReadGoSourcePackages(res.Packages)
+			if err != nil || len(pkgs) != 1 || pkgs[0].SourceDir != dir || !slices.Equal(pkgs[0].CompanionFiles, []string{"asm_arm64.s"}) {
+				t.Fatalf("packages = %+v, %v", pkgs, err)
+			}
+		})
 	}
 
-	_, sel, err = StripGoSourceInvocationFlags([]string{"bashy", "--source=go", "--go-package-asm=q=" + assembly, "--go-package=p=" + source})
+	_, sel, err := StripGoSourceInvocationFlags([]string{"bashy", "--source=go", "--go-package-asm=q=" + assembly, "--go-package=p=" + source})
 	if err != nil {
 		t.Fatal(err)
 	}
 	if _, err := ResolveGoSource(sel, GoSourceContext{Binary: BashPPBinaryBashy, BashPP: true}); err == nil {
 		t.Fatal("unqualified assembly companion was accepted")
 	}
-	other := filepath.Join(t.TempDir(), "p.s")
+	other := filepath.Join(t.TempDir(), "asm_arm64.s")
 	if _, err := ReadGoSourcePackages([]GoSourcePackageSpec{{Path: "p", Files: []string{source}, CompanionFiles: []string{other}}}); err == nil {
 		t.Fatal("cross-directory assembly companion was accepted")
 	}
