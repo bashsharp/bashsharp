@@ -1,6 +1,6 @@
 # Go corpus G5 decisions — 2026-09-24
 
-Pinned source: /Users/qiangli/sdk/go1.27.1/test. “Exclude” names only the
+Pinned source: Go 1.27.1 `test/` corpus. “Exclude” names only the
 failing mode keys recorded in go-corpus-state-2026-09-24.tsv; “open” adds no
 key.
 
