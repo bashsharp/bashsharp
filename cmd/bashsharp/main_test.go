@@ -4,10 +4,32 @@ import (
 	"errors"
 	"os"
 	"path/filepath"
+	"reflect"
 	"testing"
 
 	"github.com/bashsharp/bashsharp/front"
 )
+
+func TestGoSourceReexecPlan(t *testing.T) {
+	executable := filepath.Join(t.TempDir(), "bashsharp")
+	invocation := []string{
+		"bashsharp", "--bashsharp", "--source=go", "--go-version=1.25",
+		"--go-file=main.go", "--go-package=example/p=p.go,q.go",
+		"--go-package-asm=example/p=p.s", "--go-import-base=example",
+		"--go-import-path=example/p.test", "--go-test-builtins", "--go-test-main",
+		"main.go", "--", "-test.v", "-test.run=TestOne",
+	}
+	want := []string{
+		executable, "--bashsharp", "--source=go", "--go-version=1.25",
+		"--go-file=main.go", "--go-package=example/p=p.go,q.go",
+		"--go-package-asm=example/p=p.s", "--go-import-base=example",
+		"--go-import-path=example/p.test", "--go-test-builtins", "--go-test-main",
+		"main.go", "--",
+	}
+	if got := goSourceReexecPlan(executable, invocation); !reflect.DeepEqual(got, want) {
+		t.Fatalf("goSourceReexecPlan() = %#v, want %#v", got, want)
+	}
+}
 
 func TestGoTypesParserDiagnosticsFlagWiring(t *testing.T) {
 	dir := t.TempDir()
