@@ -158,6 +158,7 @@ func Main(args []string) int {
 	var goTestBuiltinsSeen bool
 	var goCheckerBranchErrors, goCheckerBranchErrorsSeen bool
 	var goCheckAfterSyntaxErrors, goCheckAfterSyntaxErrorsSeen bool
+	var goTypesParserDiagnostics, goTypesParserDiagnosticsSeen bool
 	var standalone bool
 	var force bool
 
@@ -198,6 +199,11 @@ func Main(args []string) int {
 			goCheckAfterSyntaxErrors, goCheckAfterSyntaxErrorsSeen = true, true
 		} else if inFlags && strings.HasPrefix(arg, "--go-check-after-syntax-errors=") {
 			fmt.Fprintln(os.Stderr, "transpile: --go-check-after-syntax-errors: expected true")
+			return 2
+		} else if inFlags && (arg == "--go-types-parser-diagnostics" || arg == "--go-types-parser-diagnostics=true") {
+			goTypesParserDiagnostics, goTypesParserDiagnosticsSeen = true, true
+		} else if inFlags && strings.HasPrefix(arg, "--go-types-parser-diagnostics=") {
+			fmt.Fprintln(os.Stderr, "transpile: --go-types-parser-diagnostics: expected true")
 			return 2
 		} else if inFlags && arg == "--go-version" {
 			if i+1 >= len(args) || args[i+1] == "" {
@@ -352,6 +358,10 @@ func Main(args []string) int {
 		fmt.Fprintln(os.Stderr, "transpile: --go-check-after-syntax-errors requires --source=go")
 		return 2
 	}
+	if goTypesParserDiagnosticsSeen && !goInput {
+		fmt.Fprintln(os.Stderr, "transpile: --go-types-parser-diagnostics requires --source=go")
+		return 2
+	}
 	if goNativeUnit && (!goInput || goImportPath == "") {
 		fmt.Fprintln(os.Stderr, "transpile: --go-native-unit requires --source=go and --go-import-path")
 		return 2
@@ -433,7 +443,8 @@ func Main(args []string) int {
 		return dispatchTranspileLibrary(goLibrary, goFiles, goTestFiles, goXTestFiles, front.GoSourceOptions{
 			GoVersion: goVersion, TestBuiltins: goTestBuiltins,
 			CheckerBranchErrors: goCheckerBranchErrors, CheckAfterSyntaxErrors: goCheckAfterSyntaxErrors,
-			ImportBase: goImportBase, ImportPath: goImportPath, TestMain: goTestMain, PreserveNativeInit: true,
+			GoTypesParserDiagnostics: goTypesParserDiagnostics,
+			ImportBase:               goImportBase, ImportPath: goImportPath, TestMain: goTestMain, PreserveNativeInit: true,
 		})
 	}
 	if len(goTestFiles) > 0 || len(goXTestFiles) > 0 {
@@ -549,7 +560,8 @@ func Main(args []string) int {
 		file, goProg, err = loadTranspileGoSource(in, front.GoSourceOptions{
 			GoVersion: goVersion, TestBuiltins: goTestBuiltins,
 			CheckerBranchErrors: goCheckerBranchErrors, CheckAfterSyntaxErrors: goCheckAfterSyntaxErrors,
-			Packages: packages, ImportBase: goImportBase, ImportPath: goImportPath, TestMain: goTestMain,
+			GoTypesParserDiagnostics: goTypesParserDiagnostics,
+			Packages:                 packages, ImportBase: goImportBase, ImportPath: goImportPath, TestMain: goTestMain,
 			// Directory compiler phases and explicitly requested module units
 			// preserve package names, imports and native initialization. The
 			// package map supplies checker dependencies, not flattened code.

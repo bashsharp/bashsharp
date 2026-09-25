@@ -207,7 +207,7 @@ func runGoSource(res front.GoSourceResolution, operand, command string, commandS
 	}
 	prog, err := front.LoadGoSource(in, front.GoSourceOptions{
 		RunMain: !noExec, Dir: in.Dir, GoVersion: res.GoVersion, TestBuiltins: res.TestBuiltins,
-		CheckerBranchErrors: res.CheckerBranchErrors, CheckAfterSyntaxErrors: res.CheckAfterSyntaxErrors,
+		CheckerBranchErrors: res.CheckerBranchErrors, CheckAfterSyntaxErrors: res.CheckAfterSyntaxErrors, GoTypesParserDiagnostics: res.GoTypesParserDiagnostics,
 		Packages: packages, ImportBase: res.ImportBase, ImportPath: res.ImportPath, TestMain: res.TestMain,
 	})
 	if err != nil {

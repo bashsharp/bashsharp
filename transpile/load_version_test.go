@@ -114,6 +114,8 @@ func TestTranspileGoSourceCheckEnvironment(t *testing.T) {
 		{"--go-checker-branch-errors=true", func(o front.GoSourceOptions) bool { return o.CheckerBranchErrors }},
 		{"--go-check-after-syntax-errors", func(o front.GoSourceOptions) bool { return o.CheckAfterSyntaxErrors }},
 		{"--go-check-after-syntax-errors=true", func(o front.GoSourceOptions) bool { return o.CheckAfterSyntaxErrors }},
+		{"--go-types-parser-diagnostics", func(o front.GoSourceOptions) bool { return o.GoTypesParserDiagnostics }},
+		{"--go-types-parser-diagnostics=true", func(o front.GoSourceOptions) bool { return o.GoTypesParserDiagnostics }},
 	} {
 		called := false
 		front.GoSourceLoad = func(_ []front.GoSourceFile, opts front.GoSourceOptions) (*front.GoSourceProgram, error) {
@@ -132,5 +134,15 @@ func TestTranspileGoSourceCheckEnvironment(t *testing.T) {
 		if exit != 2 || !strings.Contains(stderr, "requires --source=go") {
 			t.Fatalf("%s without Go source accepted: exit=%d stderr=%q", tc.flag, exit, stderr)
 		}
+	}
+	front.GoSourceLoad = func(_ []front.GoSourceFile, opts front.GoSourceOptions) (*front.GoSourceProgram, error) {
+		if opts.GoTypesParserDiagnostics {
+			t.Fatalf("GoTypesParserDiagnostics enabled without its flag: %+v", opts)
+		}
+		return nil, errors.New("stop after default option capture")
+	}
+	exit, stderr := captureTranspileStderr(t, []string{"--bashpp", "--source=go", source, "-o", filepath.Join(dir, "default.go")})
+	if exit != 2 || !strings.Contains(stderr, "stop after default option capture") {
+		t.Fatalf("default option capture: exit=%d stderr=%q", exit, stderr)
 	}
 }

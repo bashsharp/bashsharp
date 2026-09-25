@@ -69,17 +69,18 @@ func loadGoSource(files []front.GoSourceFile, opts front.GoSourceOptions) (*fron
 		packages = append(packages, spec)
 	}
 	prog, err := gosource.Load(sources, gosource.Options{
-		RunMain:                opts.RunMain,
-		PreserveNativeInit:     opts.PreserveNativeInit,
-		Importer:               lower.NewModuleImporter(opts.Dir),
-		GoVersion:              opts.GoVersion,
-		TestBuiltins:           opts.TestBuiltins,
-		CheckerBranchErrors:    opts.CheckerBranchErrors,
-		CheckAfterSyntaxErrors: opts.CheckAfterSyntaxErrors,
-		Packages:               packages,
-		ImportBase:             opts.ImportBase,
-		ImportPath:             opts.ImportPath,
-		TestMain:               opts.TestMain,
+		RunMain:                  opts.RunMain,
+		PreserveNativeInit:       opts.PreserveNativeInit,
+		Importer:                 lower.NewModuleImporter(opts.Dir),
+		GoVersion:                opts.GoVersion,
+		TestBuiltins:             opts.TestBuiltins,
+		CheckerBranchErrors:      opts.CheckerBranchErrors,
+		CheckAfterSyntaxErrors:   opts.CheckAfterSyntaxErrors,
+		GoTypesParserDiagnostics: opts.GoTypesParserDiagnostics,
+		Packages:                 packages,
+		ImportBase:               opts.ImportBase,
+		ImportPath:               opts.ImportPath,
+		TestMain:                 opts.TestMain,
 	})
 	if err != nil {
 		return nil, err

@@ -79,6 +79,10 @@ type GoSourceOptions struct {
 	// rejection and reports both (the check_test runners' environment);
 	// default is gc's: a syntax rejection is the complete result.
 	CheckAfterSyntaxErrors bool
+	// GoTypesParserDiagnostics selects go/parser's diagnostics for the
+	// upstream go/types check_test runner. The default remains gc's parser
+	// diagnostics, including for the types2 checker environment.
+	GoTypesParserDiagnostics bool
 	// Packages are explicit dependency packages (--go-package), in order.
 	// They are the policy-free half of Go's import model — an in-memory
 	// importcfg — consulted before the module importer for every import.
@@ -211,6 +215,9 @@ type GoSourceSelection struct {
 	CheckerBranchErrorsSeen    bool
 	CheckAfterSyntaxErrors     bool
 	CheckAfterSyntaxErrorsSeen bool
+	// GoTypesParserDiagnostics records --go-types-parser-diagnostics.
+	GoTypesParserDiagnostics     bool
+	GoTypesParserDiagnosticsSeen bool
 	// Language is the last --source value seen, "" when the flag is absent.
 	Language string
 	// LanguageSeen distinguishes an absent --source from --source=sh.
@@ -246,7 +253,7 @@ type GoSourcePackageSpec struct {
 
 // Requested reports whether any flag in this group was spelled at all.
 func (s GoSourceSelection) Requested() bool {
-	return s.LanguageSeen || s.GoVersionSeen || s.TestBuiltinsSeen || s.CheckerBranchErrorsSeen || s.CheckAfterSyntaxErrorsSeen || s.Check || s.List || len(s.Files) > 0 ||
+	return s.LanguageSeen || s.GoVersionSeen || s.TestBuiltinsSeen || s.CheckerBranchErrorsSeen || s.CheckAfterSyntaxErrorsSeen || s.GoTypesParserDiagnosticsSeen || s.Check || s.List || len(s.Files) > 0 ||
 		len(s.Packages) > 0 || s.ImportBase != "" || s.ImportPath != ""
 }
 
@@ -286,10 +293,11 @@ type GoSourceContext struct {
 
 // GoSourceResolution is the validated selection.
 type GoSourceResolution struct {
-	GoVersion              string
-	TestBuiltins           bool
-	CheckerBranchErrors    bool
-	CheckAfterSyntaxErrors bool
+	GoVersion                string
+	TestBuiltins             bool
+	CheckerBranchErrors      bool
+	CheckAfterSyntaxErrors   bool
+	GoTypesParserDiagnostics bool
 	// Enabled reports that the input is Go source.
 	Enabled bool
 	// Check requests semantic validation with no execution.
@@ -378,6 +386,11 @@ func StripGoSourceInvocationFlags(args []string) ([]string, GoSourceSelection, e
 			continue
 		case strings.HasPrefix(arg, "--go-check-after-syntax-errors="):
 			return nil, sel, Errorf("--go-check-after-syntax-errors: expected true")
+		case arg == "--go-types-parser-diagnostics", arg == "--go-types-parser-diagnostics=true":
+			sel.GoTypesParserDiagnostics, sel.GoTypesParserDiagnosticsSeen = true, true
+			continue
+		case strings.HasPrefix(arg, "--go-types-parser-diagnostics="):
+			return nil, sel, Errorf("--go-types-parser-diagnostics: expected true")
 		case arg == "--go-version":
 			value, ok := goSourceFlagValue(args, &i)
 			if !ok || value == "" {
@@ -532,6 +545,9 @@ func ResolveGoSource(sel GoSourceSelection, ctx GoSourceContext) (GoSourceResolu
 		if sel.CheckAfterSyntaxErrorsSeen {
 			return GoSourceResolution{}, Errorf("--go-check-after-syntax-errors requires --source=go")
 		}
+		if sel.GoTypesParserDiagnosticsSeen {
+			return GoSourceResolution{}, Errorf("--go-types-parser-diagnostics requires --source=go")
+		}
 		if sel.GoVersionSeen {
 			return GoSourceResolution{}, Errorf("--go-version requires --source=go")
 		}
@@ -587,7 +603,7 @@ func ResolveGoSource(sel GoSourceSelection, ctx GoSourceContext) (GoSourceResolu
 		return GoSourceResolution{}, Errorf("--go-test-main asserts the identity of the program and requires --go-import-path")
 	}
 	return GoSourceResolution{Enabled: true, Check: sel.Check || sel.List, Files: sel.Files, GoVersion: sel.GoVersion,
-		TestBuiltins: sel.TestBuiltins, CheckerBranchErrors: sel.CheckerBranchErrors, CheckAfterSyntaxErrors: sel.CheckAfterSyntaxErrors,
+		TestBuiltins: sel.TestBuiltins, CheckerBranchErrors: sel.CheckerBranchErrors, CheckAfterSyntaxErrors: sel.CheckAfterSyntaxErrors, GoTypesParserDiagnostics: sel.GoTypesParserDiagnostics,
 		Packages: sel.Packages, ImportBase: sel.ImportBase, ImportPath: sel.ImportPath, TestMain: sel.TestMain, List: sel.List}, nil
 }
 

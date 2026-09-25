@@ -56,6 +56,13 @@ func TestStripGoSourceInvocationFlags(t *testing.T) {
 			},
 		},
 		{
+			name:     "go types parser diagnostics is consumed",
+			args:     []string{"bashy", "--source=go", "--go-types-parser-diagnostics=true", "hello.go"},
+			wantArgs: []string{"bashy", "hello.go"},
+			wantSel: GoSourceSelection{Language: "go", LanguageSeen: true,
+				GoTypesParserDiagnostics: true, GoTypesParserDiagnosticsSeen: true},
+		},
+		{
 			name:     "last --source wins",
 			args:     []string{"bashy", "--source=go", "--source=sh"},
 			wantArgs: []string{"bashy"},
@@ -91,7 +98,8 @@ func TestStripGoSourceInvocationFlags(t *testing.T) {
 				t.Errorf("args = %q, want %q", got, tc.wantArgs)
 			}
 			if sel.Language != tc.wantSel.Language || sel.LanguageSeen != tc.wantSel.LanguageSeen ||
-				sel.Check != tc.wantSel.Check || !slices.Equal(sel.Files, tc.wantSel.Files) {
+				sel.Check != tc.wantSel.Check || sel.GoTypesParserDiagnostics != tc.wantSel.GoTypesParserDiagnostics ||
+				sel.GoTypesParserDiagnosticsSeen != tc.wantSel.GoTypesParserDiagnosticsSeen || !slices.Equal(sel.Files, tc.wantSel.Files) {
 				t.Errorf("selection = %+v, want %+v", sel, tc.wantSel)
 			}
 		})
