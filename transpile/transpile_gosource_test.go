@@ -89,6 +89,34 @@ func captureTranspileOutput(t *testing.T, args []string) (int, string, string) {
 	return exit, out.String(), stderr.String()
 }
 
+func TestTranspileGoExtensionAndSourceOverride(t *testing.T) {
+	dir := t.TempDir()
+	goBody := "package main\nfunc main() { println(\"ok\") }\n"
+	for _, name := range []string{"program.go", "program.txt", "program"} {
+		writeFile(t, filepath.Join(dir, name), goBody)
+	}
+	for _, tc := range []struct {
+		name string
+		args []string
+	}{
+		{"go extension", []string{"--bashsharp", filepath.Join(dir, "program.go")}},
+		{"go flag no op", []string{"--bashsharp", "--source=go", filepath.Join(dir, "program.go")}},
+		{"go flag txt", []string{"--bashsharp", "--source=go", filepath.Join(dir, "program.txt")}},
+		{"go flag no extension", []string{"--bashsharp", "--source=go", filepath.Join(dir, "program")}},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			out := filepath.Join(dir, strings.ReplaceAll(tc.name, " ", "_")+".go")
+			code, stderr := captureTranspileStderr(t, append(tc.args, "-o", out))
+			if code != 0 {
+				t.Fatalf("code=%d stderr=%s", code, stderr)
+			}
+			if data, err := os.ReadFile(out); err != nil || len(data) == 0 {
+				t.Fatalf("output: %v %q", err, data)
+			}
+		})
+	}
+}
+
 func TestTranspileGoLibrary(t *testing.T) {
 	dir, out := filepath.Join("testdata", "sprint162", "library"), t.TempDir()
 	a := filepath.Join(dir, "a.go")

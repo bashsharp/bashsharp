@@ -57,7 +57,7 @@ func TestGoTypesParserDiagnosticsFlagWiring(t *testing.T) {
 				}
 				return nil, errors.New("stop after option capture")
 			}
-			args := append([]string{"bashsharp", "--source=go"}, tc.args...)
+			args := append([]string{"bashsharp", "--bashsharp", "--source=go"}, tc.args...)
 			args = append(args, source)
 			if got := run(args); got != 2 || !called {
 				t.Fatalf("run = %d, loader called = %v; want 2, true", got, called)
@@ -86,7 +86,7 @@ func TestGoPackageAssemblyFlagWiring(t *testing.T) {
 		}
 		return nil, errors.New("stop after option capture")
 	}
-	if got := run([]string{"bashsharp", "--source=go", "--go-package-asm=example/p=" + assembly, "--go-package=example/p=" + source, main}); got != 2 || !called {
+	if got := run([]string{"bashsharp", "--bashsharp", "--source=go", "--go-package-asm=example/p=" + assembly, "--go-package=example/p=" + source, main}); got != 2 || !called {
 		t.Fatalf("run = %d, loader called = %v; want 2, true", got, called)
 	}
 }

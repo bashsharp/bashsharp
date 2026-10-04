@@ -144,6 +144,7 @@ func Main(args []string) int {
 	var input string
 	var mapFile string
 	sourceKind := "sh"
+	sourceSeen := false
 	var goFiles []string
 	var goTestFiles []string
 	var goXTestFiles []string
@@ -176,6 +177,7 @@ func Main(args []string) int {
 		} else if inFlags && arg == "--force" {
 			force = true
 		} else if inFlags && arg == "--source" {
+			sourceSeen = true
 			if i+1 < len(args) {
 				sourceKind = args[i+1]
 				i++
@@ -184,6 +186,7 @@ func Main(args []string) int {
 				return 2
 			}
 		} else if inFlags && strings.HasPrefix(arg, "--source=") {
+			sourceSeen = true
 			sourceKind = strings.TrimPrefix(arg, "--source=")
 		} else if inFlags && (arg == "--go-test-builtins" || arg == "--go-test-builtins=true") {
 			goTestBuiltins, goTestBuiltinsSeen = true, true
@@ -339,6 +342,9 @@ func Main(args []string) int {
 		}
 	}
 
+	if !sourceSeen && strings.EqualFold(filepath.Ext(input), ".go") {
+		sourceKind = "go"
+	}
 	switch sourceKind {
 	case "sh", "go":
 	default:

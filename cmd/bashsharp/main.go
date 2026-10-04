@@ -23,6 +23,7 @@ import (
 	"path/filepath"
 	"runtime/debug"
 	"strings"
+	"text/scanner"
 
 	"github.com/bashsharp/bashsharp/front"
 	"github.com/bashsharp/bashsharp/transpile"
@@ -58,10 +59,11 @@ func run(args []string) int {
 		return failure(err)
 	}
 	var (
-		command    string
-		commandSet bool
-		noExec     bool
-		operands   []string
+		command       string
+		commandSet    bool
+		noExec        bool
+		bashSharpFlag bool
+		operands      []string
 		// sawDoubleDash: operands after `--` are program arguments even
 		// beside --go-file (the refusal is for a second PROGRAM operand).
 		sawDoubleDash bool
@@ -86,6 +88,7 @@ func run(args []string) int {
 			// Bash# is this program's only dialect; the selector (and its
 			// Bash++-era alias spellings) is accepted so bashy-shaped
 			// invocations run unchanged.
+			bashSharpFlag = true
 		case arg == "--no-bashsharp", arg == "--no-bashpp":
 			return failure(front.Errorf("%s: this is the Bash# front door; use bash or bashy for Classic", arg))
 		case arg == "-" || !strings.HasPrefix(arg, "-"):
@@ -102,6 +105,21 @@ func run(args []string) int {
 	if !commandSet && len(sel.Files) == 0 && len(operands) > 0 {
 		operand, operands = operands[0], operands[1:]
 	}
+	if !bashSharpFlag && operand != "" {
+		if sel.LanguageSeen && sel.Language == "go" || !sel.LanguageSeen && strings.EqualFold(filepath.Ext(operand), ".go") {
+			status, runErr := interp.RunCompiledGoFile(operand, operands, os.Stdin, os.Stdout, os.Stderr)
+			if runErr != nil {
+				return failure(runErr)
+			}
+			return status
+		}
+		if ext := strings.ToLower(filepath.Ext(operand)); unsupportedSourceExtension(ext) && !sel.LanguageSeen {
+			if ext == ".fs" || ext == ".fsx" {
+				return failure(fmt.Errorf("%s:1:1: F# file execution is not yet supported; rewrite it as Go in a ~~~go fence in a .bsh script", operand))
+			}
+			return failure(fmt.Errorf("%s:1:1: %s source is not yet supported as a file; use a ~~~%s fence in a .bsh script", operand, ext, fenceLanguage(ext)))
+		}
+	}
 	res, err := front.ResolveGoSource(sel, front.GoSourceContext{
 		Binary:     front.BashPPBinaryBashy,
 		BashPP:     true,
@@ -113,7 +131,42 @@ func run(args []string) int {
 	if res.Enabled {
 		return runGoSource(res, args, operand, command, commandSet, noExec, operands)
 	}
+	if !commandSet && operand != "" && operand != "-" {
+		data, readErr := os.ReadFile(operand)
+		if readErr != nil {
+			return failure(readErr)
+		}
+		var scan scanner.Scanner
+		scan.Init(bytes.NewReader(data))
+		scan.Mode = scanner.ScanIdents | scanner.ScanComments | scanner.SkipComments
+		scan.Error = func(*scanner.Scanner, string) {}
+		if scan.Scan() == scanner.Ident && scan.TokenText() == "package" {
+			return runGoSource(front.GoSourceResolution{Enabled: true}, args, operand, command, commandSet, noExec, operands)
+		}
+	}
 	return runShell(operand, command, commandSet, noExec, operands)
+}
+
+func unsupportedSourceExtension(ext string) bool {
+	switch ext {
+	case ".c", ".cc", ".cpp", ".cxx", ".js", ".mjs", ".ts", ".tsx", ".py", ".rs", ".fs", ".fsx":
+		return true
+	}
+	return false
+}
+
+func fenceLanguage(ext string) string {
+	switch ext {
+	case ".cc", ".cpp", ".cxx":
+		return "cxx"
+	case ".mjs":
+		return "ts"
+	case ".js":
+		return "ts"
+	case ".tsx":
+		return "ts"
+	}
+	return strings.TrimPrefix(ext, ".")
 }
 
 // runShell parses and runs a Bash# program from a file, -c or stdin.
@@ -349,7 +402,10 @@ const usage = `usage: bashsharp [--bashsharp] [--source=go] [go-source flags] [-
        bashsharp transpile --bashsharp [--source=go] INPUT -o OUTPUT.go [--map MAP] [--standalone [--force]]
        bashsharp --version
 
-Runs a Bash# program: a .bsh script, a -c command, stdin, or — with
---source=go — an unchanged Go program. --check validates without running;
---go-list prints the import resolutions. transpile lowers to ordinary Go.
+FILE.bsh and shell extensions run interpreted as Bash#. Bare FILE.go
+compiles and runs with the Go fence toolchain; --source=go selects that
+path for any extension. --bashsharp (alias --bashpp) overrides the extension
+and interprets the file. --bashpp --source=go FILE.go retains interpreted
+Go-source mode for the corpus harness. --check validates without running;
+--go-list prints import resolutions. transpile lowers to ordinary Go.
 `
