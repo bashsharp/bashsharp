@@ -3,14 +3,15 @@ id: 0dd56d419991
 kind: task
 title: 'S378 design review: the purpose of Go in Bash# scripts and how Go-only source runs'
 seq: 2
-status: assigned
+status: done
 priority: p1
 created: 2026-10-04T15:55:59.357741Z
-weave: 5
 assignee: codex-gpt6-sol
 sprint: 378
 sprint_id: 27936064-af15-5b91-9776-5b3120c15c88
 sprint_title: 'Bash# design review: what Go in a shell script is for, and how Go-only source runs'
+closed: 2026-10-04T22:06:43.191218Z
+closed_by: claude-fable5.1
 ---
 
 Operator direction 2026-10-04: review the design of Bash# and the real goal of introducing Go into bash scripts, which is to enrich and empower shell scripts with features shell lacks and Go can supply. A Go-only source file could and should be treated just like a fenced block of code, that is compiled by the provisioned toolchain rather than interpreted; the operator sees no need or benefit in interpreting whole Go-only source. Base the discussion on docs/bashpp-go-implementation-claim.md and the other relevant documents: docs/why-bashsharp.md, docs/claims.md, docs/fenced-go-and-shell-dialect-plan.md, docs/lowered-runner-fences.md, docs/bashpp-polyglot-environments.md, docs/bashpp-import-resolution.md, docs/bashpp-posix-superset-syntax.md, docs/bashsharp-ergonomics-tier.md, docs/go-corpus-targets.md, docs/go-corpus-exclusions.tsv, and in the sibling sh repository docs/bashpp-multi-package-execution.md, docs/bashpp-interpreter-per-call-cost.md, docs/bashpp-polyglot-fences.md, docs/bashpp-p2-evaluator-decision.md. Evidence from Sprint 374: compiled mode has 0 corpus failures; interpreted mode carries every remaining failure; the interpreted package root cmd/compile/internal/ssa needed seven engine fixes in one day (unsafe slice headers, sync.Pool retention, address of f().field[i]) and still has tests exceeding four minutes each; go-corpus-targets.md already lists multi-package-interpreted (26 package roots, 25 pass compiled) as blocked-design needing a decision; the claim document lists unsafe memory reinterpretation as out of scope. DELIVERABLE: one new document docs/bashsharp-design-review-2026-10.md, plus its index entry if the docs directory has an index. It must contain: 1) what the existing documents say the goal of Go in Bash# is, quoted with file references, and where they disagree with each other; 2) the list of shell shortcomings Go constructs are meant to fill, each with an example; 3) the three execution cases told apart: fenced go block, Bash# constructs inside a script, whole Go-only file, and how each runs today; 4) options for Go-only source with costs: A treat as a fence and compile, B keep interpreted as best effort, C keep three modes as now; with a recommendation; 5) what the interpreted corpus gate should contain under the recommendation and which roots leave it; 6) which claims in claims.md and bashpp-go-implementation-claim.md would change, as proposed wording, without editing those files; 7) open questions for the operator. Do not change code. Do not edit existing documents except an index. Plain factual prose, no marketing. Commit with the sprint trailers and do not push.
