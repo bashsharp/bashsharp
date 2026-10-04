@@ -100,6 +100,16 @@ two families the catalog does not yet allow (`multi-package-interpreted`,
 `assembly-input`). Folding them into the targets table, the validator and the
 published denominator is part of the design-review decision.
 
+## Decisions taken after this record (2026-10-04, design review)
+
+The operator decided the six questions of `bashsharp-design-review-2026-10.md`.
+For this table: 11 of the 16 rows carried for performance are pure
+computation and become exclusions of a new family, `compute-bound` (listed in
+the proposed table, now 32 rows); the other 5 expose engine overhead and stay
+with the performance sprint together with the Tour program
+`solutions/image.go`. The first authoritative recalculated ledger will come
+from a full barrier on sh `3547757c3` or later.
+
 ## Ledger
 
 
