@@ -1,95 +1,78 @@
 # v1.0 interpreted Go performance — evidence in progress
 
 This release-note record separates completed correctness checks from performance
-acceptance. It is not a declaration that all Go v1.0 gates have closed.
+acceptance. **Eight of twelve workloads have verified full-scale interpreted
+completion; four remain pending.** This is not a declaration that all Go v1.0
+gates have closed.
 
-## Verified workload: fixedbugs/issue79186.go
+## Verified full-workload completion
 
-The complete, unmodified Go 1.27.1 test passed in all three execution modes on
-Linux, 4 vCPUs / 12 GB RAM, no swap. Its original assertions and expected output
-were preserved. The interpreted backend identity and output were authenticated
-by the existing harness verifier; outputs matched the native reference.
+The complete, unmodified Go 1.27.1 workloads below passed in native,
+interpreted and compiled modes on Linux, 4 vCPUs / 12 GB RAM, no swap. Original
+assertions and expected outputs were preserved. Exact outputs matched the
+native reference, and the existing backend verifier passed for both product
+modes. No source-specific shortcut or native fallback earned interpreted credit.
 
 Frozen engine: `sh 0e1b001086de86b660154b3f165e6a4e85008f34`.
 Language front end: `2389bc254680b7cb67d1911a9dc578b6b426acdf`.
 Interpreter SHA-256: `1d2caf7618dd5af8a2ef983afbdfb7d874726692051b3668c849b5da48a57dab`.
 
-| Mode | Correct completion | Wall seconds | GNU time maximum RSS (KiB) |
-|---|---|---:|---:|
-| Native reference | PASS | 13.212 | 170880 |
-| Interpreted | PASS | 822.579 | 131208 |
-| Compiled | PASS | 1.967 | 101760 |
+| Root | Native wall seconds | Interpreted wall seconds | Compiled wall seconds | Interpreted maximum RSS (KiB) |
+|---|---:|---:|---:|---:|
+| `64bit.go` | — | 30.334 | — | 320384 |
+| `divmod.go` | 0.715 | 1677.493 | 0.816 | 97536 |
+| `abi/fibish_closure.go` | 0.715 | 898.599 | 0.865 | 121728 |
+| `abi/uglyfib.go` | 0.866 | 2232.902 | 1.066 | 120064 |
+| `copy.go` | 0.515 | 244.226 | 0.765 | 123264 |
+| `fixedbugs/issue13169.go` | 1.266 | 174.095 | 1.367 | 207564 |
+| `fixedbugs/issue59680.go` | 0.615 | 391.293 | 0.816 | 420740 |
+| `fixedbugs/issue79186.go` | 13.212 | 822.579 | 1.967 | 131208 |
 
-Wall time includes harness and compilation overhead; the native run includes
-initial cache-building costs. RSS is the command/descendant accounting reported
-by GNU time, not aggregate concurrent memory or isolated interpreter RSS.
+All table rows are PASS in all three modes. Dashes omit timings from this
+summary; they do not mean missing execution evidence. For `64bit.go`, both
+generation and execution phases of the `runoutput` recipe were verified.
+Its ordinary frozen-candidate interpreted gate already passed in **34.13 s**;
+the supplemental 30.334 s measurement does not replace that gate result.
+
+Wall time includes harness and compilation overhead; the `issue79186` native
+run includes initial cache-building costs. RSS is GNU time's command/descendant
+accounting, not aggregate concurrent memory or isolated interpreter RSS.
 These numbers are not a controlled native-versus-compiled speed comparison.
+For the earlier published runs, native/compiled maximum RSS was
+170880/101760 KiB for `issue79186` and 99456/102016 KiB for `fibish_closure`.
 
-The interpreted run took about 13 minutes 43 seconds. It used the harness's
-existing diagnostic deadline override (1800 seconds per stage); the standard
-60-second acceptance limit was not changed. Its standard-limit timeout remains
-recorded. The operator authorized deferring proven performance limitations until
-after v1.0, so this exact interpreted root is classified `compute-bound`.
+## Diagnostic budgets and preserved failures
 
-## Verified workload: abi/fibish_closure.go
+The standard **60-second acceptance limit is unchanged**. Supplemental
+completion runs normally used the harness's existing **1800-second per-stage
+diagnostic override**. Correct completion beyond the standard limit proves a
+performance limitation for that workload; it does not turn its original
+acceptance timeout into PASS. The operator authorized deferring proven
+performance limitations until after v1.0; their exact-ID dispositions remain
+visible in the corpus catalog.
 
-The complete, unmodified recursive closure workload also passed on the same
-frozen candidate and host specification. Native, interpreted and compiled
-outputs agree, and the existing backend verifier passed for both product modes.
-
-| Mode | Correct completion | Wall seconds | GNU time maximum RSS (KiB) |
-|---|---|---:|---:|
-| Native reference | PASS | 0.715 | 99456 |
-| Interpreted | PASS | 898.599 | 121728 |
-| Compiled | PASS | 0.865 | 102016 |
-
-The interpreted run took about 14 minutes 59 seconds under the separate
-1800-second diagnostic budget. Its ordinary 60-second timeout remains recorded.
-The wall-time and RSS accounting qualifications above apply to this table too.
-
-## Verified workload: copy.go
-
-The full semi-exhaustive copy workload passed all its original checks under
-interpretation in **244.226 s**, with GNU time maximum RSS **123264 KiB**.
-The native reference passed in 0.515 s and compiled execution in 0.765 s;
-outputs agree and both product backend verifiers passed. This confirms correct
-completion beyond the unchanged 60-second acceptance limit for this workload.
-It used the same frozen candidate, host specification and diagnostic budget
-described above.
-
-## Verified workload: divmod.go
-
-The complete, unmodified division/modulo workload passed under interpretation
-in **1677.493 s** (about 27 minutes 57 seconds), with GNU time maximum RSS
-**97536 KiB**. The native reference passed in **0.715 s** and compiled execution
-in **0.816 s**. Exact outputs matched, and the existing backend verifier exited
-zero for both product modes. The same frozen candidate and 1800-second
-per-stage diagnostic budget apply; the ordinary 60-second acceptance limit and
-its timeout result remain unchanged.
+`abi/uglyfib.go` first reached that diagnostic deadline without completing:
+**1801.516 s**, maximum RSS **121728 KiB**. Its initial native/compiled runs
+passed in 0.865/1.066 s. That timeout remains recorded. A separate **7200-second**
+diagnostic retry, started **2026-10-05 21:18:52 UTC**, completed interpreted
+execution correctly in **2232.902 s** (about 37 minutes 13 seconds), as shown
+in the table. Source and tool identities were unchanged, exact outputs matched,
+and both product backend verifiers passed. It is now proven correct for the
+full tested workload, while remaining outside the ordinary performance limit.
 
 ## Remaining completion evidence
 
-`64bit.go` passed the frozen candidate's ordinary interpreted gate in 34.13 s.
-A supplemental run completed in 30.334 s with maximum RSS 320384 KiB; both
-generation and execution phases of its `runoutput` recipe were verified,
-and the native/compiled runs passed. The normal-gate result remains 34.13 s.
-Five of the twelve performance-limited workloads now have verified full-scale
-interpreted completion: `64bit.go`, `divmod.go`, `abi/fibish_closure.go`,
-`copy.go`, and `fixedbugs/issue79186.go`.
-Full-workload interpreted completion checks for `ken/divconst.go`,
-`ken/modconst.go`, `abi/uglyfib.go`, `stack.go`,
-`fixedbugs/issue13169.go`, `fixedbugs/issue59680.go`, and
-`fixedbugs/issue78081.go` are still pending. Do not describe those seven workloads
-as proven correct merely because they are historically excluded for performance.
-Wrong results, mismatched panics, deadlocks and further timeouts require an
-explicit unresolved disposition; they do not earn correctness credit.
+Full-workload interpreted completion is still **unproven** for:
 
-`abi/uglyfib.go` has now reached the separate 1800-second diagnostic deadline
-(1801.516 s wall time, 121728 KiB maximum RSS) without completing interpreted
-execution. Native and compiled executions passed in 0.865 s and 1.066 s.
-Interpreted correctness remains **unproven**; a longer isolated diagnostic is
-running with a 7200-second budget, started **2026-10-05 21:18:52 UTC**.
-The native/compiled passes do not settle this condition.
+- `ken/divconst.go`
+- `ken/modconst.go`
+- `stack.go`
+- `fixedbugs/issue78081.go`
+
+Do not describe these four workloads as proven correct merely because they
+are historically excluded for performance. Wrong results, mismatched panics,
+deadlocks and further timeouts require an explicit unresolved disposition;
+they do not earn correctness credit.
 
 The [October 5 full corpus record](go-corpus-state-2026-10-05.md) contains the
 ordinary gate results and all exact-ID exclusions. Longer diagnostic results
