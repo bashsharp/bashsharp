@@ -144,6 +144,55 @@ A `~~~csharp` fence is a C# declaration unit, not a full program:
   islands. A hyphen/name-mapping collision (see above) is a prepare-time
   diagnostic, never a silent rebind.
 
+## PowerShell command form (S358.4)
+
+An exported PowerShell function is also a shell command: `alias.Name args`
+in command position runs it with its streams wired into Bash# pipes and
+redirections, the same command form the Python row has.
+
+```
+~~~powershell as ps
+function Shout { process { $_.ToUpper() } }
+function Rows  { [pscustomobject]@{ id = 1; name = 'a' } }
+~~~
+printf 'gamma\nalpha\n' | ps.Shout | sort
+ps.Rows | jq -c .
+```
+
+- **argv.** Each word reaches the function as a positional `[string]`.
+- **stdout.** The success stream is rendered once, at the boundary: a string
+  is UTF-8 text plus `\n`; a `[byte[]]` is written byte for byte (no
+  re-encoding, no added newline); a `Write-Host` record is its message; any
+  other object is one line of compact JSON (`ConvertTo-Json -Compress`).
+  The shell pipe stays bytes — no PowerShell object pipeline is added.
+- **stdin.** A function that reads pipeline input — a `process` block, a
+  `$input` reference, or a `ValueFromPipeline` parameter — runs as a filter
+  over the command's stdin, one UTF-8 line per pipeline item (`\r\n` and `\n`
+  both end a line). The stdin is read to EOF before the function runs. Any
+  other function never reads stdin.
+- **Line endings.** Text written to stdout and stderr is normalised to `\n`
+  on every OS, so the same script produces the same bytes on Windows, Linux
+  and macOS. Byte-array output is never normalised.
+- **stderr.** Non-terminating errors (`Write-Error`) and warnings are written
+  to stderr; the command keeps running. Verbose and debug streams are dropped.
+- **Exit status.**
+
+  | Outcome | Status | Streams |
+  |---|---|---|
+  | clean run | `0` | output on stdout |
+  | non-terminating error / warning only | `0` | message on stderr |
+  | native child exited non-zero (`$LASTEXITCODE`) | that code | as written |
+  | terminating error / uncaught `throw` | `1` | message on stderr, stdout empty |
+  | not an exported function of the fence | `127` | `command not found` |
+  | worker died | `128+signal` (or its exit code) | — |
+
+  `$LASTEXITCODE` is reset before each command, so a code never leaks from
+  one command into the next. `set -e`, `&&`, `||` and `$?` see these
+  statuses like any other command's.
+- **The same error, two surfaces.** In a typed call
+  (`value, err := ps.Fail()`) a terminating error binds to `err` with its
+  message; in the command form it is status `1` with that message on stderr.
+
 ## Boundary: NuGet is a separate follow-up
 
 This contract covers **fence source only** — PowerShell functions and C#
