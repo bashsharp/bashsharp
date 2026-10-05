@@ -197,11 +197,10 @@ ps.Rows | jq -c .
 ## C# fence implementation (S358.5)
 
 **Route.** The S358.2 probe passed `Add-Type` with the pinned PowerShell 7.6.6
-archive on Windows x64, macOS arm64 and Ubuntu x64 under WSL2 (C# 9 through
-14 accepted). A clean native Linux x64 host is still required to complete
-S358.2. In the tested lanes, C# compiles through PowerShell and the .NET SDK
-fallback was not used. `csharp` (alias `cs`) resolves the same `pwsh` as the
-`powershell` fence — one pinned archive serves both, with the same
+archive on Windows x64, macOS arm64 and clean native Ubuntu x64 (C# 9 through
+14 accepted). C# compiles through PowerShell on every required OS, and the
+.NET SDK fallback was not used. `csharp` (alias `cs`) resolves the same
+`pwsh` as the `powershell` fence — one pinned archive serves both, with the same
 `BASHPP_PWSH` override.
 
 **Body.** Leading `using` lines (including `using static` and `using X = Y;`)
