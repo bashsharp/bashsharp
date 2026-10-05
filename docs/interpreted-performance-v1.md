@@ -31,13 +31,29 @@ existing diagnostic deadline override (1800 seconds per stage); the standard
 recorded. The operator authorized deferring proven performance limitations until
 after v1.0, so this exact interpreted root is classified `compute-bound`.
 
+## Verified workload: abi/fibish_closure.go
+
+The complete, unmodified recursive closure workload also passed on the same
+frozen candidate and host specification. Native, interpreted and compiled
+outputs agree, and the existing backend verifier passed for both product modes.
+
+| Mode | Correct completion | Wall seconds | GNU time maximum RSS (KiB) |
+|---|---|---:|---:|
+| Native reference | PASS | 0.715 | 99456 |
+| Interpreted | PASS | 898.599 | 121728 |
+| Compiled | PASS | 0.865 | 102016 |
+
+The interpreted run took about 14 minutes 59 seconds under the separate
+1800-second diagnostic budget. Its ordinary 60-second timeout remains recorded.
+The wall-time and RSS accounting qualifications above apply to this table too.
+
 ## Remaining completion evidence
 
 `64bit.go` passed the frozen candidate's ordinary interpreted gate in 34.13 s.
 Full-workload interpreted completion checks for `divmod.go`, `ken/divconst.go`,
-`ken/modconst.go`, `abi/uglyfib.go`, `abi/fibish_closure.go`, `copy.go`, `stack.go`,
+`ken/modconst.go`, `abi/uglyfib.go`, `copy.go`, `stack.go`,
 `fixedbugs/issue13169.go`, `fixedbugs/issue59680.go`, and
-`fixedbugs/issue78081.go` are still pending. Do not describe those ten workloads
+`fixedbugs/issue78081.go` are still pending. Do not describe those nine workloads
 as proven correct merely because they are historically excluded for performance.
 Wrong results, mismatched panics, deadlocks and further timeouts require an
 explicit unresolved disposition; they do not earn correctness credit.
