@@ -141,7 +141,10 @@ Shipped: seven island languages; scalars, bytes and opaque handles cross the
 boundary. Planned: lists and dicts as first-class values on both sides
 (today a returned list arrives as a JSON string), an island function as a
 pipeline filter reading stdin, Rust on the same persistent worker the other
-islands use, `import python "./file.py"` by path.
+islands use, `import python "./file.py"` by path, and `powershell` and
+`csharp` fences for Windows users — a pinned PowerShell 7 toolchain
+provisioned on demand, their functions and `public static` methods called from
+the same Bash# workflow (`powershell-csharp-fences.md`).
 
 ### 4. Automation an agent runs — with a deterministic judge
 
@@ -232,9 +235,13 @@ Honest wins and honest losses, one paragraph each.
   ergonomics at the prompt.
 - **PowerShell.** On every Windows box, with Windows administration
   (services, event log, registry, certificates) Bash# does not attempt.
-  Bash# wins on being bash, on one static binary with no .NET, and on
-  effects declared for *every* command where `-WhatIf` covers only cmdlets
-  that opted in.
+  Bash# wins on being bash, on one static binary with no CLR of its own, and
+  on effects declared for *every* command where `-WhatIf` covers only cmdlets
+  that opted in. Planned: a `powershell` fence (and a `csharp` fence) so a
+  Windows user can call familiar functions and libraries from inside a Bash#
+  workflow — a guest runtime provisioned on demand, not a CLR inside bashy, and
+  with Bash# calls, control flow and `agentic` orchestration still the
+  interface on every OS (`powershell-csharp-fences.md`).
 - **zx / Bun / Deno scripting.** Fine glue for a JavaScript team. Bash#
   needs no runtime on the host and has contracts; loses for teams already
   living in TypeScript.
@@ -274,10 +281,22 @@ Nothing here is promised for a date. Each item names its status.
 
 Refused, permanently — so nobody waits for them: list comprehensions,
 ternary, `match`, `try`/`catch`, operator and method overloading, classical
-inheritance, `async`/`await`, `?.`/`??`, an object pipeline in `|`,
-case-insensitive names, backtick line continuation. The reasons are in
+inheritance, `async`/`await`, `?.`/`??`, an object pipeline in the shell,
+case-insensitive names, backtick line continuation, Verb-Noun renaming of
+POSIX names, drive providers, and ExecutionPolicy. The reasons are in
 [bashsharp-ergonomics-tier.md](bashsharp-ergonomics-tier.md): a construct
 that cannot lower to ordinary Go splits the language.
+
+One earlier refusal was **narrowed on 2026-10-02**: "no .NET" meant no CLR
+linked or embedded inside bashy, and that still holds — bashy stays one static
+binary with no runtime of its own. What is now admitted is a `powershell` and a
+`csharp` **fence**: a guest language called from a Bash# workflow, backed by a
+separately downloaded, pinned, on-demand PowerShell 7 toolchain, exactly as the
+Python and Rust islands are provisioned. Bash# calls remain the interface;
+PowerShell and C# are callable islands inside the workflow, not the shell. The
+object pipeline, Verb-Noun renaming, case-insensitivity, drive providers and
+ExecutionPolicy stay refused. Windows PowerShell 5.1 is out of scope. Planned,
+not shipped — the contract is `powershell-csharp-fences.md`.
 
 ## Where the numbers come from
 
