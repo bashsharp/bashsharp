@@ -17,12 +17,22 @@ The proposed file remains the historical decision input. The 665 catalog
 keys and their original `first_line` observations are preserved; 49 keys
 change classification. **No historical failure becomes PASS.**
 
+The operator's 2026-10-05 correctness-first performance deferral additionally
+covers `fixedbugs/issue79186.go`: the full unchanged interpreted program passed
+in 822.579 seconds on the frozen candidate, with matching native/compiled output
+and backend verification. Its 60-second gate remains a timeout. This adds one
+applicability change to the earlier 49; historical observations remain intact.
+See [v1.0 interpreted performance evidence](interpreted-performance-v1.md).
+`64bit.go` now passes the current interpreted gate (34.13 s); the historical
+catalog row does not override that fresh result. The full dated ledger will
+report passing rows separately from historical applicability decisions.
+
 The existing seven exclusion reasons remain. Three approved reasons are added:
 
 | Family | Keys | Applicability and workaround |
 |---|---:|---|
 | `multi-package-interpreted` | 26 | Whole-package Go source uses a compiled Go island. Its compiled gate remains applicable. |
-| `compute-bound` | 11 | The exact approved CPU-bound roots use a compiled Go fence/embed; their observed interpreted timeouts remain in historical evidence. |
+| `compute-bound` | 12 | The exact approved CPU-bound roots use a compiled Go fence/embed; their observed interpreted timeouts remain in historical evidence. |
 | `assembly-input` | 4 | Assembly companions and generated assembly headers require the native toolchain. |
 
 Calculated from the updated TSV (historical failures, **not current pass rates**):
@@ -31,13 +41,13 @@ Calculated from the updated TSV (historical failures, **not current pass rates**
 |---|---:|---:|
 | repair | 275 | 290 |
 | review | 5 | 5 |
-| blocked-design | 37 | 43 |
-| excluded | 314 | 327 |
+| blocked-design | 36 | 42 |
+| excluded | 315 | 328 |
 | total | 631 | 665 |
 
-There are 327 excluded keys on 322 distinct IDs; eight IDs also have a
-non-excluded key. Remaining applicable historical targets: 338 keys on 317
-overall roots. The five overhead roots (`ken/chan.go`, `fixedbugs/issue79186.go`,
+There are 328 excluded keys on 323 distinct IDs; eight IDs also have a
+non-excluded key. Remaining applicable historical targets: 337 keys on 316
+overall roots. The four remaining overhead roots (`ken/chan.go`,
 `fixedbugs/issue39541.go`, `fixedbugs/issue20780b.go`, `fixedbugs/issue80188.go`)
 stay applicable, as do the three regression sentinels. Tour 97/97 and Go by
 Example 85/85 remain mandatory interpreted gates at unchanged limits.

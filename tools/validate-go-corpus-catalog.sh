@@ -19,5 +19,5 @@ END {
   for (id in ids) { split(id, pair, SUBSEP); roots[pair[1]]++ }
   for (root in overall) overallRoots[overall[root]]++
   for (family in families) familyCount++
-  if (invalid || keys["excluded"] != 327 || roots["excluded"] != 322 || overallRoots["excluded"] != 314 || keys["repair"] != 290 || roots["repair"] != 275 || keys["repair"] + keys["review"] + keys["blocked-design"] != 338 || overallRoots["repair"] + overallRoots["review"] + overallRoots["blocked-design"] != 317 || familyCount != 10) exit 1
+  if (invalid || keys["excluded"] != 328 || roots["excluded"] != 323 || overallRoots["excluded"] != 315 || keys["repair"] != 290 || roots["repair"] != 275 || keys["repair"] + keys["review"] + keys["blocked-design"] != 337 || overallRoots["repair"] + overallRoots["review"] + overallRoots["blocked-design"] != 316 || familyCount != 10) exit 1
 }' "$targets"
