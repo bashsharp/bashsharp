@@ -105,7 +105,9 @@ func run(args []string) int {
 	if !commandSet && len(sel.Files) == 0 && len(operands) > 0 {
 		operand, operands = operands[0], operands[1:]
 	}
-	if !bashSharpFlag && operand != "" {
+	// --check never takes the compiled whole-file route: that route runs the
+	// program, and a check executes nothing.
+	if !bashSharpFlag && operand != "" && !sel.Check {
 		if sel.LanguageSeen && sel.Language == "go" || !sel.LanguageSeen && strings.EqualFold(filepath.Ext(operand), ".go") {
 			status, runErr := interp.RunCompiledGoFile(operand, operands, os.Stdin, os.Stdout, os.Stderr)
 			if runErr != nil {
@@ -130,6 +132,9 @@ func run(args []string) int {
 	}
 	if res.Enabled {
 		return runGoSource(res, args, operand, command, commandSet, noExec, operands)
+	}
+	if res.ContentCheck {
+		return runContentCheck(args, operand, command, commandSet, operands)
 	}
 	if !commandSet && operand != "" && operand != "-" {
 		data, readErr := os.ReadFile(operand)
@@ -167,6 +172,31 @@ func fenceLanguage(ext string) string {
 		return "ts"
 	}
 	return strings.TrimPrefix(ext, ".")
+}
+
+// runContentCheck is --check with no --source: the input itself selects the
+// language. Nothing is executed on either path.
+func runContentCheck(invocation []string, operand, command string, commandSet bool, args []string) int {
+	var stdin io.Reader
+	if operand == "" && !commandSet {
+		stdin = os.Stdin
+	}
+	if operand != "" && operand != "-" {
+		if info, err := os.Stat(operand); err == nil && info.IsDir() {
+			return failure(front.Errorf("--check: %s: is a directory; select Go packages with --source=go", operand))
+		}
+	}
+	in, err := front.CollectGoSources(front.GoSourceResolution{}, operand, command, stdin)
+	if err != nil {
+		return failure(err)
+	}
+	if in.IsGoUnit() {
+		return runGoSourceInput(front.GoSourceResolution{Enabled: true, Check: true}, in, invocation, command, commandSet, true, args)
+	}
+	if err := front.CheckShellInput(in); err != nil {
+		return failure(err)
+	}
+	return 0
 }
 
 // runShell parses and runs a Bash# program from a file, -c or stdin.
@@ -254,6 +284,10 @@ func runGoSource(res front.GoSourceResolution, invocation []string, operand, com
 	if err != nil {
 		return failure(err)
 	}
+	return runGoSourceInput(res, in, invocation, command, commandSet, noExec, args)
+}
+
+func runGoSourceInput(res front.GoSourceResolution, in front.GoSourceInput, invocation []string, command string, commandSet, noExec bool, args []string) int {
 	noExec = noExec || res.Check
 	packages, err := front.ReadGoSourcePackages(res.Packages)
 	if err != nil {
@@ -406,6 +440,6 @@ FILE.bsh and shell extensions run interpreted as Bash#. Bare FILE.go
 compiles and runs with the Go fence toolchain; --source=go selects that
 path for any extension. --bashsharp (alias --bashpp) overrides the extension
 and interprets the file. --bashpp --source=go FILE.go retains interpreted
-Go-source mode for the corpus harness. --check validates without running;
+Go-source mode for the corpus harness. --check validates without running (a Go unit or a Bash# program, chosen by its content unless --source is given);
 --go-list prints import resolutions. transpile lowers to ordinary Go.
 `

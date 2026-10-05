@@ -90,3 +90,56 @@ func TestGoPackageAssemblyFlagWiring(t *testing.T) {
 		t.Fatalf("run = %d, loader called = %v; want 2, true", got, called)
 	}
 }
+
+// TestCheckWithoutSourceSelectsByContent: --check with no --source is the
+// semantic check of whatever the input is, and never runs a body.
+func TestCheckWithoutSourceSelectsByContent(t *testing.T) {
+	dir := t.TempDir()
+	marker := filepath.Join(dir, "ran")
+	write := func(name, body string) string {
+		t.Helper()
+		path := filepath.Join(dir, name)
+		if err := os.WriteFile(path, []byte(body), 0o644); err != nil {
+			t.Fatal(err)
+		}
+		return path
+	}
+	goBody := func(extra string) string {
+		return "//go:build norun\n\npackage main\n\nimport \"os\"\n\nfunc init() { os.WriteFile(" + `"` + marker + `"` + ", nil, 0o644) }\n\nfunc main() { for {} }\n" + extra
+	}
+	cases := []struct {
+		name, body string
+		want       int
+	}{
+		{"go unit never runs", goBody(""), 0},
+		{"go semantic error", "package main\n\nfunc main() { var x int = \"s\"; _ = x }\n", 2},
+		{"shell never runs", "touch " + marker + "\nwhile true; do :; done\n", 0},
+		{"shell semantic error", "touch " + marker + "\nfunc deref(p *int) int { return *p }\n", 2},
+		{"shell syntax error", "touch " + marker + "\nif then fi (\n", 2},
+	}
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			path := write("p.bsh", tc.body)
+			if got := run([]string{"bashsharp", "--check", path}); got != tc.want {
+				t.Errorf("run --check = %d, want %d", got, tc.want)
+			}
+			if _, err := os.Stat(marker); err == nil {
+				t.Fatal("--check executed the program body")
+			}
+		})
+	}
+	t.Run("a .go file is checked, not compiled and run", func(t *testing.T) {
+		path := write("p.go", goBody(""))
+		if got := run([]string{"bashsharp", "--check", path}); got != 0 {
+			t.Errorf("run --check = %d, want 0", got)
+		}
+		if _, err := os.Stat(marker); err == nil {
+			t.Fatal("--check executed the program body")
+		}
+	})
+	t.Run("explicit --source=sh keeps the refusal", func(t *testing.T) {
+		if got := run([]string{"bashsharp", "--source=sh", "--check", write("q.bsh", "echo\n")}); got != 2 {
+			t.Errorf("run = %d, want 2", got)
+		}
+	})
+}

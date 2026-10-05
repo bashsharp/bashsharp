@@ -161,10 +161,40 @@ func TestResolveGoSourceRefusals(t *testing.T) {
 			want: "bashy: --source=go requires the bashy front door",
 		},
 		{
-			name: "check without go",
+			name: "check without Bash# on the bashy front door",
 			sel:  GoSourceSelection{Check: true},
-			ctx:  bashy,
+			ctx:  GoSourceContext{Binary: BashPPBinaryBashy},
 			want: "bashy: --check requires --source=go",
+		},
+		{
+			name: "check without go in POSIX mode",
+			sel:  GoSourceSelection{Check: true},
+			ctx:  GoSourceContext{Binary: BashPPBinaryBashy, BashPP: true, Posix: true},
+			want: "bashy: --check requires --source=go",
+		},
+		{
+			name: "check without go on the bash drop-in",
+			sel:  GoSourceSelection{Check: true},
+			ctx:  GoSourceContext{Binary: BashPPBinaryBash, BashPP: true},
+			want: "bashy: --check requires --source=go",
+		},
+		{
+			name: "content check with a shell-only mode",
+			sel:  GoSourceSelection{Check: true},
+			ctx:  GoSourceContext{Binary: BashPPBinaryBashy, BashPP: true, ShellOnlyMode: "--pretty-print"},
+			want: "bashy: --pretty-print cannot be combined with --check",
+		},
+		{
+			name: "content check keeps the go-only flag refusals",
+			sel:  GoSourceSelection{Check: true, GoVersion: "go1.20", GoVersionSeen: true},
+			ctx:  bashy,
+			want: "bashy: --go-version requires --source=go",
+		},
+		{
+			name: "content check keeps the go-file refusal",
+			sel:  GoSourceSelection{Check: true, Files: []string{"a.go"}},
+			ctx:  bashy,
+			want: "bashy: --go-file requires --source=go",
 		},
 		{
 			name: "check with an explicit --source=sh",
@@ -222,6 +252,15 @@ func TestResolveGoSourceAccepts(t *testing.T) {
 			t.Fatal(err)
 		}
 		if !res.Enabled || !res.Check {
+			t.Fatalf("resolution = %+v", res)
+		}
+	})
+	t.Run("check without --source is decided by the input", func(t *testing.T) {
+		res, err := ResolveGoSource(GoSourceSelection{Check: true}, bashy)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if res.Enabled || !res.Check || !res.ContentCheck {
 			t.Fatalf("resolution = %+v", res)
 		}
 	})

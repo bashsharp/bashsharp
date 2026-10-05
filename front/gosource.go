@@ -326,6 +326,10 @@ type GoSourceResolution struct {
 	Enabled bool
 	// Check requests semantic validation with no execution.
 	Check bool
+	// ContentCheck marks a --check with no --source: Enabled is false and the
+	// caller dispatches the check on the input itself (a Go compilation unit
+	// takes the Go front end, anything else the Bash# shell check).
+	ContentCheck bool
 	// Files are the explicit --go-file inputs, empty for operand/stdin input.
 	Files []string
 	// Packages, ImportBase and List carry the explicit package map and the
@@ -563,6 +567,7 @@ func goSourceFlagValue(args []string, i *int) (string, bool) {
 // AgentOS hook that carries the front end, and must not grow a Go type checker.
 func ResolveGoSource(sel GoSourceSelection, ctx GoSourceContext) (GoSourceResolution, error) {
 	lang := GoSourceLangShell
+	contentCheck := false
 	if sel.LanguageSeen {
 		switch GoSourceLanguage(sel.Language) {
 		case GoSourceLangShell, GoSourceLangGo:
@@ -588,8 +593,14 @@ func ResolveGoSource(sel GoSourceSelection, ctx GoSourceContext) (GoSourceResolu
 		if sel.GoVersionSeen {
 			return GoSourceResolution{}, Errorf("--go-version requires --source=go")
 		}
+		// Without an explicit --source a Bash# program picks its language by
+		// content, so --check is the semantic check of whichever it is. An
+		// explicit --source=sh, POSIX and the bash drop-in keep the refusal.
 		if sel.Check {
-			return GoSourceResolution{}, Errorf("--check requires --source=go")
+			if sel.LanguageSeen || !ctx.BashPP || ctx.Posix || ctx.Binary != BashPPBinaryBashy {
+				return GoSourceResolution{}, Errorf("--check requires --source=go")
+			}
+			contentCheck = true
 		}
 		if len(sel.Files) > 0 {
 			return GoSourceResolution{}, Errorf("--go-file requires --source=go")
@@ -611,6 +622,12 @@ func ResolveGoSource(sel GoSourceSelection, ctx GoSourceContext) (GoSourceResolu
 		}
 		if sel.List {
 			return GoSourceResolution{}, Errorf("--go-list requires --source=go")
+		}
+		if contentCheck {
+			if ctx.ShellOnlyMode != "" {
+				return GoSourceResolution{}, Errorf("%s cannot be combined with --check", ctx.ShellOnlyMode)
+			}
+			return GoSourceResolution{Check: true, ContentCheck: true}, nil
 		}
 		return GoSourceResolution{}, nil
 	}
