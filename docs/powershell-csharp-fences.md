@@ -255,6 +255,29 @@ PowerShell build is a new key.
 refused at prepare with its fence line and the NuGet follow-up's name
 (S358.6), as described below.
 
+## Lowering (S358.7)
+
+Both fences lower. A transpiled Bash# program drives the same persistent
+`pwsh` worker the interpreter does (C# still compiles through `Add-Type` in
+that worker), so the same `.bsh` gives byte-identical stdout and stderr
+interpreted and lowered: typed calls, objects as JSON, `err` bindings,
+module state across calls, and the PowerShell command form in pipes and
+redirections. The parity tests are `TestPowerShellFenceInterpretedNativeParity`
+and `TestCSharpFenceInterpretedNativeParity` in `sh/lower/polyglot_test.go`.
+
+- **The lowered binary needs the PowerShell toolchain at run time**, just as a
+  lowered Python fence needs Python. The binary embeds the fence source and
+  the environment plan resolved at compile time (the provisioned `pwsh` path);
+  it does not embed PowerShell, the CLR or a compiled C# assembly. Run it where
+  that runtime is provisioned (`bashy` provisions the pinned PowerShell 7.6.6
+  on demand; `BASHPP_PWSH` names one explicitly when compiling).
+- A `Verb-Noun` export has no Bash# call name and no Go identifier. It is not a
+  typed callable in either mode; it stays loaded in the worker, so other
+  functions in the fence still call it, and the program still lowers.
+- **Native AOT is not attempted.** Compiling the C# fence ahead of time into
+  the binary needs a platform linker (MSVC on Windows) and is a separate
+  follow-up, not part of this sprint.
+
 ## Boundary: NuGet is a separate follow-up
 
 This contract covers **fence source only** — PowerShell functions and C#
