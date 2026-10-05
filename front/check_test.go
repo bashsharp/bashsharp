@@ -4,6 +4,7 @@
 package front
 
 import (
+	"io"
 	"strings"
 	"testing"
 )
@@ -34,5 +35,30 @@ func TestCheckShellInputRefusesWithoutFrontEnd(t *testing.T) {
 	}
 	if err := CheckShellInput(GoSourceInput{}); err == nil {
 		t.Fatal("no input must be refused")
+	}
+}
+
+type failReader struct{ t *testing.T }
+
+func (r failReader) Read([]byte) (int, error) {
+	r.t.Helper()
+	r.t.Error("stdin was read")
+	return 0, io.EOF
+}
+
+func TestCollectCheckInput(t *testing.T) {
+	for _, operand := range []string{"", "-"} {
+		in, err := CollectCheckInput(operand, "", false, strings.NewReader("echo piped\n"))
+		if err != nil || len(in.Files) != 1 || string(in.Files[0].Data) != "echo piped\n" || in.Files[0].Name != "-" {
+			t.Errorf("operand %q: %+v, %v", operand, in, err)
+		}
+	}
+	in, err := CollectCheckInput("", "", true, failReader{t})
+	if err != nil || len(in.Files) != 1 || len(in.Files[0].Data) != 0 || in.Files[0].Name != "-c" {
+		t.Errorf("empty -c: %+v, %v", in, err)
+	}
+	in, err = CollectCheckInput("", "echo x", true, failReader{t})
+	if err != nil || string(in.Files[0].Data) != "echo x" {
+		t.Errorf("-c: %+v, %v", in, err)
 	}
 }

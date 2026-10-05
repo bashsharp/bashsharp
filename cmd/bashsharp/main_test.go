@@ -143,3 +143,37 @@ func TestCheckWithoutSourceSelectsByContent(t *testing.T) {
 		}
 	})
 }
+
+func withStdin(t *testing.T, content string) {
+	t.Helper()
+	f, err := os.CreateTemp(t.TempDir(), "stdin")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err := f.WriteString(content); err != nil {
+		t.Fatal(err)
+	}
+	f.Seek(0, 0)
+	old := os.Stdin
+	os.Stdin = f
+	t.Cleanup(func() { os.Stdin = old; f.Close() })
+}
+
+func TestCheckDashAndEmptyCommand(t *testing.T) {
+	withStdin(t, "package main\n\nfunc main() { x }\n")
+	if got := run([]string{"bashsharp", "--check", "-"}); got != 2 {
+		t.Errorf("--check - with piped bad Go = %d, want 2", got)
+	}
+	withStdin(t, "echo ok\n")
+	if got := run([]string{"bashsharp", "--check", "-"}); got != 0 {
+		t.Errorf("--check - with piped shell = %d, want 0", got)
+	}
+	// An empty -c must neither read stdin (bad content here) nor hang.
+	withStdin(t, "func d(p *int) int { return *p }\n")
+	if got := run([]string{"bashsharp", "--check", "-c", ""}); got != 0 {
+		t.Errorf("--check -c '' = %d, want 0", got)
+	}
+	if got := run([]string{"bashsharp", "--source=sh", "--check", "-c", ""}); got != 2 {
+		t.Errorf("explicit --source=sh must still refuse, got %d", got)
+	}
+}

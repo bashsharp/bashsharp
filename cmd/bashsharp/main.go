@@ -177,16 +177,12 @@ func fenceLanguage(ext string) string {
 // runContentCheck is --check with no --source: the input itself selects the
 // language. Nothing is executed on either path.
 func runContentCheck(invocation []string, operand, command string, commandSet bool, args []string) int {
-	var stdin io.Reader
-	if operand == "" && !commandSet {
-		stdin = os.Stdin
-	}
-	if operand != "" && operand != "-" {
+	if !commandSet && operand != "" && operand != "-" {
 		if info, err := os.Stat(operand); err == nil && info.IsDir() {
 			return failure(front.Errorf("--check: %s: is a directory; select Go packages with --source=go", operand))
 		}
 	}
-	in, err := front.CollectGoSources(front.GoSourceResolution{}, operand, command, stdin)
+	in, err := front.CollectCheckInput(operand, command, commandSet, os.Stdin)
 	if err != nil {
 		return failure(err)
 	}

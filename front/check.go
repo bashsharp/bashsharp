@@ -5,6 +5,7 @@ package front
 
 import (
 	"bytes"
+	"io"
 	"text/scanner"
 )
 
@@ -46,4 +47,20 @@ func CheckShellInput(in GoSourceInput) error {
 // diagnostics.
 func VerbatimError(msg string, err error) error {
 	return &goSourceError{msg: msg, err: err}
+}
+
+// CollectCheckInput collects the one input of a content-selected --check.
+// stdin is read only when no -c was given and the operand is absent or "-";
+// an explicit empty -c is an empty program and never touches stdin.
+func CollectCheckInput(operand, command string, commandSet bool, stdin io.Reader) (GoSourceInput, error) {
+	if commandSet {
+		if command == "" {
+			return GoSourceInput{Files: []GoSourceFile{{Name: "-c"}}, Dir: goSourceWorkingDir()}, nil
+		}
+		return CollectGoSources(GoSourceResolution{}, "", command, nil)
+	}
+	if operand != "" && operand != "-" {
+		stdin = nil
+	}
+	return CollectGoSources(GoSourceResolution{}, operand, "", stdin)
 }
