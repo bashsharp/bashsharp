@@ -19,7 +19,7 @@ Interpreter SHA-256: `1d2caf7618dd5af8a2ef983afbdfb7d874726692051b3668c849b5da48
 
 | Root | Native wall seconds | Interpreted wall seconds | Compiled wall seconds | Interpreted maximum RSS (KiB) |
 |---|---:|---:|---:|---:|
-| `64bit.go` | — | 30.334 | — | 320384 |
+| `64bit.go` | 13.753 | 30.334 | 3.122 | 320384 |
 | `divmod.go` | 0.715 | 1677.493 | 0.816 | 97536 |
 | `abi/fibish_closure.go` | 0.715 | 898.599 | 0.865 | 121728 |
 | `abi/uglyfib.go` | 0.866 | 2232.902 | 1.066 | 120064 |
@@ -28,8 +28,7 @@ Interpreter SHA-256: `1d2caf7618dd5af8a2ef983afbdfb7d874726692051b3668c849b5da48
 | `fixedbugs/issue59680.go` | 0.615 | 391.293 | 0.816 | 420740 |
 | `fixedbugs/issue79186.go` | 13.212 | 822.579 | 1.967 | 131208 |
 
-All table rows are PASS in all three modes. Dashes omit timings from this
-summary; they do not mean missing execution evidence. For `64bit.go`, both
+All table rows are PASS in all three modes. For `64bit.go`, both
 generation and execution phases of the `runoutput` recipe were verified.
 Its ordinary frozen-candidate interpreted gate already passed in **34.13 s**;
 the supplemental 30.334 s measurement does not replace that gate result.
