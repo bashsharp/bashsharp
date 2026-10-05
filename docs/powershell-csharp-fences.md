@@ -1,11 +1,12 @@
 # PowerShell and C# fences — the language contract
 
-Status: **design of record, settled 2026-10-02 (operator decision); no engine
-code yet.** This page answers S358.0 (`30bb5abea933`) of
-`docs/sprint-358-master-execution-plan.md`. It fixes the language contract for
-two new Bash# source fences, `powershell` and `csharp`, before any evaluator,
-lowerer or provisioner work. Every spelling, value rule and verdict below is a
-decision a later story implements, not a description of shipped behaviour.
+Status: **design of record, settled 2026-10-02 (operator decision).** This page
+answers S358.0 (`30bb5abea933`) of `docs/sprint-358-master-execution-plan.md`.
+It fixed the language contract for two Bash# source fences, `powershell` and
+`csharp`, before any evaluator, lowerer or provisioner work. The PowerShell row
+(S358.3, S358.4) and the C# row (S358.5) have since been implemented; their
+implementation sections describe shipped behaviour, and the rest is the
+contract they implement.
 
 ## Where these fences sit — the interface hierarchy
 
@@ -192,6 +193,67 @@ ps.Rows | jq -c .
 - **The same error, two surfaces.** In a typed call
   (`value, err := ps.Fail()`) a terminating error binds to `err` with its
   message; in the command form it is status `1` with that message on stderr.
+
+## C# fence implementation (S358.5)
+
+**Route.** The S358.2 probe passed `Add-Type` with the pinned PowerShell 7.6.6
+archive on Windows x64, macOS arm64 and Linux x64 (C# 9 through 14 accepted),
+so every required OS compiles C# through PowerShell; the .NET SDK fallback is
+not used on any of them. `csharp` (alias `cs`) resolves the same `pwsh` as the
+`powershell` fence — one pinned archive serves both, with the same
+`BASHPP_PWSH` override.
+
+**Body.** Leading `using` lines (including `using static` and `using X = Y;`)
+go before a generated namespace; the rest of the body becomes the members of a
+`public static class` in that namespace. The namespace is derived from the
+fence source, so each module has its own types and a re-run never redefines a
+loaded type. Helper types (classes, records, enums) may be nested in the body.
+
+```text
+~~~csharp as cs
+using System;
+using System.Linq;
+
+public static long Square(long x) => x * x;
+public static string Join(string sep, long n) => string.Join(sep, Enumerable.Range(1, (int)n));
+public static string Fail(string why) => throw new InvalidOperationException(why);
+~~~
+sq := cs.Square(6)                    # 36
+failed, failErr := cs.Fail("nope")    # failErr: "InvalidOperationException: nope"
+```
+
+**Exports.** Reflection over the compiled assembly lists the class's public
+static methods in declaration order; a name starting with `_` stays private.
+An overload, a generic method or a `ref`/`out` parameter is refused at prepare,
+since an export is one name with one signature. Parameter and return types map
+by the value table above; a fence-declared class or struct returned from a call
+crosses as a dict of its public properties and fields, and an enum as its name.
+An unaliased fence's methods are bare calls (`Cube(3)`).
+
+**Calls.** One persistent `pwsh` worker per module loads the assembly. Each
+argument is converted to the declared parameter type; a missing argument takes
+the parameter's default value. `Console` output written during a call is that
+call's stdout and stderr. An uncaught exception is the call's error, with the
+exception type as its code; a typed call binds it with one extra `err` result
+(`v, err := cs.F(...)`).
+
+**Diagnostics.** Generated lines carry `#line` mappings, so compiler errors name
+the script file and the fence's own lines, never the wrapper:
+`flow.bsh:13:28: error CS0103: The name 'missing' does not exist in the current
+context`. A failed compile leaves no cache entry.
+
+**Cache.** The compiled assembly and its export list are cached under the user
+cache (`bashpp/csharp`, with a per-user temp fallback when that is not
+writable), keyed by the generated source and a content hash of the `pwsh`
+launcher and the compiler assemblies beside it (`System.Management.Automation`,
+`Microsoft.CodeAnalysis`, `Microsoft.CodeAnalysis.CSharp`). A second run of an
+unchanged fence on an unchanged toolchain reads the export list and loads the
+cached assembly without compiling again. A changed body or a different
+PowerShell build is a new key.
+
+**Packages.** A `#:package` / `#:` directive or `#r "nuget: …"` in the body is
+refused at prepare with its fence line and the NuGet follow-up's name
+(S358.6), as described below.
 
 ## Boundary: NuGet is a separate follow-up
 
