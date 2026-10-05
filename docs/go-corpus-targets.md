@@ -24,8 +24,9 @@ and backend verification. Its 60-second gate remains a timeout. This adds one
 applicability change to the earlier 49; historical observations remain intact.
 See [v1.0 interpreted performance evidence](interpreted-performance-v1.md).
 `64bit.go` now passes the current interpreted gate (34.13 s); the historical
-catalog row does not override that fresh result. The full dated ledger will
-report passing rows separately from historical applicability decisions.
+catalog row does not override that fresh result. The
+[full dated ledger](go-corpus-state-2026-10-05.md) reports passing rows separately
+from historical applicability decisions.
 
 The existing seven exclusion reasons remain. Three approved reasons are added:
 

@@ -1,0 +1,872 @@
+change	root	mode	old_status	result	disposition	first_line
+STILL-FAILING	package:cmd/compile	interpreted	EXCLUDED-NEW	FAIL	CATALOG	
+STILL-FAILING	package:cmd/compile/internal/amd64	interpreted	EXCLUDED-NEW	FAIL	CATALOG	
+STILL-FAILING	package:cmd/compile/internal/importer	interpreted	EXCLUDED-NEW	FAIL	CATALOG	
+STILL-FAILING	package:cmd/compile/internal/ssa	interpreted	EXCLUDED-NEW	FAIL	CATALOG	
+STILL-FAILING	package:cmd/compile/internal/syntax	interpreted	EXCLUDED-NEW	FAIL	CATALOG	
+STILL-FAILING	package:cmd/compile/internal/test	interpreted	EXCLUDED-NEW	FAIL	CATALOG	
+STILL-FAILING	package:cmd/compile/internal/types2	interpreted	EXCLUDED-NEW	FAIL	CATALOG	
+STILL-FAILING	package:cmd/internal/testdir	interpreted	EXCLUDED-NEW	FAIL	CATALOG	
+STILL-FAILING	package:go/types	interpreted	EXCLUDED-NEW	FAIL	CATALOG	
+DISAPPEARED-WITH-PASS	testdir:64bit.go	interpreted	CARRIED-376	PASS	-	
+STILL-FAILING	testdir:abi/fibish_closure.go	interpreted	CARRIED-376	FAIL	CATALOG	testdir_test.go:153: command exceeded time limit
+STILL-FAILING	testdir:abi/result_live.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:abi/uglyfib.go	interpreted	CARRIED-376	FAIL	CATALOG	testdir_test.go:153: command exceeded time limit
+STILL-FAILING	testdir:asmhdr.go	interpreted	EXCLUDED-NEW	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported generate phase: compile input "/SRV is not a Go source file
+STILL-FAILING	testdir:bloop.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:bounds.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:checkbce.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:closure.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 2
+STILL-FAILING	testdir:closure3.go	interpreted	EXCLUDED-NEW	FAIL	CATALOG	testdir_test.go:1278: gc output:
+STILL-FAILING	testdir:cmp.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 2
+SKIP-NOT-IN-BASELINE	testdir:cmplxdivide1.go	compiled	-	SKIP	-	testdir_test.go:565: skip
+SKIP-NOT-IN-BASELINE	testdir:cmplxdivide1.go	interpreted	-	SKIP	-	testdir_test.go:565: skip
+SKIP-NOT-IN-BASELINE	testdir:cmplxdivide1.go	native	-	SKIP	-	testdir_test.go:565: skip
+STILL-FAILING	testdir:codegen/addrcalc.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/alloc.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/append.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+SKIP-NOT-IN-BASELINE	testdir:codegen/append_freegc.go	compiled	-	SKIP	-	testdir_test.go:531: //go:build goexperiment.runtimefreegc
+SKIP-NOT-IN-BASELINE	testdir:codegen/append_freegc.go	interpreted	-	SKIP	-	testdir_test.go:531: //go:build goexperiment.runtimefreegc
+SKIP-NOT-IN-BASELINE	testdir:codegen/append_freegc.go	native	-	SKIP	-	testdir_test.go:531: //go:build goexperiment.runtimefreegc
+STILL-FAILING	testdir:codegen/arithmetic.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/atomics.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/bits.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/bmi.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v3
+STILL-FAILING	testdir:codegen/bool.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/clobberdead.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/clobberdeadreg.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/comparisons.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/condmove.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/constants.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/copy.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/deadstore.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/floats.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/fuse.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/generics.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/ifaces.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/issue22703.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/issue25378.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/issue31618.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/issue33580.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/issue38554.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/issue48054.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/issue52635.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/issue54467.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/issue56440.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/issue58166.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/issue59297.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/issue60324.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/issue61356.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/issue63332.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/issue66585.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/issue68845.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/issue69635.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/issue70409.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/issue72832.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/issue74485.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/issue74788.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/issue75203.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/issue77375.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/known_bits.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/load_type_from_itab.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/logic.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/mapaccess.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/maps.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/math.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/mathbits.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/memcombine.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/memops.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/moveload.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/multiply.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/race.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/reflect_type.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/regabi_regalloc.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/retpoline.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/rotate.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/schedule.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/select.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/shape_assert.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/shift.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/shortcircuit.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+SKIP-NOT-IN-BASELINE	testdir:codegen/simd.go	compiled	-	SKIP	-	testdir_test.go:531: //go:build goexperiment.simd && amd64
+SKIP-NOT-IN-BASELINE	testdir:codegen/simd.go	interpreted	-	SKIP	-	testdir_test.go:531: //go:build goexperiment.simd && amd64
+SKIP-NOT-IN-BASELINE	testdir:codegen/simd.go	native	-	SKIP	-	testdir_test.go:531: //go:build goexperiment.simd && amd64
+SKIP-NOT-IN-BASELINE	testdir:codegen/simd_arm64.go	compiled	-	SKIP	-	testdir_test.go:531: //go:build goexperiment.simd && arm64
+SKIP-NOT-IN-BASELINE	testdir:codegen/simd_arm64.go	interpreted	-	SKIP	-	testdir_test.go:531: //go:build goexperiment.simd && arm64
+SKIP-NOT-IN-BASELINE	testdir:codegen/simd_arm64.go	native	-	SKIP	-	testdir_test.go:531: //go:build goexperiment.simd && arm64
+STILL-FAILING	testdir:codegen/slices.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/smallintiface.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/spectre.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/stack.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/strings.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/structs.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/switch.go	interpreted	EXCLUDED-NEW	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/typeswitch.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/unique.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/unsafe.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/writebarrier.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:codegen/zerosize.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:791: linux/amd64/v1
+STILL-FAILING	testdir:copy.go	interpreted	CARRIED-376	FAIL	CATALOG	testdir_test.go:153: command exceeded time limit
+STILL-FAILING	testdir:defererrcheck.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:devirt.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:devirtualization.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:devirtualization_with_type_assertions_interleaved.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:divmod.go	interpreted	CARRIED-376	FAIL	CATALOG	testdir_test.go:153: command exceeded time limit
+STILL-FAILING	testdir:escape2.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:escape2n.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:escape4.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:escape5.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:escape6.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+SKIP-NOT-IN-BASELINE	testdir:escape_alias.go	compiled	-	SKIP	-	testdir_test.go:531: //go:build goexperiment.runtimefreegc
+SKIP-NOT-IN-BASELINE	testdir:escape_alias.go	interpreted	-	SKIP	-	testdir_test.go:531: //go:build goexperiment.runtimefreegc
+SKIP-NOT-IN-BASELINE	testdir:escape_alias.go	native	-	SKIP	-	testdir_test.go:531: //go:build goexperiment.runtimefreegc
+STILL-FAILING	testdir:escape_array.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:escape_bloop.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:escape_calls.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:escape_closure.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:escape_field.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:escape_goto.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:escape_hash_maphash.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:escape_iface.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:escape_iface_data.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:escape_indir.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:escape_level.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:escape_make_non_const.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:escape_map.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:escape_mutations.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:escape_param.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:escape_reflect.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:escape_runtime_atomic.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:escape_selfassign.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:escape_slice.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:escape_struct_param1.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:escape_struct_param2.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:escape_struct_return.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:escape_sync_atomic.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:escape_unique.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:escape_unsafe.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+SKIP-NOT-IN-BASELINE	testdir:fibo.go	compiled	-	SKIP	-	testdir_test.go:565: skip
+SKIP-NOT-IN-BASELINE	testdir:fibo.go	interpreted	-	SKIP	-	testdir_test.go:565: skip
+SKIP-NOT-IN-BASELINE	testdir:fibo.go	native	-	SKIP	-	testdir_test.go:565: skip
+STILL-FAILING	testdir:finprofiled.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 2
+SKIP-NOT-IN-BASELINE	testdir:fixedbugs/bug385_32.go	compiled	-	SKIP	-	testdir_test.go:531: //go:build 386 || amd64p32 || arm
+SKIP-NOT-IN-BASELINE	testdir:fixedbugs/bug385_32.go	interpreted	-	SKIP	-	testdir_test.go:531: //go:build 386 || amd64p32 || arm
+SKIP-NOT-IN-BASELINE	testdir:fixedbugs/bug385_32.go	native	-	SKIP	-	testdir_test.go:531: //go:build 386 || amd64p32 || arm
+STILL-FAILING	testdir:fixedbugs/bug385_64.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: compilation succeeded unexpectedly
+STILL-FAILING	testdir:fixedbugs/bug398.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: compilation succeeded unexpectedly
+STILL-FAILING	testdir:fixedbugs/bug514.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 1
+SKIP-NOT-IN-BASELINE	testdir:fixedbugs/bug515.go	compiled	-	SKIP	-	testdir_test.go:531: //go:build gccgo
+SKIP-NOT-IN-BASELINE	testdir:fixedbugs/bug515.go	interpreted	-	SKIP	-	testdir_test.go:531: //go:build gccgo
+SKIP-NOT-IN-BASELINE	testdir:fixedbugs/bug515.go	native	-	SKIP	-	testdir_test.go:531: //go:build gccgo
+SKIP-NOT-IN-BASELINE	testdir:fixedbugs/issue10607a.go	compiled	-	SKIP	-	testdir_test.go:565: skip
+SKIP-NOT-IN-BASELINE	testdir:fixedbugs/issue10607a.go	interpreted	-	SKIP	-	testdir_test.go:565: skip
+SKIP-NOT-IN-BASELINE	testdir:fixedbugs/issue10607a.go	native	-	SKIP	-	testdir_test.go:565: skip
+SKIP-NOT-IN-BASELINE	testdir:fixedbugs/issue10958.go	compiled	-	SKIP	-	testdir_test.go:531: //go:build !nacl && !js && disabled_see_issue_18589
+SKIP-NOT-IN-BASELINE	testdir:fixedbugs/issue10958.go	interpreted	-	SKIP	-	testdir_test.go:531: //go:build !nacl && !js && disabled_see_issue_18589
+SKIP-NOT-IN-BASELINE	testdir:fixedbugs/issue10958.go	native	-	SKIP	-	testdir_test.go:531: //go:build !nacl && !js && disabled_see_issue_18589
+STILL-FAILING	testdir:fixedbugs/issue11656.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 2
+STILL-FAILING	testdir:fixedbugs/issue12006.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:fixedbugs/issue12588.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:fixedbugs/issue13169.go	interpreted	CARRIED-376	FAIL	CATALOG	testdir_test.go:153: command exceeded time limit
+STILL-FAILING	testdir:fixedbugs/issue13587.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:fixedbugs/issue13799.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:fixedbugs/issue14999.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: compilation succeeded unexpectedly
+STILL-FAILING	testdir:fixedbugs/issue15747.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:fixedbugs/issue16241.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:fixedbugs/issue16241_64.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:fixedbugs/issue16369.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: compilation succeeded unexpectedly
+STILL-FAILING	testdir:fixedbugs/issue17318.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:fixedbugs/issue17381.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 2
+STILL-FAILING	testdir:fixedbugs/issue18459.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: compilation succeeded unexpectedly
+STILL-FAILING	testdir:fixedbugs/issue18882.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: compilation succeeded unexpectedly
+STILL-FAILING	testdir:fixedbugs/issue18895.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:1278: gc output:
+STILL-FAILING	testdir:fixedbugs/issue19168.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:fixedbugs/issue19261.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:1278: gc output:
+SKIP-NOT-IN-BASELINE	testdir:fixedbugs/issue19507.go	compiled	-	SKIP	-	testdir_test.go:531: //go:build arm
+SKIP-NOT-IN-BASELINE	testdir:fixedbugs/issue19507.go	interpreted	-	SKIP	-	testdir_test.go:531: //go:build arm
+SKIP-NOT-IN-BASELINE	testdir:fixedbugs/issue19507.go	native	-	SKIP	-	testdir_test.go:531: //go:build arm
+STILL-FAILING	testdir:fixedbugs/issue19743.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:fixedbugs/issue20014.go	interpreted	EXCLUDED-NEW	FAIL	CATALOG	testdir_test.go:153: output does not match expected in fixedbugs/issue20014.out. Instead saw
+STILL-FAILING	testdir:fixedbugs/issue20027.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: compilation succeeded unexpectedly
+STILL-FAILING	testdir:fixedbugs/issue20250.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:fixedbugs/issue20529.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: compilation succeeded unexpectedly
+STILL-FAILING	testdir:fixedbugs/issue20780.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: compilation succeeded unexpectedly
+DISAPPEARED-WITH-PASS	testdir:fixedbugs/issue20780b.go	interpreted	CARRIED-376	PASS	-	
+STILL-FAILING	testdir:fixedbugs/issue21709.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:fixedbugs/issue22200.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: compilation succeeded unexpectedly
+STILL-FAILING	testdir:fixedbugs/issue22200b.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: compilation succeeded unexpectedly
+STILL-FAILING	testdir:fixedbugs/issue23521.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+SKIP-NOT-IN-BASELINE	testdir:fixedbugs/issue24187.go	compiled	-	SKIP	-	testdir_test.go:531: //go:build amd64p32
+SKIP-NOT-IN-BASELINE	testdir:fixedbugs/issue24187.go	interpreted	-	SKIP	-	testdir_test.go:531: //go:build amd64p32
+SKIP-NOT-IN-BASELINE	testdir:fixedbugs/issue24187.go	native	-	SKIP	-	testdir_test.go:531: //go:build amd64p32
+STILL-FAILING	testdir:fixedbugs/issue24491a.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 2
+STILL-FAILING	testdir:fixedbugs/issue24491b.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: command exceeded time limit
+STILL-FAILING	testdir:fixedbugs/issue24651a.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:fixedbugs/issue24651b.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:fixedbugs/issue25507.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: compilation succeeded unexpectedly
+STILL-FAILING	testdir:fixedbugs/issue27557.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:fixedbugs/issue27695b.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 2
+STILL-FAILING	testdir:fixedbugs/issue27732a.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:fixedbugs/issue30898.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:fixedbugs/issue31573.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:fixedbugs/issue32477.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 2
+SKIP-NOT-IN-BASELINE	testdir:fixedbugs/issue33275.go	compiled	-	SKIP	-	testdir_test.go:565: skip
+SKIP-NOT-IN-BASELINE	testdir:fixedbugs/issue33275.go	interpreted	-	SKIP	-	testdir_test.go:565: skip
+SKIP-NOT-IN-BASELINE	testdir:fixedbugs/issue33275.go	native	-	SKIP	-	testdir_test.go:565: skip
+STILL-FAILING	testdir:fixedbugs/issue34723.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:fixedbugs/issue35027.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 2
+STILL-FAILING	testdir:fixedbugs/issue35073b.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:fixedbugs/issue35518.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:fixedbugs/issue36516.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 2
+STILL-FAILING	testdir:fixedbugs/issue36705.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 1
+STILL-FAILING	testdir:fixedbugs/issue37513.go	interpreted	EXCLUDED-NEW	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported generate phase: compile input "/SRV is not a Go source file
+STILL-FAILING	testdir:fixedbugs/issue37837.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:1278: gc output:
+SKIP-NOT-IN-BASELINE	testdir:fixedbugs/issue38093.go	compiled	-	SKIP	-	testdir_test.go:531: //go:build js
+SKIP-NOT-IN-BASELINE	testdir:fixedbugs/issue38093.go	interpreted	-	SKIP	-	testdir_test.go:531: //go:build js
+SKIP-NOT-IN-BASELINE	testdir:fixedbugs/issue38093.go	native	-	SKIP	-	testdir_test.go:531: //go:build js
+STILL-FAILING	testdir:fixedbugs/issue39292.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+DISAPPEARED-WITH-PASS	testdir:fixedbugs/issue39541.go	interpreted	CARRIED-376	PASS	-	
+STILL-FAILING	testdir:fixedbugs/issue40917.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 2
+STILL-FAILING	testdir:fixedbugs/issue40954.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 1
+STILL-FAILING	testdir:fixedbugs/issue4099.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:fixedbugs/issue41635.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:fixedbugs/issue42032.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 1
+STILL-FAILING	testdir:fixedbugs/issue42058a.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: compilation succeeded unexpectedly
+STILL-FAILING	testdir:fixedbugs/issue42058b.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: compilation succeeded unexpectedly
+STILL-FAILING	testdir:fixedbugs/issue42076.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 1
+STILL-FAILING	testdir:fixedbugs/issue42284.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:1278: gc output:
+STILL-FAILING	testdir:fixedbugs/issue42944.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+SKIP-NOT-IN-BASELINE	testdir:fixedbugs/issue4348.go	compiled	-	SKIP	-	testdir_test.go:565: skip
+SKIP-NOT-IN-BASELINE	testdir:fixedbugs/issue4348.go	interpreted	-	SKIP	-	testdir_test.go:565: skip
+SKIP-NOT-IN-BASELINE	testdir:fixedbugs/issue4348.go	native	-	SKIP	-	testdir_test.go:565: skip
+STILL-FAILING	testdir:fixedbugs/issue45045.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 1
+STILL-FAILING	testdir:fixedbugs/issue4585.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 1
+STILL-FAILING	testdir:fixedbugs/issue4618.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 1
+STILL-FAILING	testdir:fixedbugs/issue4667.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 1
+STILL-FAILING	testdir:fixedbugs/issue46903.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 1
+STILL-FAILING	testdir:fixedbugs/issue46938.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 2
+STILL-FAILING	testdir:fixedbugs/issue47227.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 1
+STILL-FAILING	testdir:fixedbugs/issue48097.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: compilation succeeded unexpectedly
+STILL-FAILING	testdir:fixedbugs/issue49767.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: compilation succeeded unexpectedly
+STILL-FAILING	testdir:fixedbugs/issue49814.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: compilation succeeded unexpectedly
+STILL-FAILING	testdir:fixedbugs/issue51733.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 1
+STILL-FAILING	testdir:fixedbugs/issue52193.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:fixedbugs/issue52612.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 2
+STILL-FAILING	testdir:fixedbugs/issue52697.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: compilation succeeded unexpectedly
+STILL-FAILING	testdir:fixedbugs/issue54159.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:fixedbugs/issue54343.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 2
+STILL-FAILING	testdir:fixedbugs/issue56103.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: compilation succeeded unexpectedly
+STILL-FAILING	testdir:fixedbugs/issue56280.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:1278: gc output:
+STILL-FAILING	testdir:fixedbugs/issue57823.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 1
+STILL-FAILING	testdir:fixedbugs/issue59293.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 2
+STILL-FAILING	testdir:fixedbugs/issue59680.go	interpreted	CARRIED-376	FAIL	CATALOG	testdir_test.go:153: command exceeded time limit
+STILL-FAILING	testdir:fixedbugs/issue63333.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: compilation succeeded unexpectedly
+SKIP-NOT-IN-BASELINE	testdir:fixedbugs/issue64606.go	compiled	-	SKIP	-	testdir_test.go:531: //go:build race
+SKIP-NOT-IN-BASELINE	testdir:fixedbugs/issue64606.go	interpreted	-	SKIP	-	testdir_test.go:531: //go:build race
+SKIP-NOT-IN-BASELINE	testdir:fixedbugs/issue64606.go	native	-	SKIP	-	testdir_test.go:531: //go:build race
+STILL-FAILING	testdir:fixedbugs/issue67329.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+SKIP-NOT-IN-BASELINE	testdir:fixedbugs/issue73483.go	compiled	-	SKIP	-	testdir_test.go:531: //go:build race && cgo
+SKIP-NOT-IN-BASELINE	testdir:fixedbugs/issue73483.go	interpreted	-	SKIP	-	testdir_test.go:531: //go:build race && cgo
+SKIP-NOT-IN-BASELINE	testdir:fixedbugs/issue73483.go	native	-	SKIP	-	testdir_test.go:531: //go:build race && cgo
+STILL-FAILING	testdir:fixedbugs/issue74626.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: compilation succeeded unexpectedly
+STILL-FAILING	testdir:fixedbugs/issue75278.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:fixedbugs/issue75365.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 1
+STILL-FAILING	testdir:fixedbugs/issue78081.go	interpreted	CARRIED-376	FAIL	CATALOG	testdir_test.go:153: command exceeded time limit
+STILL-FAILING	testdir:fixedbugs/issue78355.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: compilation succeeded unexpectedly
+STILL-FAILING	testdir:fixedbugs/issue79186.go	interpreted	CARRIED-376	FAIL	CATALOG	testdir_test.go:153: command exceeded time limit
+STILL-FAILING	testdir:fixedbugs/issue7921.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:fixedbugs/issue79258.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: compilation succeeded unexpectedly
+DISAPPEARED-WITH-PASS	testdir:fixedbugs/issue80188.go	interpreted	CARRIED-376	PASS	-	
+STILL-FAILING	testdir:fixedbugs/issue8606b.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 2
+SKIP-NOT-IN-BASELINE	testdir:fixedbugs/issue9862.go	compiled	-	SKIP	-	testdir_test.go:565: skip
+SKIP-NOT-IN-BASELINE	testdir:fixedbugs/issue9862.go	interpreted	-	SKIP	-	testdir_test.go:565: skip
+SKIP-NOT-IN-BASELINE	testdir:fixedbugs/issue9862.go	native	-	SKIP	-	testdir_test.go:565: skip
+STILL-FAILING	testdir:fixedbugs/notinheap.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: compilation succeeded unexpectedly
+STILL-FAILING	testdir:fixedbugs/notinheap2.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: compilation succeeded unexpectedly
+STILL-FAILING	testdir:fixedbugs/notinheap3.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:fuse.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:heapsampling.go	interpreted	EXCLUDED-NEW	FAIL	CATALOG	testdir_test.go:153: exit status 2
+SKIP-NOT-IN-BASELINE	testdir:index.go	compiled	-	SKIP	-	testdir_test.go:565: skip
+SKIP-NOT-IN-BASELINE	testdir:index.go	interpreted	-	SKIP	-	testdir_test.go:565: skip
+SKIP-NOT-IN-BASELINE	testdir:index.go	native	-	SKIP	-	testdir_test.go:565: skip
+STILL-FAILING	testdir:init1.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 2
+STILL-FAILING	testdir:inline.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:inline_big.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:inline_endian.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:inline_math_bits_rotate.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:inline_sync.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:inline_variadic.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:interface/assertinline.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:internal/runtime/sys/inlinegcpc.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:intrinsic.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:1278: gc output:
+STILL-FAILING	testdir:intrinsic_atomic.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+DISAPPEARED-WITH-PASS	testdir:ken/chan.go	interpreted	CARRIED-376	PASS	-	
+STILL-FAILING	testdir:ken/cplx3.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 2
+STILL-FAILING	testdir:ken/divconst.go	interpreted	CARRIED-376	FAIL	CATALOG	testdir_test.go:153: command exceeded time limit
+STILL-FAILING	testdir:ken/modconst.go	interpreted	CARRIED-376	FAIL	CATALOG	testdir_test.go:153: command exceeded time limit
+STILL-FAILING	testdir:known_bits.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+SKIP-NOT-IN-BASELINE	testdir:linkmain.go	compiled	-	SKIP	-	testdir_test.go:531: //go:build ignore
+SKIP-NOT-IN-BASELINE	testdir:linkmain.go	interpreted	-	SKIP	-	testdir_test.go:531: //go:build ignore
+SKIP-NOT-IN-BASELINE	testdir:linkmain.go	native	-	SKIP	-	testdir_test.go:531: //go:build ignore
+STILL-FAILING	testdir:linkname.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:1278: gc output:
+STILL-FAILING	testdir:linkname3.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: compilation succeeded unexpectedly
+STILL-FAILING	testdir:linknameasm.go	interpreted	EXCLUDED-NEW	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported generate phase: compile input "/SRV is not a Go source file
+SKIP-NOT-IN-BASELINE	testdir:linkx.go	compiled	-	SKIP	-	testdir_test.go:565: skip
+SKIP-NOT-IN-BASELINE	testdir:linkx.go	interpreted	-	SKIP	-	testdir_test.go:565: skip
+SKIP-NOT-IN-BASELINE	testdir:linkx.go	native	-	SKIP	-	testdir_test.go:565: skip
+SKIP-NOT-IN-BASELINE	testdir:live.go	compiled	-	SKIP	-	testdir_test.go:531: //go:build !ppc64 && !ppc64le && !goexperiment.regabiargs
+SKIP-NOT-IN-BASELINE	testdir:live.go	interpreted	-	SKIP	-	testdir_test.go:531: //go:build !ppc64 && !ppc64le && !goexperiment.regabiargs
+SKIP-NOT-IN-BASELINE	testdir:live.go	native	-	SKIP	-	testdir_test.go:531: //go:build !ppc64 && !ppc64le && !goexperiment.regabiargs
+STILL-FAILING	testdir:live2.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:live_regabi.go	interpreted	EXCLUDED-NEW	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:live_uintptrkeepalive.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:loopbce.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:maymorestack.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 2
+SKIP-NOT-IN-BASELINE	testdir:newinline.go	compiled	-	SKIP	-	testdir_test.go:531: //go:build goexperiment.newinliner
+SKIP-NOT-IN-BASELINE	testdir:newinline.go	interpreted	-	SKIP	-	testdir_test.go:531: //go:build goexperiment.newinliner
+SKIP-NOT-IN-BASELINE	testdir:newinline.go	native	-	SKIP	-	testdir_test.go:531: //go:build goexperiment.newinliner
+STILL-FAILING	testdir:nilcheck.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:nilptr3.go	interpreted	EXCLUDED-NEW	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:nilptr5.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+SKIP-NOT-IN-BASELINE	testdir:nilptr5_aix.go	compiled	-	SKIP	-	testdir_test.go:531: //go:build aix
+SKIP-NOT-IN-BASELINE	testdir:nilptr5_aix.go	interpreted	-	SKIP	-	testdir_test.go:531: //go:build aix
+SKIP-NOT-IN-BASELINE	testdir:nilptr5_aix.go	native	-	SKIP	-	testdir_test.go:531: //go:build aix
+SKIP-NOT-IN-BASELINE	testdir:nilptr5_wasm.go	compiled	-	SKIP	-	testdir_test.go:531: //go:build wasm
+SKIP-NOT-IN-BASELINE	testdir:nilptr5_wasm.go	interpreted	-	SKIP	-	testdir_test.go:531: //go:build wasm
+SKIP-NOT-IN-BASELINE	testdir:nilptr5_wasm.go	native	-	SKIP	-	testdir_test.go:531: //go:build wasm
+SKIP-NOT-IN-BASELINE	testdir:nilptr_aix.go	compiled	-	SKIP	-	testdir_test.go:531: //go:build aix
+SKIP-NOT-IN-BASELINE	testdir:nilptr_aix.go	interpreted	-	SKIP	-	testdir_test.go:531: //go:build aix
+SKIP-NOT-IN-BASELINE	testdir:nilptr_aix.go	native	-	SKIP	-	testdir_test.go:531: //go:build aix
+STILL-FAILING	testdir:nowritebarrier.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: compilation succeeded unexpectedly
+STILL-FAILING	testdir:opt_branchlikely.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:phiopt.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:prove.go	interpreted	EXCLUDED-NEW	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:prove_constant_folding.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:prove_invert_loop_with_unused_iterators.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+SKIP-NOT-IN-BASELINE	testdir:prove_popcount.go	compiled	-	SKIP	-	testdir_test.go:531: //go:build amd64.v3 || arm64
+SKIP-NOT-IN-BASELINE	testdir:prove_popcount.go	interpreted	-	SKIP	-	testdir_test.go:531: //go:build amd64.v3 || arm64
+SKIP-NOT-IN-BASELINE	testdir:prove_popcount.go	native	-	SKIP	-	testdir_test.go:531: //go:build amd64.v3 || arm64
+STILL-FAILING	testdir:retjmp.go	interpreted	EXCLUDED-NEW	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported generate phase: compile input "/SRV is not a Go source file
+SKIP-NOT-IN-BASELINE	testdir:rotate.go	compiled	-	SKIP	-	testdir_test.go:565: skip
+SKIP-NOT-IN-BASELINE	testdir:rotate.go	interpreted	-	SKIP	-	testdir_test.go:565: skip
+SKIP-NOT-IN-BASELINE	testdir:rotate.go	native	-	SKIP	-	testdir_test.go:565: skip
+SKIP-NOT-IN-BASELINE	testdir:simd.go	compiled	-	SKIP	-	testdir_test.go:531: //go:build goexperiment.simd && amd64
+SKIP-NOT-IN-BASELINE	testdir:simd.go	interpreted	-	SKIP	-	testdir_test.go:531: //go:build goexperiment.simd && amd64
+SKIP-NOT-IN-BASELINE	testdir:simd.go	native	-	SKIP	-	testdir_test.go:531: //go:build goexperiment.simd && amd64
+SKIP-NOT-IN-BASELINE	testdir:simd/bug1.go	compiled	-	SKIP	-	testdir_test.go:531: //go:build amd64 && goexperiment.simd
+SKIP-NOT-IN-BASELINE	testdir:simd/bug1.go	interpreted	-	SKIP	-	testdir_test.go:531: //go:build amd64 && goexperiment.simd
+SKIP-NOT-IN-BASELINE	testdir:simd/bug1.go	native	-	SKIP	-	testdir_test.go:531: //go:build amd64 && goexperiment.simd
+SKIP-NOT-IN-BASELINE	testdir:simd/bug2.go	compiled	-	SKIP	-	testdir_test.go:531: //go:build amd64 && goexperiment.simd
+SKIP-NOT-IN-BASELINE	testdir:simd/bug2.go	interpreted	-	SKIP	-	testdir_test.go:531: //go:build amd64 && goexperiment.simd
+SKIP-NOT-IN-BASELINE	testdir:simd/bug2.go	native	-	SKIP	-	testdir_test.go:531: //go:build amd64 && goexperiment.simd
+SKIP-NOT-IN-BASELINE	testdir:simd/bug3.go	compiled	-	SKIP	-	testdir_test.go:531: //go:build goexperiment.simd && amd64
+SKIP-NOT-IN-BASELINE	testdir:simd/bug3.go	interpreted	-	SKIP	-	testdir_test.go:531: //go:build goexperiment.simd && amd64
+SKIP-NOT-IN-BASELINE	testdir:simd/bug3.go	native	-	SKIP	-	testdir_test.go:531: //go:build goexperiment.simd && amd64
+SKIP-NOT-IN-BASELINE	testdir:simd_inline.go	compiled	-	SKIP	-	testdir_test.go:531: //go:build goexperiment.simd && amd64
+SKIP-NOT-IN-BASELINE	testdir:simd_inline.go	interpreted	-	SKIP	-	testdir_test.go:531: //go:build goexperiment.simd && amd64
+SKIP-NOT-IN-BASELINE	testdir:simd_inline.go	native	-	SKIP	-	testdir_test.go:531: //go:build goexperiment.simd && amd64
+STILL-FAILING	testdir:slice3.go	interpreted	EXCLUDED-NEW	FAIL	CATALOG	testdir_test.go:153: exit status 2
+STILL-FAILING	testdir:slicecap.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 2
+STILL-FAILING	testdir:sliceopt.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:stack.go	interpreted	CARRIED-376	FAIL	CATALOG	testdir_test.go:153: command exceeded time limit
+STILL-FAILING	testdir:stackobj.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 2
+STILL-FAILING	testdir:stackobj3.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 2
+STILL-FAILING	testdir:strcopy.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 2
+STILL-FAILING	testdir:tailcall.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+SKIP-NOT-IN-BASELINE	testdir:tighten.go	compiled	-	SKIP	-	testdir_test.go:531: //go:build arm64
+SKIP-NOT-IN-BASELINE	testdir:tighten.go	interpreted	-	SKIP	-	testdir_test.go:531: //go:build arm64
+SKIP-NOT-IN-BASELINE	testdir:tighten.go	native	-	SKIP	-	testdir_test.go:531: //go:build arm64
+STILL-FAILING	testdir:typeparam/chans.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: command exceeded time limit
+STILL-FAILING	testdir:typeparam/chansimp.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: command exceeded time limit
+STILL-FAILING	testdir:typeparam/issue54497.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:typeparam/issue54765.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: compilation succeeded unexpectedly
+STILL-FAILING	testdir:typeparam/pragma.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:uintptrescapes.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 2
+STILL-FAILING	testdir:uintptrescapes2.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+STILL-FAILING	testdir:uintptrkeepalive.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: compilation succeeded unexpectedly
+STILL-FAILING	testdir:unsafe_slice_data.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 2
+STILL-FAILING	testdir:unsafe_string_data.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: exit status 2
+SKIP-NOT-IN-BASELINE	testdir:wasmexport.go	compiled	-	SKIP	-	testdir_test.go:531: //go:build wasm
+SKIP-NOT-IN-BASELINE	testdir:wasmexport.go	interpreted	-	SKIP	-	testdir_test.go:531: //go:build wasm
+SKIP-NOT-IN-BASELINE	testdir:wasmexport.go	native	-	SKIP	-	testdir_test.go:531: //go:build wasm
+SKIP-NOT-IN-BASELINE	testdir:wasmexport2.go	compiled	-	SKIP	-	testdir_test.go:531: //go:build wasm
+SKIP-NOT-IN-BASELINE	testdir:wasmexport2.go	interpreted	-	SKIP	-	testdir_test.go:531: //go:build wasm
+SKIP-NOT-IN-BASELINE	testdir:wasmexport2.go	native	-	SKIP	-	testdir_test.go:531: //go:build wasm
+SKIP-NOT-IN-BASELINE	testdir:wasmmemsize.go	compiled	-	SKIP	-	testdir_test.go:531: //go:build wasm
+SKIP-NOT-IN-BASELINE	testdir:wasmmemsize.go	interpreted	-	SKIP	-	testdir_test.go:531: //go:build wasm
+SKIP-NOT-IN-BASELINE	testdir:wasmmemsize.go	native	-	SKIP	-	testdir_test.go:531: //go:build wasm
+STILL-FAILING	testdir:writebarrier.go	interpreted	EXCLUDED	FAIL	CATALOG	testdir_test.go:153: Bash++ backend unsupported: optimizer diagnostics are a compiler artifact; the check interface has no inlining, escape-analysis or SSA meaning
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestAtomicAlign/386	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestAtomicAlign/386	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestAtomicAlign/386	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestAtomicAlign/amd64	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestAtomicAlign/amd64	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestAtomicAlign/amd64	native	-	NATIVE-ONLY	-	declared native-only, no credit
+SKIP-NOT-IN-BASELINE	typechecker:cmd/compile/internal/types2/TestFixedbugs/issue78346.go	compiled	-	SKIP	-	check_test.go:459: all files skipped by build tags
+SKIP-NOT-IN-BASELINE	typechecker:cmd/compile/internal/types2/TestFixedbugs/issue78346.go	interpreted	-	SKIP	-	check_test.go:459: all files skipped by build tags
+SKIP-NOT-IN-BASELINE	typechecker:cmd/compile/internal/types2/TestFixedbugs/issue78346.go	native	-	SKIP	-	check_test.go:459: all files skipped by build tags
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestGCSizes/issue60431	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestGCSizes/issue60431	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestGCSizes/issue60431	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestGCSizes/issue60734	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestGCSizes/issue60734	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestGCSizes/issue60734	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/duplfunc0	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/duplfunc0	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/duplfunc0	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/duplfunc1	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/duplfunc1	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/duplfunc1	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/dupltype0	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/dupltype0	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/dupltype0	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/dupltype1	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/dupltype1	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/dupltype1	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/dupltype1#01	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/dupltype1#01	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/dupltype1#01	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/i0	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/i0	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/i0	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/issue51803	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/issue51803	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/issue51803	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/issue59956	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/issue59956	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/issue59956	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/p0	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/p0	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/p0	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/p1	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/p1	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/p1	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/p2	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/p2	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/p2	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/p3	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/p3	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/p3	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/p4	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/p4	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/p4	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/reverse1a	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/reverse1a	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/reverse1a	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/reverse1b	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/reverse1b	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/reverse1b	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/reverse2a	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/reverse2a	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/reverse2a	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/reverse2b	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/reverse2b	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/reverse2b	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/reverse2c	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/reverse2c	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/reverse2c	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/reverse3b	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/reverse3b	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/reverse3b	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/reverse4a	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/reverse4a	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/reverse4a	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/reverse4b	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/reverse4b	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/reverse4b	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/s1	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/s1	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/s1	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/s2	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/s2	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/s2	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/s3	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/s3	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/s3	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/s4	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/s4	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/s4	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/t1	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/t1	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/t1	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/t2	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/t2	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/t2	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/t3	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/t3	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/t3	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/t4	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/t4	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/t4	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/type0	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/type0	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/type0	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/type1	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/type1	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/type1	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/type2	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/type2	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/type2	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/type3	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/type3	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/type3	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/type4	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/type4	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstanceInfo/type4	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiateEquality/basicfunc	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiateEquality/basicfunc	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiateEquality/basicfunc	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiateEquality/basictype	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiateEquality/basictype	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiateEquality/basictype	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiateEquality/differentfuncargs	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiateEquality/differentfuncargs	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiateEquality/differentfuncargs	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiateEquality/differenttypeargs	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiateEquality/differenttypeargs	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiateEquality/differenttypeargs	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiateEquality/equivalentinterfaces	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiateEquality/equivalentinterfaces	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiateEquality/equivalentinterfaces	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiateEquality/equivalenttypesets	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiateEquality/equivalenttypesets	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiateEquality/equivalenttypesets	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiateEquality/funcequality	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiateEquality/funcequality	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiateEquality/funcequality	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiateEquality/funcslice	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiateEquality/funcslice	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiateEquality/funcslice	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiateEquality/funcsymmetry	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiateEquality/funcsymmetry	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiateEquality/funcsymmetry	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiateEquality/funcwithparams	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiateEquality/funcwithparams	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiateEquality/funcwithparams	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiateEquality/typeslice	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiateEquality/typeslice	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiateEquality/typeslice	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiatedObjects/concreteMethod	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiatedObjects/concreteMethod	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiatedObjects/concreteMethod	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiatedObjects/fParam	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiatedObjects/fParam	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiatedObjects/fParam	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiatedObjects/fResult	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiatedObjects/fResult	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiatedObjects/fResult	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiatedObjects/field	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiatedObjects/field	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiatedObjects/field	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiatedObjects/field#01	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiatedObjects/field#01	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiatedObjects/field#01	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiatedObjects/ftParam	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiatedObjects/ftParam	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiatedObjects/ftParam	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiatedObjects/ftResult	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiatedObjects/ftResult	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiatedObjects/ftResult	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiatedObjects/interfaceMethod	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiatedObjects/interfaceMethod	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiatedObjects/interfaceMethod	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiatedObjects/mParam	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiatedObjects/mParam	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiatedObjects/mParam	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiatedObjects/mResult	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiatedObjects/mResult	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiatedObjects/mResult	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiatedObjects/recv	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiatedObjects/recv	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestInstantiatedObjects/recv	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/0	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/0	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/0	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/1	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/1	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/1	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/10	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/10	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/10	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/11	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/11	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/11	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/12	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/12	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/12	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/13	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/13	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/13	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/14	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/14	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/14	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/15	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/15	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/15	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/16	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/16	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/16	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/2	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/2	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/2	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/3	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/3	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/3	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/4	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/4	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/4	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/5	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/5	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/5	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/6	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/6	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/6	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/7	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/7	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/7	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/8	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/8	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/8	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/9	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/9	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:cmd/compile/internal/types2/TestObjectString/9	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestAtomicAlign/386	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestAtomicAlign/386	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestAtomicAlign/386	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestAtomicAlign/amd64	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestAtomicAlign/amd64	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestAtomicAlign/amd64	native	-	NATIVE-ONLY	-	declared native-only, no credit
+SKIP-NOT-IN-BASELINE	typechecker:go/types/TestFixedbugs/issue78346.go	compiled	-	SKIP	-	check_test.go:485: all files skipped by build tags
+SKIP-NOT-IN-BASELINE	typechecker:go/types/TestFixedbugs/issue78346.go	interpreted	-	SKIP	-	check_test.go:485: all files skipped by build tags
+SKIP-NOT-IN-BASELINE	typechecker:go/types/TestFixedbugs/issue78346.go	native	-	SKIP	-	check_test.go:485: all files skipped by build tags
+NATIVE-ONLY	typechecker:go/types/TestGCSizes/issue60431	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestGCSizes/issue60431	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestGCSizes/issue60431	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestGCSizes/issue60734	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestGCSizes/issue60734	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestGCSizes/issue60734	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestHasher/Hasher	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestHasher/Hasher	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestHasher/Hasher	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestHasher/HasherIgnoreTags	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestHasher/HasherIgnoreTags	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestHasher/HasherIgnoreTags	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/duplfunc0	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/duplfunc0	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/duplfunc0	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/duplfunc1	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/duplfunc1	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/duplfunc1	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/dupltype0	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/dupltype0	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/dupltype0	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/dupltype1	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/dupltype1	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/dupltype1	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/dupltype1#01	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/dupltype1#01	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/dupltype1#01	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/i0	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/i0	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/i0	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/issue51803	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/issue51803	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/issue51803	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/issue59956	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/issue59956	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/issue59956	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/p0	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/p0	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/p0	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/p1	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/p1	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/p1	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/p2	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/p2	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/p2	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/p3	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/p3	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/p3	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/p4	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/p4	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/p4	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/reverse1a	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/reverse1a	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/reverse1a	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/reverse1b	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/reverse1b	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/reverse1b	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/reverse2a	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/reverse2a	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/reverse2a	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/reverse2b	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/reverse2b	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/reverse2b	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/reverse2c	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/reverse2c	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/reverse2c	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/reverse3b	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/reverse3b	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/reverse3b	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/reverse4a	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/reverse4a	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/reverse4a	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/reverse4b	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/reverse4b	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/reverse4b	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/s1	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/s1	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/s1	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/s2	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/s2	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/s2	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/s3	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/s3	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/s3	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/s4	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/s4	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/s4	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/t1	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/t1	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/t1	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/t2	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/t2	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/t2	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/t3	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/t3	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/t3	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/t4	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/t4	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/t4	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/type0	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/type0	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/type0	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/type1	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/type1	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/type1	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/type2	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/type2	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/type2	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/type3	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/type3	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/type3	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/type4	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/type4	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstanceInfo/type4	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiateEquality/basicfunc	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiateEquality/basicfunc	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiateEquality/basicfunc	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiateEquality/basictype	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiateEquality/basictype	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiateEquality/basictype	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiateEquality/differentfuncargs	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiateEquality/differentfuncargs	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiateEquality/differentfuncargs	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiateEquality/differenttypeargs	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiateEquality/differenttypeargs	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiateEquality/differenttypeargs	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiateEquality/equivalentinterfaces	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiateEquality/equivalentinterfaces	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiateEquality/equivalentinterfaces	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiateEquality/equivalenttypesets	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiateEquality/equivalenttypesets	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiateEquality/equivalenttypesets	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiateEquality/funcequality	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiateEquality/funcequality	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiateEquality/funcequality	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiateEquality/funcslice	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiateEquality/funcslice	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiateEquality/funcslice	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiateEquality/funcsymmetry	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiateEquality/funcsymmetry	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiateEquality/funcsymmetry	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiateEquality/funcwithparams	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiateEquality/funcwithparams	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiateEquality/funcwithparams	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiateEquality/typeslice	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiateEquality/typeslice	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiateEquality/typeslice	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiatedObjects/concreteMethod	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiatedObjects/concreteMethod	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiatedObjects/concreteMethod	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiatedObjects/fParam	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiatedObjects/fParam	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiatedObjects/fParam	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiatedObjects/fResult	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiatedObjects/fResult	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiatedObjects/fResult	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiatedObjects/field	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiatedObjects/field	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiatedObjects/field	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiatedObjects/field#01	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiatedObjects/field#01	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiatedObjects/field#01	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiatedObjects/ftParam	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiatedObjects/ftParam	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiatedObjects/ftParam	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiatedObjects/ftResult	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiatedObjects/ftResult	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiatedObjects/ftResult	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiatedObjects/interfaceMethod	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiatedObjects/interfaceMethod	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiatedObjects/interfaceMethod	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiatedObjects/mParam	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiatedObjects/mParam	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiatedObjects/mParam	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiatedObjects/mResult	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiatedObjects/mResult	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiatedObjects/mResult	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiatedObjects/recv	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiatedObjects/recv	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestInstantiatedObjects/recv	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/0	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/0	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/0	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/1	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/1	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/1	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/10	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/10	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/10	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/11	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/11	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/11	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/12	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/12	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/12	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/13	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/13	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/13	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/14	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/14	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/14	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/15	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/15	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/15	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/16	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/16	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/16	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/2	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/2	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/2	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/3	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/3	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/3	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/4	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/4	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/4	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/5	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/5	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/5	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/6	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/6	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/6	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/7	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/7	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/7	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/8	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/8	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/8	native	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/9	compiled	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/9	interpreted	-	NATIVE-ONLY	-	declared native-only, no credit
+NATIVE-ONLY	typechecker:go/types/TestObjectString/9	native	-	NATIVE-ONLY	-	declared native-only, no credit

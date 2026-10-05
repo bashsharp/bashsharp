@@ -60,6 +60,9 @@ described above.
 ## Remaining completion evidence
 
 `64bit.go` passed the frozen candidate's ordinary interpreted gate in 34.13 s.
+A supplemental run completed in 30.334 s with maximum RSS 320384 KiB; both
+generation and execution phases of its `runoutput` recipe were verified,
+and the native/compiled runs passed. The normal-gate result remains 34.13 s.
 Full-workload interpreted completion checks for `divmod.go`, `ken/divconst.go`,
 `ken/modconst.go`, `abi/uglyfib.go`, `stack.go`,
 `fixedbugs/issue13169.go`, `fixedbugs/issue59680.go`, and
@@ -72,7 +75,12 @@ explicit unresolved disposition; they do not earn correctness credit.
 (1801.516 s wall time, 121728 KiB maximum RSS) without completing interpreted
 execution. Native and compiled executions passed in 0.865 s and 1.066 s.
 Interpreted correctness remains **unproven**; a longer isolated diagnostic is
-being prepared. The native/compiled passes do not settle this condition.
+running with a 7200-second budget. The native/compiled passes do not settle
+this condition.
+
+The [October 5 full corpus record](go-corpus-state-2026-10-05.md) contains the
+ordinary gate results and all exact-ID exclusions. Longer diagnostic results
+remain separate from those acceptance timings.
 
 ## v1.0 workaround and follow-up
 

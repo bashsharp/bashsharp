@@ -115,7 +115,7 @@ name, and had it first — [docs/naming-collision.md](docs/naming-collision.md).
 | [docs/why-bashsharp.md](docs/why-bashsharp.md) | why Bash#, and for what — the page to hand to whoever has to approve it: four properties, ranked use cases, deployment shapes, honest comparisons, what is planned |
 | [docs/claims.md](docs/claims.md) | every number and its corpus; what is not claimed |
 | [ROADMAP.md](ROADMAP.md) | the five clauses by stage, the open design calls, the RFC process |
-| [docs/go-corpus-state-2026-09-17.md](docs/go-corpus-state-2026-09-17.md) · [docs/go-corpus-targets.md](docs/go-corpus-targets.md) | the Go-corpus status and every failing root by class |
+| [docs/go-corpus-state-2026-10-05.md](docs/go-corpus-state-2026-10-05.md) · [docs/go-corpus-targets.md](docs/go-corpus-targets.md) | the latest full Go corpus, exact results and historical applicability catalog |
 | [docs/interpreted-performance-v1.md](docs/interpreted-performance-v1.md) | v1.0 interpreted performance measurements, correctness evidence and compiled workaround |
 | [docs/bashpp-posix-superset-syntax.md](docs/bashpp-posix-superset-syntax.md) | the syntax contract: which shapes are admitted and why they are safe (the collision map) |
 | [docs/bashsharp-ergonomics-tier.md](docs/bashsharp-ergonomics-tier.md) · [docs/bashpp-decorators-and-advice.md](docs/bashpp-decorators-and-advice.md) | the Sharp tier and decorators/advice |
