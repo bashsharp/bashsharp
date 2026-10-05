@@ -58,6 +58,12 @@ as proven correct merely because they are historically excluded for performance.
 Wrong results, mismatched panics, deadlocks and further timeouts require an
 explicit unresolved disposition; they do not earn correctness credit.
 
+`abi/uglyfib.go` has now reached the separate 1800-second diagnostic deadline
+(1801.516 s wall time, 121728 KiB maximum RSS) without completing interpreted
+execution. Native and compiled executions passed in 0.865 s and 1.066 s.
+Interpreted correctness remains **unproven**; a longer isolated diagnostic is
+being prepared. The native/compiled passes do not settle this condition.
+
 ## v1.0 workaround and follow-up
 
 Move substantial computation into compiled Go, or an aliased Go fence called
