@@ -57,16 +57,29 @@ completion beyond the unchanged 60-second acceptance limit for this workload.
 It used the same frozen candidate, host specification and diagnostic budget
 described above.
 
+## Verified workload: divmod.go
+
+The complete, unmodified division/modulo workload passed under interpretation
+in **1677.493 s** (about 27 minutes 57 seconds), with GNU time maximum RSS
+**97536 KiB**. The native reference passed in **0.715 s** and compiled execution
+in **0.816 s**. Exact outputs matched, and the existing backend verifier exited
+zero for both product modes. The same frozen candidate and 1800-second
+per-stage diagnostic budget apply; the ordinary 60-second acceptance limit and
+its timeout result remain unchanged.
+
 ## Remaining completion evidence
 
 `64bit.go` passed the frozen candidate's ordinary interpreted gate in 34.13 s.
 A supplemental run completed in 30.334 s with maximum RSS 320384 KiB; both
 generation and execution phases of its `runoutput` recipe were verified,
 and the native/compiled runs passed. The normal-gate result remains 34.13 s.
-Full-workload interpreted completion checks for `divmod.go`, `ken/divconst.go`,
+Five of the twelve performance-limited workloads now have verified full-scale
+interpreted completion: `64bit.go`, `divmod.go`, `abi/fibish_closure.go`,
+`copy.go`, and `fixedbugs/issue79186.go`.
+Full-workload interpreted completion checks for `ken/divconst.go`,
 `ken/modconst.go`, `abi/uglyfib.go`, `stack.go`,
 `fixedbugs/issue13169.go`, `fixedbugs/issue59680.go`, and
-`fixedbugs/issue78081.go` are still pending. Do not describe those eight workloads
+`fixedbugs/issue78081.go` are still pending. Do not describe those seven workloads
 as proven correct merely because they are historically excluded for performance.
 Wrong results, mismatched panics, deadlocks and further timeouts require an
 explicit unresolved disposition; they do not earn correctness credit.
@@ -75,8 +88,8 @@ explicit unresolved disposition; they do not earn correctness credit.
 (1801.516 s wall time, 121728 KiB maximum RSS) without completing interpreted
 execution. Native and compiled executions passed in 0.865 s and 1.066 s.
 Interpreted correctness remains **unproven**; a longer isolated diagnostic is
-running with a 7200-second budget. The native/compiled passes do not settle
-this condition.
+running with a 7200-second budget, started **2026-10-05 21:18:52 UTC**.
+The native/compiled passes do not settle this condition.
 
 The [October 5 full corpus record](go-corpus-state-2026-10-05.md) contains the
 ordinary gate results and all exact-ID exclusions. Longer diagnostic results
