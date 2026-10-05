@@ -1,7 +1,7 @@
 # CLAUDE.md — bashsharp
 
 **Bash#** (`bashsharp`; formerly Bash++ — `docs/naming-collision.md`: rail5/bashpp owns that name) — the language over the `sh` engine: GNU Bash 5.3 superset ·
-POSIX.1-2016 · Go 1.27.1 mixed · fenced python/typescript/rust/c/c++ ·
+POSIX.1-2016 · Go 1.27.1 mixed · fenced python/typescript/rust/c/c++/powershell/csharp ·
 `agentic` reserved for agentic features (the five clauses in README.md; the
 plan of record for the code move is the umbrella's
 `docs/sprint-211-master-execution-plan.md`). This repo is **open
