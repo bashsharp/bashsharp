@@ -47,13 +47,23 @@ The interpreted run took about 14 minutes 59 seconds under the separate
 1800-second diagnostic budget. Its ordinary 60-second timeout remains recorded.
 The wall-time and RSS accounting qualifications above apply to this table too.
 
+## Verified workload: copy.go
+
+The full semi-exhaustive copy workload passed all its original checks under
+interpretation in **244.226 s**, with GNU time maximum RSS **123264 KiB**.
+The native reference passed in 0.515 s and compiled execution in 0.765 s;
+outputs agree and both product backend verifiers passed. This confirms correct
+completion beyond the unchanged 60-second acceptance limit for this workload.
+It used the same frozen candidate, host specification and diagnostic budget
+described above.
+
 ## Remaining completion evidence
 
 `64bit.go` passed the frozen candidate's ordinary interpreted gate in 34.13 s.
 Full-workload interpreted completion checks for `divmod.go`, `ken/divconst.go`,
-`ken/modconst.go`, `abi/uglyfib.go`, `copy.go`, `stack.go`,
+`ken/modconst.go`, `abi/uglyfib.go`, `stack.go`,
 `fixedbugs/issue13169.go`, `fixedbugs/issue59680.go`, and
-`fixedbugs/issue78081.go` are still pending. Do not describe those nine workloads
+`fixedbugs/issue78081.go` are still pending. Do not describe those eight workloads
 as proven correct merely because they are historically excluded for performance.
 Wrong results, mismatched panics, deadlocks and further timeouts require an
 explicit unresolved disposition; they do not earn correctness credit.
