@@ -1,11 +1,55 @@
 # Go corpus targets — what a root is, which ones fail, and why the rest cannot pass
 
-> **Canonical copy.** Regenerated at every full barrier run of `bashpp-tests`; the umbrella keeps a one-line pointer here. Numbers are never edited by hand.
+> **Canonical catalog.** Full barriers regenerate observations; operator decisions update applicability by exact root/mode ID. The 2026-10-05 update below changes applicability only. It is not a new barrier result.
 
 Catalog: `docs/go-corpus-targets.tsv` — one row per failing root × mode at
 Barrier D (665 rows, 631 roots), each with `class`, `family`, `reason`,
 `destination`. This page defines the vocabulary and summarizes the catalog.
 Numbers are from `integ-206` under go1.27.1 (`docs/go-corpus-state-2026-09-17.md`).
+
+## Current applicability — 2026-10-05
+
+Sprint 376 story #1508 folds the operator-approved Sprint 378 scope into
+`go-corpus-targets.tsv` and its exact exclusion projection. All 32 rows from
+`go-corpus-exclusions-2026-10-04-proposed.tsv` are integrated, together with the
+other 17 interpreted package rows covered by the whole-package decision.
+The proposed file remains the historical decision input. The 665 catalog
+keys and their original `first_line` observations are preserved; 49 keys
+change classification. **No historical failure becomes PASS.**
+
+The existing seven exclusion reasons remain. Three approved reasons are added:
+
+| Family | Keys | Applicability and workaround |
+|---|---:|---|
+| `multi-package-interpreted` | 26 | Whole-package Go source uses a compiled Go island. Its compiled gate remains applicable. |
+| `compute-bound` | 11 | The exact approved CPU-bound roots use a compiled Go fence/embed; their observed interpreted timeouts remain in historical evidence. |
+| `assembly-input` | 4 | Assembly companions and generated assembly headers require the native toolchain. |
+
+Calculated from the updated TSV (historical failures, **not current pass rates**):
+
+| Class | Overall roots | Keys |
+|---|---:|---:|
+| repair | 275 | 290 |
+| review | 5 | 5 |
+| blocked-design | 37 | 43 |
+| excluded | 314 | 327 |
+| total | 631 | 665 |
+
+There are 327 excluded keys on 322 distinct IDs; eight IDs also have a
+non-excluded key. Remaining applicable historical targets: 338 keys on 317
+overall roots. The five overhead roots (`ken/chan.go`, `fixedbugs/issue79186.go`,
+`fixedbugs/issue39541.go`, `fixedbugs/issue20780b.go`, `fixedbugs/issue80188.go`)
+stay applicable, as do the three regression sentinels. Tour 97/97 and Go by
+Example 85/85 remain mandatory interpreted gates at unchanged limits.
+`tools/validate-go-corpus-catalog.sh` checks the projection, unique keys,
+allowed families and calculated totals. The next full barrier publishes
+fresh terminal results separately, by root and mode.
+
+## Historical catalog explanation
+
+The sections below describe the older Barrier D snapshot and its then-current
+scope. Their counts and seven-family restriction are historical; the current
+applicability table above and the keyed TSV supersede that restriction.
 
 ## Definitions
 
