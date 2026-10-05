@@ -6,8 +6,11 @@ This is the first full corpus record after Sprint 374, superseding the
 root/mode, with raw result, applicability and previous status. The
 [comparison table](go-corpus-state-2026-10-05-compare.tsv) preserves exact IDs.
 
-**Scored-root inventory reconciled; Sprint 376 remains open for full-workload
-correctness diagnostics. This record does not declare Go v1.0 complete.**
+**Scored-root inventory reconciled. Separate full-workload correctness
+checks now verify all 12 performance-limited workloads; see the
+[measured performance limits](interpreted-performance-v1.md). Original
+ordinary-gate failures below remain unchanged. This record does not declare
+Go v1.0 complete.**
 
 ## Candidate and disposition
 

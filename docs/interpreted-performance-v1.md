@@ -1,8 +1,8 @@
-# v1.0 interpreted Go performance — evidence in progress
+# v1.0 interpreted Go performance — verified limits
 
 This release-note record separates completed correctness checks from performance
-acceptance. **Eight of twelve workloads have verified full-scale interpreted
-completion; four remain pending.** This is not a declaration that all Go v1.0
+acceptance. **All twelve workloads have verified full-scale interpreted
+completion with correct results.** This is not a declaration that all Go v1.0
 gates have closed.
 
 ## Verified full-workload completion
@@ -21,11 +21,15 @@ Interpreter SHA-256: `1d2caf7618dd5af8a2ef983afbdfb7d874726692051b3668c849b5da48
 |---|---:|---:|---:|---:|
 | `64bit.go` | 13.753 | 30.334 | 3.122 | 320384 |
 | `divmod.go` | 0.715 | 1677.493 | 0.816 | 97536 |
+| `ken/divconst.go` | 0.515 | 441.246 | 0.665 | 121856 |
+| `ken/modconst.go` | 0.515 | 413.482 | 0.665 | 125824 |
 | `abi/fibish_closure.go` | 0.715 | 898.599 | 0.865 | 121728 |
 | `abi/uglyfib.go` | 0.866 | 2232.902 | 1.066 | 120064 |
 | `copy.go` | 0.515 | 244.226 | 0.765 | 123264 |
+| `stack.go` | 0.415 | 94.667 | 0.565 | 440960 |
 | `fixedbugs/issue13169.go` | 1.266 | 174.095 | 1.367 | 207564 |
 | `fixedbugs/issue59680.go` | 0.615 | 391.293 | 0.816 | 420740 |
+| `fixedbugs/issue78081.go` | 1.367 | 489.810 | 1.567 | 175960 |
 | `fixedbugs/issue79186.go` | 13.212 | 822.579 | 1.967 | 131208 |
 
 All table rows are PASS in all three modes. For `64bit.go`, both
@@ -59,19 +63,20 @@ in the table. Source and tool identities were unchanged, exact outputs matched,
 and both product backend verifiers passed. It is now proven correct for the
 full tested workload, while remaining outside the ordinary performance limit.
 
-## Remaining completion evidence
+## Completion scope
 
-Full-workload interpreted completion is still **unproven** for:
+The **12/12** conclusion combines authenticated results on the unchanged
+candidate: ten successful workloads from the eleven-workload completion
+batch, the successful separate `uglyfib` retry, and `64bit`'s ordinary gate
+plus supplemental recipe verification. The first batch's **10/11** summary
+is retained: its `uglyfib` timeout was not rewritten as success. Source
+integrity checks confirm the workloads were unchanged.
 
-- `ken/divconst.go`
-- `ken/modconst.go`
-- `stack.go`
-- `fixedbugs/issue78081.go`
-
-Do not describe these four workloads as proven correct merely because they
-are historically excluded for performance. Wrong results, mismatched panics,
-deadlocks and further timeouts require an explicit unresolved disposition;
-they do not earn correctness credit.
+These results establish correct completion of the twelve exact, full-scale
+tested workloads. They do not establish a universal correctness or performance
+guarantee for arbitrary Go programs, nor do they close the other planned Go
+v1.0 feature, three-OS, claims or release gates. No workload in this twelve-root
+correctness set remains pending; optimization is post-v1.0 work.
 
 The [October 5 full corpus record](go-corpus-state-2026-10-05.md) contains the
 ordinary gate results and all exact-ID exclusions. Longer diagnostic results
