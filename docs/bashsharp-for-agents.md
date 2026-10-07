@@ -118,6 +118,41 @@ It does not isolate the merits of guards or fences, establish general language
 efficacy, or prove safety. The result supports correcting and separately testing
 the integration, not claiming agent-outcome improvements from this run.
 
+## Fresh comparison after the effect-policy diagnosis
+
+The [separate follow-up record](https://github.com/qiangli/agent-bench/blob/main/experiments/bashsharp-l2/results/sprint-287.json)
+keeps the original result above unchanged. A no-model reproduction showed that
+`@guard(effects:"read,write,exec")` limits effects but does not declare effects
+for unknown commands. The fresh treatment uses `@effects("read,write,exec")`,
+which also lets the trusted author declare effects for unknown commands.
+Known network and destructive effects still fail the deterministic negative
+checks. This declaration does **not** transitively contain opaque child processes;
+no runtime policy was weakened and no sandbox guarantee is claimed.
+
+The fresh run preserves the runtime, model, task fixtures, seed, K=3,
+60-second budget and resource limits. All 180 valid outcomes passed the report
+gate. Six infrastructure launch voids remain in the 186-attempt history;
+only keys without a valid outcome were retried. Completed failures and timeouts
+were not rerun. None of the 180 scored trials recorded an effect-cap denial.
+
+| arm | solves / valid trials | known tokens / solve, lower bound | unknown usage rows |
+|---|---:|---:|---:|
+| Bash, dialect off | 59/60 | 88,014.19 | 1 |
+| Bash# guards/contracts | 59/60 | 92,408.24 | 1 |
+| Bash# fences | 59/60 | 92,700.41 | 0 |
+
+Each pair has a zero success-rate difference. For every pair, the paired normal
+95% interval is **[−4.66, +4.66] percentage points** and the **task-clustered
+bootstrap 95% interval is [−5.00, +5.00] percentage points** (20 task clusters,
+10,000 resamples, seed `381`). Equal observed rates do not establish equivalence
+or a guard/fence advantage. This is one configuration comparison on these tasks
+and this model, not a general language-efficacy result.
+
+The three unresolved outcomes are two timeouts and one strict-protocol failure.
+Known token usage totals 16,114,247 with two unknown-usage rows; costs above are
+lower bounds, and dollar cost remains unknown. The original and fresh runs are
+separate experiments; their difference alone is not a paired causal estimate.
+
 ## Read the evidence, not the slogan
 
 - [Measured product claims and explicit non-claims](claims.md)
