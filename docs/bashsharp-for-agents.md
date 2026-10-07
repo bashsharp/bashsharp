@@ -2,13 +2,17 @@
 
 ## Status at a glance
 
+The historical measurements below are those recorded in [claims.md](claims.md)
+as of **bashy v0.29.0 / `sprint-269`**; individual rows retain their stated
+measurement versions. They are not a remeasurement of this candidate.
+
 | area | status | evidence |
 |---|---|---|
 | Bash compatibility | **Shipped and measured.** With the dialect off, Bash#'s front door passed all 86 runnable GNU Bash 5.3 fixtures on Linux, macOS and Windows. This is a fixture result, not a claim of full Bash compatibility. | [claims.md](claims.md) |
-| Polyglot islands | **Shipped and measured.** Python, TypeScript, Rust, C, C++ and Go islands can use provisioned toolchains instead of a host toolchain. | [claims.md](claims.md) |
+| Polyglot islands | **Shipped and measured.** Python, TypeScript, Rust, C, C++ and Go islands can use provisioned toolchains instead of a host toolchain, downloaded and checksum-verified on first use. They are not bundled or offline; the rustup toolchain is `stable` at first install. | [claims.md](claims.md) |
 | `agentic` | **Shipped and deliberately bounded.** It marks an action boundary plus an exit status; the interpreter does not call a model. | [claims.md](claims.md) |
-| Guards, effect decorators and richer agent controls | **Planned.** They are design work, not a shipped safety guarantee. | [claims.md](claims.md) |
-| S5 shell-superset experiment | **Pending.** The planned paired experiment compares plain Bash, Bash# with guards, and Bash# with fences. Results, confidence intervals, costs and failure-taxonomy numbers will be added only from its reviewed evidence record. | Experiment plan; no result is claimed |
+| Guards | **Existing deterministic contracts; candidate experiment pending.** The current language documents `@require`, `@ensure` and `@guard`. The historical claim registry is not a test report for this candidate or evidence of agent-outcome improvements. | [Language contract](../README.md) |
+| S5 shell-superset experiment | **Pending.** The planned paired experiment compares plain Bash, Bash# with guards, and Bash# with fences. Results, confidence intervals, costs and failure-taxonomy numbers will be added only from its reviewed evidence record. | [Experiment protocol](https://github.com/qiangli/agent-bench/blob/main/experiments/bashsharp-l2/README.md) (publication planned this sprint); no result is claimed |
 
 This page makes no host, account, deployment, or private-system claims. For
 every shipped quantitative claim, use [claims.md](claims.md) as the source of
@@ -31,7 +35,7 @@ rather than asking models to learn a new DSL:
   tool calling matched or beat JSON on 11 of 14 tested models and regressed on
   older models. [The Bitter Lesson of Tool Calling](https://arxiv.org/html/2608.06370v1)
 - Boundary handling is a material shell risk: QuoteBench found that replaying
-  the same command through one added parser reduced success by 55.4–73.2
+  the same command through one additional unescaped parser reduced success by 55.4–73.2
   percentage points. That directs work toward literal boundaries and
   verification rather than a replacement syntax. [QuoteBench](https://arxiv.org/abs/2608.13547)
 
@@ -47,22 +51,25 @@ explicit island rather than turning the whole action interface into a new
 runtime. The measured toolchain claim and its exact versions belong in
 [claims.md](claims.md); this page does not extend it.
 
-The planned layer is intentionally narrower than a new agent DSL: declarations
-of what an action may do, checks that return an objective result, and clearer
-environment feedback. Those ideas follow the research's emphasis on grounded
-execution signals, but they remain planned until they are implemented and
-measured. In particular, an `agentic` marker is not evidence of model use,
-automatic repair, authorization, or sandboxing; those are explicitly not
-claimed in [claims.md](claims.md).
+Existing deterministic guards and planned extensions must be distinguished.
+The language documents `@require`, `@ensure` and `@guard`; the candidate's
+experiment uses existing guards and fences. Its pending outcome is separate
+from the historical measurements in [claims.md](claims.md). This page makes
+no claim about additional guard or effect features, or a general safety
+guarantee.
+
+The historical [claim registry](claims.md) says that an `agentic` marker is a
+boundary plus an exit status and that the interpreter does not call a model.
+It also states that islands run with the task's host authority and that a
+scratch image is not a sandbox. Those statements do not establish automatic
+repair or per-action authorization for this candidate.
 
 ## How we will test the hypothesis
 
-S5 is the evidence step, not a marketing result. It will use the same tasks
-and model budget across three arms:
-
-1. Plain Bash.
-2. Bash# with guards.
-3. Bash# with fences.
+S5 is the evidence step. The public
+[experiment protocol](https://github.com/qiangli/agent-bench/blob/main/experiments/bashsharp-l2/README.md),
+planned for publication this sprint, is the reference for the paired Bash,
+Bash# guards and Bash# fences comparison.
 
 The result is pending. Until the evidence record is reviewed, this page makes
 no claim that any arm improves task success, cost, safety, or reliability.
