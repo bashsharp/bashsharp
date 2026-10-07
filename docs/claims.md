@@ -1,9 +1,14 @@
 # What Bash# claims — every number with its corpus
 
-Release conformance claims below are backed by `bashsharp-tests` results;
-the separate candidate agent-outcome row cites its `agent-bench` evidence.
-Every measurement names its corpus and candidate. Release numbers retain
-their original status pages and are not replaced by the candidate experiment.
+The rule this page exists for: **a claim about Bash# that is not a
+`bashsharp-tests` result is not a claim.** Every figure below names the
+suite it was measured on, the revision, and the host. Numbers are copied
+from their status pages, never edited by hand; when a new run lands, this
+page changes with it.
+
+The separately labelled candidate agent-outcome experiment below is an
+exception: its measurements are copied from reviewed `agent-bench` evidence
+and do not replace the release conformance claims.
 
 Current release: **bashy v0.29.0** (2026-09-24), measured on the
 **`sprint-269` reference tag** — bashy `8d8577e`, engine `sh 5d4c0e3d`,
@@ -31,15 +36,15 @@ Bash 5.3 86/86 (run 35657932441), tour 6/6 (run 35661066840).
 | Fenced islands need no toolchain on the host | the six island languages (`~~~py` `~~~ts` `~~~rs` `~~~c` `~~~cxx` `~~~go`) and `--source=go` | bashy provisions Go 1.27.1, `zig cc`, a uv-managed CPython 3.13, Node 22 + `typescript@5.9.3`, a rustup toolchain — downloaded from the vendor, checksum-verified, cached; a host tool on `PATH` is never consulted (`BASHPP_*` names one explicitly) | the tour's stripped-PATH leg; from v0.24.0 |
 | No-base-image deployment shapes, sized | three required `FROM scratch` images: bashy + `.bsh`, standalone transpilation, and a Python island prepared at build time | all three green — **A** (bashy + `.bsh`) 109,412,490 B / 49,502,560 B gzip; **B** (`transpile --standalone` binary) image 1,994,912 B / 876,537 B gzip, bare binary 1,994,912 B / 873,571 B gzip, SBOM `mvdan.cc/sh/v3 v3.13.1`; **C** (bashy + prepared CPython island; no runtime download) 166,720,052 B / 68,927,404 B gzip | GitHub Actions run [35503564934](https://github.com/qiangli/bashy/actions/runs/35503564934), candidate `bashy 0f73f42`, 2026-09-20 |
 
-## Candidate experiment — independent review pending
+## Candidate experiment — reviewed configuration result
 
 This separate agent-outcome measurement comes from `agent-bench`, not the
 release conformance suites above. It does not replace or remeasure any release
-claim. The final scalar evidence awaits independent review.
+claim. The final scalar evidence has passed independent review.
 
 | claim | corpus | result | candidate and public evidence |
 |---|---|---|---|
-| No benefit in this frozen shell-interface configuration | 20 L2 tasks × K=3 × three arms; same 60 s budget, `gpt-6-luna` low, Codex CLI 0.157.1 | Bash **59/60**, guards **13/60**, fences **12/60**; guards minus Bash **−76.67 pp [−88.42, −64.91]**, fences minus Bash **−78.33 pp [−88.85, −67.82]** (paired normal 95% CI) | Binary SHA-256 `52e67841c1972dcb1d447ebf9271cd1037200adc2644877746267fe8b2a25040`; [scalar results](https://github.com/qiangli/agent-bench/blob/main/experiments/bashsharp-l2/results/sprint-381.json), [protocol](https://github.com/qiangli/agent-bench/blob/main/experiments/bashsharp-l2/README.md) |
+| No benefit in this frozen shell-interface configuration | 20 L2 tasks × K=3 × three arms; same 60 s budget, `gpt-6-luna` low, Codex CLI 0.157.1 | Same Bashy binary with `--no-bashpp` **59/60**, guards **13/60**, fences **12/60**; guards minus Bash **−76.67 pp [−88.42, −64.91]**, fences minus Bash **−78.33 pp [−88.85, −67.82]** (paired normal 95% CI) | Binary SHA-256 `52e67841c1972dcb1d447ebf9271cd1037200adc2644877746267fe8b2a25040`; [scalar results](https://github.com/qiangli/agent-bench/blob/main/experiments/bashsharp-l2/results/sprint-381.json), [protocol](https://github.com/qiangli/agent-bench/blob/main/experiments/bashsharp-l2/README.md) |
 
 Limits: 184 attempts include four retained infrastructure voids and 180 valid
 outcomes. Intervals pair 60 task-repetition outcomes, without clustering by
@@ -88,7 +93,8 @@ not be claimed.
 - **Full Bash compatibility from the 86-fixture result.** The current
   candidate passes every runnable fixture on the measured platforms. The
   fixture corpus does not cover every interactive or external-command behavior;
-  the bashy README records the remaining scope.
+  the bashy README records the remaining scope. Earlier Windows gaps and their
+  repairs are documented in the umbrella's Sprint 245, 246, and 253 evidence.
 - **A scratch-image deploy as sandboxed.** The three green images above are
   a smaller *supply-chain* surface — one Go module graph, no distro layer —
   not an isolation boundary; an island still runs with the task's host

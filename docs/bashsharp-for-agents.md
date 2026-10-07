@@ -67,13 +67,14 @@ repair or per-action authorization for this candidate.
 ## What the paired experiment measured
 
 **This configuration showed no benefit: both treatment arms solved substantially
-fewer trials than Bash. Independent review of the final evidence is pending;
-these figures are not an approval or a release gate.** The public
+fewer trials than the dialect-off baseline. The final evidence has passed
+independent review; these figures are not a release gate.** The public
 [scalar evidence](https://github.com/qiangli/agent-bench/blob/main/experiments/bashsharp-l2/results/sprint-381.json)
 and [protocol](https://github.com/qiangli/agent-bench/blob/main/experiments/bashsharp-l2/README.md)
 record 20 tasks, K=3 repetitions: 60 valid trials per arm. All arms used
 `gpt-6-luna`, low reasoning effort, Codex CLI 0.157.1 and the same 60-second
-budget. Of 184 attempts, four infrastructure voids remain in the history;
+budget. The baseline is the same Bashy candidate with `--no-bashpp`,
+not a separate GNU Bash binary. Of 184 attempts, four infrastructure voids remain in the history;
 180 valid outcomes enter the comparison. Valid outcomes were not selectively
 rerun, and timeouts count as failures.
 
