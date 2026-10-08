@@ -29,6 +29,7 @@ import (
 	"github.com/bashsharp/bashsharp/transpile"
 	"mvdan.cc/sh/v3/expand"
 	"mvdan.cc/sh/v3/interp"
+	"mvdan.cc/sh/v3/polyglot"
 	"mvdan.cc/sh/v3/syntax"
 )
 
@@ -116,10 +117,11 @@ func run(args []string) int {
 			return status
 		}
 		if ext := strings.ToLower(filepath.Ext(operand)); unsupportedSourceExtension(ext) && !sel.LanguageSeen {
-			if ext == ".fs" || ext == ".fsx" {
-				return failure(fmt.Errorf("%s:1:1: F# file execution is not yet supported; rewrite it as Go in a ~~~go fence in a .bsh script", operand))
+			status, runErr := polyglot.RunSourceFile(operand, operands, os.Stdin, os.Stdout, os.Stderr)
+			if runErr != nil {
+				return failure(runErr)
 			}
-			return failure(fmt.Errorf("%s:1:1: %s source is not yet supported as a file; use a ~~~%s fence in a .bsh script", operand, ext, fenceLanguage(ext)))
+			return status
 		}
 	}
 	res, err := front.ResolveGoSource(sel, front.GoSourceContext{
@@ -158,20 +160,6 @@ func unsupportedSourceExtension(ext string) bool {
 		return true
 	}
 	return false
-}
-
-func fenceLanguage(ext string) string {
-	switch ext {
-	case ".cc", ".cpp", ".cxx":
-		return "cxx"
-	case ".mjs":
-		return "ts"
-	case ".js":
-		return "ts"
-	case ".tsx":
-		return "ts"
-	}
-	return strings.TrimPrefix(ext, ".")
 }
 
 // runContentCheck is --check with no --source: the input itself selects the

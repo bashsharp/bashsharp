@@ -17,7 +17,7 @@ func TestSourceRoute(t *testing.T) {
 	}
 	dir := t.TempDir()
 	goBody := "package main\nimport (\"fmt\"; \"os\")\nfunc main(){var in string;fmt.Fscan(os.Stdin,&in);fmt.Fprintln(os.Stderr,\"stderr\",in);fmt.Println(\"compiled\",os.Args[1],in);os.Exit(23)}\n"
-	for name, body := range map[string]string{"x.go": goBody, "x.txt": goBody, "x": goBody, "x.bsh": "package main\nfunc main(){println(\"interpreted\")}\n", "interpret.go": "echo interpreted\n", "harness.go": "package main\nfunc main(){println(\"interpreted\")}\n", "x.cxx": "int main() {}\n", "x.ts": "console.log(1)\n", "x.js": "console.log(1)\n", "x.fs": "printfn \"hi\"\n"} {
+	for name, body := range map[string]string{"x.go": goBody, "x.txt": goBody, "x": goBody, "x.bsh": "package main\nfunc main(){println(\"interpreted\")}\n", "interpret.go": "echo interpreted\n", "harness.go": "package main\nfunc main(){println(\"interpreted\")}\n", "x.c": "#include <stdio.h>\nint main(){fputs(\"c\", stdout);}\n", "x.cc": "#include <iostream>\nint main(){std::cout << \"cc\";}\n", "x.cpp": "#include <iostream>\nint main(){std::cout << \"cpp\";}\n", "x.cxx": "#include <iostream>\nint main(){std::cout << \"cxx\";}\n", "x.ts": "console.log('typescript')\n", "x.tsx": "console.log('tsx')\n", "x.js": "console.log('javascript', process.argv[2])\n", "x.mjs": "console.log('mjs')\n", "x.py": "import sys; print('python', sys.argv[1])\n", "x.rs": "fn main(){print!(\"rust\");}\n", "x.fs": "printfn \"fsharp\"\n", "x.fsx": "printfn \"fsharp-script\"\n"} {
 		if err := os.WriteFile(filepath.Join(dir, name), []byte(body), 0600); err != nil {
 			t.Fatal(err)
 		}
@@ -52,10 +52,19 @@ func TestSourceRoute(t *testing.T) {
 		{"non-main refusal", []string{"library.go"}, "library.go:1:1: Go source package library cannot run as a program; expose its exported functions from a ~~~go fence", 2},
 		{"bashsharp override", []string{"--bashsharp", "interpret.go"}, "interpreted", 0},
 		{"harness override", []string{"--bashpp", "--source=go", "harness.go"}, "interpreted", 0},
-		{"cxx diagnostic", []string{"x.cxx"}, "~~~cxx", 2},
-		{"ts diagnostic", []string{"x.ts"}, "~~~ts", 2},
-		{"js diagnostic", []string{"x.js"}, "~~~ts", 2},
-		{"fs diagnostic", []string{"x.fs"}, "rewrite it as Go in a ~~~go fence", 2},
+		{"c extension", []string{"x.c"}, "c", 0},
+		{"cc extension", []string{"x.cc"}, "cc", 0},
+		{"cpp extension", []string{"x.cpp"}, "cpp", 0},
+		{"cxx extension", []string{"x.cxx"}, "cxx", 0},
+		{"typescript extension", []string{"x.ts"}, "typescript", 0},
+		{"tsx extension", []string{"x.tsx"}, "tsx", 0},
+		{"javascript extension", []string{"x.js", "arg"}, "javascript arg", 0},
+		{"module javascript extension", []string{"x.mjs"}, "mjs", 0},
+		{"python extension", []string{"x.py", "arg"}, "python arg", 0},
+		{"rust extension", []string{"x.rs"}, "rust", 0},
+		{"flag beats python extension", []string{"--source=go", "x.py"}, "expected 'package'", 1},
+		{"fsharp extension", []string{"x.fs"}, "fsharp", 0},
+		{"fsharp script extension", []string{"x.fsx"}, "fsharp-script", 0},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
 			cmd := exec.Command(bin, tc.args...)
