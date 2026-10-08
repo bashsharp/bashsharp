@@ -64,20 +64,51 @@ decision recorded, and `TestS249CompilerArtifactReplacementConformance` in
 
 ## Current claim
 
-Bashy provides a Bash-compatible shell, an opt-in mixed Bash++ dialect, and
-an explicit Go-source route. Go support is an **enumerated implementation
-profile with separate interpreted and compiled evidence**. Neither mode has
-proved that every valid Go program runs unchanged. A compiled path using the
-Go toolchain does not prove that its source selection, lowering, package
-handling and outputs are universally correct.
+*Rewritten 2026-10-08 (Sprint 379 S6) from the 2026-10-04 operator decisions
+in `bashsharp-design-review-2026-10.md` §6. The figures it replaces are kept
+in `claims.md` under "Historical Go figures".*
 
-`bashy --bashpp --source=go program.go` selects the existing Go frontend.
-Mixed Bash++ syntax and a Go compilation unit have different parsing rules.
-A leading `package` marker now selects that same Go route before shell parsing
-for Bashy command, stdin and file input. Leading Go comments/directives and
-source bytes are preserved; malformed units remain Go errors. The existing
-front-door restrictions still apply: Bashy, non-POSIX. The explicit flag
-remains available; no extension-based dispatch was added.
+Bash# has **two Go support surfaces, claimed and measured separately**.
+
+1. **Go in Bash# scripts.** Go mixed into a Bash# script, and a package-led Go
+   unit in a `.bsh` file, on stdin or under `-c`, are interpreted by the
+   Bash# engine and may be lowered. The supported grammar productions and
+   the semantic exclusions are enumerated in the [Go delta table](go-delta.md)
+   (`bashy explain go`). Tour of Go (97 programs) and Go by Example (85
+   programs) are mandatory script gates, each in three modes, and both pass
+   in full on the Sprint 376 candidate; the upstream Go corpus stresses the
+   interpreter and reports interpreted and lowered-then-compiled results
+   separately, with exact failures and exclusions by root ID. No universal Go
+   percentage is inferred from a corpus denominator.
+2. **Fenced or embedded Go source.** Go-only source enters through
+   `~~~go [as ALIAS]`, `embed go "./file.go"`, a `.go` file or
+   `--source=go`, and is **compiled by the provisioned Go toolchain**. No
+   interpreted whole-Go-source mode is claimed. Since Sprint 379 (S3, `sh
+   2a6d42599`) the entry contract is: Go-only source is compiled from the
+   nearest `go.mod` (a missing module is a refusal, never guessed or fetched);
+   a `package main` fence or embedded file runs as a program with the script's
+   streams and arguments; an alias exposes the exported functions of a
+   non-`main` package through the typed bridge, and an alias on a program is
+   refused; a `.go` file whose package is not `main` is refused because it
+   cannot run as a program; refusals are positioned (`file:line:col`). An
+   explicit `--bashsharp` keeps the interpreted route that the corpus harness
+   drives. This surface claims Go compiler execution plus Bash#'s entry,
+   build and bridge behaviour. A compiled island result is not interpreted
+   script credit, and the lowered-then-compiled corpus mode (which lowers a
+   *script* to Go) is not an island result.
+
+Neither surface has proved that every valid Go program runs unchanged. Each
+publishes its candidate, mode, exact fixture results and exclusions on its
+own: `claims.md` holds the numbers, the delta table holds the constructs, and
+`bashsharp-tests/tools/go-delta-gate.sh` proves each delta row by fixture.
+
+Entry points. `bashy --bashsharp FILE.bsh` runs script Go. A leading
+`package` in `.bsh`, stdin or `-c` text selects the Go-unit parse before shell
+parsing, with leading comments, directives and source bytes preserved and
+malformed units remaining Go errors; it stays on the interpreted script
+surface (it is what the Tour and Go by Example gates measure). No
+PATH-dependent dispatch and no parser fallback after a Go error. The
+front-door restrictions still apply: Bashy, non-POSIX.
 
 The mixed dialect intentionally changes meanings at enumerated start sites.
 Classic Bash/POSIX modes remain separately selected and tested. Reserved
@@ -110,6 +141,12 @@ or recorded limitation, not automatically an exclusion.
 An exclusion needs an exact root/mode ID, reason and decision provenance.
 Existing D7 native-memory reinterpretation decisions remain explicit profile
 limitations (FAIL by ID), not specification conformance or passing credits.
+*Amended 2026-10-08 (operator decision 2026-10-04):* `unsafe` memory
+reinterpretation of interpreter-owned values is expressly excluded
+(`unsafe-reinterpretation`; delta row U02). Existing tested emulation may
+remain; no additional emulation is owed. Whole-package multi-package Go
+source is likewise not an interpreted-mode obligation: the compiled path is
+the supported one.
 Do not exclude whole `runtime`, `syscall` or compiler-related namespaces merely
 because their names occur in a failure. Preserve the original blocking
 559-root / 661-mode baseline in the reconciliation; exclusions do not become
@@ -138,27 +175,40 @@ refusal globally. A successor may repair a specific bridge operation with an
 outside-corpus alias/writeback reproducer and negative ownership tests.
 Unsupported reflection remains visible in the profile and failure ledger.
 
-## D4 — claim by mode
+## D4 — claim by surface and mode
 
-Publish interpreted and compiled results separately and identify roots that
-pass **both applicable modes**. A repaired interpreted failure earns one mode
-result; a root closure requires every originally blocking applicable mode to
-have an authenticated passing receipt, with no later contradictory failure.
+*Replaces the 2026-09-16 text, which treated "both modes pass" as one
+whole-program claim.* Publish the two surfaces separately (see Current claim)
+and, within the script surface, interpreted and lowered-then-compiled results
+separately. A root that passes both applicable modes is identified as such,
+but a corpus root pass is evidence for the script claim only and never for the
+island claim. A repaired interpreted failure earns one mode result; a root
+closure requires every originally blocking applicable mode to have an
+authenticated passing receipt, with no later contradictory failure.
 Historical sampled receipts form a qualified lower bound, not a fresh
 whole-corpus result for the current candidate. Unmeasured rows remain unknown.
 
 ## D5 — source selection
 
-Retain `--source=go`. Sprint 198 adds the explicit leading-package marker to
-Bash++ entry points using the same frontend; it must cover command, stdin and
-file input, leading comments/directives and malformed units. Pure Go input on
-that route keeps Go lexical semantics, including comments and literals.
-Mixed-syntax shell rules such as unspaced `x=5` do not apply inside a selected
-Go unit. No PATH-dependent dispatch or parser fallback after a Go error.
+*Replaces the 2026-09-16 text.* `--source=go` and a `.go` file select the
+compiled island route (S3, Sprint 379); they do not select the interpreter.
+`--bashsharp --source=go` keeps the interpreted route for the corpus harness.
+A leading `package` in `.bsh`, stdin or `-c` text selects the Go-unit parse
+and stays interpreted (script surface). Pure Go input keeps Go lexical
+semantics, including comments and literals; mixed-syntax shell rules such as
+unspaced `x=5` do not apply inside a selected Go unit. No extension-based
+fallback after a Go error and no PATH-dependent dispatch. Every refusal names
+the file, line and column, and `bashy explain go "<refusal text>"` resolves
+it to its delta-table row and workaround.
 
 ## D6 — performance
 
-The compiled route is the supported choice for performance-sensitive work.
+The compiled route is the supported choice for performance-sensitive work:
+*(amended 2026-10-08)* CPU-bound loops belong in a Go island (`~~~go` or
+`embed go`), while script-visible interpreter overhead remains a performance
+obligation. The 11 compute-bound corpus roots that exceed the 60 s limit are
+recorded with verified full-scale correct completion in
+`interpreted-performance-v1.md`; optimization is post-v1.0.
 Do not promise a universal speed ratio or increase leaf timeouts to gain
 closure. Keep existing resource limits and evidence. An interpreted timeout
 requires a bounded profile/reproducer before choosing a repair; a compiler

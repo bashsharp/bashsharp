@@ -184,9 +184,9 @@ an `agentic` action across files; what each coding harness does with exit 6
 
 `bashy check --bashsharp file.bsh` for static checks, `bashy dag --explain`
 for a dry plan, contracts that refuse before the body runs — none of it
-needs a harness to cooperate. Shipped, with one caveat: the null-safety
-check is alpha and today only fires on a file that is nothing but
-declarations.
+needs a harness to cooperate. Shipped. The null-safety check is alpha, but
+it now fires on real files: a shebang, comments and shell statements around
+the declaration no longer switch it off.
 
 ### 6. Build, test and smoke as a Markdown task graph
 
@@ -201,9 +201,14 @@ recorded but not yet enforced — for pure task running with no contracts,
 
 Put the ten lines of Go in the shell script: typed `func`, structs,
 generics, keyword and default arguments, exhaustive enums, deep `readonly`.
-Shipped. Planned: a top-level Go `if`/`for` block between shell commands
-(today it must sit inside a `func`); a `(T, error)` return in shell text;
-goroutines in mixed text (whole Go programs already have them).
+Shipped, including a `(T, error)` return in shell text and goroutines and
+channels in mixed text (a goroutine sees a snapshot of ordinary Go bindings;
+send values back on a channel). Planned: a top-level Go `if`/`for` block
+between shell commands (today it must sit inside a `func`). Exactly which Go
+constructs differ, with the workaround for each, is the
+[Go delta table](go-delta.md) (`bashy explain go`). Whole Go programs are not
+interpreted: put them in a `~~~go` fence, `embed go` or a `.go` file and the
+provisioned toolchain compiles them.
 
 ## Compared to
 
@@ -276,8 +281,8 @@ Nothing here is promised for a date. Each item names its status.
 | one file, many languages | list/dict values both ways; island function as a pipeline filter; Rust on the persistent worker; `import python` by path | filed |
 | judged, never trusted | attestation for functions and `agentic {}`; the canonical `agentic` written form; exit-6 handling per harness | open RFC |
 | task graph | `Effects:` enforced | filed |
-| outgrew bash | top-level Go `if`/`for` in shell text; `(T, error)` in shell text; goroutines in mixed text | planned |
-| Go corpus | the 284 repairable roots | in progress, by ID in [go-corpus-targets.md](go-corpus-targets.md) |
+| outgrew bash | top-level Go `if`/`for` in shell text | planned (delta row M09); `(T, error)` and goroutines in mixed text shipped |
+| Go corpus | no open repairable roots: all 281 interpreted failures are reviewed exclusions by ID | [claims.md](claims.md), [go-corpus-state-2026-10-05.md](go-corpus-state-2026-10-05.md) |
 
 Refused, permanently — so nobody waits for them: list comprehensions,
 ternary, `match`, `try`/`catch`, operator and method overloading, classical
