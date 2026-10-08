@@ -17,4 +17,4 @@ require (
 // Bash# (formerly Bash++) is a language over the qiangli/sh fork of mvdan.cc/sh (the engine
 // that carries the Bash++ evaluator, lowering compiler, Go front end and
 // fences). Flat sibling, umbrella convention: dhnt/sh next to dhnt/bashsharp.
-replace mvdan.cc/sh/v3 => github.com/qiangli/sh/v3 v3.0.0-20261007045242-f6589660f589
+replace mvdan.cc/sh/v3 => github.com/qiangli/sh/v3 v3.0.0-20261008161309-2a6d42599019
