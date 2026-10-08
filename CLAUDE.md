@@ -96,12 +96,13 @@ redesign, tracked as `todo:af65f24e` in the umbrella. Until it lands,
 | repo | role | this repo's dependency direction |
 |---|---|---|
 | `sh` | the engine: parser (`syntax`, carries the `BashPP*` nodes), `interp` (incl. the Bash# evaluator), `lower`, `gosource`, `expand` | bashpp **imports** sh; sh must never import bashpp — see §What stays in sh and why |
-| `bashy` | the CLI that fronts both (`--bashsharp`, `transpile`, `bashy agentic`) | imports `bashsharp/front` + `bashsharp/transpile` (`replace ../bashsharp`) and sh |
+| `bashy` | the CLI that fronts both (`--bashsharp`, `transpile`, `bashy agentic`) | imports `bashsharp/front` + `bashsharp/transpile` (required at a pseudo-version) and sh |
 | `bashsharp-tests` | the gate: Go 1.27.1 corpus, oracle, Tour, GbE, POSIX/Bash conformance | the corpus harness measures `cmd/bashsharp` (`BASHPP_TOOL`); Tour/GbE and the classic OFF/ON lanes measure the built `bashy`/`bash` |
 | `coreutils` | the POSIX-required ∪ GNU coreutils applets | unrelated to the dialect |
 
-Flat-sibling layout: every cross-repo `replace` is `github.com/qiangli/<X> =>
-../<X>` (`mvdan.cc/sh/v3 => ../sh`). Clone siblings next to each other.
+Siblings are go.mod pins: the sh fork is a versioned replace
+(`mvdan.cc/sh/v3 => github.com/qiangli/sh/v3 <pseudo>`), so a plain clone
+builds; inside the dhnt umbrella the root go.work builds the live sh tree.
 
 ## Change policy
 
