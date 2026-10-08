@@ -22,6 +22,21 @@ func TestSourceRoute(t *testing.T) {
 			t.Fatal(err)
 		}
 	}
+	moduleFiles := map[string]string{
+		"module/go.mod":          "module example.test/route\n\ngo 1.27\n",
+		"module/value/value.go":  "package value\nconst Text = \"module\"\n",
+		"module/cmd/app/main.go": "package main\nimport (\"fmt\"; \"example.test/route/value\")\nfunc main(){fmt.Print(value.Text)}\n",
+		"library.go":             "package library\nfunc Exported() int { return 1 }\n",
+	}
+	for name, body := range moduleFiles {
+		path := filepath.Join(dir, filepath.FromSlash(name))
+		if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
+			t.Fatal(err)
+		}
+		if err := os.WriteFile(path, []byte(body), 0o600); err != nil {
+			t.Fatal(err)
+		}
+	}
 	for _, tc := range []struct {
 		name   string
 		args   []string
@@ -33,6 +48,8 @@ func TestSourceRoute(t *testing.T) {
 		{"go flag no op", []string{"--source=go", "x.go", "arg"}, "compiled arg in", 23},
 		{"go flag txt", []string{"--source=go", "x.txt", "arg"}, "compiled arg in", 23},
 		{"go flag no extension", []string{"--source=go", "x", "arg"}, "compiled arg in", 23},
+		{"go module directory", []string{"--source=go", "module/cmd/app"}, "module", 0},
+		{"non-main refusal", []string{"library.go"}, "library.go:1:1: Go source package library cannot run as a program; expose its exported functions from a ~~~go fence", 2},
 		{"bashsharp override", []string{"--bashsharp", "interpret.go"}, "interpreted", 0},
 		{"harness override", []string{"--bashpp", "--source=go", "harness.go"}, "interpreted", 0},
 		{"cxx diagnostic", []string{"x.cxx"}, "~~~cxx", 2},
