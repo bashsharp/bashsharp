@@ -5,6 +5,7 @@ import (
 	"os"
 	"path/filepath"
 	"reflect"
+	"strconv"
 	"testing"
 
 	"github.com/bashsharp/bashsharp/front"
@@ -105,7 +106,7 @@ func TestCheckWithoutSourceSelectsByContent(t *testing.T) {
 		return path
 	}
 	goBody := func(extra string) string {
-		return "//go:build norun\n\npackage main\n\nimport \"os\"\n\nfunc init() { os.WriteFile(" + `"` + marker + `"` + ", nil, 0o644) }\n\nfunc main() { for {} }\n" + extra
+		return "//go:build norun\n\npackage main\n\nimport \"os\"\n\nfunc init() { os.WriteFile(" + strconv.Quote(marker) + ", nil, 0o644) }\n\nfunc main() { for {} }\n" + extra
 	}
 	cases := []struct {
 		name, body string
