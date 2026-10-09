@@ -56,6 +56,8 @@ run sharp-build bashsharp go build ./...
 run sharp-vet bashsharp go vet ./...
 run sharp-all bashsharp go test -json ./... -count=1 -timeout=10m
 run syntax sh go test -json ./syntax -run TestBashPP -count=1 -timeout=5m
+run modes-capture sh go test -json -tags full ./interp -run '^TestGoSourceNativeFunctionThreeModes$|^TestGoSourceCaptureClassicBashPPDeepCopy$|^TestBashPPCapture(NeverInfersJSON|FailureIsNotEmptySuccess|UnderscoreAndStatus|InertOutsideBashPP)$|^TestBashPPStructuredCaptureExample$' -count=1 -timeout=5m
+run fences-sharp sh go test -json -tags full ./interp -run '^TestBashPP(PythonDirectAndQualifiedCalls|TypeScriptDirectQualifiedAndCoexistence|RustDirectAndQualifiedCalls|GoMainFenceRunsProgramContract|CAndCPPDirectAndQualifiedCalls|ShellDialectIslands|ShellDialectIslandStatusIsCallError|GoDirectAndQualifiedCalls|DeepReadonlyFixtures|KwargsDefaultsFixtures|EnumFixtures|EnumDiagnostics|TextRow|RunnerFenceShellFunction|RunnerFenceBashSharpFunction|RunnerFenceRefusals|DecoratorTrace|DecoratorDiagnostics)$' -count=1 -timeout=5m
 run runtime sh go test -json -tags full ./interp ./lower -run 'TestBashPP|TestSharp|Test.*Fence|Test.*Contract|TestGoSourceCaptureClassicBashPPDeepCopy|TestGoSourceNativeFunctionThreeModes|TestCompiledCaptureAcrossSharedBackendReset' -count=1 -timeout=15m
 run product bashy go test -json ./internal/agentos -run 'TestContract|TestDagDispatchBashpp|TestManifestRowsRegistered|TestTranspileRegisteredCLIDispatch|TestPosixWireExecCarriesNoDecoratorWiring' -count=1 -timeout=10m
 BASHY=$BASH_ENGINE_BIN run posix bashsharp-tests "$BASHY_BIN" tools/startsites/classify.sh --posix-gate
