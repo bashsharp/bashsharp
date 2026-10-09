@@ -42,6 +42,34 @@ func TestSourceRoute(t *testing.T) {
 	if _, err := exec.LookPath("rustc"); err == nil {
 		rustOut, rustCode = "rust", 0
 	}
+	// The Node family (TypeScript, TSX, JavaScript) runs only where a node
+	// runtime is on PATH — the binary resolves it from PATH alone, with no
+	// provisioning resolver wired in. Without node each must give the same
+	// actionable fence diagnostic; node execution itself is exercised by the
+	// provisioned polyglot gate.
+	node := func(success string) (string, int) {
+		if _, err := exec.LookPath("node"); err == nil {
+			return success, 0
+		}
+		return "TypeScript node runtime unavailable", 2
+	}
+	tsOut, tsCode := node("typescript")
+	tsxOut, tsxCode := node("tsx")
+	jsOut, jsCode := node("javascript arg")
+	mjsOut, mjsCode := node("mjs")
+	// F# is not a shipped fence language, but the engine's source router still
+	// runs a whole .fs/.fsx file through the resolved dotnet FSI, and the binary
+	// routes those extensions there and resolves dotnet from PATH alone. With a
+	// dotnet runtime each runs; without it each must give the actionable fence
+	// diagnostic — the route never claims the extension itself is unsupported.
+	fsharp := func(success string) (string, int) {
+		if _, err := exec.LookPath("dotnet"); err == nil {
+			return success, 0
+		}
+		return "F# runtime unavailable", 2
+	}
+	fsOut, fsCode := fsharp("fsharp")
+	fsxOut, fsxCode := fsharp("fsharp-script")
 	for _, tc := range []struct {
 		name   string
 		args   []string
@@ -61,22 +89,22 @@ func TestSourceRoute(t *testing.T) {
 		{"cc extension", []string{"x.cc"}, "cc", 0},
 		{"cpp extension", []string{"x.cpp"}, "cpp", 0},
 		{"cxx extension", []string{"x.cxx"}, "cxx", 0},
-		{"typescript extension", []string{"x.ts"}, "typescript", 0},
-		{"tsx extension", []string{"x.tsx"}, "tsx", 0},
-		{"javascript extension", []string{"x.js", "arg"}, "javascript arg", 0},
-		{"module javascript extension", []string{"x.mjs"}, "mjs", 0},
+		{"typescript extension", []string{"x.ts"}, tsOut, tsCode},
+		{"tsx extension", []string{"x.tsx"}, tsxOut, tsxCode},
+		{"javascript extension", []string{"x.js", "arg"}, jsOut, jsCode},
+		{"module javascript extension", []string{"x.mjs"}, mjsOut, mjsCode},
 		{"python extension", []string{"x.py", "arg"}, "python arg", 0},
 		// Source-route coverage is host-independent: without a Rust compiler it
 		// must give the actionable fence diagnostic. Rust execution itself is
 		// exercised by the provisioned polyglot gate.
 		{"rust extension", []string{"x.rs"}, rustOut, rustCode},
 		{"flag beats python extension", []string{"--source=go", "x.py"}, "expected 'package'", 1},
-		// F# source files are deliberately not one of the shipped whole-file
-		// runners. Keep the binary's route aligned with polyglot.RunSourceFile:
-		// it must name the unsupported extension rather than attempting shell
-		// interpretation or claiming an unavailable runner succeeded.
-		{"fsharp extension refusal", []string{"x.fs"}, "unsupported source extension .fs", 2},
-		{"fsharp script extension refusal", []string{"x.fsx"}, "unsupported source extension .fsx", 2},
+		// F# runs through the engine's source router on the resolved dotnet FSI
+		// where a runtime exists, and gives the actionable fence diagnostic
+		// where it does not. Either way the route never attempts shell
+		// interpretation or claims the extension itself is unsupported.
+		{"fsharp extension", []string{"x.fs"}, fsOut, fsCode},
+		{"fsharp script extension", []string{"x.fsx"}, fsxOut, fsxCode},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
 			cmd := exec.Command(bin, tc.args...)

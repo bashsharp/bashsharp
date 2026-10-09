@@ -118,6 +118,12 @@ func TestTranspileGoExtensionAndSourceOverride(t *testing.T) {
 }
 
 func TestTranspileGoLibrary(t *testing.T) {
+	// The library is a committed testdata module with its own go.mod. A go.work
+	// inherited from the environment (the umbrella workspace, say) does not list
+	// it, so a workspace-mode `go list` would refuse "example/library" as outside
+	// the workspace ("package example/library is not in std"). Pin the test off
+	// any ambient workspace so the import resolves against the testdata module.
+	t.Setenv("GOWORK", "off")
 	dir, out := filepath.Join("testdata", "sprint162", "library"), t.TempDir()
 	a := filepath.Join(dir, "a.go")
 	b := filepath.Join(dir, "b.go")
