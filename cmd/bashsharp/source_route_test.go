@@ -37,6 +37,11 @@ func TestSourceRoute(t *testing.T) {
 			t.Fatal(err)
 		}
 	}
+	// The route runs Rust only where a compiler exists; elsewhere it must say so.
+	rustOut, rustCode := "Rust compiler unavailable", 2
+	if _, err := exec.LookPath("rustc"); err == nil {
+		rustOut, rustCode = "rust", 0
+	}
 	for _, tc := range []struct {
 		name   string
 		args   []string
@@ -61,14 +66,24 @@ func TestSourceRoute(t *testing.T) {
 		{"javascript extension", []string{"x.js", "arg"}, "javascript arg", 0},
 		{"module javascript extension", []string{"x.mjs"}, "mjs", 0},
 		{"python extension", []string{"x.py", "arg"}, "python arg", 0},
-		{"rust extension", []string{"x.rs"}, "rust", 0},
+		// Source-route coverage is host-independent: without a Rust compiler it
+		// must give the actionable fence diagnostic. Rust execution itself is
+		// exercised by the provisioned polyglot gate.
+		{"rust extension", []string{"x.rs"}, rustOut, rustCode},
 		{"flag beats python extension", []string{"--source=go", "x.py"}, "expected 'package'", 1},
-		{"fsharp extension", []string{"x.fs"}, "fsharp", 0},
-		{"fsharp script extension", []string{"x.fsx"}, "fsharp-script", 0},
+		// F# source files are deliberately not one of the shipped whole-file
+		// runners. Keep the binary's route aligned with polyglot.RunSourceFile:
+		// it must name the unsupported extension rather than attempting shell
+		// interpretation or claiming an unavailable runner succeeded.
+		{"fsharp extension refusal", []string{"x.fs"}, "unsupported source extension .fs", 2},
+		{"fsharp script extension refusal", []string{"x.fsx"}, "unsupported source extension .fsx", 2},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
 			cmd := exec.Command(bin, tc.args...)
 			cmd.Dir = dir
+			// The fixture creates its own module below dir. A parent go.work must
+			// not turn that independent module into a workspace-membership error.
+			cmd.Env = append(os.Environ(), "GOWORK=off")
 			cmd.Stdin = strings.NewReader("in\n")
 			out, err := cmd.CombinedOutput()
 			code := 0
