@@ -57,19 +57,6 @@ func TestSourceRoute(t *testing.T) {
 	tsxOut, tsxCode := node("tsx")
 	jsOut, jsCode := node("javascript arg")
 	mjsOut, mjsCode := node("mjs")
-	// F# is not a shipped fence language, but the engine's source router still
-	// runs a whole .fs/.fsx file through the resolved dotnet FSI, and the binary
-	// routes those extensions there and resolves dotnet from PATH alone. With a
-	// dotnet runtime each runs; without it each must give the actionable fence
-	// diagnostic — the route never claims the extension itself is unsupported.
-	fsharp := func(success string) (string, int) {
-		if _, err := exec.LookPath("dotnet"); err == nil {
-			return success, 0
-		}
-		return "F# runtime unavailable", 2
-	}
-	fsOut, fsCode := fsharp("fsharp")
-	fsxOut, fsxCode := fsharp("fsharp-script")
 	for _, tc := range []struct {
 		name   string
 		args   []string
@@ -99,12 +86,10 @@ func TestSourceRoute(t *testing.T) {
 		// exercised by the provisioned polyglot gate.
 		{"rust extension", []string{"x.rs"}, rustOut, rustCode},
 		{"flag beats python extension", []string{"--source=go", "x.py"}, "expected 'package'", 1},
-		// F# runs through the engine's source router on the resolved dotnet FSI
-		// where a runtime exists, and gives the actionable fence diagnostic
-		// where it does not. Either way the route never attempts shell
-		// interpretation or claims the extension itself is unsupported.
-		{"fsharp extension", []string{"x.fs"}, fsOut, fsCode},
-		{"fsharp script extension", []string{"x.fsx"}, fsxOut, fsxCode},
+		// F# is not supported (operator decision D14: .NET covers C# and pwsh
+		// only); the engine's source router refuses the extension by position.
+		{"fsharp extension refused", []string{"x.fs"}, "x.fs:1:1: unsupported source extension .fs", 2},
+		{"fsharp script extension refused", []string{"x.fsx"}, "x.fsx:1:1: unsupported source extension .fsx", 2},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
 			cmd := exec.Command(bin, tc.args...)
