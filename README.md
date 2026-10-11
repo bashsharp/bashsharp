@@ -113,6 +113,7 @@ name, and had it first — [docs/naming-collision.md](docs/naming-collision.md).
 | path | what |
 |---|---|
 | [docs/why-bashsharp.md](docs/why-bashsharp.md) | why Bash#, and for what — the page to hand to whoever has to approve it: four properties, ranked use cases, deployment shapes, honest comparisons, what is planned |
+| [docs/why-go.md](docs/why-go.md) | why Go is the host syntax and not C/C++, C#, Rust, Python, Java or TypeScript |
 | [docs/claims.md](docs/claims.md) | every number and its corpus; what is not claimed |
 | [ROADMAP.md](ROADMAP.md) | the five clauses by stage, the open design calls, the RFC process |
 | [docs/go-corpus-state-2026-10-05.md](docs/go-corpus-state-2026-10-05.md) · [docs/go-corpus-targets.md](docs/go-corpus-targets.md) | the latest full Go corpus, exact results and historical applicability catalog |
