@@ -2,7 +2,7 @@ module github.com/bashsharp/bashsharp
 
 go 1.27
 
-toolchain go1.27.1
+toolchain go1.27.2
 
 require mvdan.cc/sh/v3 v3.13.1
 
