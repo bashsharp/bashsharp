@@ -93,6 +93,8 @@ spellings never change how Bash# parses source or which command runs:
 there are no executable aliases. The boundary, from the dhnt side:
 [canonical words and rule-derived alternative
 spellings](https://github.com/dhnt/dhnt/blob/master/dhnt.md#canonical-words-and-rule-derived-alternative-spellings).
+The agent-facing view is [Familiar
+spelling](docs/bashsharp-for-agents.md#familiar-spelling).
 
 ## Using it
 
