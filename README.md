@@ -96,6 +96,23 @@ spellings](https://github.com/dhnt/dhnt/blob/master/dhnt.md#canonical-words-and-
 The agent-facing view is [Familiar
 spelling](docs/bashsharp-for-agents.md#familiar-spelling).
 
+## Grammar
+
+**The Bash# grammar is normative.** The production parser (`sh/syntax`) must
+conform to it; where the parser and the grammar disagree, the parser is wrong
+(operator decision, 2026-10-19).
+
+| piece | role |
+|---|---|
+| [Combined grammar](https://github.com/bashsharp/bashsharp-tests/tree/main/tools/grammar-oracle/grammar/bashsharp) (`BashSharpLexer.g4`, `BashSharpParser.g4`) | the normative Bash 5.3 + Bash# + Go grammar |
+| [Bash# delta](https://github.com/qiangli/sh/blob/master/grammar/delta.ebnf) (executable twin `delta.gbnf`) | the productions Bash# adds to Bash 5.3 |
+| [Go delta](docs/go-delta.md) (this repo) | where Bash# differs from Go |
+| [Oracle contract](https://github.com/bashsharp/bashsharp-tests/blob/main/docs/grammar-oracle/CONTRACT.md) | how the parser is checked against the grammar |
+| [Production parser](https://github.com/qiangli/sh/tree/master/syntax) | the implementation, which conforms to the grammar |
+
+dhnt-lang defines the words; this grammar defines the syntax and grammar of
+dhnt-lang and Bash# (see [Vocabulary and syntax](#vocabulary-and-syntax) above).
+
 ## Using it
 
 - `bashy --bashsharp file.bsh` (or `#!/usr/bin/env -S bashy --bashsharp`); a
