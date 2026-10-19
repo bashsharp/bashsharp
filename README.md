@@ -82,6 +82,18 @@ keyword and default arguments, exhaustive enums, deep `readonly`, and a
 null-safety **check** (`bashy check`). Admitted only when it lowers to plain
 Go and collides with nothing bash already accepts.
 
+## Vocabulary and syntax
+
+Bash# does not define its own words. [dhnt-lang](https://github.com/dhnt/dhnt)
+defines vocabulary and canonical word formation; Bash# owns the executable
+grammar and syntax — tokens, quoting, operators, declarations, reserved
+forms. The dhnt rules relate a conventional spelling to a canonical word
+(`ls` to `liso`, `bash` to `basohe`), and such rule-derived alternative
+spellings never change how Bash# parses source or which command runs:
+there are no executable aliases. The boundary, from the dhnt side:
+[canonical words and rule-derived alternative
+spellings](https://github.com/dhnt/dhnt/blob/master/dhnt.md#canonical-words-and-rule-derived-alternative-spellings).
+
 ## Using it
 
 - `bashy --bashsharp file.bsh` (or `#!/usr/bin/env -S bashy --bashsharp`); a
