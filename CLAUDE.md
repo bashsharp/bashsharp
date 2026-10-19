@@ -8,6 +8,8 @@ plan of record for the code move is the umbrella's
 source**: never write hostnames, user paths, IPs, tokens, or proprietary
 (cloudbox/kg/umbrella) details into any file, commit message, issue or PR.
 
+Vocabulary is dhnt-lang's ([github.com/dhnt/dhnt](https://github.com/dhnt/dhnt)), syntax is ours: dhnt defines vocabulary and canonical word formation; Bash# owns executable grammar and syntax (tokens, quoting, operators, declarations, reserved forms). Rule-derived alternative spellings (`ls` ~ canonical `liso`) never change how Bash# parses source or which command runs — there are no executable aliases. See [dhnt.md § canonical words and rule-derived alternative spellings](https://github.com/dhnt/dhnt/blob/master/dhnt.md#canonical-words-and-rule-derived-alternative-spellings).
+
 **`bashy sprint` is the source of requests, plans and details for every agent** — read the sprint card (spec-ref, acceptance, continuity) for what to do; a todo needs no sprint to exist, sprint work is tracked as stories on the card. Delivery commits carry `Sprint:` / `Story:` / `Story-ID:` trailers.
 
 ## What lives here
