@@ -64,6 +64,22 @@ It also states that islands run with the task's host authority and that a
 scratch image is not a sandbox. Those statements do not establish automatic
 repair or per-action authorization for this candidate.
 
+## Familiar spelling
+
+dhnt-lang is one language: dhnt-lang defines its words, and its syntax and
+grammar are defined by Bash#. Agents write ordinary English words (`ls`,
+`bash`, `cd`); the dhnt canonical forms (`liso`, `basohe`, `cada`) follow by
+rule and are used for identity and hashing, never required as input. The
+dhnt Skill-CNL reader accepts the familiar spellings and writes canonical
+output. Spelling never changes how Bash# parses source or which command
+runs — there are no executable aliases. The Bash# side of the boundary is
+[Vocabulary and syntax](../README.md#vocabulary-and-syntax); the dhnt side is
+[canonical words and rule-derived alternative
+spellings](https://github.com/dhnt/dhnt/blob/master/dhnt.md#canonical-words-and-rule-derived-alternative-spellings).
+Whether familiar spelling helps LLM authors is measured by the
+[dhnt spelling eval](https://github.com/dhnt/dhnt/blob/master/eval/README.md),
+not assumed.
+
 ## What the paired experiment measured
 
 **This configuration showed no benefit: both treatment arms solved substantially
