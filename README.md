@@ -84,7 +84,7 @@ Go and collides with nothing bash already accepts.
 
 ## Vocabulary and syntax
 
-Bash# does not define its own words. [dhnt-lang](https://github.com/dhnt/dhnt)
+Bash# does not define its own vocabulary. [dhnt-lang](https://github.com/dhnt/dhnt)
 defines vocabulary and canonical word formation; Bash# owns the executable
 grammar and syntax — tokens, quoting, operators, declarations, reserved
 forms. The dhnt rules relate a conventional spelling to a canonical word
