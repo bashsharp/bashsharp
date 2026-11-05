@@ -49,7 +49,7 @@ you keep a Go program, not a dependency.
 
 What it is not: not "100 % Go" (an enumerated profile, 2,827 of 3,497
 upstream roots pass both modes); not POSIX *certified* (493/493 on the
-licensed shell arm is a pre-flight); not fast (≈ 2× slower than GNU bash on
+licensed shell arm is conformance evidence; [current status](claims.md#classic-posix-campaign-update-2026-11-04)); not fast (≈ 2× slower than GNU bash on
 microbenchmarks); islands are not a sandbox (they run with your
 permissions). The current candidate passes all 86 runnable Bash 5.3 fixtures
 on Windows, Linux, and macOS; that fixture result does not establish complete

@@ -1,5 +1,16 @@
 # What Bash# claims — every number with its corpus
 
+## Classic POSIX campaign update (2026-11-04)
+
+The licensed S561 result concerns the **Classic shell and utility candidate**,
+not a rerun or certification of Bash# language, Go or fence corpora. Candidate:
+bashy `f1bcd711`, sh `74586fde`, coreutils `211789fa`. Profile B: 493/493
+PASS group; full Profile D: 9,270/9,337 PASS group, 4 FAIL, 54 UNRESOLVED,
+9 INSPECT (67 non-passes), no regression. S561 closed engineering, not full
+readiness. [Exact evidence](https://github.com/qiangli/bashy/blob/main/docs/s561/a4-licensed-results.md); [S571 resolution/readiness plan](https://github.com/dhnt/umbrella/blob/main/docs/plan-s571-posix-certification-readiness.md).
+No POSIX certification award is claimed. The release-tagged and language
+measurements below retain their own dates, candidates and denominators.
+
 The rule this page exists for: **a claim about Bash# that is not a
 `bashsharp-tests` result is not a claim.** Every figure below names the
 suite it was measured on, the revision, and the host. Numbers are copied
@@ -10,7 +21,7 @@ The separately labelled candidate agent-outcome experiment below is an
 exception: its measurements are copied from reviewed `agent-bench` evidence
 and do not replace the release conformance claims.
 
-Current release: **bashy v0.29.0** (2026-09-24), measured on the
+Release snapshot: **bashy v0.29.0** (2026-09-24), measured on the
 **`sprint-269` reference tag** — bashy `8d8577e`, engine `sh 5d4c0e3d`,
 `bashsharp 0d5aeb0`, `coreutils cbf37428`, `yoke 0bf2235`; the release adds
 documentation-only commits on top. Re-measured on that tag, on three native
@@ -135,9 +146,8 @@ dated history, replaced by the rows above:
   is owed or added.
 - **"100 % Go"** or **"Go 1.27 conformant."** What is supported is an
   enumerated profile (`go1.27-profile-v1`), measured root by root.
-- **"POSIX certified."** The 493/493 is a conformance *pre-flight* on the
-  licensed suite; certification is a separate process that has not been
-  completed.
+- **"POSIX certified."** The 493/493 is a licensed shell-isolation result;
+  certification is a separate process that has not been completed.
 - **"100 % drop-in"** without the qualifier: "on Bash's own 86 fixtures,
   dialect off." Job control and some interactive corners are incomplete; the
   bashy README lists them.
