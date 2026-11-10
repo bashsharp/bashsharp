@@ -56,7 +56,7 @@ Each clause names its gate; the numbers are in [docs/claims.md](docs/claims.md).
 
 1. **Base — GNU Bash 5.3, a strict superset.** Every Bash 5.3 program is a
    Bash# program with the same meaning; with the flag off the dialect does not
-   exist. *Gate: Bash's own 86-fixture suite, dialect off 86/86, on 79 + 7.*
+   exist. *Gate: Bash's own 86-fixture suite in the sealed container, dialect off 86/86 and dialect on 86/86 (2026-11-10).*
 2. **Standard — POSIX.1-2016.** Through the same engine and the pure-Go
    [coreutils](https://github.com/qiangli/coreutils); under `--posix` the
    dialect is inert. *Gate: the licensed VSC shell arm, yash's POSIX suite.*
