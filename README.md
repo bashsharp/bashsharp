@@ -17,6 +17,21 @@ that decide every claim live in
 > RFC (see [ROADMAP.md](ROADMAP.md)); the way to help is the conformance suite,
 > which is red on purpose where the language is not finished.
 
+## Bash# is how shapes are written
+
+**Software shaping lets anyone tell an agent, in plain words, how a running tool should work, and get their own verified, reversible version, while everyone else keeps theirs.** See [software shaping](https://github.com/qiangli/bashy/blob/main/docs/software-shaping.md). Bash# is the language shapes are written in:
+
+- One file is both script and skill, so the agent's instructions and the
+  automation never drift.
+- Contracts (`@require` / `@ensure` / `@guard`) and `agentic {}` blocks mean a
+  model's output is judged by ordinary commands, never trusted.
+- A Bash# skill-script plus its JSON config hook (bashy's
+  `examples/collab-save/collab-save.bsh` + `collab-save.json`) is itself
+  shapeable: small `bashy shape … --json` verbs composed by a short script.
+  Rod, not fish.
+- The base is a pure-Go Bash 5.3 that runs the same on Linux, macOS and
+  Windows, so a check means the same everywhere.
+
 ## Ten minutes
 
 Install bashy (one static binary; [releases](https://github.com/qiangli/bashy/releases/latest)),
