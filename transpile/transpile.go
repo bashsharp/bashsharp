@@ -31,8 +31,8 @@ const (
 // ShellRuntimeCommit is the bashsharp revision written by --standalone. Bashy
 // release builds stamp it and its commit time from the exact sibling pin with
 // -ldflags -X; both are needed to form the canonical Go pseudo-version.
-var ShellRuntimeCommit = "6423f904a42ccfef5c01147a88baf6ba9071f83d"
-var ShellRuntimeCommitTime = "2026-11-17T15:57:36-08:00"
+var ShellRuntimeCommit = "6dddcb28a199f4148ad0630de930c0d423bd3446"
+var ShellRuntimeCommitTime = "2026-11-17T16:10:49-08:00"
 
 type mapEntry struct {
 	GoLine       int    `json:"go_line"`
