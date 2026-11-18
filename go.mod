@@ -215,7 +215,7 @@ require (
 	github.com/ergochat/readline v0.1.3
 	github.com/go-quicktest/qt v1.101.0
 	github.com/google/go-cmp v0.7.0
-	github.com/qiangli/bash v0.0.0-20261118060058-af9c9f90651a
+	github.com/qiangli/bash v0.0.0-20261118061051-cdb1212b069f
 	github.com/qiangli/bashy v0.0.0-20261118042223-9a6d5824cf95
 	github.com/qiangli/coreutils v0.0.0-20261118041055-ababb9f1c79a
 	github.com/qiangli/yoke v0.0.0-20261118041247-79fe8f90bb05
@@ -232,4 +232,4 @@ require (
 
 replace github.com/qiangli/ycode/examples/genie v0.0.0 => github.com/qiangli/ycode/examples/genie v0.0.0-20261118041524-e5be31355b48
 
-require github.com/qiangli/bash/cmd v0.0.0-20261118060058-af9c9f90651a
+require github.com/qiangli/bash/cmd v0.0.0-20261118061051-cdb1212b069f

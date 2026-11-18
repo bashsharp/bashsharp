@@ -409,7 +409,11 @@ github.com/qiangli/bash v0.0.0-20261118050932-05671b769b06 h1:ypkgb4j4/6Y/m8KS3P
 github.com/qiangli/bash v0.0.0-20261118050932-05671b769b06/go.mod h1:7iT4xbycTB3ndcoV1dIWu2wBXCHAqzkpAhw53qvFTT0=
 github.com/qiangli/bash v0.0.0-20261118060058-af9c9f90651a h1:GuF+6/6Ojmr8a0F+uXCPMrDg3ZO36nAl6lLisDaBu3E=
 github.com/qiangli/bash v0.0.0-20261118060058-af9c9f90651a/go.mod h1:m9QaWxANAE+UmTTPCOQ9TRbyjaHfoHaHD6GPAUjBPoE=
+github.com/qiangli/bash v0.0.0-20261118061051-cdb1212b069f h1:/JN4BFT+QOB0eASMYsy7JsfP6tBrqOODrUPu+J6eD2I=
+github.com/qiangli/bash v0.0.0-20261118061051-cdb1212b069f/go.mod h1:m9QaWxANAE+UmTTPCOQ9TRbyjaHfoHaHD6GPAUjBPoE=
 github.com/qiangli/bash/cmd v0.0.0-20261118060058-af9c9f90651a/go.mod h1:V3vTum7eyqQ1Az+x6rlwYuDErRrkwlkc5/Esc6n95N0=
+github.com/qiangli/bash/cmd v0.0.0-20261118061051-cdb1212b069f h1:L55CUSVwXSPDOgOMhArwMrdNeiHEY7HQ07yIL3NOcQg=
+github.com/qiangli/bash/cmd v0.0.0-20261118061051-cdb1212b069f/go.mod h1:V3vTum7eyqQ1Az+x6rlwYuDErRrkwlkc5/Esc6n95N0=
 github.com/qiangli/bashy v0.0.0-20261118042223-9a6d5824cf95/go.mod h1:wetV7oyn7BhD9Ae2L7lCt2x2WZvOpRYDIaTyPqTZCdE=
 github.com/qiangli/bonsai v0.0.0-20261103194740-24dd0f47247e h1:eBMunh39EbYoU3fHCLU5BH2fUFuT+ibHNxyHFKSbJl0=
 github.com/qiangli/bonsai v0.0.0-20261103194740-24dd0f47247e/go.mod h1:XPDzA91wEz1K4qkkXyqGpkd41M+zDIY6wkz5Aird7Vs=

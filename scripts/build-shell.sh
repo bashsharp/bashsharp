@@ -15,9 +15,9 @@ hostarch=$(go env GOHOSTARCH)
 ext=
 [ "$goos" != windows ] || ext=.exe
 if [ "$goos" = "$hostos" ] && [ "$goarch" = "$hostarch" ] && [ "$(BASHY="$bashy" "$bashy" "$bash_dir/scripts/launcher-wanted.sh" build-shell)" = 1 ]; then
-  BASHY_EXE= "$bash_dir/scripts/go-product.sh" build -mod=readonly -trimpath -o bin/shell/bash.real github.com/qiangli/bash/cmd/bash
+  BASHY_EXE= "${BASHY:-bashy}" "$bash_dir/scripts/go-product.sh" build -mod=readonly -trimpath -o bin/shell/bash.real github.com/qiangli/bash/cmd/bash
   cc -x c -std=c11 -O2 -Wall -Wextra -Werror -o bin/shell/bash "$bash_dir/native/siglaunch.c.in"
 else
   rm -f bin/shell/bash.real
-  BASHY_EXE= "$bash_dir/scripts/go-product.sh" build -mod=readonly -trimpath -o "bin/shell/bash$ext" github.com/qiangli/bash/cmd/bash
+  BASHY_EXE= "${BASHY:-bashy}" "$bash_dir/scripts/go-product.sh" build -mod=readonly -trimpath -o "bin/shell/bash$ext" github.com/qiangli/bash/cmd/bash
 fi
