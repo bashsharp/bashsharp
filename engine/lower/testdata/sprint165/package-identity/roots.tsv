@@ -1,0 +1,6 @@
+# root	mode	mechanism	reproducer
+testdir:interface/embed3.go	compiled	per-package-library-emission	package-identity
+testdir:fixedbugs/issue29612.go	compiled	per-package-library-emission	package-identity
+testdir:fixedbugs/issue29919.go	compiled	per-package-library-emission	package-identity
+testdir:fixedbugs/issue20014.go	compiled	per-package-library-emission	package-identity
+testdir:rangegen.go	compiled	bounded-second-lowering	range-function

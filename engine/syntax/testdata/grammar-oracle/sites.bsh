@@ -1,0 +1,9 @@
+#!/usr/bin/env bashy
+@guard(x)
+func greet(name string) {
+	echo "hi $name"
+}
+~~~python as py
+print(1)
+~~~
+agentic { echo yes; }

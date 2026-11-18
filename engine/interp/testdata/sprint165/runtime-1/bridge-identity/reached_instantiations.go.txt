@@ -1,0 +1,65 @@
+package main
+
+import (
+	"fmt"
+	"os"
+)
+
+// Instantiations this program only REACHES: none of Box[int], Option[int],
+// Pair[int, string], Wrap[Box[int]], Count[int], Node[string] is spelled
+// outside a generic declaration.
+
+type Box[T any] struct{ V T }
+
+func Make[T any](v T) Box[T] { return Box[T]{V: v} }
+
+type Option[T any] struct {
+	ok  bool
+	val T
+}
+
+func (o Option[T]) String() string {
+	if o.ok {
+		return fmt.Sprintf("Some(%v)", o.val)
+	}
+	return "None"
+}
+
+func Some[T any](val T) Option[T] { return Option[T]{ok: true, val: val} }
+func None[T any]() Option[T]      { return Option[T]{ok: false} }
+
+type Pair[K comparable, V any] struct {
+	Key K
+	Val V
+}
+
+func MakePair[K comparable, V any](k K, v V) Pair[K, V] { return Pair[K, V]{Key: k, Val: v} }
+
+type Wrap[T any] struct{ Inner T }
+
+// Nested: Wrap[Box[T]] is reached through Box[T] bound by the caller.
+func Wrapped[T any](v T) Wrap[Box[T]] { return Wrap[Box[T]]{Inner: Make(v)} }
+
+// A generic named scalar type crosses with its instantiated identity.
+type Count[T any] int
+
+func Zero[T any]() Count[T] { return 0 }
+
+// A generic method body reaching another instantiation of its own type.
+type Node[T any] struct {
+	Val  T
+	Next *Node[T]
+}
+
+func (n Node[T]) Chain(v T) Node[T] { return Node[T]{Val: v, Next: &n} }
+
+func main() {
+	fmt.Println(Make(1))
+	fmt.Println(Some(2), None[int]())
+	fmt.Println(MakePair(3, "three"))
+	fmt.Println(Wrapped(4))
+	fmt.Println(Zero[int]())
+	head := Node[string]{Val: "a"}.Chain("b")
+	fmt.Println(head.Val, head.Next.Val)
+	os.Exit(3)
+}

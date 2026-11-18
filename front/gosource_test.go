@@ -12,8 +12,8 @@ import (
 	"strings"
 	"testing"
 
-	"mvdan.cc/sh/v3/interp"
-	"mvdan.cc/sh/v3/syntax"
+	"github.com/bashsharp/bashsharp/engine/interp"
+	"github.com/bashsharp/bashsharp/engine/syntax"
 )
 
 // Sprint 118, W1: tests for the Go-source selector. This package is the SHARED

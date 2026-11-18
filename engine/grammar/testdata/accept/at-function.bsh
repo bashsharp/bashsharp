@@ -1,0 +1,5 @@
+@a()
+{
+  echo literal function named @a
+}
+@a

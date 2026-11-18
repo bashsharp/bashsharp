@@ -1,0 +1,30 @@
+package main
+
+import (
+	"crypto/md5"
+	"fmt"
+	"io"
+	"os"
+	"sync/atomic"
+)
+
+// Identities the dependency handed the interpreter and the program never
+// imported or spelled: hash.Hash behind md5.New (the program imports
+// crypto/md5, not hash), and *sync/atomic.Uint64 from new(atomic.Uint64).
+
+func main() {
+	m := md5.New()
+	io.WriteString(m, "abc")
+	fmt.Printf("%x\n", m.Sum(nil))
+	// Reassigning the hash.Hash variable sends the interface identity back.
+	m = md5.New()
+	io.WriteString(m, "abcd")
+	fmt.Printf("%x\n", m.Sum(nil))
+
+	a := new(atomic.Uint64)
+	old := a.Or(0xaaa)
+	fmt.Println(old, a.Load())
+	a.Store(7)
+	fmt.Println(a.Add(1))
+	os.Exit(3)
+}

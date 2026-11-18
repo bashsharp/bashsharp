@@ -1,0 +1,16 @@
+runtime_caller.go 30 main.where
+runtime_caller.go 118 main.main
+recovered: true
+fault at line: 49
+unwind at line: 79
+main at line: 119
+deferred at line: 76
+after unwind, fault frame: -1
+stack has fault line: true
+stack has case line: false
+stack names fault: true
+stack names checkstack first: true
+expected in trace: true
+not expected in trace: false
+goroutine header: true
+beyond the stack:  0 false

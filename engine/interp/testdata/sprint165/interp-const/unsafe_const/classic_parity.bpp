@@ -1,0 +1,7 @@
+const (
+	Ratio float64 = 3.0 / 10.0
+)
+func main() {
+	printf '%s\n' "$Ratio"
+}
+main()

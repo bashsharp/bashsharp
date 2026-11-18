@@ -1,0 +1,15 @@
+type Report struct {
+  name string
+}
+
+func (r Report) Name() string {
+  return r.name
+}
+
+@go.error()
+func (r Report) Check(limit int) (int, error) {
+  if limit < 0 {
+    return 0, nil
+  }
+  return limit, nil
+}

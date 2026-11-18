@@ -1,0 +1,124 @@
+package main
+
+import (
+	"fmt"
+	"reflect"
+	"strconv"
+	"strings"
+	"sync"
+	"testing"
+)
+
+type s279Named int
+
+func init() {
+	bridgeAuth = "0123456789abcdef0123456789abcdef"
+	originalTypeIdentities[reflect.TypeFor[s279Named]()] = originalTypeIdentity{Name: "Named", PackageName: "original", PackagePath: "example.test/original"}
+	symbols["s279.itoa"] = reflect.ValueOf(strconv.Itoa)
+	symbols["s279.repeat"] = reflect.ValueOf(strings.Repeat)
+	symbols["s279.sprint"] = reflect.ValueOf(fmt.Sprint)
+	symbols["s279.sprintf"] = reflect.ValueOf(fmt.Sprintf)
+	symbols["s279.retain"] = reflect.ValueOf(func(s string) func() string { return func() string { return s } })
+	symbols["s279.zero"] = reflect.ValueOf(func() int { return 42 })
+	symbols["s279.panic"] = reflect.ValueOf(func(string) { panic("expected") })
+	symbols["s279.mutate"] = reflect.ValueOf(func(s []int) { s[0] = 91 })
+	symbols["s279.nested"] = reflect.ValueOf(func(s string, n int) string {
+		r := dispatch(request{Op: "call", Selector: "s279.repeat", Args: []value{{Kind: "string", Text: s}, {Kind: "int", Text: strconv.Itoa(n)}}})
+		if r.Error != "" {
+			panic(r.Error)
+		}
+		return stringText(r.Values[0]) + s
+	})
+}
+
+func s279String(s string) value { return value{Kind: "string", Text: s} }
+func s279Int(n int) value       { return value{Kind: "int", Text: strconv.Itoa(n)} }
+func s279Check(t *testing.T, q request, want string) {
+	t.Helper()
+	r := dispatch(q)
+	if r.Error != "" || r.Panic != nil || len(r.Values) != 1 {
+		t.Fatalf("%s: %+v", q.Selector, r)
+	}
+	if got := stringText(r.Values[0]); got != want {
+		t.Fatalf("%s: got %q, want %q", q.Selector, got, want)
+	}
+}
+
+func TestS279MixedCalls(t *testing.T) {
+	for i := 0; i < 100; i++ {
+		s279Check(t, request{Op: "call", Selector: "s279.itoa", Args: []value{s279Int(i)}}, strconv.Itoa(i))
+		s279Check(t, request{Op: "call", Selector: "s279.repeat", Args: []value{s279String("a<&\x00"), s279Int(2)}}, "a<&\x00a<&\x00")
+		s279Check(t, request{Op: "call", Selector: "s279.sprint", Args: []value{s279String("x"), s279Int(i)}}, "x"+strconv.Itoa(i))
+		s279Check(t, request{Op: "call", Selector: "s279.zero"}, "42")
+		s279Check(t, request{Op: "call", Selector: "s279.sprint"}, "")
+		slice := value{Kind: "slice", Length: 2, Capacity: 2, Elements: []value{s279String("x"), s279Int(i)}}
+		s279Check(t, request{Op: "call", Selector: "s279.sprint", Spread: true, Args: []value{slice}}, "x"+strconv.Itoa(i))
+		// Force originalFmtArgs to replace the borrowed slice and add a %T operand.
+		named := encode(reflect.ValueOf(s279Named(3)))
+		s279Check(t, request{Op: "call", Selector: "s279.sprintf", Args: []value{s279String("%T"), named}}, "original.Named")
+		wide := make([]value, 65)
+		for j := range wide {
+			wide[j] = s279String("z")
+		}
+		s279Check(t, request{Op: "call", Selector: "s279.sprint", Args: wide}, strings.Repeat("z", len(wide)))
+		bad := dispatch(request{Op: "call", Selector: "s279.repeat", Args: []value{s279String("partially decoded"), {Kind: "int", Text: "bad"}}})
+		if bad.Error == "" {
+			t.Fatal("decode error was lost")
+		}
+		raised := dispatch(request{Op: "call", Selector: "s279.panic", Args: []value{s279String("retained?")}})
+		if raised.Error == "" && raised.Panic == nil {
+			t.Fatal("panic was lost")
+		}
+	}
+}
+
+// Clearing reflection carriers must not clear values retained by the callee.
+func TestS279RetainedArgument(t *testing.T) {
+	r := dispatch(request{Op: "call", Selector: "s279.retain", Args: []value{s279String("retained")}})
+	if r.Error != "" || r.Panic != nil || len(r.Values) != 1 {
+		t.Fatalf("retain: %+v", r)
+	}
+	for i := 0; i < 100; i++ {
+		s279Check(t, request{Op: "call", Selector: "s279.itoa", Args: []value{s279Int(i)}}, strconv.Itoa(i))
+	}
+	s279Check(t, request{Op: "call", Receiver: &r.Values[0]}, "retained")
+}
+
+func TestS279ConcurrentNestedCalls(t *testing.T) {
+	var wg sync.WaitGroup
+	for g := 0; g < 8; g++ {
+		wg.Add(1)
+		go func(g int) {
+			defer wg.Done()
+			s := strconv.Itoa(g)
+			for i := 0; i < 100; i++ {
+				s279Check(t, request{Op: "call", Selector: "s279.nested", Args: []value{s279String(s), s279Int(3)}}, strings.Repeat(s, 4))
+			}
+		}(g)
+	}
+	wg.Wait()
+}
+
+func TestS279WritebackBeforeRelease(t *testing.T) {
+	for i := 0; i < 30; i++ {
+		slice := value{Kind: "slice", Length: 1, Capacity: 1, Elements: []value{s279Int(i)}}
+		r := dispatch(request{Op: "call", Selector: "s279.mutate", Args: []value{slice}, SliceBuffers: []sliceBuffer{{Index: 0, Length: 1, Value: slice}}})
+		if r.Error != "" || r.Panic != nil || len(r.SliceUpdates) != 1 {
+			t.Fatalf("writeback: %+v", r)
+		}
+		if got := r.SliceUpdates[0].Value.Elements[0].Text; got != "91" {
+			t.Fatalf("writeback = %q", got)
+		}
+	}
+}
+
+func BenchmarkS279Dispatch(b *testing.B) {
+	q := request{Op: "call", Selector: "s279.repeat", Args: []value{s279String("abc"), s279Int(1)}}
+	b.ReportAllocs()
+	for b.Loop() {
+		r := dispatch(q)
+		if r.Error != "" || r.Panic != nil || len(r.Values) != 1 || stringText(r.Values[0]) != "abc" {
+			b.Fatalf("dispatch: %+v", r)
+		}
+	}
+}

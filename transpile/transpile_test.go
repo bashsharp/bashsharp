@@ -13,8 +13,8 @@ import (
 	"strings"
 	"testing"
 
-	"mvdan.cc/sh/v3/lower"
-	"mvdan.cc/sh/v3/syntax"
+	"github.com/bashsharp/bashsharp/engine/lower"
+	"github.com/bashsharp/bashsharp/engine/syntax"
 )
 
 func TestTranspileDispatchArgs(t *testing.T) {

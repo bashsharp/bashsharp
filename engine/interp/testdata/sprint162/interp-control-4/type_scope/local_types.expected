@@ -1,0 +1,11 @@
+assertLocal interface conversion: interface {} is main.T, not main.T (types from different scopes)
+assertPackage interface conversion: interface {} is main.T, not main.T (types from different scopes)
+setAndAssertLocal ok
+setAndAssertLocal <nil>
+assertPackage ok
+assertPackage <nil>
+assertLocal interface conversion: interface {} is main.T, not main.T (types from different scopes)
+other
+different locals equal: false
+inner sees outer local T: false
+outer sees its own T: true

@@ -13,8 +13,8 @@ import (
 
 	"github.com/bashsharp/bashsharp/front"
 
-	"mvdan.cc/sh/v3/lower"
-	"mvdan.cc/sh/v3/syntax"
+	"github.com/bashsharp/bashsharp/engine/lower"
+	"github.com/bashsharp/bashsharp/engine/syntax"
 )
 
 // Standalone binaries emitted by the lower compiler depend on the plain runtime

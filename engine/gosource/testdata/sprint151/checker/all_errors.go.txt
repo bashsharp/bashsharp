@@ -1,0 +1,4 @@
+package p
+
+var a int = "a"
+var b bool = 1

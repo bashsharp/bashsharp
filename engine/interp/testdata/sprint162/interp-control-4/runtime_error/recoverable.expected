@@ -1,0 +1,34 @@
+div true true runtime error: integer divide by zero
+ text: runtime error: integer divide by zero
+ runtime: true
+mod true true runtime error: integer divide by zero
+ text: runtime error: integer divide by zero
+ runtime: true
+assert true true interface conversion: interface {} is int, not main.T
+ text: interface conversion: interface {} is int, not main.T
+ runtime: false
+assert-iface true true interface conversion: int is not main.I: missing method M
+ text: interface conversion: int is not main.I: missing method M
+ runtime: false
+assert-nil true true interface conversion: interface {} is nil, not main.T
+ text: interface conversion: interface {} is nil, not main.T
+ runtime: false
+assert-error-nil true true interface conversion: error is nil, not main.E
+ text: interface conversion: error is nil, not main.E
+ runtime: false
+panic-nil true true panic called with nil argument
+ text: panic called with nil argument
+ runtime: false
+panic-nil-iface true true panic called with nil argument
+ text: panic called with nil argument
+ runtime: false
+named false false 4
+string false false s
+comma-ok false
+ok false false <nil>
+none false false <nil>
+panic: main.MyInt(7)
+
+goroutine 1 [running]:
+main.main()
+	recoverable.go:54

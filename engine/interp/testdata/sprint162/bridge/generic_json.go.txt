@@ -1,0 +1,25 @@
+package main
+
+import "encoding/json"
+
+type A[T any] struct {
+	F1 string `json:"t1"`
+	F2 T      `json:"t2"`
+	B  B      `json:"t3"`
+}
+
+type B struct {
+	F4 int `json:"t4"`
+}
+
+func main() {
+	data := `{"t1":"1","t2":2,"t3":{"t4":4}}`
+	a := A[int]{}
+	if err := json.Unmarshal([]byte(data), &a); err != nil {
+		panic(err)
+	}
+	b, err := json.Marshal(&a)
+	if err != nil || string(b) != data {
+		panic(string(b))
+	}
+}

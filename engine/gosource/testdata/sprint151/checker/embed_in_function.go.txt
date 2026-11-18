@@ -1,0 +1,9 @@
+package p
+
+import _ "embed"
+
+func f() {
+	//go:embed asset.txt
+	var value string
+	_ = value
+}

@@ -1,0 +1,17 @@
+false true false
+true
+true true
+func default
+map default
+slice nil
+func nil
+map nil
+pointer nil
+nil zero other
+iface default
+<nil>
+func()
+func(*int) bool
+*main.T
+[]uint8
+<nil> <nil>

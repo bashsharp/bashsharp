@@ -13,8 +13,8 @@ import (
 
 	"github.com/bashsharp/bashsharp/front"
 
-	"mvdan.cc/sh/v3/gosource"
-	"mvdan.cc/sh/v3/lower"
+	"github.com/bashsharp/bashsharp/engine/gosource"
+	"github.com/bashsharp/bashsharp/engine/lower"
 )
 
 // Sprint 118, W1: `bashy transpile --bashpp --source=go`. The Go front end is

@@ -1,0 +1,4 @@
+package p
+
+//go:embed asset.txt
+var value string

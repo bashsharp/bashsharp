@@ -1,0 +1,14 @@
+field recovered: runtime error: invalid memory address or nil pointer dereference
+deref recovered: runtime error: invalid memory address or nil pointer dereference
+compare recovered: runtime error: invalid memory address or nil pointer dereference
+switch recovered: runtime error: invalid memory address or nil pointer dereference
+multi recovered: runtime error: invalid memory address or nil pointer dereference
+element recovered: runtime error: invalid memory address or nil pointer dereference
+range recovered: runtime error: invalid memory address or nil pointer dereference
+arg recovered: runtime error: invalid memory address or nil pointer dereference
+write recovered: runtime error: invalid memory address or nil pointer dereference
+fieldwrite recovered: runtime error: invalid memory address or nil pointer dereference
+nestedfieldwrite recovered: runtime error: invalid memory address or nil pointer dereference
+nestedfieldread recovered: runtime error: invalid memory address or nil pointer dereference
+callarg recovered: argument panic
+live: 7 true

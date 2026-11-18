@@ -1,0 +1,29 @@
+package main
+
+import (
+	"encoding/json"
+	"encoding/xml"
+	"fmt"
+)
+
+// Record nests interpreter-owned slices inside a local struct. The read-only
+// marshalers must walk the transported value tree and allocate their own
+// output without retaining or mutating those slices.
+type Record struct {
+	Name   string   `json:"name" xml:"name"`
+	Tags   []string `json:"tags" xml:"tag"`
+	Scores []int    `json:"scores" xml:"score"`
+}
+
+func main() {
+	r := Record{Name: "widget", Tags: []string{"a", "b", "c"}, Scores: []int{3, 1, 2}}
+	j, err := json.Marshal(r)
+	fmt.Println("json:", string(j), err)
+	x, err := xml.Marshal(r)
+	fmt.Println("xml:", string(x), err)
+	// A bare slice argument, not nested in a struct.
+	nums, _ := json.Marshal([]int{9, 8, 7})
+	fmt.Println("nums:", string(nums))
+	// The originals are unchanged and still usable after marshaling.
+	fmt.Println("after:", r.Tags, r.Scores)
+}

@@ -1,0 +1,10 @@
+package main
+
+import (
+	"fmt"
+	"math/bits"
+)
+
+func main() {
+	fmt.Println(bits.TrailingZeros64(8), bits.Len64(255), bits.OnesCount64(7))
+}

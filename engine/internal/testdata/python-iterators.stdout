@@ -1,0 +1,22 @@
+list=1
+list=2
+early-before
+early=early-one
+early-closed
+item
+item
+outer-before
+outer=outer-one
+inner-before
+nested=inner-one
+inner-closed
+outer-between
+outer=outer-two
+inner-before
+nested=inner-one
+inner-closed
+outer-closed
+bad=good|
+bad-before-error
+bad=|ValueError: iteration boom
+scalar=|TypeError: 'object' object is not iterable

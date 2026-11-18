@@ -1,0 +1,28 @@
+# rc=0
+False
+
+Monday, December 31, 2007 12:00:00 AM
+
+Parent                         : de
+LCID                           : 1031
+KeyboardLayoutId               : 1031
+Name                           : de-DE
+IetfLanguageTag                : de-DE
+DisplayName                    : German (Germany)
+NativeName                     : Deutsch (Deutschland)
+EnglishName                    : German (Germany)
+TwoLetterISOLanguageName       : de
+ThreeLetterISOLanguageName     : deu
+ThreeLetterWindowsLanguageName : DEU
+CompareInfo                    : CompareInfo - de-DE
+TextInfo                       : TextInfo - de-DE
+IsNeutralCulture               : False
+CultureTypes                   : SpecificCultures
+NumberFormat                   : System.Globalization.NumberFormatInfo
+DateTimeFormat                 : System.Globalization.DateTimeFormatInfo
+Calendar                       : System.Globalization.GregorianCalendar
+OptionalCalendars              : {System.Globalization.GregorianCalendar}
+UseUserOverride                : True
+IsReadOnly                     : False
+
+

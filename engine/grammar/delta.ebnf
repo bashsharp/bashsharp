@@ -1,0 +1,93 @@
+(* Bash# delta over GNU Bash 5.3 — specification twin of delta.gbnf.
+   Production for production, this file names the same nonterminals as the
+   executable GBNF (names use `_` where the GBNF uses `-`); the test
+   TestEBNFMirrorsGBNF enforces that the two production graphs are identical:
+   same production set, same referenced nonterminals, nothing undefined.
+   Alternatives are ordered as in a parsing expression grammar. A production
+   written as a special sequence `? ... ?` is EXTERNAL: supplied by the base
+   Bash grammar or by the byte alphabet, not owned by the delta. *)
+
+root               = { item } ;
+item               = fence | embed_line | decorated_decl | at_function | indented_at_function | agentic_decl | func_decl | block | bash_fragment ;
+
+(* ---- opaque base Bash ---- *)
+bash_fragment      = ? ordinary Bash text up to the next delta-owned boundary: a bare "{" or "}" word at command position, a column-one fence header or embed line, or a line-leading decorator-shaped, "func" or "agentic" word, with comment, quote, backslash-continuation and heredoc boundaries are honored ? ;
+
+(* ---- lexical ---- *)
+letter             = ? ASCII letter or "_" ? ;
+digit              = ? ASCII digit ? ;
+name               = letter, { letter | digit } ;
+selector           = name, { ".", name } ;
+format_name        = letter, { letter | digit | "+" | "-" } ;
+runner_name        = ( letter | digit ), { [ "-" ], ( letter | digit ) } ;
+space              = ? one or more spaces or tabs ? ;
+maybe_space        = ? zero or more spaces or tabs ? ;
+any_but_newline    = ? any byte except newline ? ;
+not_tilde_line     = ? any byte except "~" or newline ?, { any_but_newline } | "" ;
+comment            = "#", { any_but_newline } ;
+skip_line          = maybe_space, [ comment ], "\n" ;
+header_end         = maybe_space, [ comment ], [ "\n", { skip_line } ], maybe_space ;
+dq_string          = '"', { ? any byte except '"', backslash or newline ? | "\", any_but_newline }, '"' ;
+(* Bash permits a single-quoted shell argument to span physical lines. *)
+sq_string          = "'", { ? any byte except "'" ? }, "'" ;
+paren_text         = { ? any byte except parentheses, newline or a quote ? | "(", paren_text, ")" | dq_string | sq_string } ;
+bracket_text       = { ? any byte except square brackets or newline ? | "[", bracket_text, "]" } ;
+plain_word         = ( ? any byte except whitespace, parentheses, braces or a quote ? | dq_string | sq_string ), { ? same ? | dq_string | sq_string } ;
+
+(* ---- fences: same tilde count opens and closes; the body is opaque bytes ---- *)
+fence_mark         = "~~~", { "~" } ;
+fence_tail         = [ space, "as", space, name, [ space, "!", runner_name ] | space, "as", space, "!", runner_name | space, "!", runner_name ] ;
+fence_head         = format_name, fence_tail, maybe_space ;
+fence_open         = fence_mark, fence_head, "\n" ;
+(* Standard EBNF cannot bind fence_mark and compare later input to that exact,
+   unbounded byte string. fence_lexeme is therefore an explicit lexical
+   primitive: it validates fence_open, carries its tilde width, and consumes up
+   to the first later line equal to that delimiter. *)
+fence              = fence_lexeme ;
+fence_lexeme       = ? a valid fence_open followed by arbitrary complete lines up to and including the first later line that is exactly its fence_mark ? ;
+
+(* ---- embed: a fence whose body is a relative file ---- *)
+embed_path         = '"', ( "./" | "../" ), { ? any byte except '"', backslash or newline ? }, '"' ;
+embed_line         = "embed", space, format_name, space, embed_path, fence_tail, maybe_space, [ comment ], "\n" ;
+
+(* ---- decorators: a column-one stack ending at a function declaration ---- *)
+decorator_head     = "@", selector, "(" ;
+decorator          = decorator_head, paren_text, ")" ;
+(* A decorator commits at "@name(" and must end its line, or end at ";". *)
+decorator_line     = decorator, maybe_space, [ comment ], "\n", { skip_line } | decorator, maybe_space, ";", maybe_space, [ comment ], [ "\n", { skip_line } ] ;
+decorated_decl     = decorator_line, { decorator_line }, function_decl ;
+function_decl      = typed_func | typed_method | agentic_shell_func | agentic_typed_func | agentic_typed_method | shell_function ;
+(* "@name()" followed by a compound body is Bash's own definition of a function named "@name". *)
+at_function        = "@", name, "(", maybe_space, ")", header_end, block ;
+indented_at_function = space, at_function ;
+
+(* ---- agentic: a block, or a modifier on a shell or typed declaration ---- *)
+agentic_decl       = agentic_block | agentic_shell_func | agentic_typed_func | agentic_typed_method | agentic_command ;
+agentic_block      = "agentic", space, block ;
+agentic_shell_func = "agentic", space, "function", space, name, maybe_space, "(", maybe_space, ")", header_end, block ;
+agentic_typed_func = "agentic", space, typed_func ;
+agentic_typed_method = "agentic", space, typed_method ;
+(* Any other "agentic" word without a parenthesis or brace stays an ordinary command. *)
+agentic_command    = "agentic", { space, plain_word }, maybe_space, [ comment ], "\n" ;
+
+(* ---- typed functions and methods: Go-shaped signature, mixed Bash# body ---- *)
+func_decl          = typed_func | typed_method | shell_function | func_command ;
+typed_func         = "func", space, name, [ type_params ], params, [ results ], header_end, block ;
+typed_method       = "func", space, receiver, space, name, params, [ results ], header_end, block ;
+func_command       = "func", { space, plain_word }, maybe_space, [ comment ], "\n" ;
+receiver           = "(", paren_text, ")" ;
+params             = "(", paren_text, ")" ;
+type_params        = "[", bracket_text, "]" ;
+results            = space, ( go_type | "(", result_list, ")" ) ;
+result_list        = maybe_space, result_item, { maybe_space, ",", maybe_space, result_item }, maybe_space ;
+result_item        = go_type, [ space, go_type ] ;
+go_type            = { type_prefix }, type_core ;
+type_prefix        = "*" | "[]" | "[", digit, { digit }, "]" | "map[", go_type, "]" | "<-chan", space | "chan<-", space | "chan", space ;
+type_core          = "func", "(", paren_text, ")", [ space, go_type ] | "interface{}" | "struct{}" | selector, [ type_args ] ;
+type_args          = "[", bracket_text, "]" ;
+
+(* ---- shell functions (the decorator target Bash already owns) ---- *)
+shell_function     = ( "function", space, name, maybe_space, [ "(", maybe_space, ")" ] | name, maybe_space, "(", maybe_space, ")" ), header_end, block ;
+
+(* ---- blocks: balanced bare braces around nested items ---- *)
+block              = "{", { item }, "}" ;

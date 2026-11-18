@@ -1,0 +1,13 @@
+package main
+
+import (
+	"crypto/sha256"
+	"crypto/tls"
+	"fmt"
+	"net"
+)
+
+func main() {
+	ip := net.ParseIP("127.0.0.1")
+	fmt.Println(ip.IsLoopback(), tls.VersionTLS13, fmt.Sprintf("%x", sha256.Sum256([]byte("worker")))[:8])
+}

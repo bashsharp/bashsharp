@@ -1,0 +1,15 @@
+package p
+
+type T struct{}
+
+func () none() {}
+
+func (a, b T) two() {}
+
+func (... T) dots() {}
+
+var bad = 0x
+
+func (t T) later() {}
+
+var _ int = "x"

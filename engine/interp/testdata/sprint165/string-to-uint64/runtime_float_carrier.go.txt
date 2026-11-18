@@ -1,0 +1,22 @@
+package main
+
+import "fmt"
+
+type Small float32
+type Count uint64
+type Delta int64
+
+func belowZero() float32 { return -2.5 }
+func namedFloat() Small { return Small(7.75) }
+func namedUint() Count  { return Count(1<<63 + 5) }
+func namedInt() Delta   { return -1 }
+
+func main() {
+	var x float32 = belowZero()
+	_ = uint64(x)
+
+	y := namedFloat()
+	z := namedUint()
+	d := namedInt()
+	fmt.Println("done", uint64(y), uint64(z), uint64(d) == ^uint64(0))
+}

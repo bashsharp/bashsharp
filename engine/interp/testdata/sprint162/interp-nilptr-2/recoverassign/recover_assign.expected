@@ -1,0 +1,4 @@
+discarded
+kept: second
+fault: runtime error: invalid memory address or nil pointer dereference
+nothing: true

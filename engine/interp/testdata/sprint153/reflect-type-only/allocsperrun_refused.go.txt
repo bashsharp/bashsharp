@@ -1,0 +1,13 @@
+package main
+
+import (
+	"fmt"
+	"testing"
+)
+
+var sink int
+
+func main() {
+	n := testing.AllocsPerRun(3, func() { sink++ })
+	fmt.Println(n)
+}

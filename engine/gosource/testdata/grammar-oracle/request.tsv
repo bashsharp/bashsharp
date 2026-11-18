@@ -1,0 +1,7 @@
+fixture_id	dialect	policy	input_sha256	path
+accept	go-unit	gcsyntax	98cbe9b2ef85fc9118beaf8d38da22cdd7bc18107da9238c040e56f147d3d530	testdata/grammar-oracle/accept.go.txt
+syntax-error	go-unit	gcsyntax	a5917792db6e625d62f52d316244bb42d3c953ff8bfb0600bf51d0e18e5fa6a3	testdata/grammar-oracle/syntax-error.go.txt
+syntax-error-goparser	go-unit	goparser	a5917792db6e625d62f52d316244bb42d3c953ff8bfb0600bf51d0e18e5fa6a3	testdata/grammar-oracle/syntax-error.go.txt
+bad-literal	go-unit	gcsyntax	4ddd4cf6eadd080b5979bead1f48799e32ce8dd62f02e0c3082f6dcfb51b0918	testdata/grammar-oracle/bad-literal.go.txt
+branch-only	go-unit	gcsyntax	9f34db9e99bd9c0133072828804a19f1b46e701712a995dbab3f30c646532637	testdata/grammar-oracle/branch-only.go.txt
+line-directive	go-unit	gcsyntax	3148f5518c9e3eac0e948a2503ab05d6e56d3238240d9bb2af5a66087f4d7596	testdata/grammar-oracle/line-directive.go.txt

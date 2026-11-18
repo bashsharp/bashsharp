@@ -1,0 +1,14 @@
+package main
+
+import "fmt"
+
+func outer() string { return "outer" }
+
+func f() string {
+	inner := func() string { return "inner+" + outer() }
+	return inner()
+}
+
+func main() {
+	fmt.Println(f(), outer())
+}

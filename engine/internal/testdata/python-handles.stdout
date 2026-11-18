@@ -1,0 +1,12 @@
+read:
+read
+chain:
+5:
+method-out
+ValueError: method boom
+AttributeError: 'Factory' object has no attribute 'missing'
+TypeError: Python target is not callable
+typed
+chain:
+chain:
+caught=AttributeError: 'Factory' object has no attribute 'missing' clear=

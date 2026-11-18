@@ -1,0 +1,304 @@
+{
+  "about/about-arrays-L564": {
+    "binding": {
+      "case_id": "about/about-arrays-L564",
+      "environment": {
+        "DOTNET_SYSTEM_GLOBALIZATION_INVARIANT": "0",
+        "LANG": "en_US.UTF-8",
+        "LC_ALL": "en_US.UTF-8"
+      },
+      "exit": 0,
+      "fence_sha256": "a615dda79c2dfae1c318c03c317c9ff1bacc26608aefe362091bd9badcaa410f",
+      "observations": 3,
+      "source_file": "about/about-arrays/L564.bsh",
+      "source_sha256": "e4672fd568d3246f09022be315ae3d1fa8835eda2009167ca2f23517fb91039e",
+      "upstream_commit": "a3de8f22552170e70852470d46cd52cd9ca471ec"
+    },
+    "binding_sha256": "f26cf017c5f6a7e0c357fec024ff81239c43b5cdee5e408e30d5745ee699da52",
+    "expected": "IyByYz0wCgpTdW5kYXksIEphbnVhcnkgMSwgMjAxNyAxMjowMDowMOKAr0FNCldlZG5lc2RheSwgRmVicnVhcnkgMSwgMjAxNyAxMjowMDowMOKAr0FNCldlZG5lc2RheSwgTWFyY2ggMSwgMjAxNyAxMjowMDowMOKAr0FNCgo=",
+    "stderr": ""
+  },
+  "about/about-classes-L123": {
+    "binding": {
+      "case_id": "about/about-classes-L123",
+      "environment": {
+        "DOTNET_SYSTEM_GLOBALIZATION_INVARIANT": "0",
+        "LANG": "en_US.UTF-8",
+        "LC_ALL": "en_US.UTF-8"
+      },
+      "exit": 0,
+      "fence_sha256": "822ad9533fdc65f9894a331c7ef7d18de5041dcf0342961ee3203eae0b8c61fc",
+      "observations": 3,
+      "source_file": "about/about-classes/L123.bsh",
+      "source_sha256": "4f77f89bd24a29a733d1aae17410b4a601d3a356d3a9741ca1d7548adeee8779",
+      "upstream_commit": "a3de8f22552170e70852470d46cd52cd9ca471ec"
+    },
+    "binding_sha256": "76052e2eaef5f2e67c54d03be25d56e28eebe92d0f6f697d08bb34798273fc82",
+    "expected": "IyByYz0wCgpUaXRsZSAgICAgICA6IDE5ODQKQXV0aG9yICAgICAgOiBHZW9yZ2UgT3J3ZWxsClN5bm9wc2lzICAgIDogClB1Ymxpc2hlciAgIDogU2Vja2VyICYgV2FyYnVyZwpQdWJsaXNoRGF0ZSA6IDYvOC8xOTQ5IDEyOjAwOjAw4oCvQU0KUGFnZUNvdW50ICAgOiAzMjgKVGFncyAgICAgICAgOiB7RHlzdG9waWFuLCBQb2xpdGljYWwgRmljdGlvbiwgU29jaWFsIFNjaWVuY2UgRmljdGlvbn0KCg==",
+    "stderr": ""
+  },
+  "about/about-classes-constructors-L90": {
+    "binding": {
+      "case_id": "about/about-classes-constructors-L90",
+      "environment": {
+        "DOTNET_SYSTEM_GLOBALIZATION_INVARIANT": "0",
+        "LANG": "en_US.UTF-8",
+        "LC_ALL": "en_US.UTF-8"
+      },
+      "exit": 0,
+      "fence_sha256": "65af114bc6e3379e515aefa8aa0c9d27744f5fc6e74c929923c1924f09fc9016",
+      "observations": 3,
+      "source_file": "about/about-classes-constructors/L90.bsh",
+      "source_sha256": "c22df55dca63cbc39edcb738b6957edeb1eacc457985d167791c30fd2758a3c7",
+      "upstream_commit": "a3de8f22552170e70852470d46cd52cd9ca471ec"
+    },
+    "binding_sha256": "99f227a287a4ac229ee8d24d2f0c5207c9f6fade344133bebb379ca1860f57cd",
+    "expected": "IyByYz0wCgpOYW1lIEF1dGhvciBQYWdlcyBQdWJsaXNoZWRPbgotLS0tIC0tLS0tLSAtLS0tLSAtLS0tLS0tLS0tLQogICAgICAgICAgICAgICAgMCAxLzEvMDAwMSAxMjowMDowMOKAr0FNCgo=",
+    "stderr": ""
+  },
+  "about/about-classes-properties-L148": {
+    "binding": {
+      "case_id": "about/about-classes-properties-L148",
+      "environment": {
+        "DOTNET_SYSTEM_GLOBALIZATION_INVARIANT": "0",
+        "LANG": "en_US.UTF-8",
+        "LC_ALL": "en_US.UTF-8"
+      },
+      "exit": 0,
+      "fence_sha256": "a52ee06f41054551c73b0c508b591f1fd543a1e75fad2a254b9c39ec1a97821b",
+      "observations": 3,
+      "source_file": "about/about-classes-properties/L148.bsh",
+      "source_sha256": "7e70b85c1fac236700d9aadd8a989145f4bc158d5a7d78afb17a3e3e475749eb",
+      "upstream_commit": "a3de8f22552170e70852470d46cd52cd9ca471ec"
+    },
+    "binding_sha256": "1a6a13c9f127131aea19faeeb6b6b69b39243725d7202b0cb6afd2e9e562ee15",
+    "expected": "IyByYz0wCgpOYW1lICAgICAgOiAKU2l6ZSAgICAgIDogMApDb21wbGV0ZWQgOiBGYWxzZQpBc3NpZ25lZSAgOiAKU3RhcnREYXRlIDogMS8xLzAwMDEgMTI6MDA6MDDigK9BTQpFbmREYXRlICAgOiAxLzEvMDAwMSAxMjowMDowMOKAr0FNCkR1ZURhdGUgICA6IDEvMS8wMDAxIDEyOjAwOjAw4oCvQU0KCg==",
+    "stderr": ""
+  },
+  "about/about-classes-properties-L176": {
+    "binding": {
+      "case_id": "about/about-classes-properties-L176",
+      "environment": {
+        "DOTNET_SYSTEM_GLOBALIZATION_INVARIANT": "0",
+        "LANG": "en_US.UTF-8",
+        "LC_ALL": "en_US.UTF-8"
+      },
+      "exit": 0,
+      "fence_sha256": "bfdc6338475bca53e92ce866f17a410d010e2ee741e93c23e8b866db67aa06cc",
+      "observations": 3,
+      "source_file": "about/about-classes-properties/L176.bsh",
+      "source_sha256": "1e693eb0812342acf7b12f080bbb0ce3803a20c6d34f6d0f9dde5d8f9f12897e",
+      "upstream_commit": "a3de8f22552170e70852470d46cd52cd9ca471ec"
+    },
+    "binding_sha256": "290df6cf7fd67970b6c7f75b8919ae0e6943eb6d00be81eae9d5cfc6b7054246",
+    "expected": "IyByYz0wCgpOYW1lICAgICAgOiAKU2l6ZSAgICAgIDogMApDb21wbGV0ZWQgOiBGYWxzZQpBc3NpZ25lZSAgOiAKU3RhcnREYXRlIDogMS8xLzAwMDEgMTI6MDA6MDDigK9BTQpFbmREYXRlICAgOiAxLzEvMDAwMSAxMjowMDowMOKAr0FNCkR1ZURhdGUgICA6IDEvMS8wMDAxIDEyOjAwOjAw4oCvQU0KCk5hbWUgICAgICA6IApTaXplICAgICAgOiA4CkNvbXBsZXRlZCA6IEZhbHNlCkFzc2lnbmVlICA6IApTdGFydERhdGUgOiAxLzEvMDAwMSAxMjowMDowMOKAr0FNCkVuZERhdGUgICA6IDEvMS8wMDAxIDEyOjAwOjAw4oCvQU0KRHVlRGF0ZSAgIDogMS8xLzAwMDEgMTI6MDA6MDDigK9BTQoK",
+    "stderr": ""
+  },
+  "about/about-classes-properties-L52": {
+    "binding": {
+      "case_id": "about/about-classes-properties-L52",
+      "environment": {
+        "DOTNET_SYSTEM_GLOBALIZATION_INVARIANT": "0",
+        "LANG": "en_US.UTF-8",
+        "LC_ALL": "en_US.UTF-8"
+      },
+      "exit": 0,
+      "fence_sha256": "c84702502cc49005c0dcf63ef0a8b25bc040b90a09132b1fdd8b8a85c1a8c148",
+      "observations": 3,
+      "source_file": "about/about-classes-properties/L52.bsh",
+      "source_sha256": "d62815f42db5573c254d5c51e8974265cd849ea2faeed2f7ff76d897d9ec45f5",
+      "upstream_commit": "a3de8f22552170e70852470d46cd52cd9ca471ec"
+    },
+    "binding_sha256": "f2eb23f35db4e2a618becf7d2275664ad16acd8af4e13a8b4b4d3bd7d3893630",
+    "expected": "IyByYz0wCgpOYW1lICAgICAgOiAKU2l6ZSAgICAgIDogMApDb21wbGV0ZWQgOiBGYWxzZQpBc3NpZ25lZSAgOiAKU3RhcnREYXRlIDogMS8xLzAwMDEgMTI6MDA6MDDigK9BTQpFbmREYXRlICAgOiAxLzEvMDAwMSAxMjowMDowMOKAr0FNCkR1ZURhdGUgICA6IDEvMS8wMDAxIDEyOjAwOjAw4oCvQU0KClRydWUK",
+    "stderr": ""
+  },
+  "about/about-comparison-operators-L320": {
+    "binding": {
+      "case_id": "about/about-comparison-operators-L320",
+      "environment": {
+        "DOTNET_SYSTEM_GLOBALIZATION_INVARIANT": "0",
+        "LANG": "en_US.UTF-8",
+        "LC_ALL": "en_US.UTF-8"
+      },
+      "exit": 0,
+      "fence_sha256": "6a23ab510521d453332f3a793aa48c1b1b80da5ac1cc42caa23137c563e4ff64",
+      "observations": 3,
+      "source_file": "about/about-comparison-operators/L320.bsh",
+      "source_sha256": "cf3ceb9ff3328f4a134bfeb2faf12bbcb258a305462b618d50dafc6a1eca0585",
+      "upstream_commit": "a3de8f22552170e70852470d46cd52cd9ca471ec"
+    },
+    "binding_sha256": "ae0c910aab3ed277b268a05049e72f805ad0dca50b9e5cd64f9321ac8eac9471",
+    "expected": "IyByYz0wClRydWUKVHJ1ZQpGYWxzZQpGYWxzZQpUcnVlCg==",
+    "stderr": ""
+  },
+  "about/about-comparison-operators-L336": {
+    "binding": {
+      "case_id": "about/about-comparison-operators-L336",
+      "environment": {
+        "DOTNET_SYSTEM_GLOBALIZATION_INVARIANT": "0",
+        "LANG": "en_US.UTF-8",
+        "LC_ALL": "en_US.UTF-8"
+      },
+      "exit": 0,
+      "fence_sha256": "ded2ac16be31a119f216915e7c1de03bb8a460cef9aceb16472a34b28af3e961",
+      "observations": 3,
+      "source_file": "about/about-comparison-operators/L336.bsh",
+      "source_sha256": "10ee739cc9ddcae8b7181e6c83e6d6b8aef707fada60d11308e4e421eb3fd9bb",
+      "upstream_commit": "a3de8f22552170e70852470d46cd52cd9ca471ec"
+    },
+    "binding_sha256": "5629c995c60951b0fe860551059e4daa8fddade48cbc2bd85ad5465c75e17081",
+    "expected": "IyByYz0wCg==",
+    "stderr": ""
+  },
+  "about/about-comparison-operators-L574": {
+    "binding": {
+      "case_id": "about/about-comparison-operators-L574",
+      "environment": {
+        "DOTNET_SYSTEM_GLOBALIZATION_INVARIANT": "0",
+        "LANG": "en_US.UTF-8",
+        "LC_ALL": "en_US.UTF-8"
+      },
+      "exit": 0,
+      "fence_sha256": "2c1c5d247cda6abc7dbf7d1e838ecbb2b4db24e4e8a67c864646ec0a4850005e",
+      "observations": 3,
+      "source_file": "about/about-comparison-operators/L574.bsh",
+      "source_sha256": "ccaaec1db6a360e7a43d78fa484873e307331445dcf39b9fa5adbd66209248ef",
+      "upstream_commit": "a3de8f22552170e70852470d46cd52cd9ca471ec"
+    },
+    "binding_sha256": "6f05d74c8474f44e5a4d5fa7689bb480993652744eafc882555c10ece86fafdc",
+    "expected": "IyByYz0wCjEuMgo=",
+    "stderr": ""
+  },
+  "about/about-comparison-operators-L582": {
+    "binding": {
+      "case_id": "about/about-comparison-operators-L582",
+      "environment": {
+        "DOTNET_SYSTEM_GLOBALIZATION_INVARIANT": "0",
+        "LANG": "en_US.UTF-8",
+        "LC_ALL": "en_US.UTF-8"
+      },
+      "exit": 0,
+      "fence_sha256": "b00c17bf06da84870464b9115754ab4c0d298b011503df4496291707dfa9a4c7",
+      "observations": 3,
+      "source_file": "about/about-comparison-operators/L582.bsh",
+      "source_sha256": "ccaaec1db6a360e7a43d78fa484873e307331445dcf39b9fa5adbd66209248ef",
+      "upstream_commit": "a3de8f22552170e70852470d46cd52cd9ca471ec"
+    },
+    "binding_sha256": "cfde237a3feb368eb23afa87d3d5bc82c8f01a6dd3d27d5ef9504c68299611e1",
+    "expected": "IyByYz0wCjEuMgo=",
+    "stderr": ""
+  },
+  "about/about-functions-advanced-parameters-L126": {
+    "binding": {
+      "case_id": "about/about-functions-advanced-parameters-L126",
+      "environment": {
+        "DOTNET_SYSTEM_GLOBALIZATION_INVARIANT": "0",
+        "LANG": "en_US.UTF-8",
+        "LC_ALL": "en_US.UTF-8"
+      },
+      "exit": 1,
+      "fence_sha256": "d9a5cbd6de1452e3c526e1cbdda66288cc24514d6446eea4996ea0a3a56fb24d",
+      "observations": 3,
+      "source_file": "about/about-functions-advanced-parameters/L126.bsh",
+      "source_sha256": "27d5af1e0e66045714ce24c4c442c9cc4a57065ce4f4ec3bcf0f03693bf57978",
+      "upstream_commit": "a3de8f22552170e70852470d46cd52cd9ca471ec"
+    },
+    "binding_sha256": "ba39f7403b692f288b2c3484fa0bd1504597a8f463700bb7cd1c06b3faa22062",
+    "expected": "IyByYz0xCg==",
+    "stderr": "Q2Fubm90IHByb2Nlc3MgYXJndW1lbnQgdHJhbnNmb3JtYXRpb24gb24gcGFyYW1ldGVyICdEYXRlJy4gQ2Fubm90IGNvbnZlcnQgdmFsdWUgIjE5LTA2LTIwMTgiIHRvIHR5cGUgIlN5c3RlbS5EYXRlVGltZSIuIEVycm9yOiAiU3RyaW5nICcxOS0wNi0yMDE4JyB3YXMgbm90IHJlY29nbml6ZWQgYXMgYSB2YWxpZCBEYXRlVGltZS4iCg=="
+  },
+  "about/about-operators-L469": {
+    "binding": {
+      "case_id": "about/about-operators-L469",
+      "environment": {
+        "DOTNET_SYSTEM_GLOBALIZATION_INVARIANT": "0",
+        "LANG": "en_US.UTF-8",
+        "LC_ALL": "en_US.UTF-8"
+      },
+      "exit": 0,
+      "fence_sha256": "ea317d18369966c403770af44b9029b137acf340c23a0b4c98a71cd0b9200f19",
+      "observations": 3,
+      "source_file": "about/about-operators/L469.bsh",
+      "source_sha256": "8cb344ff4c30f5400e53b70088ad2032204819885abbafb68cb8db24d572ea3f",
+      "upstream_commit": "a3de8f22552170e70852470d46cd52cd9ca471ec"
+    },
+    "binding_sha256": "9f905b48b54511206bf289e156c68c67d69d4f7020ea125440b718a0e6784b18",
+    "expected": "IyByYz0wCjEgaGVsbG8gICAgICAzLjE0Mgo=",
+    "stderr": ""
+  },
+  "about/about-pwsh-L171": {
+    "binding": {
+      "case_id": "about/about-pwsh-L171",
+      "environment": {
+        "TERM": "dumb"
+      },
+      "exit": 0,
+      "fence_sha256": "eabc8bf108b89585d3f4f2f5375fffd2669d51719a5f1b4b60b47b4b6c81c6f7",
+      "observations": 3,
+      "source_file": "about/about-pwsh/L171.bsh",
+      "source_sha256": "c32b4fd93c98699c4faac1f4f9572de021bfd6a189c53be893c2ee1d7f67fca0",
+      "upstream_commit": "a3de8f22552170e70852470d46cd52cd9ca471ec"
+    },
+    "binding_sha256": "6690efb98cf0390266a1e56b190923682c52e8553bc8a36a076bcc0bc2c7a59e",
+    "expected": "IyByYz0wCmluCmhpIHRoZXJlCm91dAo=",
+    "stderr": ""
+  },
+  "about/about-type-operators-L207": {
+    "binding": {
+      "case_id": "about/about-type-operators-L207",
+      "environment": {
+        "DOTNET_SYSTEM_GLOBALIZATION_INVARIANT": "0",
+        "LANG": "en_US.UTF-8",
+        "LC_ALL": "en_US.UTF-8"
+      },
+      "exit": 0,
+      "fence_sha256": "0aa01eb2f2fb01af54d3ecd7c50c3f10faf67d364aa229da88a943df18fb1abe",
+      "observations": 3,
+      "source_file": "about/about-type-operators/L207.bsh",
+      "source_sha256": "5c3ccecc3f0bd811962f7a6bb3774a1af8b3d2881528b1d6a47e985c4ef19233",
+      "upstream_commit": "a3de8f22552170e70852470d46cd52cd9ca471ec"
+    },
+    "binding_sha256": "5913426b6218ef25ec58f26a939ba91f4f7f0a70db42d7fea401a0b487669937",
+    "expected": "IyByYz0wCkZhbHNlCgpNb25kYXksIERlY2VtYmVyIDMxLCAyMDA3IDEyOjAwOjAw4oCvQU0KClBhcmVudCAgICAgICAgICAgICAgICAgICAgICAgICA6IGRlCkxDSUQgICAgICAgICAgICAgICAgICAgICAgICAgICA6IDEwMzEKS2V5Ym9hcmRMYXlvdXRJZCAgICAgICAgICAgICAgIDogMTAzMQpOYW1lICAgICAgICAgICAgICAgICAgICAgICAgICAgOiBkZS1ERQpJZXRmTGFuZ3VhZ2VUYWcgICAgICAgICAgICAgICAgOiBkZS1ERQpEaXNwbGF5TmFtZSAgICAgICAgICAgICAgICAgICAgOiBHZXJtYW4gKEdlcm1hbnkpCk5hdGl2ZU5hbWUgICAgICAgICAgICAgICAgICAgICA6IERldXRzY2ggKERldXRzY2hsYW5kKQpFbmdsaXNoTmFtZSAgICAgICAgICAgICAgICAgICAgOiBHZXJtYW4gKEdlcm1hbnkpClR3b0xldHRlcklTT0xhbmd1YWdlTmFtZSAgICAgICA6IGRlClRocmVlTGV0dGVySVNPTGFuZ3VhZ2VOYW1lICAgICA6IGRldQpUaHJlZUxldHRlcldpbmRvd3NMYW5ndWFnZU5hbWUgOiBERVUKQ29tcGFyZUluZm8gICAgICAgICAgICAgICAgICAgIDogQ29tcGFyZUluZm8gLSBkZS1ERQpUZXh0SW5mbyAgICAgICAgICAgICAgICAgICAgICAgOiBUZXh0SW5mbyAtIGRlLURFCklzTmV1dHJhbEN1bHR1cmUgICAgICAgICAgICAgICA6IEZhbHNlCkN1bHR1cmVUeXBlcyAgICAgICAgICAgICAgICAgICA6IFNwZWNpZmljQ3VsdHVyZXMKTnVtYmVyRm9ybWF0ICAgICAgICAgICAgICAgICAgIDogU3lzdGVtLkdsb2JhbGl6YXRpb24uTnVtYmVyRm9ybWF0SW5mbwpEYXRlVGltZUZvcm1hdCAgICAgICAgICAgICAgICAgOiBTeXN0ZW0uR2xvYmFsaXphdGlvbi5EYXRlVGltZUZvcm1hdEluZm8KQ2FsZW5kYXIgICAgICAgICAgICAgICAgICAgICAgIDogU3lzdGVtLkdsb2JhbGl6YXRpb24uR3JlZ29yaWFuQ2FsZW5kYXIKT3B0aW9uYWxDYWxlbmRhcnMgICAgICAgICAgICAgIDoge1N5c3RlbS5HbG9iYWxpemF0aW9uLkdyZWdvcmlhbkNhbGVuZGFyfQpVc2VVc2VyT3ZlcnJpZGUgICAgICAgICAgICAgICAgOiBUcnVlCklzUmVhZE9ubHkgICAgICAgICAgICAgICAgICAgICA6IEZhbHNlCgoK",
+    "stderr": ""
+  },
+  "about/about-type-operators-L44": {
+    "binding": {
+      "case_id": "about/about-type-operators-L44",
+      "environment": {
+        "DOTNET_SYSTEM_GLOBALIZATION_INVARIANT": "0",
+        "LANG": "en_US.UTF-8",
+        "LC_ALL": "en_US.UTF-8"
+      },
+      "exit": 0,
+      "fence_sha256": "c40dc12fe1725e7750e01af717db8901d01f8142e33d268cc48e6d7a22fc829f",
+      "observations": 3,
+      "source_file": "about/about-type-operators/L44.bsh",
+      "source_sha256": "3cc61a8f789338c4e7f95fd3cf0d39da53d6d7fd0eb7f207af8ed5898a888a46",
+      "upstream_commit": "a3de8f22552170e70852470d46cd52cd9ca471ec"
+    },
+    "binding_sha256": "947ffee04e00f3c006a2d9112244a8eda6fa436533c58325e0f33c5f194e03fe",
+    "expected": "IyByYz0wCgpNb25kYXksIE1heSA3LCAyMDA3IDEyOjAwOjAw4oCvQU0KCg==",
+    "stderr": ""
+  },
+  "about/about-variables-L234": {
+    "binding": {
+      "case_id": "about/about-variables-L234",
+      "environment": {
+        "DOTNET_SYSTEM_GLOBALIZATION_INVARIANT": "0",
+        "LANG": "en_US.UTF-8",
+        "LC_ALL": "en_US.UTF-8"
+      },
+      "exit": 0,
+      "fence_sha256": "2e652a84d72a95d3f8b77cc886a8b91e2bac745f67c818aaab97dffa399521f2",
+      "observations": 3,
+      "source_file": "about/about-variables/L234.bsh",
+      "source_sha256": "d5ca73e768a8237d4bbdb45199f232ba583503e4126cda9c23ec714c38c0a179",
+      "upstream_commit": "a3de8f22552170e70852470d46cd52cd9ca471ec"
+    },
+    "binding_sha256": "f635cb903ffaa6feb008bad5da3360725cef00d73c3afec3b80dd0d6bcf46bae",
+    "expected": "IyByYz0wCgpUaHVyc2RheSwgU2VwdGVtYmVyIDEyLCAxOTkxIDEyOjAwOjAw4oCvQU0KCg==",
+    "stderr": ""
+  }
+}

@@ -1,0 +1,42 @@
+package main
+
+import (
+	"fmt"
+	"os"
+)
+
+// A structured panic argument recovers with its own dynamic type.
+
+type terr struct{}
+type T struct{ A int }
+type List []int
+
+func try(name string, f func()) {
+	defer func() {
+		r := recover()
+		_, isTerr := r.(terr)
+		t, isT := r.(T)
+		p, isP := r.(*T)
+		l, isL := r.(List)
+		_, isString := r.(string)
+		fmt.Println(name, isTerr, isT, t, isP, p != nil, isL, l, isString, fmt.Sprint(r))
+	}()
+	f()
+}
+
+func main() {
+	try("terr", func() { panic(terr{}) })
+	try("T", func() { panic(T{A: 4}) })
+	try("ptr", func() { panic(&T{A: 5}) })
+	try("list", func() { panic(List{1, 2}) })
+	try("map", func() { panic(map[string]int{"k": 1}) })
+	// Positive controls: scalar and interface arguments.
+	try("string", func() { panic("s") })
+	try("int", func() { panic(7) })
+	try("iface", func() {
+		var v any = T{A: 8}
+		panic(v)
+	})
+	try("error", func() { panic(fmt.Errorf("e")) })
+	os.Exit(3)
+}

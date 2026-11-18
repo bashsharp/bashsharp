@@ -1,0 +1,24 @@
+package main
+
+import (
+	"fmt"
+	"os"
+)
+
+// Positive control: every instantiation is spelled at its use site, which
+// the materialised set already covered before the closure existed.
+
+type Box[T any] struct{ V T }
+
+type Pair[K comparable, V any] struct {
+	Key K
+	Val V
+}
+
+func main() {
+	fmt.Println(Box[int]{V: 1})
+	fmt.Println(Pair[string, int]{Key: "k", Val: 2})
+	var b Box[string]
+	fmt.Println(b)
+	os.Exit(3)
+}

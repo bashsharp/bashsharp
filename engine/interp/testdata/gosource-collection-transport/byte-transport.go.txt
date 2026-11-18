@@ -1,0 +1,21 @@
+package main
+
+import (
+	"encoding/base64"
+	"encoding/hex"
+	"fmt"
+	"regexp"
+)
+
+// The byte slice deliberately carries bytes that are not valid UTF-8 (0xff,
+// 0x80, 0xfe and the truncated sequence 0xc3 0x28) so the three modes must
+// agree on lossless byte transport, not merely on a printable string.
+func main() {
+	raw := []byte{0xff, 0x00, 0x80, 0xfe, 'g', 'o', 0xc3, 0x28}
+	fmt.Println("base64:", base64.StdEncoding.EncodeToString(raw))
+	fmt.Println("hex:", hex.EncodeToString(raw))
+	matched, err := regexp.Match("go", raw)
+	fmt.Println("match:", matched, err)
+	// The original slice is unchanged after the read-only emitters ran.
+	fmt.Println("len:", len(raw), "first:", raw[0], "last:", raw[len(raw)-1])
+}

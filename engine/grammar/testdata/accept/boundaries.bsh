@@ -1,0 +1,31 @@
+cat <<'DOC'
+~~~python
+@guard(x)
+func f() {
+DOC
+x='
+~~~python
+'
+echo "
+~~~python
+"
+echo \
+~~~python
+# ~~~python
+~~~python as py # near miss: a trailing comment keeps this a command line
+print(1)
+~~~
+~~~~markdown as doc
+~~~
+still inside the four-tilde fence
+~~~~
+@guard(effects: "read") # why
+func f(x int) int {
+  // TODO {
+  # TODO {
+  s="}"
+  cat <<EOF
+}
+EOF
+  return x
+}

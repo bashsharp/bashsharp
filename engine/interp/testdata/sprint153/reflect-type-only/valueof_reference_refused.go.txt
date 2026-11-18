@@ -1,0 +1,17 @@
+package main
+
+import (
+	"fmt"
+	"reflect"
+)
+
+// A copy of C shares its map with the caller: the mirrored String callback
+// would run against a rebuilt map, so reflect.ValueOf stays refused.
+type C struct{ m map[string]int }
+
+func (c C) String() string { return "c!" }
+
+func main() {
+	v := reflect.ValueOf(C{m: map[string]int{"a": 1}})
+	fmt.Println(v.NumField())
+}

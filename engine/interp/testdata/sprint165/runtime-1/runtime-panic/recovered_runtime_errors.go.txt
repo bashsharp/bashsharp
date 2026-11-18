@@ -1,0 +1,113 @@
+package main
+
+import (
+	"fmt"
+	"os"
+	"strings"
+)
+
+// Every runtime fault recovers as a value that implements error, with the
+// runtime's wording; a program's own string panic never does.
+
+var xs = make([]byte, 10)
+
+func report(name string, f func()) {
+	defer func() {
+		v := recover()
+		if v == nil {
+			fmt.Println(name, "did not panic")
+			return
+		}
+		err, ok := v.(error)
+		if !ok {
+			fmt.Printf("%s: not an error: %v\n", name, v)
+			return
+		}
+		fmt.Printf("%s: %s\n", name, err.Error())
+	}()
+	f()
+}
+
+type T int
+
+type I interface{ F() }
+
+func (t T) F() {}
+
+// Package-level so the compiler keeps the interface call: the itab wrapper
+// is what raises panicwrap's wording, a devirtualised call would fault on
+// the dereference instead.
+var (
+	nilT *T
+	nilI I = nilT
+)
+
+// A deferred wrapper call binds without fault and panics when it runs, after
+// the named result was set.
+func deferredWrap() (r int) {
+	defer func() { recover() }()
+	var i I = nilT
+	defer i.F()
+	r = 1
+	return
+}
+
+type M interface{ M() int }
+
+// A method selected on a nil interface inside a return expression raises
+// while the callee is being looked up; the frame recovers and returns.
+func returnsThroughNil(r M) int { return r.M() }
+
+func recoveredReturn() (out string) {
+	defer func() { out = fmt.Sprint("recovered return: ", recover() != nil) }()
+	returnsThroughNil(nil)
+	return "not reached"
+}
+
+func main() {
+	fmt.Println("deferred wrap:", deferredWrap())
+	fmt.Println(recoveredReturn())
+	report("index", func() { _ = xs[len(xs)+5] })
+	report("nil pointer", func() {
+		var p *int
+		_ = *p
+	})
+	report("type assertion", func() {
+		var x interface{} = 1
+		_ = x.(float32)
+	})
+	report("divide", func() {
+		zero := 0
+		_ = 1 / zero
+	})
+	report("close closed", func() {
+		c := make(chan int)
+		close(c)
+		close(c)
+	})
+	report("close nil", func() {
+		var c chan int
+		close(c)
+	})
+	report("send closed", func() {
+		c := make(chan int, 1)
+		close(c)
+		c <- 1
+	})
+	report("panicwrap", func() { nilI.F() })
+	// Positive control: a value the runtime already boxed as an error.
+	report("direct assert", func() {
+		defer func() {
+			e := recover().(error)
+			fmt.Println("direct:", strings.HasPrefix(e.Error(), "runtime error: "))
+			panic(e)
+		}()
+		var m map[string]int
+		zero := m["k"]
+		_ = 1 / zero
+	})
+	// Negative: the program's own strings stay strings.
+	report("own string", func() { panic("runtime error: not the runtime's") })
+	report("own plain", func() { panic("close of nil channel") })
+	os.Exit(3)
+}

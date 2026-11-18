@@ -1,0 +1,15 @@
+direct recovered: runtime error: invalid memory address or nil pointer dereference
+body ran
+deferred recovered: runtime error: invalid memory address or nil pointer dereference
+conversion recovered: runtime error: invalid memory address or nil pointer dereference
+body ran
+deferred conversion recovered: runtime error: invalid memory address or nil pointer dereference
+assigned called
+assigned ran
+assigned recovered: <nil>
+g called
+declared ran
+declared recovered: <nil>
+literal called
+literal ran
+literal recovered: <nil>

@@ -1,0 +1,2 @@
+root	leaf	baseline	evidence	mechanism
+testdir:fixedbugs/bug341.go	line 15	204b2974	interpreted FAIL with BASHPP-EEXPR-CONVERT: cannot convert String to uint64	GoSource runtime numeric scalar stored in String carrier converted to uint64 through declared source type metadata

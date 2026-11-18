@@ -1,0 +1,59 @@
+package main
+
+import (
+	"fmt"
+	"strings"
+)
+
+// A doubly linked ring with a sentinel: every node reaches every other
+// node and itself through next/prev, so the value graph is cyclic.
+type node struct {
+	next, prev *node
+	ring       *ring
+	Value      int
+}
+
+type ring struct {
+	root node
+	len  int
+}
+
+func newRing() *ring {
+	r := &ring{}
+	r.root.next = &r.root
+	r.root.prev = &r.root
+	return r
+}
+
+func (r *ring) insert(n, at *node) *node {
+	n.prev = at
+	n.next = at.next
+	n.prev.next = n
+	n.next.prev = n
+	n.ring = r
+	r.len++
+	return n
+}
+
+func (r *ring) push(v int) *node {
+	return r.insert(&node{Value: v}, r.root.prev)
+}
+
+func main() {
+	r := newRing()
+	a := r.push(1)
+	b := r.push(2)
+	// A cyclic pointee handed to the dependency must arrive finite.
+	fmt.Println(a.Value, b.Value, a.next == b, b.prev == a, a.prev == &r.root)
+	s := fmt.Sprintf("%d %t", r.len, a.next.next == &r.root)
+	fmt.Println(s)
+	// The same pointer handed twice in one call, and the sentinel itself.
+	fmt.Println(fmt.Sprint(a == a, &r.root == r.root.next.prev))
+	fmt.Printf("%d\n", b.next.Value+a.prev.next.Value)
+	// The pointers themselves cross: %p is stable per pointer and distinct
+	// between pointers; %v of the cyclic pointee prints Go's &{…} form with
+	// nested pointers as addresses.
+	fmt.Println(fmt.Sprintf("%p", a) == fmt.Sprintf("%p", a), fmt.Sprintf("%p", a) == fmt.Sprintf("%p", b))
+	fmt.Println(fmt.Sprintf("%T", a), strings.HasPrefix(fmt.Sprint(a), "&{"), strings.Count(fmt.Sprint(r), "0x"))
+	fmt.Println(fmt.Sprintf("%p", &r.root) == fmt.Sprintf("%p", a.prev))
+}

@@ -1,0 +1,3 @@
+cannot assign to 1 (neither addressable nor a map index expression)
+cannot assign to f() (neither addressable nor a map index expression)
+assignment mismatch: 3 variables but 1 value

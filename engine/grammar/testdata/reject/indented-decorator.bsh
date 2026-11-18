@@ -1,0 +1,4 @@
+if true; then
+  @guard(x)
+  func f() {}
+fi

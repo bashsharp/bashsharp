@@ -1,0 +1,11 @@
+{
+  "append.go": "655ee5085fec61bcb38c9f029741bb1a06a414f94b8b36ed0362055b0d6b10bb",
+  "making-slices.go": "a4dbf0f6f266bb68e7da1cdcbdba7c4bb8711a3065c93ad2dffd7fc4f7c09b1d",
+  "nil-slices.go": "73d805ba5558987b2695d6c72ba640a91bc59eade8741a61505f871e665ed1d9",
+  "slice-bounds.go": "1b981b8e3c99c40507901b603eda4e46188777b8cd817288f7afd734bffaa264",
+  "slice-len-cap.go": "b2e5f7a96c8a04998c150ebe6ce344bc198db8b18f4826e6a85ff75ae3033f98",
+  "slice-literals.go": "b085416ef12627bbd6034c78314d61df30a66e4b5d2b3b6cbfebd5befa27c897",
+  "slices.go": "0e12dd1947600bbecd652f30e9f40e387507d297f3a67d055e257db1ba948834",
+  "slices-of-slice.go": "545cde9f9bc3ec940adbdcac0a801f5e834b6ee3cd5bf1b780f6f81d556562b3",
+  "slices-pointers.go": "632c673f8ab65d6b80ea9ed95cad3f4076d54b1d5bfdf3b53fdd279bd2ba569f"
+}

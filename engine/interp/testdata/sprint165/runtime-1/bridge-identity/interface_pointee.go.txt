@@ -1,0 +1,36 @@
+package main
+
+import (
+	"fmt"
+	"os"
+	"reflect"
+)
+
+// A pointer to an interface variable crosses as a pointer to the interface,
+// whatever the variable holds: nil, or a boxed value.
+
+type S struct{ V any }
+
+func main() {
+	pi := new(interface{})
+	v := reflect.ValueOf(pi).Elem()
+	fmt.Println(v.Kind(), v.IsNil(), reflect.TypeOf(pi))
+	*pi = 3
+	fmt.Println(reflect.ValueOf(pi).Elem().Kind(), reflect.ValueOf(pi).Elem().Elem().Kind(), *pi)
+
+	var x any = ""
+	fmt.Println(reflect.ValueOf(&x).Elem().IsNil(), reflect.ValueOf(x).Kind(), reflect.TypeOf(&x))
+	var y any
+	fmt.Println(reflect.ValueOf(&y).Elem().IsNil())
+
+	// Positive control: interface fields and elements already crossed as
+	// interface values.
+	s := S{}
+	fmt.Println(reflect.ValueOf(&s).Elem().Field(0).IsNil())
+	s.V = ""
+	fmt.Println(reflect.ValueOf(&s).Elem().Field(0).IsNil())
+	arr := make([]any, 2)
+	arr[1] = ""
+	fmt.Println(reflect.ValueOf(arr).Index(0).IsNil(), reflect.ValueOf(arr).Index(1).IsNil())
+	os.Exit(3)
+}

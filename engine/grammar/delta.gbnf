@@ -1,0 +1,98 @@
+# Bash# delta over GNU Bash 5.3, as an executable parsing expression grammar.
+# Alternatives are ordered (PEG): the first that matches wins. Repetition is
+# greedy. `root` recognizes a whole newline-terminated program by composing the
+# delta-owned productions with the explicitly opaque base-Bash fragment. The
+# interpreter in grammar.go binds only `bash-fragment` to Go code; every other
+# verdict follows from the rules below. See README.md for what stays opaque.
+
+root ::= item*
+item ::= fence | embed-line | decorated-decl | at-function | indented-at-function | agentic-decl | func-decl | block | bash-fragment
+
+# ---- opaque base Bash ----
+# Ordinary Bash text up to the next delta-owned boundary: a bare `{` or `}`
+# word at command position, a column-one fence header or embed line, or a
+# line-leading decorator-shaped, `func` or `agentic` word. The interpreter supplies comment, quote, backslash
+# continuation and heredoc boundaries; this published shape is the loose upper
+# bound a decoder composes with the real Bash grammar.
+bash-fragment ::= [^{}]*
+
+# ---- lexical ----
+letter ::= [A-Za-z_]
+digit ::= [0-9]
+name ::= letter (letter | digit)*
+selector ::= name ("." name)*
+format-name ::= letter (letter | digit | "+" | "-")*
+runner-name ::= (letter | digit) ("-"? (letter | digit))*
+space ::= [ \t]+
+maybe-space ::= [ \t]*
+any-but-newline ::= [^\n]
+not-tilde-line ::= [^~\n] any-but-newline* | ""
+comment ::= "#" any-but-newline*
+skip-line ::= maybe-space comment? "\n"
+header-end ::= maybe-space comment? ("\n" skip-line*)? maybe-space
+dq-string ::= "\"" ([^"\\\n] | "\\" any-but-newline)* "\""
+# Bash permits a single-quoted shell argument to span physical lines. This is
+# needed in decorators such as @ensure('test "$RESULT" = "a\nb"').
+sq-string ::= "'" [^']* "'"
+paren-text ::= ([^()\n"'] | "(" paren-text ")" | dq-string | sq-string)*
+bracket-text ::= ([^\[\]\n] | "[" bracket-text "]")*
+plain-word ::= ([^ \t\n(){}"'] | dq-string | sq-string)+
+
+# ---- fences: same tilde count opens and closes; the body is opaque bytes ----
+fence-mark ::= "~~~" "~"*
+fence-tail ::= (space "as" space name (space "!" runner-name)? | space "as" space "!" runner-name | space "!" runner-name)?
+fence-head ::= format-name fence-tail maybe-space
+fence-open ::= fence-mark fence-head "\n"
+# Standard GBNF cannot bind fence-mark and compare later input to that exact,
+# unbounded byte string. fence-lexeme is therefore an explicit lexical
+# primitive: it validates fence-open, carries its tilde width, and consumes up
+# to the *first* later line equal to that delimiter. It is not a recursive CFG
+# approximation and it never treats that first closer as body text.
+fence ::= fence-lexeme
+fence-lexeme ::= [^\n]*
+
+# ---- embed: a fence whose body is a relative file ----
+embed-path ::= "\"" ("./" | "../") [^"\\\n]* "\""
+embed-line ::= "embed" space format-name space embed-path fence-tail maybe-space comment? "\n"
+
+# ---- decorators: a column-one stack ending at a function declaration ----
+decorator-head ::= "@" selector "("
+decorator ::= decorator-head paren-text ")"
+# A decorator commits at `@name(` and must end its line, or end at `;`.
+decorator-line ::= decorator maybe-space comment? "\n" skip-line* | decorator maybe-space ";" maybe-space comment? ("\n" skip-line*)?
+decorated-decl ::= decorator-line+ function-decl
+function-decl ::= typed-func | typed-method | agentic-shell-func | agentic-typed-func | agentic-typed-method | shell-function
+# `@name()` followed by a compound body is Bash's own definition of a function named `@name`.
+at-function ::= "@" name "(" maybe-space ")" header-end block
+indented-at-function ::= space at-function
+
+# ---- agentic: a block, or a modifier on a shell or typed declaration ----
+agentic-decl ::= agentic-block | agentic-shell-func | agentic-typed-func | agentic-typed-method | agentic-command
+agentic-block ::= "agentic" space block
+agentic-shell-func ::= "agentic" space "function" space name maybe-space "(" maybe-space ")" header-end block
+agentic-typed-func ::= "agentic" space typed-func
+agentic-typed-method ::= "agentic" space typed-method
+# Any other `agentic` word without a parenthesis or brace stays an ordinary command.
+agentic-command ::= "agentic" (space plain-word)* maybe-space comment? "\n"
+
+# ---- typed functions and methods: Go-shaped signature, mixed Bash# body ----
+func-decl ::= typed-func | typed-method | shell-function | func-command
+typed-func ::= "func" space name type-params? params results? header-end block
+typed-method ::= "func" space receiver space name params results? header-end block
+func-command ::= "func" (space plain-word)* maybe-space comment? "\n"
+receiver ::= "(" paren-text ")"
+params ::= "(" paren-text ")"
+type-params ::= "[" bracket-text "]"
+results ::= space (go-type | "(" result-list ")")
+result-list ::= maybe-space result-item (maybe-space "," maybe-space result-item)* maybe-space
+result-item ::= go-type (space go-type)?
+go-type ::= type-prefix* type-core
+type-prefix ::= "*" | "[]" | "[" digit+ "]" | "map[" go-type "]" | "<-chan" space | "chan<-" space | "chan" space
+type-core ::= "func" "(" paren-text ")" (space go-type)? | "interface{}" | "struct{}" | selector type-args?
+type-args ::= "[" bracket-text "]"
+
+# ---- shell functions (the decorator target Bash already owns) ----
+shell-function ::= ("function" space name maybe-space ("(" maybe-space ")")? | name maybe-space "(" maybe-space ")") header-end block
+
+# ---- blocks: balanced bare braces around nested items ----
+block ::= "{" item* "}"

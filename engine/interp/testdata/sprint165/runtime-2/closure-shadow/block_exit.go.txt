@@ -1,0 +1,30 @@
+package main
+
+import "fmt"
+
+var calls int
+
+func f() int {
+	calls++
+	return calls
+}
+
+var pkgClosure = func() int { return 100 }
+
+func main() {
+	{
+		f := func() int { return -1 }
+		fmt.Println(f())
+	}
+	fmt.Println(f())
+	if true {
+		f := func() int { return -2 }
+		fmt.Println(f())
+	}
+	fmt.Println(f(), pkgClosure())
+	for i := 0; i < 2; i++ {
+		f := func() int { return -3 - i }
+		fmt.Println(f())
+	}
+	fmt.Println(f())
+}

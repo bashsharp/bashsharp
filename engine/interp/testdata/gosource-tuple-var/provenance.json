@@ -1,0 +1,41 @@
+{
+  "release": "go1.27.0",
+  "source_archive_sha256": "7002403d7cc44529ef6d26f69a44818263395ead7c16c05a5808ae047ebeb0e5",
+  "files": [
+    {
+      "path": "test/fixedbugs/bug227.go",
+      "file": "bug227.go.txt",
+      "sha256": "d0a620a22c475792a74c417abf02bdcf73bd476abd91d13ffffd553a2691cfe3"
+    },
+    {
+      "path": "test/fixedbugs/bug244.go",
+      "file": "bug244.go.txt",
+      "sha256": "9f83485037c7c1fc99568395c30f79eaeab8f5bec9a01f57ffffa887e66fedd9"
+    },
+    {
+      "path": "test/fixedbugs/bug264.go",
+      "file": "bug264.go.txt",
+      "sha256": "641a973a4c3af674c04190445b89a65a90209bad1d8cc9ce250f7f9369a25d81"
+    },
+    {
+      "path": "test/fixedbugs/bug291.go",
+      "file": "bug291.go.txt",
+      "sha256": "fe67bdaf345626d8b1fc0fddef63e006a956e7f19242560b292a8cdf4bd9044a"
+    },
+    {
+      "path": "test/fixedbugs/bug436.go",
+      "file": "bug436.go.txt",
+      "sha256": "652659fd8e4199febb93d6a2fb09e5ddeb76394af3342e2584a8096c1a86ff10"
+    },
+    {
+      "path": "test/fixedbugs/issue53619.go",
+      "file": "issue53619.go.txt",
+      "sha256": "b79e5298b944387200410a205eb9b45644942c6cc291db0916d056f2c2de24e3"
+    },
+    {
+      "path": "src/internal/types/testdata/fixedbugs/issue66878.go",
+      "file": "issue66878.go.txt",
+      "sha256": "b6e68af10d251540930ac6b2e9ac6f91a71cf82f73eda2ed535715e389c4d225"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+package diag
+
+func () noReceiver() {}
+
+func (a, b T) twoReceivers() {}
+
+type T struct{}
+
+var s = "str"
+
+var _ = s[1::]
+
+var _ = s[1:2:]
+
+var bad = 0x
+
+var _ int = "a" + "b"
+
+var _, _ int = "x", "x"
+
+func f() {
+L:
+	for {
+		break
+	}
+	goto N
+	var y int
+	_ = y
+N:
+}

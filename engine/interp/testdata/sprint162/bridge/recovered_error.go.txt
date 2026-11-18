@@ -1,0 +1,14 @@
+package main
+
+import (
+	"errors"
+	"fmt"
+)
+
+func main() {
+	defer func() {
+		r := recover()
+		fmt.Println(fmt.Errorf("recovered: %v", r))
+	}()
+	panic(errors.New("original error"))
+}

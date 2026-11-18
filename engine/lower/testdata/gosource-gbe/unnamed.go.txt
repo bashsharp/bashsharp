@@ -1,0 +1,35 @@
+package main
+
+import "fmt"
+
+type T struct{}
+
+func ordinary(a int, b string, c ...int) {
+	fmt.Println("ordinary", a, b, c)
+}
+
+func (T) method(int) {
+	fmt.Println("method")
+}
+
+func (T) String() string {
+	return "String"
+}
+
+func blank(_ int, _ ...int) {
+	fmt.Println("blank")
+}
+
+var __bpp0_unnamed0 = "unnamed"
+var _unnamed0 = "unnamed2"
+
+func main() {
+	ordinary(1, "b", 2, 3)
+	T{}.method(4)
+	fmt.Println(T{}.String())
+	blank(5, 6, 7)
+	
+	func(a int) {
+		fmt.Println(__bpp0_unnamed0, _unnamed0)
+	}(8)
+}
