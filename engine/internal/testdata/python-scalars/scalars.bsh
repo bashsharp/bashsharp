@@ -1,0 +1,20 @@
+# provenance: hand-written boundary; CPython v3.15.0; 0BSD/PSF-2.0 examples
+# oracle: tools/fence-corpus/python/oracle.sh python-by-example/00-boundary/scalars.bsh
+~~~py as py
+from typing import Any
+def as_int(value: int) -> int: return value
+def as_float(value: float) -> float: return value
+def as_str(value: str) -> str: return value
+def as_bool(value: bool) -> bool: return value
+def as_bytes() -> bytes: return b"bytes"
+def as_none() -> None: return None
+def as_any() -> Any: return {"k": 9}
+~~~
+i := py.as_int(7)
+f := py.as_float("2.5")
+s := py.as_str(hello)
+b := py.as_bool(true)
+by := py.as_bytes()
+n := py.as_none()
+a := py.as_any()
+printf '%s|%s|%s|%s|%s|%s|%s\n' "$i" "$f" "$s" "$b" "$by" "$n" "$a"

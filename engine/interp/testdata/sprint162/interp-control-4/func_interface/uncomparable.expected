@@ -1,0 +1,12 @@
+int true
+int recovered: <nil>
+string true
+string recovered: <nil>
+nilfunc recovered: runtime error: comparing uncomparable type func()
+closure recovered: runtime error: comparing uncomparable type func()
+named recovered: runtime error: comparing uncomparable type func()
+nil true
+nil recovered: <nil>
+func() func(int) int func() other nil
+map recovered: runtime error: comparing uncomparable type map[int]int
+struct recovered: runtime error: comparing uncomparable type struct { x []int }

@@ -1,0 +1,2 @@
+embed python "./calc.py" as py # the body is the file
+echo "$(py add 1 2)"

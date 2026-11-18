@@ -1,0 +1,63 @@
+~~~python as py
+def list_values():
+    return iter([1, 2])
+def factory():
+    class Values:
+        def generator(self, label):
+            def values():
+                try:
+                    print(label + '-before')
+                    yield label + '-one'
+                    print(label + '-between')
+                    yield label + '-two'
+                finally:
+                    print(label + '-closed')
+            return values()
+        def items(self):
+            return {'left': 3, 'right': 4}.items()
+        def bad(self):
+            def values():
+                yield 'good'
+                print('bad-before-error')
+                raise ValueError('iteration boom')
+            return values()
+        def scalar(self):
+            return object()
+    return Values()
+~~~
+
+func main() {
+plain, err := py.list_values()
+for value := range plain { echo "list=$value"; }
+
+factory, err := py.factory()
+early, err := factory.generator(early)
+for value := range early {
+    echo "early=$value"
+    break
+}
+
+items, err := factory.items()
+for value := range items { echo item; }
+
+outer, err := factory.generator(outer)
+for value := range outer {
+    echo "outer=$value"
+    inner, err := factory.generator(inner)
+    for nested := range inner {
+        echo "nested=$nested"
+        break
+    }
+}
+
+bad, err := factory.bad()
+for value, iterErr := range bad {
+    echo "bad=$value|$iterErr"
+}
+
+scalar, err := factory.scalar()
+for value, iterErr := range scalar {
+    echo "scalar=$value|$iterErr"
+}
+}
+main()

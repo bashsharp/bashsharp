@@ -1,0 +1,1147 @@
+root	mode	first_line
+package:cmd/compile	interpreted	src/cmd/compile/main.go:8:2: could not import cmd/compile/internal/amd64 (use of internal package cmd/compile/internal/amd64 not allowed)
+package:cmd/compile	compiled	src/cmd/compile/main.go:8:2: could not import cmd/compile/internal/amd64 (use of internal package cmd/compile/internal/amd64 not allowed)
+package:cmd/compile/internal/amd64	interpreted	src/cmd/compile/internal/amd64/galign.go:8:2: could not import cmd/compile/internal/ssagen (use of internal package cmd/compile/internal/ssagen not allowed)
+package:cmd/compile/internal/amd64	compiled	src/cmd/compile/internal/amd64/galign.go:8:2: could not import cmd/compile/internal/ssagen (use of internal package cmd/compile/internal/ssagen not allowed)
+package:cmd/compile/internal/base	interpreted	src/cmd/compile/internal/base/flag.go:8:2: could not import cmd/internal/cov/covcmd (use of internal package cmd/internal/cov/covcmd not allowed)
+package:cmd/compile/internal/base	compiled	src/cmd/compile/internal/base/flag.go:8:2: could not import cmd/internal/cov/covcmd (use of internal package cmd/internal/cov/covcmd not allowed)
+package:cmd/compile/internal/compare	interpreted	src/cmd/compile/internal/compare/compare.go:10:2: could not import cmd/compile/internal/base (use of internal package cmd/compile/internal/base not allowed)
+package:cmd/compile/internal/compare	compiled	src/cmd/compile/internal/compare/compare.go:10:2: could not import cmd/compile/internal/base (use of internal package cmd/compile/internal/base not allowed)
+package:cmd/compile/internal/devirtualize	interpreted	src/cmd/compile/internal/devirtualize/devirtualize.go:15:2: could not import cmd/compile/internal/base (use of internal package cmd/compile/internal/base not allowed)
+package:cmd/compile/internal/devirtualize	compiled	src/cmd/compile/internal/devirtualize/devirtualize.go:15:2: could not import cmd/compile/internal/base (use of internal package cmd/compile/internal/base not allowed)
+package:cmd/compile/internal/dwarfgen	interpreted	src/cmd/compile/internal/dwarfgen/dwarf.go:11:2: could not import internal/buildcfg (use of internal package internal/buildcfg not allowed)
+package:cmd/compile/internal/dwarfgen	compiled	src/cmd/compile/internal/dwarfgen/dwarf.go:11:2: could not import internal/buildcfg (use of internal package internal/buildcfg not allowed)
+package:cmd/compile/internal/importer	interpreted	src/cmd/compile/internal/importer/gcimporter.go:12:2: could not import internal/exportdata (use of internal package internal/exportdata not allowed)
+package:cmd/compile/internal/importer	compiled	src/cmd/compile/internal/importer/gcimporter.go:12:2: could not import internal/exportdata (use of internal package internal/exportdata not allowed)
+package:cmd/compile/internal/inline/inlheur	interpreted	src/cmd/compile/internal/inline/inlheur/analyze.go:8:2: could not import cmd/compile/internal/base (use of internal package cmd/compile/internal/base not allowed)
+package:cmd/compile/internal/inline/inlheur	compiled	src/cmd/compile/internal/inline/inlheur/analyze.go:8:2: could not import cmd/compile/internal/base (use of internal package cmd/compile/internal/base not allowed)
+package:cmd/compile/internal/ir	interpreted	src/cmd/compile/internal/ir/abi.go:8:2: could not import cmd/compile/internal/base (use of internal package cmd/compile/internal/base not allowed)
+package:cmd/compile/internal/ir	compiled	src/cmd/compile/internal/ir/abi.go:8:2: could not import cmd/compile/internal/base (use of internal package cmd/compile/internal/base not allowed)
+package:cmd/compile/internal/liveness	interpreted	src/cmd/compile/internal/liveness/arg.go:9:2: could not import internal/abi (use of internal package internal/abi not allowed)
+package:cmd/compile/internal/liveness	compiled	src/cmd/compile/internal/liveness/arg.go:9:2: could not import internal/abi (use of internal package internal/abi not allowed)
+package:cmd/compile/internal/logopt	interpreted	src/cmd/compile/internal/logopt/log_opts.go:8:2: could not import cmd/internal/obj (use of internal package cmd/internal/obj not allowed)
+package:cmd/compile/internal/logopt	compiled	src/cmd/compile/internal/logopt/log_opts.go:8:2: could not import cmd/internal/obj (use of internal package cmd/internal/obj not allowed)
+package:cmd/compile/internal/loopvar	interpreted	src/cmd/compile/internal/loopvar/loopvar.go:10:2: could not import cmd/compile/internal/base (use of internal package cmd/compile/internal/base not allowed)
+package:cmd/compile/internal/loopvar	compiled	src/cmd/compile/internal/loopvar/loopvar.go:10:2: could not import cmd/compile/internal/base (use of internal package cmd/compile/internal/base not allowed)
+package:cmd/compile/internal/noder	interpreted	src/cmd/compile/internal/noder/codes.go:7:8: could not import internal/pkgbits (use of internal package internal/pkgbits not allowed)
+package:cmd/compile/internal/noder	compiled	src/cmd/compile/internal/noder/codes.go:7:8: could not import internal/pkgbits (use of internal package internal/pkgbits not allowed)
+package:cmd/compile/internal/rangefunc	interpreted	src/cmd/compile/internal/rangefunc/rewrite.go:532:2: could not import cmd/compile/internal/base (use of internal package cmd/compile/internal/base not allowed)
+package:cmd/compile/internal/rangefunc	compiled	src/cmd/compile/internal/rangefunc/rewrite.go:532:2: could not import cmd/compile/internal/base (use of internal package cmd/compile/internal/base not allowed)
+package:cmd/compile/internal/reflectdata	interpreted	src/cmd/compile/internal/reflectdata/alg.go:13:2: could not import cmd/compile/internal/base (use of internal package cmd/compile/internal/base not allowed)
+package:cmd/compile/internal/reflectdata	compiled	src/cmd/compile/internal/reflectdata/alg.go:13:2: could not import cmd/compile/internal/base (use of internal package cmd/compile/internal/base not allowed)
+package:cmd/compile/internal/ssagen	interpreted	src/cmd/compile/internal/ssagen/abi.go:9:2: could not import internal/buildcfg (use of internal package internal/buildcfg not allowed)
+package:cmd/compile/internal/ssagen	compiled	src/cmd/compile/internal/ssagen/abi.go:9:2: could not import internal/buildcfg (use of internal package internal/buildcfg not allowed)
+package:cmd/compile/internal/syntax	interpreted	src/cmd/compile/internal/syntax/error_test.go:34:2: could not import internal/testenv (use of internal package internal/testenv not allowed)
+package:cmd/compile/internal/syntax	compiled	src/cmd/compile/internal/syntax/error_test.go:34:2: could not import internal/testenv (use of internal package internal/testenv not allowed)
+package:cmd/compile/internal/test	interpreted	src/cmd/compile/internal/test/abiutils_test.go:9:2: could not import cmd/compile/internal/abi (use of internal package cmd/compile/internal/abi not allowed)
+package:cmd/compile/internal/test	compiled	src/cmd/compile/internal/test/abiutils_test.go:9:2: could not import cmd/compile/internal/abi (use of internal package cmd/compile/internal/abi not allowed)
+package:cmd/compile/internal/typecheck	interpreted	src/cmd/compile/internal/typecheck/builtin.go:6:2: could not import cmd/compile/internal/types (use of internal package cmd/compile/internal/types not allowed)
+package:cmd/compile/internal/typecheck	compiled	src/cmd/compile/internal/typecheck/builtin.go:6:2: could not import cmd/compile/internal/types (use of internal package cmd/compile/internal/types not allowed)
+package:cmd/compile/internal/types	interpreted	src/cmd/compile/internal/types/alg.go:7:8: could not import cmd/compile/internal/base (use of internal package cmd/compile/internal/base not allowed)
+package:cmd/compile/internal/types	compiled	src/cmd/compile/internal/types/alg.go:7:8: could not import cmd/compile/internal/base (use of internal package cmd/compile/internal/base not allowed)
+package:cmd/compile/internal/types2	interpreted	src/cmd/compile/internal/types2/alias.go:8:2: could not import cmd/compile/internal/syntax (use of internal package cmd/compile/internal/syntax not allowed)
+package:cmd/compile/internal/types2	compiled	src/cmd/compile/internal/types2/alias.go:8:2: could not import cmd/compile/internal/syntax (use of internal package cmd/compile/internal/syntax not allowed)
+package:cmd/internal/testdir	interpreted	src/cmd/internal/testdir/testdir_test.go:17:2: could not import internal/testenv (use of internal package internal/testenv not allowed)
+package:cmd/internal/testdir	compiled	src/cmd/internal/testdir/testdir_test.go:17:2: could not import internal/testenv (use of internal package internal/testenv not allowed)
+package:go/types	interpreted	src/go/types/api.go:43:4: could not import internal/types/errors (use of internal package internal/types/errors not allowed)
+package:go/types	compiled	src/go/types/api.go:43:4: could not import internal/types/errors (use of internal package internal/types/errors not allowed)
+package:internal/types/errors	interpreted	src/internal/types/errors/codes_test.go:14:2: could not import internal/testenv (use of internal package internal/testenv not allowed)
+package:internal/types/errors	compiled	src/internal/types/errors/codes_test.go:14:2: could not import internal/testenv (use of internal package internal/testenv not allowed)
+testdir:235.go	interpreted	BASHPP-EBUILTIN-TYPE: make type must be a slice or map
+testdir:abi/fuzz_trailing_zero_field.go	interpreted	BASHPP-ECOLLECTION-ELEMENT: cannot use string value as complex128
+testdir:abi/leaf2.go	interpreted	abi/leaf2.go:39:6: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPCompositeLit
+testdir:abi/map.go	interpreted	abi/map.go:13:1: BASHPP-ECOLLECTION-KEY: unsupported map key type *T
+testdir:abi/part_live.go	interpreted	abi/part_live.go:34:34: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPAddressExpr
+testdir:abi/part_live_2.go	interpreted	abi/part_live_2.go:39:34: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPAddressExpr
+testdir:abi/spills3.go	interpreted	abi/spills3.go:44:5: BASHPP-EEXPR-OPERAND: z is not a scalar
+testdir:abi/spills4.go	interpreted	abi/spills4.go:40:6: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPCompositeLit
+testdir:append.go	interpreted	append.go:40:13: BASHPP-EEXPR-UNDEFINED: undefined callable append
+testdir:bigalg.go	interpreted	bigalg.go:61:34: BASHPP-EEXPR-OPERAND: a is not a scalar
+testdir:bigmap.go	interpreted	bigmap.go:52:3: type T redeclared in this session
+testdir:chan/doubleselect.go	interpreted	command exceeded time limit
+testdir:chan/doubleselect.go	compiled	chan/doubleselect.go:17:1: LOWER-ETYPE: cannot use __gosource_import_0_0.Int(string("n"), int(100000), string("number of iterations")) (value of type *int) as int value in variable declaration
+testdir:chan/nonblock.go	interpreted	invalid select case
+testdir:chan/powser1.go	interpreted	chan/powser1.go:123:2: BASHPP-ENIL-DEREF: dereference of nil pointer
+testdir:chan/select.go	interpreted	BASHPP-EARG-CHAN: Send requires chan uint for parameter b
+testdir:chan/select2.go	interpreted	BASHPP-ESELECTOR-ASSIGN: target is not a structured value
+testdir:chan/select3.go	interpreted	chan/select3.go:25:6: BASHPP-EEXPR-UNDEFINED: undefined callable recover
+testdir:chan/select4.go	interpreted	invalid select case
+testdir:chan/select5.go	interpreted	BASHPP-EPOINTER-TARGET: expression is not a pointer
+testdir:chan/select5.go	compiled	chan/select5.go:147:1: LOWER-ETYPE: cannot use parse(string("recv"), string(`
+testdir:chan/sieve2.go	interpreted	BASHPP-ERETURN-CHAN: odds requires chan int result
+testdir:chan/zerosize.go	interpreted	BASHPP-EBUILTIN-TYPE: make type must be a slice or map
+testdir:chancap.go	interpreted	BASHPP-EBUILTIN-TYPE: make type must be a slice or map
+testdir:chancap.go	compiled	chancap.go:11:1: LOWER-ETYPE: "unsafe" imported as __gosource_import_0_1 and not used
+testdir:chanlinear.go	interpreted	BASHPP-EBUILTIN-TYPE: BASHPP-ECOLLECTION-ELEMENT: scalar cannot be used as chan bool
+testdir:clear.go	interpreted	BASHPP-ECOLLECTION-ELEMENT: cannot use *interp.bashPPBridgeValue value as float64
+testdir:closedchan.go	interpreted	closedchan.go:322:39: BASHPP-EEXPR-OPERAND: c is not a scalar
+testdir:closure2.go	interpreted	BASHPP-ECOLLECTION-INDEX: closure2.go:108:9: BASHPP-EEXPR-FORM: unsupported scalar call
+testdir:closure4.go	interpreted	unknown imported symbol or method: f
+testdir:cmp.go	interpreted	cmp.go:20:43: BASHPP-ESELECTOR-EXPR: unsupported structured expression
+testdir:cmplxdivide.go	interpreted	BASHPP-ECOLLECTION-ELEMENT: cannot use string value as complex128
+testdir:codegen/alloc.go	interpreted	linux/amd64/v1
+testdir:codegen/alloc.go	compiled	test/codegen/alloc.go:18:13: gosource: unsupported expression *ast.StructType
+testdir:complit.go	interpreted	BASHPP-ECOLLECTION-LENGTH: invalid array length len(at)
+testdir:complit2.go	interpreted	complit2.go:35:5: BASHPP-ECOMPARE-NONCOMPARABLE: unsupported comparison
+testdir:const.go	interpreted	const.go:13:1: _ redeclared in this block
+testdir:const4.go	interpreted	const4.go:42:2: BASHPP-EINIT-ORDER: initializer for c depends on c before it is initialized; dependency reordering across shell statements is unsupported
+testdir:convert4.go	interpreted	BASHPP-ESELECTOR-EXPR: unsupported structured expression
+testdir:convert4.go	compiled	convert4.go:83:1: LOWER-ETYPE: cannot use (*[5]string)(ss) (value of type *[5]string) as [5]string value in variable declaration
+testdir:convert5.go	interpreted	convert5.go:65:12: convert5.go:65:23: BASHPP-EEXPR-DIVZERO: division by zero
+testdir:copy.go	interpreted	copy.go:113:16: BASHPP-EEXPR-OPERAND: indexed value is not a scalar
+testdir:ddd.go	interpreted	sum: cannot use "[1,2,3]" as int value for parameter args
+testdir:defer.go	interpreted	defer.go:32:49: BASHPP-EUPDATE-RHS: defer.go:32:49: integer for interface {}
+testdir:defererrcheck.go	interpreted	test/defererrcheck.go:57:1: gosource: unsupported LabeledStmt
+testdir:defererrcheck.go	compiled	test/defererrcheck.go:57:1: gosource: unsupported LabeledStmt
+testdir:deferprint.go	interpreted	deferprint.go:12:64: BASHPP-EEXPR-NIL: nil is not a scalar
+testdir:devirtualization_nil_panics.go	interpreted	nil interface has no method A
+testdir:devirtualization_nil_panics.go	compiled	panic: runtime error: invalid memory address or nil pointer dereference [recovered]
+testdir:directive.go	interpreted	compilation succeeded unexpectedly
+testdir:directive.go	compiled	compilation succeeded unexpectedly
+testdir:directive2.go	interpreted	compilation succeeded unexpectedly
+testdir:directive2.go	compiled	compilation succeeded unexpectedly
+testdir:divmod.go	interpreted	divmod.go:301:9: BASHPP-EEXPR-DIVZERO: division by zero
+testdir:embedfunc.go	interpreted	compilation succeeded unexpectedly
+testdir:embedfunc.go	compiled	compilation succeeded unexpectedly
+testdir:embedvers.go	interpreted	compilation succeeded unexpectedly
+testdir:embedvers.go	compiled	main.go:8:18: pattern //: invalid pattern syntax
+testdir:escape.go	interpreted	escape.go:182:2: BASHPP-EASSIGN-TYPE: cannot assign int to *int
+testdir:escape2.go	interpreted	test/escape2.go:945:1: gosource: unsupported LabeledStmt
+testdir:escape2.go	compiled	test/escape2.go:945:1: gosource: unsupported LabeledStmt
+testdir:escape2n.go	interpreted	test/escape2n.go:945:1: gosource: unsupported LabeledStmt
+testdir:escape2n.go	compiled	test/escape2n.go:945:1: gosource: unsupported LabeledStmt
+testdir:escape_goto.go	interpreted	test/escape_goto.go:15:1: gosource: unsupported LabeledStmt
+testdir:escape_goto.go	compiled	test/escape_goto.go:15:1: gosource: unsupported LabeledStmt
+testdir:escape_runtime_atomic.go	interpreted	test/escape_runtime_atomic.go:12:2: could not import internal/runtime/atomic (use of internal package internal/runtime/atomic not allowed)
+testdir:escape_runtime_atomic.go	compiled	test/escape_runtime_atomic.go:12:2: could not import internal/runtime/atomic (use of internal package internal/runtime/atomic not allowed)
+testdir:finprofiled.go	interpreted	BASHPP-ESELECTOR-ASSIGN: target is not a structured value
+testdir:fixedbugs/bug005.go	interpreted	fixedbugs/bug005.go:10:2: gosource: unsupported LabeledStmt
+testdir:fixedbugs/bug005.go	compiled	fixedbugs/bug005.go:10:2: gosource: unsupported LabeledStmt
+testdir:fixedbugs/bug027.go	interpreted	fixedbugs/bug027.go:56:7: BASHPP-EASSERT-OPERAND: type assertion operand must be an interface
+testdir:fixedbugs/bug039.go	interpreted	test/fixedbugs/bug039.go:10:6: x redeclared in this block
+testdir:fixedbugs/bug039.go	compiled	test/fixedbugs/bug039.go:10:6: x redeclared in this block
+testdir:fixedbugs/bug040.go	interpreted	test/fixedbugs/bug040.go:10:2: x redeclared in this block
+testdir:fixedbugs/bug040.go	compiled	test/fixedbugs/bug040.go:10:2: x redeclared in this block
+testdir:fixedbugs/bug045.go	interpreted	fixedbugs/bug045.go:16:7: fixedbugs/bug045.go:16:7: BASHPP-ESELECTOR-EXPR: unsupported structured expression
+testdir:fixedbugs/bug047.go	interpreted	BASHPP-ECOLLECTION-ELEMENT: cannot use string value as float64
+testdir:fixedbugs/bug054.go	interpreted	fixedbugs/bug054.go:26:9: BASHPP-EASSERT-OPERAND: type assertion operand must be an interface
+testdir:fixedbugs/bug059.go	interpreted	BASHPP-ECOLLECTION-ASSIGN: indexed target is not a collection
+testdir:fixedbugs/bug075.go	interpreted	fixedbugs/bug075.go:15:8: BASHPP-EASSIGN-ARITY: 2 variable(s) but 1 value(s)
+testdir:fixedbugs/bug076.go	interpreted	test/fixedbugs/bug076.go:10:1: gosource: unsupported LabeledStmt
+testdir:fixedbugs/bug076.go	compiled	test/fixedbugs/bug076.go:10:1: gosource: unsupported LabeledStmt
+testdir:fixedbugs/bug077.go	interpreted	test/fixedbugs/bug077.go:11:1: gosource: unsupported LabeledStmt
+testdir:fixedbugs/bug077.go	compiled	test/fixedbugs/bug077.go:11:1: gosource: unsupported LabeledStmt
+testdir:fixedbugs/bug099.go	interpreted	BASHPP-EBUILTIN-TYPE: new requires exactly one type argument and is only a value expression
+testdir:fixedbugs/bug113.go	interpreted	fixedbugs/bug113.go:31:11: fixedbugs/bug113.go:31:11: BASHPP-EASSERT-FAIL: interface value has dynamic type int, not int32
+testdir:fixedbugs/bug115.go	compiled	test/fixedbugs/bug115.go:13:2: LOWER-ETYPE: cannot use i (variable of type *big.Int) as uint value in argument to isuint
+testdir:fixedbugs/bug126.go	interpreted	test/fixedbugs/bug126.go:11:7: none redeclared in this block
+testdir:fixedbugs/bug126.go	compiled	test/fixedbugs/bug126.go:11:7: none redeclared in this block
+testdir:fixedbugs/bug13343.go	interpreted	test/fixedbugs/bug13343.go:10:5: initialization cycle for b
+testdir:fixedbugs/bug13343.go	compiled	test/fixedbugs/bug13343.go:10:5: initialization cycle for b
+testdir:fixedbugs/bug137.go	interpreted	test/fixedbugs/bug137.go:10:1: gosource: unsupported LabeledStmt
+testdir:fixedbugs/bug137.go	compiled	test/fixedbugs/bug137.go:10:1: gosource: unsupported LabeledStmt
+testdir:fixedbugs/bug140.go	interpreted	test/fixedbugs/bug140.go:12:2: gosource: unsupported LabeledStmt
+testdir:fixedbugs/bug140.go	compiled	test/fixedbugs/bug140.go:12:2: gosource: unsupported LabeledStmt
+testdir:fixedbugs/bug148.go	interpreted	fixedbugs/bug148.go:14:2: type T redeclared in this session
+testdir:fixedbugs/bug178.go	interpreted	fixedbugs/bug178.go:18:4: gosource: unsupported labeled branch
+testdir:fixedbugs/bug178.go	compiled	fixedbugs/bug178.go:18:4: gosource: unsupported labeled branch
+testdir:fixedbugs/bug184.go	interpreted	fixedbugs/bug184.go:41:9: BASHPP-EASSIGN-ARITY: 2 variable(s) but 1 value(s)
+testdir:fixedbugs/bug184.go	compiled	fixedbugs/bug184.go:41:2: LOWER-ETYPE: assignment mismatch: 2 variables but __bpp0_rt.MustValue returns 1 value
+testdir:fixedbugs/bug191.go	interpreted	test/fixedbugs/bug191.dir/main.go:11:1: _ redeclared in this block
+testdir:fixedbugs/bug192.go	interpreted	test/fixedbugs/bug192.go:13:5: fmt already declared through import of package fmt ("fmt")
+testdir:fixedbugs/bug192.go	compiled	test/fixedbugs/bug192.go:13:5: fmt already declared through import of package fmt ("fmt")
+testdir:fixedbugs/bug195.go	interpreted	test/fixedbugs/bug195.go:14:6: invalid recursive type: S refers to itself
+testdir:fixedbugs/bug195.go	compiled	test/fixedbugs/bug195.go:14:6: invalid recursive type: S refers to itself
+testdir:fixedbugs/bug196.go	interpreted	fixedbugs/bug196.go:42:2: BASHPP-EUPDATE-TARGET: BASHPP-ENONADDRESSABLE: operand is not addressable
+testdir:fixedbugs/bug196.go	compiled	fixedbugs/bug196.go:24:2: LOWER-ETYPE: assignment mismatch: 2 variables but __bpp0_rt.MustValue returns 1 value
+testdir:fixedbugs/bug203.go	interpreted	fixedbugs/bug203.go:13:8: BASHPP-EASSIGN-TYPE: cannot assign [...]string to [8]string
+testdir:fixedbugs/bug206.go	interpreted	BASHPP-ECOLLECTION-ELEMENT: fixedbugs/bug206.go:25:21: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPAddressExpr
+testdir:fixedbugs/bug223.go	interpreted	test/fixedbugs/bug223.go:21:5: initialization cycle for m
+testdir:fixedbugs/bug223.go	compiled	test/fixedbugs/bug223.go:21:5: initialization cycle for m
+testdir:fixedbugs/bug225.go	interpreted	invalid select case
+testdir:fixedbugs/bug242.go	interpreted	BASHPP-EPOINTER-TARGET: expression is not a pointer
+testdir:fixedbugs/bug242.go	compiled	bad map check 13 false false
+testdir:fixedbugs/bug243.go	interpreted	fixedbugs/bug243.go:25:16: unknown imported symbol or method: Addr
+testdir:fixedbugs/bug246.go	interpreted	fixedbugs/bug246.go:14:15: BASHPP-EEXPR-CONVERT: cannot convert Int to __gosource_import_0_0.Pointer
+testdir:fixedbugs/bug248.go	interpreted	test/fixedbugs/bug248.dir/bug2.go:41:13: cannot use t1(0) (constant 0 of float64 type t1) as I0 value in variable declaration: t1 does not implement I0 (wrong type for method M)
+testdir:fixedbugs/bug248.go	compiled	test/fixedbugs/bug248.dir/bug2.go:41:13: cannot use t1(0) (constant 0 of float64 type t1) as I0 value in variable declaration: t1 does not implement I0 (wrong type for method M)
+testdir:fixedbugs/bug251.go	interpreted	test/fixedbugs/bug251.go:9:6: invalid recursive type I1
+testdir:fixedbugs/bug251.go	compiled	test/fixedbugs/bug251.go:9:6: invalid recursive type I1
+testdir:fixedbugs/bug254.go	interpreted	fixedbugs/bug254.go:10:1: BASHPP-ECOLLECTION-LENGTH: invalid array length 1e1
+testdir:fixedbugs/bug262.go	interpreted	BASHPP-EPOINTER-TARGET: expression is not a pointer
+testdir:fixedbugs/bug262.go	compiled	BUG 123 hfg
+testdir:fixedbugs/bug269.go	interpreted	fixedbugs/bug269.go:15:6: BASHPP-EINTERFACE-VALUE: undefined value f
+testdir:fixedbugs/bug272.go	interpreted	fixedbugs/bug272.go:23:6: fixedbugs/bug272.go:23:6: BASHPP-ECOLLECTION-BOUNDS: index 4294967395 out of bounds for length 100
+testdir:fixedbugs/bug273.go	interpreted	BASHPP-EBUILTIN-SIZE: make slice length/capacity is invalid: -1/-1
+testdir:fixedbugs/bug273.go	compiled	fixedbugs/bug273.go:11:1: LOWER-ETYPE: "unsafe" imported as __gosource_import_0_0 and not used
+testdir:fixedbugs/bug279.go	interpreted	unknown imported symbol or method: __gosource_import_0_0.Sizeof
+testdir:fixedbugs/bug285.go	interpreted	BASHPP-EBUILTIN-TYPE: make type must be a slice or map
+testdir:fixedbugs/bug286.go	interpreted	fixedbugs/bug286.go:30:2: type J redeclared in this session
+testdir:fixedbugs/bug292.go	interpreted	fixedbugs/bug292.go:19:5: unknown imported symbol or method: __gosource_import_0_0.Offsetof
+testdir:fixedbugs/bug294.go	interpreted	fixedbugs/bug294.go:66:5: gosource: computed call runtime is not implemented
+testdir:fixedbugs/bug312.go	interpreted	invalid select case
+testdir:fixedbugs/bug321.go	interpreted	check: cannot use "1/44942328371557897693232629769725618340449424473557664318357520289433168951375240783177119330601884005280028469967848339414697442203604155623211857659868531094441973356216371319075554900311523529863270738021251442209537670585615720368478277635206809290837627671146574559986811484619929076208839082406056034304" as float64 value for parameter got
+testdir:fixedbugs/bug324.go	interpreted	BASHPP-EBUILTIN-TYPE: new requires exactly one type argument and is only a value expression
+testdir:fixedbugs/bug327.go	interpreted	fixedbugs/bug327.go:21:7: BASHPP-EEXPR-CONVERT: cannot convert Int to a
+testdir:fixedbugs/bug328.go	interpreted	fixedbugs/bug328.go:13:10: BASHPP-EEXPR-OPERAND: p is not a scalar
+testdir:fixedbugs/bug329.go	interpreted	BASHPP-ECOLLECTION-ELEMENT: cannot use string value as complex128
+testdir:fixedbugs/bug331.go	interpreted	fixedbugs/bug331.go:20:1: _ redeclared in this block
+testdir:fixedbugs/bug336.go	interpreted	fixedbugs/bug336.go:85:6: fixedbugs/bug336.go:85:6: BASHPP-EEXPR-CONVERT: cannot convert String to T18
+testdir:fixedbugs/bug339.go	interpreted	unknown imported symbol or method: __gosource_import_0_0.Sizeof
+testdir:fixedbugs/bug341.go	interpreted	fixedbugs/bug341.go:15:6: fixedbugs/bug341.go:15:6: BASHPP-EEXPR-CONVERT: cannot convert String to uint64
+testdir:fixedbugs/bug342.go	interpreted	test/fixedbugs/bug342.go:12:14: x redeclared in this block
+testdir:fixedbugs/bug342.go	compiled	test/fixedbugs/bug342.go:12:14: x redeclared in this block
+testdir:fixedbugs/bug347.go	interpreted	fixedbugs/bug347.go:22:9: BASHPP-ENIL-DEREF: dereference of nil pointer
+testdir:fixedbugs/bug348.go	interpreted	fixedbugs/bug348.go:17:20: BASHPP-ENIL-DEREF: dereference of nil pointer
+testdir:fixedbugs/bug364.go	interpreted	fixedbugs/bug364.go:14:7: BASHPP-EUPDATE-RHS: fixedbugs/bug364.go:14:7: string for interface {}
+testdir:fixedbugs/bug372.go	interpreted	fixedbugs/bug372.go:25:5: BASHPP-EEXPR-UNDEFINED: undefined callable tt
+testdir:fixedbugs/bug385_64.go	interpreted	compilation succeeded unexpectedly
+testdir:fixedbugs/bug398.go	interpreted	compilation succeeded unexpectedly
+testdir:fixedbugs/bug401.go	interpreted	BASHPP-ERETURN-CALL: return requires a declared callable
+testdir:fixedbugs/bug424.go	interpreted	BASHPP-EBUILTIN-TYPE: new requires exactly one type argument and is only a value expression
+testdir:fixedbugs/bug424.go	compiled	test/fixedbugs/bug424.dir/main.go:53:2: LOWER-ETYPE: cannot use new(myT2) (value of type *myT2) as localI value in assignment: *myT2 does not implement localI (ambiguous selector *myT2.m)
+testdir:fixedbugs/bug433.go	interpreted	fixedbugs/bug433.go:36:5: BASHPP-EEXPR-OPERAND: s is not a scalar
+testdir:fixedbugs/bug441.go	interpreted	cannot use first argument as T receiver in T.m1
+testdir:fixedbugs/bug442.go	interpreted	BASHPP-ESTRUCT-FIELD-DUPLICATE: field "_" declared more than once
+testdir:fixedbugs/bug444.go	interpreted	fixedbugs/bug444.go:21:26: BASHPP-EEXPR-NIL: nil is not a scalar
+testdir:fixedbugs/bug446.go	interpreted	fixedbugs/bug446.go:20:14: fixedbugs/bug446.go:20:14: BASHPP-EEXPR-UNDEFINED: undefined callable T
+testdir:fixedbugs/bug447.go	interpreted	fixedbugs/bug447.go:39:7: BASHPP-ESELECTOR-ROOT: typ is not a structured value
+testdir:fixedbugs/bug449.go	interpreted	/srv/sprint151/leaf-151/tmp/Testfixedbugsbug449.go2598211898/001/tmp__.go:15:9: BASHPP-EEXPR-OPERAND: v is not a scalar
+testdir:fixedbugs/bug450.go	interpreted	fixedbugs/bug450.go:21:10: BASHPP-EEXPR-NIL: nil is not a scalar
+testdir:fixedbugs/bug454.go	interpreted	fixedbugs/bug454.go:14:20: BASHPP-ERANGE-TYPE: cannot range over *[10]int
+testdir:fixedbugs/bug459.go	interpreted	test/fixedbugs/bug459.go:12:5: initialization cycle for commandLine
+testdir:fixedbugs/bug459.go	compiled	test/fixedbugs/bug459.go:12:5: initialization cycle for commandLine
+testdir:fixedbugs/bug463.go	interpreted	test/fixedbugs/bug463.go:12:7: initialization cycle: a refers to itself
+testdir:fixedbugs/bug463.go	compiled	test/fixedbugs/bug463.go:12:7: initialization cycle: a refers to itself
+testdir:fixedbugs/bug465.go	interpreted	test/fixedbugs/bug465.dir/a.go:14:6: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPCompositeLit
+testdir:fixedbugs/bug466.go	interpreted	BASHPP-ECOLLECTION-ELEMENT: cannot use string value as complex128
+testdir:fixedbugs/bug470.go	interpreted	fixedbugs/bug470.go:23:5: BASHPP-EEXPR-CONVERT: cannot convert String to float64
+testdir:fixedbugs/bug473.go	interpreted	fixedbugs/bug473.go:15:8: BASHPP-EUPDATE-RHS: fixedbugs/bug473.go:15:8: BASHPP-EASSERT-OPERAND: type assertion operand is not an interface
+testdir:fixedbugs/bug474.go	interpreted	fixedbugs/bug474.go:25:12: BASHPP-ESELECTOR-UNKNOWN: T has no field or method "M"
+testdir:fixedbugs/bug494.go	interpreted	BASHPP-EINTERFACE-VALUE: promoted interface method V has no interface storage
+testdir:fixedbugs/bug495.go	interpreted	test/fixedbugs/bug495.go:15:3: gosource: unsupported labeled branch
+testdir:fixedbugs/bug495.go	compiled	test/fixedbugs/bug495.go:15:3: gosource: unsupported labeled branch
+testdir:fixedbugs/bug499.go	interpreted	BASHPP-EBUILTIN-TYPE: assignment target "_" is not declared
+testdir:fixedbugs/bug513.go	interpreted	fixedbugs/bug513.go:20:7: fixedbugs/bug513.go:20:57: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPAddressExpr
+testdir:fixedbugs/dse_move_auxint.go	interpreted	fixedbugs/dse_move_auxint.go:23:17: BASHPP-EEXPR-OPERAND: dst is not a scalar
+testdir:fixedbugs/gcc61244.go	interpreted	test/fixedbugs/gcc61244.go:16:9: gosource: unsupported type switch initializer
+testdir:fixedbugs/gcc61244.go	compiled	test/fixedbugs/gcc61244.go:16:9: gosource: unsupported type switch initializer
+testdir:fixedbugs/gcc61253.go	interpreted	test/fixedbugs/gcc61253.go:17:7: gosource: unsupported compound simple statement
+testdir:fixedbugs/gcc61253.go	compiled	test/fixedbugs/gcc61253.go:17:7: gosource: unsupported compound simple statement
+testdir:fixedbugs/gcc61258.go	interpreted	BASHPP-EBUILTIN-TYPE: delete key: BASHPP-ECOLLECTION-ELEMENT: scalar cannot be used as [0]bool
+testdir:fixedbugs/issue10253.go	interpreted	fixedbugs/issue10253.go:21:9: BASHPP-ESELECTOR-ROOT: text is not a structured value
+testdir:fixedbugs/issue10486.go	interpreted	fixedbugs/issue10486.go:25:9: BASHPP-EEXPR-DIVZERO: division by zero
+testdir:fixedbugs/issue10975.go	interpreted	test/fixedbugs/issue10975.go:16:12: cannot use type I outside a type constraint: interface contains type constraints
+testdir:fixedbugs/issue10975.go	compiled	test/fixedbugs/issue10975.go:16:12: cannot use type I outside a type constraint: interface contains type constraints
+testdir:fixedbugs/issue11053.go	interpreted	test/fixedbugs/issue11053.dir/p_test.go:44:13: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPNewExpr
+testdir:fixedbugs/issue11326b.go	interpreted	fixedbugs/issue11326b.go:17:9: fixedbugs/issue11326b.go:17:9: BASHPP-EEXPR-LITERAL: invalid literal 0x.e883a0c5c8c7c429f87b989b4e2591165d9c5e1c6c2115eb208b250a2d69abf9a0b3dfdc73925664b57faa889e877c65b94f1b2f2a52c900dab926f8d3b4fe8dp+2147483644.0
+testdir:fixedbugs/issue11326b.go	compiled	fixedbugs/issue11326b.go:15:1: LOWER-EEXPR: generated Go is not syntactically valid: 8:154: expected ';', found .0 (and 7 more errors)
+testdir:fixedbugs/issue11369.go	interpreted	fixedbugs/issue11369.go:13:10: BASHPP-EASSIGN-TYPE: cannot use uint8 as byte in declaration
+testdir:fixedbugs/issue11614.go	interpreted	test/fixedbugs/issue11614.go:18:2: (I) (type) is not an expression
+testdir:fixedbugs/issue11614.go	compiled	test/fixedbugs/issue11614.go:18:2: (I) (type) is not an expression
+testdir:fixedbugs/issue11656.go	interpreted	BASHPP-ECOLLECTION-ELEMENT: /srv/sprint151/leaf-151/tmp/Testfixedbugsissue11656.go4251174807/001/src/issue11656.dir/issue11656.go:70:31: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPAddressExpr
+testdir:fixedbugs/issue11945.go	interpreted	fixedbugs/issue11945.go:12:1: _ redeclared in this block
+testdir:fixedbugs/issue12226.go	interpreted	fixedbugs/issue12226.go:12:5: BASHPP-ESELECTOR-EXPR: unsupported structured expression
+testdir:fixedbugs/issue1304.go	interpreted	fixedbugs/issue1304.go:21:6: fixedbugs/issue1304.go:21:6: BASHPP-EEXPR-DIVZERO: division by zero
+testdir:fixedbugs/issue13162.go	interpreted	BASHPP-ESELECTOR-ROOT: s is not a structured value
+testdir:fixedbugs/issue13169.go	interpreted	fixedbugs/issue13169.go:40:9: BASHPP-ESELECTOR-EXPR: unsupported structured expression
+testdir:fixedbugs/issue13684.go	interpreted	fixedbugs/issue13684.go:15:2: gosource: unsupported labeled branch
+testdir:fixedbugs/issue13684.go	compiled	fixedbugs/issue13684.go:15:2: gosource: unsupported labeled branch
+testdir:fixedbugs/issue14591.go	interpreted	fixedbugs/issue14591.go:32:5: BASHPP-ECOLLECTION-BOUNDS: index 1 out of bounds for length 0
+testdir:fixedbugs/issue14651.go	interpreted	f32: cannot use "1/1427247692705959881058285969449495136382746624" as float64 value for parameter x
+testdir:fixedbugs/issue14999.go	interpreted	compilation succeeded unexpectedly
+testdir:fixedbugs/issue15252.go	interpreted	fixedbugs/issue15252.go:19:9: BASHPP-ECOLLECTION-BOUNDS: index 4294967297 out of bounds for length 2
+testdir:fixedbugs/issue15277.go	interpreted	fixedbugs/issue15277.go:19:20: gosource: unsupported interpreter collection value expand.invalidObject
+testdir:fixedbugs/issue15281.go	interpreted	fixedbugs/issue15281.go:32:12: BASHPP-EEXPR-OPERAND: x is not a scalar
+testdir:fixedbugs/issue15329.go	interpreted	fixedbugs/issue15329.go:44:2: fixedbugs/issue15329.go:44:23: BASHPP-EEXPR-UNDEFINED: undefined callable computed function
+testdir:fixedbugs/issue15528.go	interpreted	BASHPP-EINTERFACE-EMBED: interface Strunger embeds non-interface __gosource_import_0_0.Stringer
+testdir:fixedbugs/issue15585.go	interpreted	test/fixedbugs/issue15585.go:19:3: gosource: unsupported LabeledStmt
+testdir:fixedbugs/issue15585.go	compiled	test/fixedbugs/issue15585.go:19:3: gosource: unsupported LabeledStmt
+testdir:fixedbugs/issue15646.go	interpreted	test/fixedbugs/issue15646.dir/a.go:18:9: BASHPP-ESELECTOR-ROOT: __gosource_pkg_0_T is not a structured value
+testdir:fixedbugs/issue15838.go	interpreted	test/fixedbugs/issue15838.dir/a.go:8:1: gosource: unsupported LabeledStmt
+testdir:fixedbugs/issue15838.go	compiled	test/fixedbugs/issue15838.dir/a.go:8:1: gosource: unsupported LabeledStmt
+testdir:fixedbugs/issue15975.go	interpreted	nil interface has no method Close
+testdir:fixedbugs/issue15992.go	interpreted	Go value requires one result
+testdir:fixedbugs/issue16016.go	interpreted	BASHPP-ETYPESWITCH-OPERAND: type switch operand must be an interface
+testdir:fixedbugs/issue16037_run.go	interpreted	command exceeded time limit
+testdir:fixedbugs/issue16037_run.go	compiled	fixedbugs/issue16037_run.go:22:1: LOWER-ETYPE: cannot use __gosource_import_0_2.Must(((__gosource_import_0_2.New(string("main"))).Parse)(string(`
+testdir:fixedbugs/issue16095.go	interpreted	fixedbugs/issue16095.go:24:9: BASHPP-EASSIGN-UNDECLARED: RHS nil is not declared
+testdir:fixedbugs/issue16130.go	interpreted	fixedbugs/issue16130.go:37:7: BASHPP-EEXPR-CONVERT: cannot convert Int to (interface{})
+testdir:fixedbugs/issue16130.go	compiled	panic: BASHPP-EASSERT-FAIL: interface value has dynamic type int, not I [recovered]
+testdir:fixedbugs/issue16369.go	interpreted	compilation succeeded unexpectedly
+testdir:fixedbugs/issue16760.go	interpreted	nil interface has no method Write
+testdir:fixedbugs/issue16870.go	interpreted	fixedbugs/issue16870.go:30:5: BASHPP-EASSIGN-TYPE: cannot assign bool to interface
+testdir:fixedbugs/issue16870.go	compiled	fixedbugs/issue16870.go:114:2: LOWER-ETYPE: assignment mismatch: 2 variables but __bpp0_rt.MustValue returns 1 value
+testdir:fixedbugs/issue17381.go	interpreted	fixedbugs/issue17381.go:38:9: BASHPP-ESELECTOR-EXPR: unsupported structured expression
+testdir:fixedbugs/issue17752.go	interpreted	BASHPP-ECOLLECTION-KEY: unsupported map key type [8]string
+testdir:fixedbugs/issue17758.go	interpreted	test/fixedbugs/issue17758.go:13:6: foo redeclared in this block
+testdir:fixedbugs/issue17758.go	compiled	test/fixedbugs/issue17758.go:13:6: foo redeclared in this block
+testdir:fixedbugs/issue18410.go	interpreted	fixedbugs/issue18410.go:33:18: gosource: computed call runtime is not implemented
+testdir:fixedbugs/issue18459.go	interpreted	compilation succeeded unexpectedly
+testdir:fixedbugs/issue18459.go	compiled	compilation succeeded unexpectedly
+testdir:fixedbugs/issue18595.go	interpreted	fixedbugs/issue18595.go:46:8: BASHPP-EEXPR-CONVERT: cannot convert String to (I)
+testdir:fixedbugs/issue18882.go	interpreted	compilation succeeded unexpectedly
+testdir:fixedbugs/issue18882.go	compiled	compilation succeeded unexpectedly
+testdir:fixedbugs/issue18911.go	interpreted	test/fixedbugs/issue18911.dir/b.go:12:12: BASHPP-EEXPR-UNDEFINED: undefined callable recover
+testdir:fixedbugs/issue18911.go	compiled	panic: runtime error: panic called with nil argument [recovered, repanicked]
+testdir:fixedbugs/issue19040.go	interpreted	value method F called using nil *T pointer
+testdir:fixedbugs/issue19078.go	interpreted	fixedbugs/issue19078.go:20:15: BASHPP-EEXPR-CONVERT: cannot convert String to __gosource_import_0_0.Pointer
+testdir:fixedbugs/issue19113.go	interpreted	fixedbugs/issue19113.go:12:2: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPFuncLit
+testdir:fixedbugs/issue19246.go	interpreted	fixedbugs/issue19246.go:27:2: fixedbugs/issue19246.go:27:4: BASHPP-ENIL-DEREF: dereference of nil pointer
+testdir:fixedbugs/issue19359.go	interpreted	BASHPP-EBUILTIN-TYPE: delete key: BASHPP-ECOLLECTION-ELEMENT: scalar cannot be used as interface
+testdir:fixedbugs/issue19678.go	interpreted	test/fixedbugs/issue19678.go:15:1: gosource: unsupported LabeledStmt
+testdir:fixedbugs/issue19678.go	compiled	test/fixedbugs/issue19678.go:15:1: gosource: unsupported LabeledStmt
+testdir:fixedbugs/issue19699.go	interpreted	test/fixedbugs/issue19699.dir/a.go:8:1: gosource: unsupported LabeledStmt
+testdir:fixedbugs/issue19699.go	compiled	test/fixedbugs/issue19699.dir/a.go:8:1: gosource: unsupported LabeledStmt
+testdir:fixedbugs/issue19710.go	interpreted	fixedbugs/issue19710.go:22:19: BASHPP-EEXPR-UNDEFINED: undefined: i
+testdir:fixedbugs/issue19783.go	interpreted	test/fixedbugs/issue19783.go:12:3: gosource: unsupported labeled branch
+testdir:fixedbugs/issue19783.go	compiled	test/fixedbugs/issue19783.go:12:3: gosource: unsupported labeled branch
+testdir:fixedbugs/issue19799.go	interpreted	fixedbugs/issue19799.go:38:2: fixedbugs/issue19799.go:38:6: BASHPP-ECOLLECTION-BOUNDS: index 0 out of bounds for length 0
+testdir:fixedbugs/issue19911.go	interpreted	fixedbugs/issue19911.go:19:2: fixedbugs/issue19911.go:19:67: BASHPP-EEXPR-NIL: nil is not a scalar
+testdir:fixedbugs/issue20027.go	interpreted	compilation succeeded unexpectedly
+testdir:fixedbugs/issue20298.go	interpreted	test/fixedbugs/issue20298.go:14:2: "bufio" imported and not used
+testdir:fixedbugs/issue20298.go	compiled	test/fixedbugs/issue20298.go:14:2: "bufio" imported and not used
+testdir:fixedbugs/issue20415.go	interpreted	test/fixedbugs/issue20415.go:14:5: f redeclared in this block
+testdir:fixedbugs/issue20415.go	compiled	test/fixedbugs/issue20415.go:14:5: f redeclared in this block
+testdir:fixedbugs/issue20529.go	interpreted	compilation succeeded unexpectedly
+testdir:fixedbugs/issue20530.go	interpreted	fixedbugs/issue20530.go:13:12: BASHPP-EEXPR-FORM: unsupported scalar call
+testdir:fixedbugs/issue20780.go	interpreted	compilation succeeded unexpectedly
+testdir:fixedbugs/issue20780.go	compiled	panic: runtime error: invalid memory address or nil pointer dereference
+testdir:fixedbugs/issue21048.go	interpreted	BASHPP-ESTRUCT-FIELD-DUPLICATE: field "_" declared more than once
+testdir:fixedbugs/issue21221.go	interpreted	fixedbugs/issue21221.go:12:5: BASHPP-EEXPR-CONVERT: cannot convert Int to __gosource_import_0_0.Pointer
+testdir:fixedbugs/issue21687.go	interpreted	fixedbugs/issue21687.go:17:8: BASHPP-EUPDATE-RHS: fixedbugs/issue21687.go:17:8: BASHPP-EEXPR-FORM: unsupported scalar call
+testdir:fixedbugs/issue22083.go	interpreted	fixedbugs/issue22083.go:22:9: BASHPP-ECOLLECTION-BOUNDS: index 3 out of bounds for length 3
+testdir:fixedbugs/issue22200.go	interpreted	compilation succeeded unexpectedly
+testdir:fixedbugs/issue22200b.go	interpreted	compilation succeeded unexpectedly
+testdir:fixedbugs/issue22326.go	interpreted	abc_dfixedbugs/issue22326.go:9:1: _ redeclared in this block
+testdir:fixedbugs/issue22605.go	interpreted	BASHPP-ECOLLECTION-KEY: unsupported map key type [8]string
+testdir:fixedbugs/issue22881.go	interpreted	BASHPP-ENIL-DEREF: dereference of nil pointer
+testdir:fixedbugs/issue22904.go	interpreted	test/fixedbugs/issue22904.go:12:6: invalid recursive type a
+testdir:fixedbugs/issue22904.go	compiled	test/fixedbugs/issue22904.go:12:6: invalid recursive type a
+testdir:fixedbugs/issue23017.go	interpreted	BASHPP-ENIL-DEREF: dereference of nil pointer
+testdir:fixedbugs/issue23017.go	compiled	fixedbugs/issue23017.go:98:2: LOWER-ETYPE: use of untyped nil in multiple assignment
+testdir:fixedbugs/issue23489.go	interpreted	type P has no method Foo
+testdir:fixedbugs/issue23545.go	interpreted	fixedbugs/issue23545.go:13:17: BASHPP-EEXPR-OPERAND: a is not a scalar
+testdir:fixedbugs/issue23609.go	interpreted	compilation succeeded unexpectedly
+testdir:fixedbugs/issue23609.go	compiled	# bashpp_s1572
+testdir:fixedbugs/issue23734.go	interpreted	BASHPP-ECOLLECTION-KEY: unsupported map key type interface
+testdir:fixedbugs/issue23814.go	interpreted	fixedbugs/issue23814.go:23:6: fixedbugs/issue23814.go:23:20: BASHPP-EEXPR-NIL: nil is not a scalar
+testdir:fixedbugs/issue23837.go	interpreted	fixedbugs/issue23837.go:11:9: BASHPP-ENIL-DEREF: dereference of nil pointer
+testdir:fixedbugs/issue24488.go	interpreted	fixedbugs/issue24488.go:35:14: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPFuncLit
+testdir:fixedbugs/issue24763.go	interpreted	fixedbugs/issue24763.go:11:10: BASHPP-EEXPR-CONVERT: cannot convert Int to interface{}
+testdir:fixedbugs/issue24937.go	interpreted	fixedbugs/issue24937.go:12:7: BASHPP-EEXPR-FORM: unsupported scalar call
+testdir:fixedbugs/issue25507.go	interpreted	compilation succeeded unexpectedly
+testdir:fixedbugs/issue25897a.go	interpreted	fixedbugs/issue25897a.go:34:54: BASHPP-EEXPR-NIL: nil is not a scalar
+testdir:fixedbugs/issue26094.go	interpreted	fixedbugs/issue26094.go:24:2: type T redeclared in this session
+testdir:fixedbugs/issue26094.go	compiled	BASHPP-EASSERT-FAIL: interface value has dynamic type T, not T
+testdir:fixedbugs/issue2615.go	interpreted	BASHPP-ECOLLECTION-ELEMENT: cannot use string value as uint64
+testdir:fixedbugs/issue26416.go	interpreted	test/fixedbugs/issue26416.go:24:9: invalid implicit pointer indirection to reach t1f1
+testdir:fixedbugs/issue26416.go	compiled	test/fixedbugs/issue26416.go:24:9: invalid implicit pointer indirection to reach t1f1
+testdir:fixedbugs/issue27201.go	interpreted	BASHPP-ENIL-DEREF: dereference of nil pointer
+testdir:fixedbugs/issue27278.go	interpreted	fixedbugs/issue27278.go:44:2: gosource: computed call runtime is not implemented
+testdir:fixedbugs/issue27289.go	interpreted	fixedbugs/issue27289.go:13:6: fixedbugs/issue27289.go:13:6: BASHPP-ECOLLECTION-BOUNDS: index -1 out of bounds for length 0
+testdir:fixedbugs/issue27518a.go	interpreted	BASHPP-ENIL-DEREF: dereference of nil pointer
+testdir:fixedbugs/issue27518b.go	interpreted	BASHPP-EBUILTIN-TYPE: new requires exactly one type argument and is only a value expression
+testdir:fixedbugs/issue27695b.go	interpreted	fixedbugs/issue27695b.go:28:11: fixedbugs/issue27695b.go:28:34: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPAddressExpr
+testdir:fixedbugs/issue27695c.go	interpreted	fixedbugs/issue27695c.go:29:11: fixedbugs/issue27695c.go:29:34: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPAddressExpr
+testdir:fixedbugs/issue27718.go	interpreted	fixedbugs/issue27718.go:18:9: BASHPP-EEXPR-DIVZERO: division by zero
+testdir:fixedbugs/issue27961.go	interpreted	fixedbugs/issue27961.go:18:2: gosource: computed call runtime is not implemented
+testdir:fixedbugs/issue28390.go	interpreted	fixedbugs/issue28390.go:38:2: Go value requires one result
+testdir:fixedbugs/issue28445.go	compiled	test/fixedbugs/issue28445.go:9:1: LOWER-ETYPE: cannot use (**float64)(nil) (value of type **float64) as *float64 value in variable declaration
+testdir:fixedbugs/issue28616.go	interpreted	test/fixedbugs/issue28616.go:18:4: gosource: unsupported labeled branch
+testdir:fixedbugs/issue28616.go	compiled	test/fixedbugs/issue28616.go:18:4: gosource: unsupported labeled branch
+testdir:fixedbugs/issue28797.go	interpreted	fixedbugs/issue28797.go:41:14: BASHPP-ECOLLECTION-SLICE: slice bounds out of range [1:-1] with length 1
+testdir:fixedbugs/issue29013a.go	interpreted	BASHPP-ECOLLECTION-ELEMENT: fixedbugs/issue29013a.go:14:2: BASHPP-EEXPR-OPERAND: Dicts is not a scalar
+testdir:fixedbugs/issue29013b.go	interpreted	BASHPP-ECOLLECTION-KEY: unsupported map key type Int
+testdir:fixedbugs/issue29264.go	interpreted	fixedbugs/issue29264.go:17:20: gosource: unsupported interpreter collection value expand.invalidObject
+testdir:fixedbugs/issue29304.go	interpreted	fixedbugs/issue29304.go:16:5: BASHPP-EEXPR-UNDEFINED: undefined callable error
+testdir:fixedbugs/issue29312.go	interpreted	fixedbugs/issue29312.go:65:13: gosource: unsupported interpreter collection value expand.invalidObject
+testdir:fixedbugs/issue29329.go	interpreted	DouglasPeucker: cannot use "3602879701896397/36028797018963968" as float64 value for parameter threshold
+testdir:fixedbugs/issue29362.go	interpreted	fixedbugs/issue29362.go:25:11: fixedbugs/issue29362.go:25:34: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPAddressExpr
+testdir:fixedbugs/issue29362b.go	interpreted	fixedbugs/issue29362b.go:25:11: fixedbugs/issue29362b.go:25:34: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPAddressExpr
+testdir:fixedbugs/issue29504.go	interpreted	fixedbugs/issue29504.go:23:10: fixedbugs/issue29504.go:23:10: BASHPP-ECOLLECTION-BOUNDS: index 9 out of bounds for length 1
+testdir:fixedbugs/issue29504.go	compiled	could not find marker line in traceback:
+testdir:fixedbugs/issue29612.go	interpreted	/srv/sprint151/leaf-151/tmp/Testfixedbugsissue29612.go1093805468/001/src/issue29612.dir/p2/ssa/ssa.go:18:3: gosource: computed call runtime is not implemented
+testdir:fixedbugs/issue30041.go	interpreted	fixedbugs/issue30041.go:27:11: fixedbugs/issue30041.go:27:34: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPAddressExpr
+testdir:fixedbugs/issue30116.go	interpreted	fixedbugs/issue30116.go:36:8: fixedbugs/issue30116.go:36:8: BASHPP-ECOLLECTION-BOUNDS: index -9876543210 out of bounds for length 3
+testdir:fixedbugs/issue30116u.go	interpreted	BASHPP-ECOLLECTION-ELEMENT: cannot use string value as uint64
+testdir:fixedbugs/issue30862.go	interpreted	/srv/sprint151/leaf-151/tmp/Testfixedbugsissue30862.go886226171/001/src/issue30862.dir/b/b.go:15:19: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPNewExpr
+testdir:fixedbugs/issue30862.go	compiled	test failed: fail 1
+testdir:fixedbugs/issue30908.go	interpreted	test/fixedbugs/issue30908.dir/m.go:18:5: BASHPP-EEXPR-OPERAND: indexed value is not a scalar
+testdir:fixedbugs/issue31419.go	interpreted	fixedbugs/issue31419.go:27:8: BASHPP-EASSIGN-ARITY: 2 variable(s) but 1 value(s)
+testdir:fixedbugs/issue31419.go	compiled	fixedbugs/issue31419.go:27:2: LOWER-ETYPE: assignment mismatch: 2 variables but __bpp0_rt.MustValue returns 1 value
+testdir:fixedbugs/issue31747.go	interpreted	compilation succeeded unexpectedly
+testdir:fixedbugs/issue31747.go	compiled	# bashpp_s1572
+testdir:fixedbugs/issue32187.go	interpreted	fixedbugs/issue32187.go:32:9: BASHPP-EASSERT-FAIL: interface value has dynamic type <inferred>, not *int
+testdir:fixedbugs/issue32288.go	interpreted	BASHPP-ENIL-DEREF: dereference of nil pointer
+testdir:fixedbugs/issue32477.go	interpreted	BASHPP-ECOLLECTION-ASSIGN: indexed target is not a collection
+testdir:fixedbugs/issue32595.go	interpreted	test/fixedbugs/issue32595.dir/b.go:11:23: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPNewExpr
+testdir:fixedbugs/issue33062.go	interpreted	fixedbugs/issue33062.go:24:20: BASHPP-EEXPR-OPERAND: x is not a scalar
+testdir:fixedbugs/issue33724.go	interpreted	BASHPP-ENIL-DEREF: dereference of nil pointer
+testdir:fixedbugs/issue33739.go	interpreted	test/fixedbugs/issue33739.dir/b.go:10:4: gosource: computed call runtime is not implemented
+testdir:fixedbugs/issue34123.go	interpreted	BASHPP-ENIL-DEREF: dereference of nil pointer
+testdir:fixedbugs/issue34329.go	interpreted	compilation succeeded unexpectedly
+testdir:fixedbugs/issue34395.go	interpreted	BASHPP-ECOLLECTION-ELEMENT: cannot use [100 * 1024 * 1024]byte as [104857600]byte element
+testdir:fixedbugs/issue35027.go	interpreted	fixedbugs/issue35027.go:18:45: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPAddressExpr
+testdir:fixedbugs/issue35073a.go	interpreted	fixedbugs/issue35073a.go:21:6: fixedbugs/issue35073a.go:21:6: BASHPP-EEXPR-CONVERT: cannot convert Int to __gosource_import_0_1.Pointer
+testdir:fixedbugs/issue35576.go	interpreted	fixedbugs/issue35576.go:14:8: BASHPP-EEXPR-CALL: scalar call requires one result
+testdir:fixedbugs/issue37716.go	interpreted	fixedbugs/issue37716.go:26:2: BASHPP-ECOLLECTION-KEY: unsupported map key type K
+testdir:fixedbugs/issue37975.go	interpreted	BASHPP-EBUILTIN-TYPE: assignment target "_" is not declared
+testdir:fixedbugs/issue38125.go	interpreted	test/fixedbugs/issue38125.go:21:6: gosource: unsupported expression *ast.StructType
+testdir:fixedbugs/issue38125.go	compiled	test/fixedbugs/issue38125.go:21:6: gosource: unsupported expression *ast.StructType
+testdir:fixedbugs/issue38496.go	interpreted	fixedbugs/issue38496.go:19:6: fixedbugs/issue38496.go:19:6: BASHPP-ENIL-DEREF: dereference of nil pointer
+testdir:fixedbugs/issue39541.go	interpreted	fixedbugs/issue39541.go:20:60: BASHPP-EEXPR-NIL: nil is not a scalar
+testdir:fixedbugs/issue40252.go	interpreted	BASHPP-ESELECTOR-ROOT: __gosource_pkg_0_I is not a structured value
+testdir:fixedbugs/issue40367.go	interpreted	fixedbugs/issue40367.go:26:1: gosource: unsupported LabeledStmt
+testdir:fixedbugs/issue40367.go	compiled	fixedbugs/issue40367.go:26:1: gosource: unsupported LabeledStmt
+testdir:fixedbugs/issue40629.go	interpreted	BASHPP-ENIL-DEREF: dereference of nil pointer
+testdir:fixedbugs/issue4066.go	interpreted	fixedbugs/issue4066.go:25:8: BASHPP-EASSERT-FAIL: interface value has dynamic type string, not terr
+testdir:fixedbugs/issue4085b.go	interpreted	BASHPP-EBUILTIN-TYPE: assignment target "_" is not declared
+testdir:fixedbugs/issue40917.go	interpreted	fixedbugs/issue40917.go:13:22: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPAddressExpr
+testdir:fixedbugs/issue41575.go	interpreted	test/fixedbugs/issue41575.go:18:6: invalid recursive type b
+testdir:fixedbugs/issue41575.go	compiled	test/fixedbugs/issue41575.go:18:6: invalid recursive type b
+testdir:fixedbugs/issue42058a.go	interpreted	compilation succeeded unexpectedly
+testdir:fixedbugs/issue42058a.go	compiled	# bashpp_s1572
+testdir:fixedbugs/issue42058b.go	interpreted	compilation succeeded unexpectedly
+testdir:fixedbugs/issue4252.go	interpreted	test/fixedbugs/issue4252.dir/main.go:16:27: BASHPP-EEXPR-NIL: nil is not a scalar
+testdir:fixedbugs/issue42703.go	interpreted	fixedbugs/issue42703.go:12:2: gosource: computed call runtime is not implemented
+testdir:fixedbugs/issue43111.go	interpreted	invalid select case
+testdir:fixedbugs/issue4316.go	interpreted	fixedbugs/issue4316.go:19:7: BASHPP-EEXPR-CONVERT: cannot convert String to Peano
+testdir:fixedbugs/issue43164.go	compiled	test/fixedbugs/issue43164.dir/a.go:9:1: LOWER-ETYPE: cannot use Index (value of type func(s []byte, sep []byte) int) as func(s string, substr string) int value in variable declaration
+testdir:fixedbugs/issue4323.go	compiled	test/fixedbugs/issue4323.go:18:1: LOWER-ETYPE: cannot use newReader() (value of type *reader) as reader value in variable declaration
+testdir:fixedbugs/issue43292.go	interpreted	fixedbugs/issue43292.go:11:10: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPCompositeLit
+testdir:fixedbugs/issue43444.go	interpreted	e a bfixedbugs/issue43444.go:26:13: fixedbugs/issue43444.go:26:13: BASHPP-EEXPR-FORM: unsupported scalar call
+testdir:fixedbugs/issue4353.go	interpreted	fixedbugs/issue4353.go:18:6: fixedbugs/issue4353.go:18:6: BASHPP-ECOLLECTION-BOUNDS: index 100023 out of bounds for length 0
+testdir:fixedbugs/issue43570.go	interpreted	fixedbugs/issue43570.go:20:5: BASHPP-EEXPR-OPERAND: t is not a scalar
+testdir:fixedbugs/issue43619.go	interpreted	fixedbugs/issue43619.go:71:20: BASHPP-ECOLLECTION-ELEMENT: cannot use *interp.bashPPBridgeValue value as float64
+testdir:fixedbugs/issue43633.go	interpreted	test/fixedbugs/issue43633.dir/main.go:15:6: BASHPP-EEXPR-UNDEFINED: undefined callable g
+testdir:fixedbugs/issue43835.go	interpreted	fixedbugs/issue43835.go:26:17: fixedbugs/issue43835.go:26:17: BASHPP-ENIL-DEREF: dereference of nil pointer
+testdir:fixedbugs/issue43942.go	interpreted	fixedbugs/issue43942.go:16:3: fixedbugs/issue43942.go:16:15: BASHPP-EEXPR-UNDEFINED: undefined callable recover
+testdir:fixedbugs/issue44355.go	compiled	test/fixedbugs/issue44355.dir/b.go:9:1: LOWER-ETYPE: cannot use __gosource_pkg_0_F() (value of type *int) as int value in variable declaration
+testdir:fixedbugs/issue44465.go	interpreted	test/fixedbugs/issue44465.go:19:3: gosource: unsupported labeled branch
+testdir:fixedbugs/issue44465.go	compiled	test/fixedbugs/issue44465.go:19:3: gosource: unsupported labeled branch
+testdir:fixedbugs/issue44830.go	interpreted	fixedbugs/issue44830.go:15:37: BASHPP-EEXPR-NIL: nil is not a scalar
+testdir:fixedbugs/issue4495.go	interpreted	fixedbugs/issue4495.go:21:11: fixedbugs/issue4495.go:21:11: BASHPP-EEXPR-UNDEFINED: undefined callable I
+testdir:fixedbugs/issue4510.go	interpreted	test/fixedbugs/issue4510.dir/f2.go:7:6: fmt already declared through import of package fmt ("fmt")
+testdir:fixedbugs/issue4510.go	compiled	test/fixedbugs/issue4510.dir/f2.go:7:6: fmt already declared through import of package fmt ("fmt")
+testdir:fixedbugs/issue4518.go	interpreted	fixedbugs/issue4518.go:63:2: Go value requires one result
+testdir:fixedbugs/issue4562.go	interpreted	fixedbugs/issue4562.go:22:9: BASHPP-ENIL-DEREF: dereference of nil pointer
+testdir:fixedbugs/issue4585.go	interpreted	BASHPP-ESELECTOR-EXPR: unsupported structured expression
+testdir:fixedbugs/issue4590.go	interpreted	BASHPP-EINTERFACE-IMPOSSIBLE: struct cannot implement interface
+testdir:fixedbugs/issue45947.go	interpreted	test/fixedbugs/issue45947.go:12:3: gosource: unsupported LabeledStmt
+testdir:fixedbugs/issue45947.go	compiled	test/fixedbugs/issue45947.go:12:3: gosource: unsupported LabeledStmt
+testdir:fixedbugs/issue45948.go	interpreted	test/fixedbugs/issue45948.go:13:1: gosource: unsupported LabeledStmt
+testdir:fixedbugs/issue45948.go	compiled	test/fixedbugs/issue45948.go:13:1: gosource: unsupported LabeledStmt
+testdir:fixedbugs/issue46304.go	interpreted	BASHPP-ECOLLECTION-ELEMENT: fixedbugs/issue46304.go:71:33: BASHPP-EEXPR-OPERAND: p1 is not a scalar
+testdir:fixedbugs/issue46525.go	interpreted	compilation succeeded unexpectedly
+testdir:fixedbugs/issue46725.go	interpreted	BASHPP-ESTRUCT-TYPE: <inferred> is not a supported struct type
+testdir:fixedbugs/issue46938.go	interpreted	fixedbugs/issue46938.go:25:22: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPAddressExpr
+testdir:fixedbugs/issue47068.go	interpreted	test/fixedbugs/issue47068.dir/b.go:11:23: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPNewExpr
+testdir:fixedbugs/issue47201.go	interpreted	test/fixedbugs/issue47201.dir/b.go:7:6: Println already declared through dot-import of package fmt ("fmt")
+testdir:fixedbugs/issue47201.go	compiled	test/fixedbugs/issue47201.dir/b.go:7:6: Println already declared through dot-import of package fmt ("fmt")
+testdir:fixedbugs/issue4748.go	interpreted	fixedbugs/issue4748.go:13:9: gosource: unsupported labeled branch
+testdir:fixedbugs/issue4748.go	compiled	fixedbugs/issue4748.go:13:9: gosource: unsupported labeled branch
+testdir:fixedbugs/issue48097.go	interpreted	compilation succeeded unexpectedly
+testdir:fixedbugs/issue48097.go	compiled	panic: runtime error: invalid memory address or nil pointer dereference
+testdir:fixedbugs/issue48230.go	interpreted	compilation succeeded unexpectedly
+testdir:fixedbugs/issue48230.go	compiled	# bashpp_s1572
+testdir:fixedbugs/issue4847.go	interpreted	test/fixedbugs/issue4847.go:22:5: initialization cycle for matchAny
+testdir:fixedbugs/issue4847.go	compiled	test/fixedbugs/issue4847.go:22:5: initialization cycle for matchAny
+testdir:fixedbugs/issue48473.go	interpreted	BASHPP-ESELECTOR-ROOT: s is not a structured value
+testdir:fixedbugs/issue48476.go	interpreted	BASHPP-ESELECTOR-ROOT: s is not a structured value
+testdir:fixedbugs/issue48536.go	interpreted	fixedbugs/issue48536.go:15:23: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPAddressExpr
+testdir:fixedbugs/issue48898.go	interpreted	fixedbugs/issue48898.go:11:11: BASHPP-EEXPR-UNDEFINED: undefined callable recover
+testdir:fixedbugs/issue49145.go	interpreted	fixedbugs/issue49145.go:10:1: gosource: unsupported LabeledStmt
+testdir:fixedbugs/issue49145.go	compiled	fixedbugs/issue49145.go:10:1: gosource: unsupported LabeledStmt
+testdir:fixedbugs/issue49368.go	interpreted	compilation succeeded unexpectedly
+testdir:fixedbugs/issue49368.go	compiled	# bashpp_s1572
+testdir:fixedbugs/issue49512.go	interpreted	BASHPP-EBUILTIN-TYPE: BASHPP-ECOLLECTION-ELEMENT: scalar cannot be used as func(int)(int,int)
+testdir:fixedbugs/issue49767.go	interpreted	compilation succeeded unexpectedly
+testdir:fixedbugs/issue49814.go	interpreted	compilation succeeded unexpectedly
+testdir:fixedbugs/issue50190.go	interpreted	fixedbugs/issue50190.go:16:5: BASHPP-ECOMPARE-TYPE: mismatched comparison
+testdir:fixedbugs/issue50671.go	interpreted	poison: cannot use "5863475608603853/17592186044416" as float64 value for parameter x
+testdir:fixedbugs/issue50672.go	interpreted	fixedbugs/issue50672.go:23:9: fixedbugs/issue50672.go:23:9: Go value requires one result
+testdir:fixedbugs/issue50788.go	interpreted	test/fixedbugs/issue50788.dir/b.go:9:6: invalid recursive type T
+testdir:fixedbugs/issue50788.go	compiled	test/fixedbugs/issue50788.dir/b.go:9:6: invalid recursive type T
+testdir:fixedbugs/issue51401.go	interpreted	BASHPP-ESELECTOR-ROOT: outer is not a structured value
+testdir:fixedbugs/issue51531.go	interpreted	compilation succeeded unexpectedly
+testdir:fixedbugs/issue51913.go	interpreted	fixedbugs/issue51913.go:9:9: fixedbugs/issue51913.go:9:9: BASHPP-EEXPR-FORM: unsupported scalar call
+testdir:fixedbugs/issue52072.go	interpreted	value method M called using nil *T pointer
+testdir:fixedbugs/issue52278.go	interpreted	test/fixedbugs/issue52278.go:10:1: gosource: unsupported LabeledStmt
+testdir:fixedbugs/issue52278.go	compiled	test/fixedbugs/issue52278.go:10:1: gosource: unsupported LabeledStmt
+testdir:fixedbugs/issue52279.go	interpreted	test/fixedbugs/issue52279.dir/lib.go:3:1: BASHPP-ECOLLECTION-KEY: unsupported map key type K
+testdir:fixedbugs/issue52612.go	interpreted	BASHPP-ESELECTOR-EXPR: unsupported structured expression
+testdir:fixedbugs/issue52697.go	interpreted	compilation succeeded unexpectedly
+testdir:fixedbugs/issue52788.go	interpreted	fixedbugs/issue52788.go:23:56: BASHPP-EEXPR-NIL: nil is not a scalar
+testdir:fixedbugs/issue52788a.go	interpreted	fixedbugs/issue52788a.go:25:56: BASHPP-EEXPR-NIL: nil is not a scalar
+testdir:fixedbugs/issue52856.go	interpreted	BASHPP-EASSERT-OPERAND: type assertion operand must be an interface
+testdir:fixedbugs/issue52856.go	compiled	panic: 0 [recovered, repanicked]
+testdir:fixedbugs/issue53137.go	interpreted	BASHPP-EGENERIC-INFER: conflicting type inference for showOffsets
+testdir:fixedbugs/issue53309.go	interpreted	fixedbugs/issue53309.go:41:2: fixedbugs/issue53309.go:41:14: BASHPP-EEXPR-CONVERT: cannot convert String to Value[string]
+testdir:fixedbugs/issue53635.go	interpreted	fixedbugs/issue53635.go:14:13: BASHPP-EEXPR-NIL: nil is not a scalar
+testdir:fixedbugs/issue5373.go	interpreted	BASHPP-ECOLLECTION-ELEMENT: fixedbugs/issue5373.go:57:17: BASHPP-EEXPR-OPERAND: s is not a scalar
+testdir:fixedbugs/issue53982.go	interpreted	test/fixedbugs/issue53982.go:20:8: gosource: unsupported expression *ast.IndexListExpr
+testdir:fixedbugs/issue53982.go	compiled	test/fixedbugs/issue53982.go:20:8: gosource: unsupported expression *ast.IndexListExpr
+testdir:fixedbugs/issue54220.go	interpreted	unknown imported symbol or method: __gosource_import_0_2.Offsetof
+testdir:fixedbugs/issue54307.go	interpreted	test/fixedbugs/issue54307.go:18:9: gosource: unsupported expression *ast.IndexListExpr
+testdir:fixedbugs/issue54307.go	compiled	test/fixedbugs/issue54307.go:18:9: gosource: unsupported expression *ast.IndexListExpr
+testdir:fixedbugs/issue54343.go	interpreted	fixedbugs/issue54343.go:15:6: BASHPP-EASSIGN-UNDECLARED: RHS nil is not declared
+testdir:fixedbugs/issue54467.go	interpreted	BASHPP-ESELECTOR-EXPR: unsupported structured expression
+testdir:fixedbugs/issue54632.go	interpreted	fixedbugs/issue54632.go:21:7: BASHPP-EASSIGN-UNDECLARED: RHS pass is not declared
+testdir:fixedbugs/issue54911.go	compiled	test/fixedbugs/issue54911.go:16:2: LOWER-ETYPE: cannot use generic type Set without instantiation
+testdir:fixedbugs/issue54912.go	interpreted	test/fixedbugs/issue54912.dir/main.go:10:4: gosource: computed call runtime is not implemented
+testdir:fixedbugs/issue55122.go	interpreted	fixedbugs/issue55122.go:22:5: BASHPP-EEXPR-OPERAND: x is not a scalar
+testdir:fixedbugs/issue55122b.go	interpreted	fixedbugs/issue55122b.go:22:5: BASHPP-EEXPR-OPERAND: x is not a scalar
+testdir:fixedbugs/issue5515.go	interpreted	fixedbugs/issue5515.go:16:21: BASHPP-EEXPR-OPERAND: b is not a scalar
+testdir:fixedbugs/issue56103.go	interpreted	compilation succeeded unexpectedly
+testdir:fixedbugs/issue56103.go	compiled	# bashpp_s1572
+testdir:fixedbugs/issue56778.go	compiled	test/fixedbugs/issue56778.dir/b.go:9:1: LOWER-ETYPE: cannot use __gosource_pkg_0_NewA(int(0)) (value of type *__gosource_pkg_0_A) as __gosource_pkg_0_A value in variable declaration
+testdir:fixedbugs/issue57309.go	interpreted	fixedbugs/issue57309.go:21:3: gosource: computed call runtime is not implemented
+testdir:fixedbugs/issue57778.go	compiled	test/fixedbugs/issue57778.go:19:1: LOWER-ETYPE: cannot use NewFreeListG[*int](int(1024)) (value of type *FreeListG[*int]) as FreeListG[*int] value in variable declaration
+testdir:fixedbugs/issue5809.go	interpreted	BASHPP-ESELECTOR-ROOT: d16 is not a structured value
+testdir:fixedbugs/issue5856.go	interpreted	BUG: defer called from /srv/sprint142/sdk-source/go/test/fixedbugs/.bashpp-eval-147015521/bashpp-session-98589861.go:666, want issue5856.go:28
+testdir:fixedbugs/issue58671.go	interpreted	fixedbugs/issue58671.go:13:17: BASHPP-EASSIGN-TYPE: cannot use int as rune in declaration
+testdir:fixedbugs/issue59293.go	interpreted	fixedbugs/issue59293.go:13:9: unknown imported symbol or method: __gosource_import_0_0.SliceData
+testdir:fixedbugs/issue59338.go	interpreted	fixedbugs/issue59338.go:14:7: BASHPP-EASSIGN-UNDECLARED: RHS g1 is not declared
+testdir:fixedbugs/issue59404part2.go	interpreted	fixedbugs/issue59404part2.go:18:2: BASHPP-EASSIGN-TYPE: untyped result is not assignable to func(int)(int)
+testdir:fixedbugs/issue59411.go	interpreted	BASHPP-ECOLLECTION-KEY: unsupported map key type float64
+testdir:fixedbugs/issue59680.go	interpreted	BASHPP-ECOLLECTION-ELEMENT: cannot use string value as RO
+testdir:fixedbugs/issue59709.go	interpreted	BASHPP-EGENERIC-INFER: cannot infer type arguments for __gosource_pkg_1_New
+testdir:fixedbugs/issue6055.go	interpreted	nil interface has no method Close
+testdir:fixedbugs/issue60601.go	interpreted	fixedbugs/issue60601.go:15:14: unknown imported symbol or method: __gosource_import_0_1.Sizeof
+testdir:fixedbugs/issue62203.go	interpreted	unknown imported symbol or method: __gosource_import_0_1.Clone
+testdir:fixedbugs/issue6269.go	interpreted	fixedbugs/issue6269.go:34:13: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPCompositeLit
+testdir:fixedbugs/issue63333.go	interpreted	compilation succeeded unexpectedly
+testdir:fixedbugs/issue63333.go	compiled	compilation succeeded unexpectedly
+testdir:fixedbugs/issue63489a.go	interpreted	test/fixedbugs/issue63489a.go:18:16: cannot range over 10 (untyped int constant): requires go1.22 or later
+testdir:fixedbugs/issue63489a.go	compiled	test/fixedbugs/issue63489a.go:18:16: cannot range over 10 (untyped int constant): requires go1.22 or later
+testdir:fixedbugs/issue63489b.go	interpreted	test/fixedbugs/issue63489b.go:18:16: cannot range over 10 (untyped int constant): requires go1.22 or later
+testdir:fixedbugs/issue63489b.go	compiled	test/fixedbugs/issue63489b.go:18:16: cannot range over 10 (untyped int constant): requires go1.22 or later
+testdir:fixedbugs/issue63955.go	interpreted	test/fixedbugs/issue63955.go:11:1: gosource: unsupported LabeledStmt
+testdir:fixedbugs/issue63955.go	compiled	test/fixedbugs/issue63955.go:11:1: gosource: unsupported LabeledStmt
+testdir:fixedbugs/issue65417.go	interpreted	BASHPP-EGENERIC-INFER: cannot infer type arguments for f
+testdir:fixedbugs/issue65957.go	interpreted	test/fixedbugs/issue65957.dir/a.go:11:10: gosource: unsupported expression *ast.ArrayType
+testdir:fixedbugs/issue65957.go	compiled	test/fixedbugs/issue65957.dir/a.go:11:10: gosource: unsupported expression *ast.ArrayType
+testdir:fixedbugs/issue65962.go	interpreted	BASHPP-EASSERT-IMPOSSIBLE: T cannot be asserted from I
+testdir:fixedbugs/issue6703a.go	interpreted	test/fixedbugs/issue6703a.go:16:5: initialization cycle for x
+testdir:fixedbugs/issue6703a.go	compiled	test/fixedbugs/issue6703a.go:16:5: initialization cycle for x
+testdir:fixedbugs/issue6703b.go	interpreted	test/fixedbugs/issue6703b.go:16:5: initialization cycle for x
+testdir:fixedbugs/issue6703b.go	compiled	test/fixedbugs/issue6703b.go:16:5: initialization cycle for x
+testdir:fixedbugs/issue6703c.go	interpreted	test/fixedbugs/issue6703c.go:18:5: initialization cycle for x
+testdir:fixedbugs/issue6703c.go	compiled	test/fixedbugs/issue6703c.go:18:5: initialization cycle for x
+testdir:fixedbugs/issue6703d.go	interpreted	test/fixedbugs/issue6703d.go:18:5: initialization cycle for x
+testdir:fixedbugs/issue6703d.go	compiled	test/fixedbugs/issue6703d.go:18:5: initialization cycle for x
+testdir:fixedbugs/issue6703e.go	interpreted	test/fixedbugs/issue6703e.go:18:5: initialization cycle for x
+testdir:fixedbugs/issue6703e.go	compiled	test/fixedbugs/issue6703e.go:18:5: initialization cycle for x
+testdir:fixedbugs/issue6703f.go	interpreted	test/fixedbugs/issue6703f.go:18:5: initialization cycle for x
+testdir:fixedbugs/issue6703f.go	compiled	test/fixedbugs/issue6703f.go:18:5: initialization cycle for x
+testdir:fixedbugs/issue6703g.go	interpreted	test/fixedbugs/issue6703g.go:20:5: initialization cycle for x
+testdir:fixedbugs/issue6703g.go	compiled	test/fixedbugs/issue6703g.go:20:5: initialization cycle for x
+testdir:fixedbugs/issue6703h.go	interpreted	test/fixedbugs/issue6703h.go:20:5: initialization cycle for x
+testdir:fixedbugs/issue6703h.go	compiled	test/fixedbugs/issue6703h.go:20:5: initialization cycle for x
+testdir:fixedbugs/issue6703i.go	interpreted	test/fixedbugs/issue6703i.go:20:5: initialization cycle for x
+testdir:fixedbugs/issue6703i.go	compiled	test/fixedbugs/issue6703i.go:20:5: initialization cycle for x
+testdir:fixedbugs/issue6703j.go	interpreted	test/fixedbugs/issue6703j.go:20:5: initialization cycle for x
+testdir:fixedbugs/issue6703j.go	compiled	test/fixedbugs/issue6703j.go:20:5: initialization cycle for x
+testdir:fixedbugs/issue6703k.go	interpreted	test/fixedbugs/issue6703k.go:20:2: initialization cycle for x
+testdir:fixedbugs/issue6703k.go	compiled	test/fixedbugs/issue6703k.go:20:2: initialization cycle for x
+testdir:fixedbugs/issue6703l.go	interpreted	test/fixedbugs/issue6703l.go:20:2: initialization cycle for x
+testdir:fixedbugs/issue6703l.go	compiled	test/fixedbugs/issue6703l.go:20:2: initialization cycle for x
+testdir:fixedbugs/issue6703m.go	interpreted	test/fixedbugs/issue6703m.go:24:2: initialization cycle for x
+testdir:fixedbugs/issue6703m.go	compiled	test/fixedbugs/issue6703m.go:24:2: initialization cycle for x
+testdir:fixedbugs/issue6703n.go	interpreted	test/fixedbugs/issue6703n.go:24:2: initialization cycle for x
+testdir:fixedbugs/issue6703n.go	compiled	test/fixedbugs/issue6703n.go:24:2: initialization cycle for x
+testdir:fixedbugs/issue6703o.go	interpreted	test/fixedbugs/issue6703o.go:22:2: initialization cycle for x
+testdir:fixedbugs/issue6703o.go	compiled	test/fixedbugs/issue6703o.go:22:2: initialization cycle for x
+testdir:fixedbugs/issue6703p.go	interpreted	test/fixedbugs/issue6703p.go:22:2: initialization cycle for x
+testdir:fixedbugs/issue6703p.go	compiled	test/fixedbugs/issue6703p.go:22:2: initialization cycle for x
+testdir:fixedbugs/issue6703q.go	interpreted	test/fixedbugs/issue6703q.go:27:2: initialization cycle for x
+testdir:fixedbugs/issue6703q.go	compiled	test/fixedbugs/issue6703q.go:27:2: initialization cycle for x
+testdir:fixedbugs/issue6703r.go	interpreted	test/fixedbugs/issue6703r.go:27:2: initialization cycle for x
+testdir:fixedbugs/issue6703r.go	compiled	test/fixedbugs/issue6703r.go:27:2: initialization cycle for x
+testdir:fixedbugs/issue6703s.go	interpreted	test/fixedbugs/issue6703s.go:18:5: initialization cycle for x
+testdir:fixedbugs/issue6703s.go	compiled	test/fixedbugs/issue6703s.go:18:5: initialization cycle for x
+testdir:fixedbugs/issue6703t.go	interpreted	test/fixedbugs/issue6703t.go:18:5: initialization cycle for x
+testdir:fixedbugs/issue6703t.go	compiled	test/fixedbugs/issue6703t.go:18:5: initialization cycle for x
+testdir:fixedbugs/issue6703u.go	interpreted	test/fixedbugs/issue6703u.go:18:5: initialization cycle for x
+testdir:fixedbugs/issue6703u.go	compiled	test/fixedbugs/issue6703u.go:18:5: initialization cycle for x
+testdir:fixedbugs/issue6703v.go	interpreted	test/fixedbugs/issue6703v.go:18:5: initialization cycle for x
+testdir:fixedbugs/issue6703v.go	compiled	test/fixedbugs/issue6703v.go:18:5: initialization cycle for x
+testdir:fixedbugs/issue6703w.go	interpreted	test/fixedbugs/issue6703w.go:20:2: initialization cycle for x
+testdir:fixedbugs/issue6703w.go	compiled	test/fixedbugs/issue6703w.go:20:2: initialization cycle for x
+testdir:fixedbugs/issue6703x.go	interpreted	test/fixedbugs/issue6703x.go:20:2: initialization cycle for x
+testdir:fixedbugs/issue6703x.go	compiled	test/fixedbugs/issue6703x.go:20:2: initialization cycle for x
+testdir:fixedbugs/issue6703y.go	interpreted	test/fixedbugs/issue6703y.go:23:5: initialization cycle for x
+testdir:fixedbugs/issue6703y.go	compiled	test/fixedbugs/issue6703y.go:23:5: initialization cycle for x
+testdir:fixedbugs/issue6703z.go	interpreted	test/fixedbugs/issue6703z.go:23:5: initialization cycle for x
+testdir:fixedbugs/issue6703z.go	compiled	test/fixedbugs/issue6703z.go:23:5: initialization cycle for x
+testdir:fixedbugs/issue67190.go	interpreted	fixedbugs/issue67190.go:13:9: BASHPP-EEXPR-OPERAND: ch1 is not a scalar
+testdir:fixedbugs/issue6772.go	interpreted	test/fixedbugs/issue6772.go:10:9: a redeclared in this block
+testdir:fixedbugs/issue6772.go	compiled	test/fixedbugs/issue6772.go:10:9: a redeclared in this block
+testdir:fixedbugs/issue68227.go	interpreted	BASHPP-EBUILTIN-TYPE: BASHPP-ECOLLECTION-ELEMENT: cannot use string value as uint64
+testdir:fixedbugs/issue68415.go	interpreted	unknown imported symbol or method: __gosource_import_0_1.Make
+testdir:fixedbugs/issue68415.go	compiled	fixedbugs/issue68415.go:14:1: LOWER-ETYPE: cannot use __gosource_import_0_0.MustCompile(string(`^data\.\d+\.bin$`)) (value of type *regexp.Regexp) as regexp.Regexp value in variable declaration
+testdir:fixedbugs/issue6847.go	compiled	test/fixedbugs/issue6847.go:32:2: LOWER-ETYPE: cannot use cr (variable of type <-chan int) as chan int value in send
+testdir:fixedbugs/issue68526.go	interpreted	/srv/sprint151/leaf-151/tmp/Testfixedbugsissue68526.go3565677977/001/src/issue68526.dir/main.go:21:9: BASHPP-EEXPR-OPERAND: want is not a scalar
+testdir:fixedbugs/issue68816.go	interpreted	BASHPP-EBUILTIN-SIZE: make slice length/capacity is invalid: -1/-1
+testdir:fixedbugs/issue70175.go	interpreted	test/fixedbugs/issue70175.go:10:1: gosource: unsupported LabeledStmt
+testdir:fixedbugs/issue70175.go	compiled	test/fixedbugs/issue70175.go:10:1: gosource: unsupported LabeledStmt
+testdir:fixedbugs/issue70189.go	interpreted	BASHPP-ECOLLECTION-KEY: unsupported map key type float64
+testdir:fixedbugs/issue7023.go	interpreted	test/fixedbugs/issue7023.dir/a.go:8:2: gosource: unsupported labeled branch
+testdir:fixedbugs/issue7023.go	compiled	test/fixedbugs/issue7023.dir/a.go:8:2: gosource: unsupported labeled branch
+testdir:fixedbugs/issue71225.go	interpreted	test/fixedbugs/issue71225.go:12:8: could not import C (go list failed using go SDK go1.27.0 at /srv/sprint151/leaf-151/evidence/goroot/bin/go (GOROOT=/srv/sprint151/leaf-151/evidence/goroot, found via GOROOT, meets go1.27.0): exit status 1
+testdir:fixedbugs/issue71225.go	compiled	test/fixedbugs/issue71225.go:12:8: could not import C (go list failed using go SDK go1.27.0 at /srv/sprint151/leaf-151/evidence/goroot/bin/go (GOROOT=/srv/sprint151/leaf-151/evidence/goroot, found via GOROOT, meets go1.27.0): exit status 1
+testdir:fixedbugs/issue71226.go	interpreted	test/fixedbugs/issue71226.go:20:8: could not import C (go list failed using go SDK go1.27.0 at /srv/sprint151/leaf-151/evidence/goroot/bin/go (GOROOT=/srv/sprint151/leaf-151/evidence/goroot, found via GOROOT, meets go1.27.0): exit status 1
+testdir:fixedbugs/issue71226.go	compiled	test/fixedbugs/issue71226.go:20:8: could not import C (go list failed using go SDK go1.27.0 at /srv/sprint151/leaf-151/evidence/goroot/bin/go (GOROOT=/srv/sprint151/leaf-151/evidence/goroot, found via GOROOT, meets go1.27.0): exit status 1
+testdir:fixedbugs/issue71759.go	interpreted	fixedbugs/issue71759.go:11:9: fixedbugs/issue71759.go:11:15: BASHPP-ECOLLECTION-BOUNDS: index 0 out of bounds for length 0
+testdir:fixedbugs/issue71857.go	interpreted	type *__gosource_import_0_0.Uint64 has no method Or
+testdir:fixedbugs/issue72063.go	interpreted	BASHPP-EGENERIC-INFER: cannot infer type arguments for Y
+testdir:fixedbugs/issue72844.go	interpreted	BASHPP-EBUILTIN-TYPE: assignment target "_" is not declared
+testdir:fixedbugs/issue72860.go	interpreted	fixedbugs/issue72860.go:11:11: BASHPP-ENIL-DEREF: dereference of nil pointer
+testdir:fixedbugs/issue73476.go	interpreted	fixedbugs/issue73476.go:11:17: BASHPP-ENIL-DEREF: dereference of nil pointer
+testdir:fixedbugs/issue73748a.go	interpreted	BASHPP-ENIL-DEREF: dereference of nil pointer
+testdir:fixedbugs/issue73748b.go	interpreted	BASHPP-ENIL-DEREF: dereference of nil pointer
+testdir:fixedbugs/issue73888.go	interpreted	fixedbugs/issue73888.go:27:16: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPCompositeLit
+testdir:fixedbugs/issue73888b.go	interpreted	fixedbugs/issue73888b.go:27:16: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPCompositeLit
+testdir:fixedbugs/issue73916.go	interpreted	fixedbugs/issue73916.go:10:5: BASHPP-EEXPR-UNDEFINED: undefined callable recover
+testdir:fixedbugs/issue73916b.go	interpreted	fixedbugs/issue73916b.go:11:6: BASHPP-EEXPR-UNDEFINED: undefined callable recover
+testdir:fixedbugs/issue74379.go	interpreted	fixedbugs/issue74379.go:24:6: BASHPP-EEXPR-UNDEFINED: undefined callable recover
+testdir:fixedbugs/issue74379b.go	interpreted	fixedbugs/issue74379b.go:24:6: BASHPP-EEXPR-UNDEFINED: undefined callable recover
+testdir:fixedbugs/issue74379c.go	interpreted	fixedbugs/issue74379c.go:26:6: BASHPP-EEXPR-UNDEFINED: undefined callable recover
+testdir:fixedbugs/issue74626.go	interpreted	compilation succeeded unexpectedly
+testdir:fixedbugs/issue74626.go	compiled	compilation succeeded unexpectedly
+testdir:fixedbugs/issue75022.go	interpreted	test/fixedbugs/issue75022.go:18:6: invalid recursive type: D refers to itself
+testdir:fixedbugs/issue75022.go	compiled	test/fixedbugs/issue75022.go:18:6: invalid recursive type: D refers to itself
+testdir:fixedbugs/issue75327.go	interpreted	fixedbugs/issue75327.go:25:7: fixedbugs/issue75327.go:25:7: BASHPP-ECOLLECTION-BOUNDS: index 1 out of bounds for length 1
+testdir:fixedbugs/issue75365.go	interpreted	fixedbugs/issue75365.go:28:36: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPAddressExpr
+testdir:fixedbugs/issue7538b.go	interpreted	test/fixedbugs/issue7538b.go:12:1: gosource: unsupported LabeledStmt
+testdir:fixedbugs/issue7538b.go	compiled	test/fixedbugs/issue7538b.go:12:1: gosource: unsupported LabeledStmt
+testdir:fixedbugs/issue75569.go	interpreted	fixedbugs/issue75569.go:10:1: gosource: unsupported LabeledStmt
+testdir:fixedbugs/issue75569.go	compiled	fixedbugs/issue75569.go:10:1: gosource: unsupported LabeledStmt
+testdir:fixedbugs/issue76008.go	interpreted	fixedbugs/issue76008.go:13:7: fixedbugs/issue76008.go:13:11: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPFuncLit
+testdir:fixedbugs/issue76950.go	interpreted	test/fixedbugs/issue76950.go:15:2: gosource: unsupported labeled branch
+testdir:fixedbugs/issue76950.go	compiled	test/fixedbugs/issue76950.go:15:2: gosource: unsupported labeled branch
+testdir:fixedbugs/issue78081.go	interpreted	BASHPP-EBUILTIN-TYPE: assignment target "_" is not declared
+testdir:fixedbugs/issue78295.go	interpreted	fixedbugs/issue78295.go:19:2: gosource: computed call runtime is not implemented
+testdir:fixedbugs/issue78297.go	interpreted	test/fixedbugs/issue78297.go:19:12: gosource: unsupported expression *ast.ArrayType
+testdir:fixedbugs/issue78297.go	compiled	test/fixedbugs/issue78297.go:19:12: gosource: unsupported expression *ast.ArrayType
+testdir:fixedbugs/issue78303_1.go	interpreted	fixedbugs/issue78303_1.go:13:13: BASHPP-ESELECTOR-EXPR: unsupported structured expression
+testdir:fixedbugs/issue78303_2.go	interpreted	fixedbugs/issue78303_2.go:13:13: BASHPP-ESELECTOR-EXPR: unsupported structured expression
+testdir:fixedbugs/issue78355.go	interpreted	compilation succeeded unexpectedly
+testdir:fixedbugs/issue78408.go	interpreted	test/fixedbugs/issue78408.go:13:3: gosource: unsupported LabeledStmt
+testdir:fixedbugs/issue78408.go	compiled	test/fixedbugs/issue78408.go:13:3: gosource: unsupported LabeledStmt
+testdir:fixedbugs/issue7863.go	interpreted	fixedbugs/issue7863.go:16:15: BASHPP-EPOINTER-TARGET: f is not a pointer
+testdir:fixedbugs/issue79197.go	interpreted	BASHPP-ECOLLECTION-BOUNDS: index 5 out of bounds for length 1
+testdir:fixedbugs/issue79236.go	interpreted	BASHPP-ECOLLECTION-BOUNDS: index 5 out of bounds for length 2
+testdir:fixedbugs/issue79236b.go	interpreted	BASHPP-ECOLLECTION-BOUNDS: index 3 out of bounds for length 0
+testdir:fixedbugs/issue79258.go	interpreted	compilation succeeded unexpectedly
+testdir:fixedbugs/issue79762.go	interpreted	fixedbugs/issue79762.go:27:2: gosource: computed call runtime is not implemented
+testdir:fixedbugs/issue79812.go	interpreted	BASHPP-EGENERIC-CONSTRAINT: string does not satisfy constraint for T in g
+testdir:fixedbugs/issue79874.go	interpreted	fixedbugs/issue79874.go:43:42: BASHPP-EPOINTER-TARGET: indexed target is not a collection
+testdir:fixedbugs/issue79960.go	interpreted	test/fixedbugs/issue79960.go:13:11: gosource: unsupported expression *ast.ArrayType
+testdir:fixedbugs/issue79960.go	compiled	test/fixedbugs/issue79960.go:13:11: gosource: unsupported expression *ast.ArrayType
+testdir:fixedbugs/issue80004.go	interpreted	fixedbugs/issue80004.go:51:11: fixedbugs/issue80004.go:51:34: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPAddressExpr
+testdir:fixedbugs/issue8004.go	interpreted	fixedbugs/issue8004.go:25:31: BASHPP-EEXPR-CONVERT: cannot convert String to __gosource_import_0_2.Pointer
+testdir:fixedbugs/issue80097.go	interpreted	test/fixedbugs/issue80097.go:16:1: gosource: unsupported LabeledStmt
+testdir:fixedbugs/issue80097.go	compiled	test/fixedbugs/issue80097.go:16:1: gosource: unsupported LabeledStmt
+testdir:fixedbugs/issue80188.go	interpreted	BASHPP-EPOINTER-TARGET: expression is not a pointer
+testdir:fixedbugs/issue80196.go	interpreted	fixedbugs/issue80196.go:28:6: BASHPP-EEXPR-OPERAND: s is not a scalar
+testdir:fixedbugs/issue8036.go	interpreted	BASHPP-EPOINTER-TARGET: expression is not a pointer
+testdir:fixedbugs/issue8042.go	interpreted	test/fixedbugs/issue8042.go:13:2: gosource: unsupported labeled branch
+testdir:fixedbugs/issue8042.go	compiled	test/fixedbugs/issue8042.go:13:2: gosource: unsupported labeled branch
+testdir:fixedbugs/issue8048.go	interpreted	fixedbugs/issue8048.go:51:10: BASHPP-ENIL-DEREF: dereference of nil pointer
+testdir:fixedbugs/issue80517_1.go	interpreted	fixedbugs/issue80517_1.go:32:3: gosource: computed call runtime is not implemented
+testdir:fixedbugs/issue80517_2.go	interpreted	BASHPP-EBUILTIN-SIZE: make slice length/capacity is invalid: -2/-2
+testdir:fixedbugs/issue80517_3.go	interpreted	BASHPP-EBUILTIN-SIZE: make slice length/capacity is invalid: -8/-8
+testdir:fixedbugs/issue8076.go	interpreted	test/fixedbugs/issue8076.go:14:1: gosource: unsupported LabeledStmt
+testdir:fixedbugs/issue8076.go	compiled	test/fixedbugs/issue8076.go:14:1: gosource: unsupported LabeledStmt
+testdir:fixedbugs/issue8132.go	interpreted	fixedbugs/issue8132.go:29:12: BASHPP-ENIL-DEREF: dereference of nil pointer
+testdir:fixedbugs/issue8325.go	interpreted	BASHPP-ESELECTOR-ROOT: alphanum is not a structured value
+testdir:fixedbugs/issue8336.go	interpreted	fixedbugs/issue8336.go:21:9: BASHPP-ENIL-DEREF: dereference of nil pointer
+testdir:fixedbugs/issue8347.go	interpreted	invalid select case
+testdir:fixedbugs/issue8606.go	interpreted	fixedbugs/issue8606.go:42:11: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPFuncLit
+testdir:fixedbugs/issue8606b.go	interpreted	BASHPP-ESELECTOR-ASSIGN: target is not a structured value
+testdir:fixedbugs/issue8613.go	interpreted	fixedbugs/issue8613.go:14:9: fixedbugs/issue8613.go:14:9: BASHPP-EEXPR-DIVZERO: division by zero
+testdir:fixedbugs/issue8620.go	interpreted	fixedbugs/issue8620.go:20:5: BASHPP-EEXPR-UNDEFINED: undefined callable copy
+testdir:fixedbugs/issue8947.go	interpreted	fixedbugs/issue8947.go:14:2: type T redeclared in this session
+testdir:fixedbugs/issue9006.go	interpreted	fixedbugs/issue9006.go:20:10: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPCompositeLit
+testdir:fixedbugs/issue9110.go	interpreted	BASHPP-ESELECTOR-ASSIGN: target is not a structured value
+testdir:fixedbugs/issue9604b.go	interpreted	BASHPP-ECOLLECTION-ELEMENT: fixedbugs/issue9604b.go:79:24: unknown imported symbol or method: __gosource_import_0_2.Sizeof
+testdir:fixedbugs/issue9604b.go	compiled	fixedbugs/issue9604b.go:18:1: LOWER-ETYPE: cannot use __gosource_import_0_1.NewInt(int64(1)) (value of type *big.Int) as big.Int value in variable declaration
+testdir:fixedbugs/notinheap.go	interpreted	compilation succeeded unexpectedly
+testdir:fixedbugs/notinheap2.go	interpreted	test/fixedbugs/notinheap2.go:61:11: gosource: unsupported expression *ast.StructType
+testdir:fixedbugs/notinheap2.go	compiled	test/fixedbugs/notinheap2.go:61:11: gosource: unsupported expression *ast.StructType
+testdir:fixedbugs/walk_bounded_overshift_empty_bound.go	interpreted	fixedbugs/walk_bounded_overshift_empty_bound.go:13:9: BASHPP-ECOLLECTION-BOUNDS: index 0 out of bounds for length 0
+testdir:float_lit.go	interpreted	close: cannot use "5764607523034235/576460752303423488" as float64 value for parameter da
+testdir:float_lit2.go	interpreted	BASHPP-ECOLLECTION-ELEMENT: cannot use string value as uint64
+testdir:floatcmp.go	interpreted	BASHPP-ECOLLECTION-ELEMENT: floatcmp.go:25:25: BASHPP-EEXPR-OPERAND: nan is not a scalar
+testdir:func1.go	interpreted	test/func1.go:17:17: a redeclared in this block
+testdir:func1.go	compiled	test/func1.go:17:17: a redeclared in this block
+testdir:func5.go	interpreted	func5.go:66:6: BASHPP-EASSIGN-UNDECLARED: RHS add is not declared
+testdir:func6.go	interpreted	func6.go:12:5: BASHPP-EEXPR-FORM: unsupported scalar call
+testdir:funcdup.go	interpreted	test/funcdup.go:10:13: i redeclared in this block
+testdir:funcdup.go	compiled	test/funcdup.go:10:13: i redeclared in this block
+testdir:funcdup2.go	interpreted	test/funcdup2.go:10:13: i redeclared in this block
+testdir:funcdup2.go	compiled	test/funcdup2.go:10:13: i redeclared in this block
+testdir:gc2.go	interpreted	gc2.go:41:15: BASHPP-ESELECTOR-TYPE: memstats has no fields
+testdir:gcgort.go	interpreted	gcgort.go:107:7: BASHPP-ECOMPARE-TYPE: value cannot be compared with nil
+testdir:gcgort.go	compiled	gcgort.go:988:40: LOWER-EUNDEFINED: undefined: complex64
+testdir:genmeth.go	interpreted	BASHPP-EGENERIC-INFER: cannot infer type arguments for apply
+testdir:genmeth1.go	interpreted	genmeth1.go:53:8: gosource: unsupported expression *ast.IndexListExpr
+testdir:genmeth1.go	compiled	genmeth1.go:53:8: gosource: unsupported expression *ast.IndexListExpr
+testdir:genmeth2.go	interpreted	genmeth2.go:33:2: gosource: unsupported function value type
+testdir:genmeth2.go	compiled	genmeth2.go:33:2: gosource: unsupported function value type
+testdir:goprint.go	interpreted	goprint.go:20:5: gosource: unsupported task capture: the launched callee does not resolve to an original function body; an original Go closure captures its free variables by reference and this launch cannot be given that meaning
+testdir:heapsampling.go	interpreted	heapsampling.go:76:14: gosource: unsupported expression *ast.ArrayType
+testdir:heapsampling.go	compiled	heapsampling.go:76:14: gosource: unsupported expression *ast.ArrayType
+testdir:import1.go	interpreted	test/import1.go:13:8: bufio redeclared in this block
+testdir:import1.go	compiled	test/import1.go:13:8: bufio redeclared in this block
+testdir:init1.go	interpreted	init1.go:30:16: init1.go:30:16: BASHPP-ESELECTOR-TYPE: memstats has no fields
+testdir:initexp.go	interpreted	test/initexp.go:15:5: initialization cycle for x
+testdir:initexp.go	compiled	test/initexp.go:15:5: initialization cycle for x
+testdir:initialize.go	interpreted	BASHPP-EASSIGN-MISMATCH: cannot use *[...]byte as *[16]byte
+testdir:initloop.go	interpreted	test/initloop.go:14:2: initialization cycle for a
+testdir:initloop.go	compiled	test/initloop.go:14:2: initialization cycle for a
+testdir:inline.go	interpreted	test/inline.go:154:2: gosource: unsupported LabeledStmt
+testdir:inline.go	compiled	test/inline.go:154:2: gosource: unsupported LabeledStmt
+testdir:interface/convert.go	interpreted	interface/convert.go:108:8: BASHPP-EASSIGN-ARITY: 2 variable(s) but 1 value(s)
+testdir:interface/convert.go	compiled	interface/convert.go:108:2: LOWER-ETYPE: assignment mismatch: 2 variables but __bpp0_rt.MustValue returns 1 value
+testdir:interface/embed3.go	interpreted	test/interface/embed3.dir/embed1.go:39:21: BASHPP-EASSERT-FAIL: interface value has dynamic type X1, not __gosource_pkg_0_I1
+testdir:interface/embed3.go	compiled	panic: BASHPP-EASSERT-FAIL: interface value has dynamic type X1, not __gosource_pkg_0_I1 [recovered]
+testdir:interface/fail.go	interpreted	interface/fail.go:24:6: BASHPP-EASSERT-FAIL: interface value has dynamic type *S, not I
+testdir:interface/noeq.go	interpreted	interface/noeq.go:26:9: BASHPP-ECOMPARE-NONCOMPARABLE: map values can only be compared to nil
+testdir:interface/receiver.go	interpreted	interface/receiver.go:24:5: BASHPP-EPOINTER-TARGET: t is not a pointer
+testdir:interface/returntype.go	interpreted	interface/returntype.go:28:8: BASHPP-EASSERT-FAIL: interface value has dynamic type *S, not I2
+testdir:intrinsic.go	interpreted	test/intrinsic.dir/main.go:9:4: could not import internal/runtime/sys (use of internal package internal/runtime/sys not allowed)
+testdir:intrinsic.go	compiled	test/intrinsic.dir/main.go:9:4: could not import internal/runtime/sys (use of internal package internal/runtime/sys not allowed)
+testdir:ken/array.go	interpreted	BASHPP-ECOLLECTION-ASSIGN: indexed target is not a collection
+testdir:ken/chan.go	interpreted	BASHPP-EBUILTIN-TYPE: new requires exactly one type argument and is only a value expression
+testdir:ken/convert.go	interpreted	BASHPP-ECOLLECTION-ELEMENT: cannot use string value as big
+testdir:ken/cplx3.go	interpreted	BASHPP-ESELECTOR-EXPR: unsupported structured expression
+testdir:ken/cplx5.go	interpreted	ken/cplx5.go:17:1: BASHPP-ECOLLECTION-KEY: unsupported map key type complex128
+testdir:ken/embed.go	interpreted	BASHPP-EBUILTIN-TYPE: new requires exactly one type argument and is only a value expression
+testdir:ken/label.go	interpreted	ken/label.go:14:3: gosource: unsupported labeled branch
+testdir:ken/label.go	compiled	ken/label.go:14:3: gosource: unsupported labeled branch
+testdir:ken/ptrfun.go	interpreted	BASHPP-EBUILTIN-TYPE: new requires exactly one type argument and is only a value expression
+testdir:ken/rob1.go	interpreted	BASHPP-ESELECTOR-TYPE: local i has no typed selector path
+testdir:ken/rob2.go	interpreted	BASHPP-EBUILTIN-TYPE: new requires exactly one type argument and is only a value expression
+testdir:ken/simparray.go	interpreted	BASHPP-ECOLLECTION-ASSIGN: indexed target is not a collection
+testdir:ken/simpbool.go	interpreted	BASHPP-EBUILTIN-TYPE: new requires exactly one type argument and is only a value expression
+testdir:ken/slicearray.go	interpreted	ken/slicearray.go:206:7: BASHPP-EASSIGN-UNDECLARED: RHS nil is not declared
+testdir:ken/sliceslice.go	interpreted	ken/sliceslice.go:198:7: BASHPP-EASSIGN-UNDECLARED: RHS nil is not declared
+testdir:ken/string.go	interpreted	abcxyz-abcxyz-abcxyz-abcxyz-abcxyz-abcxyz-ken/string.go:61:6: BASHPP-ESELECTOR-ROOT: c is not a structured value
+testdir:linkname3.go	interpreted	compilation succeeded unexpectedly
+testdir:linkname3.go	compiled	compilation succeeded unexpectedly
+testdir:linkx_run.go	interpreted	BASHPP-ESELECTOR-ASSIGN: target is not a structured value
+testdir:literal.go	interpreted	literal.go:137:2: literal.go:137:16: BASHPP-EEXPR-OPERAND: operator - not defined on String
+testdir:live_regabi.go	interpreted	test/live_regabi.go:642:8: gosource: unsupported compound simple statement
+testdir:live_regabi.go	compiled	test/live_regabi.go:642:8: gosource: unsupported compound simple statement
+testdir:makeslice.go	interpreted	BASHPP-EBUILTIN-TYPE: assignment target "_" is not declared
+testdir:map.go	interpreted	BASHPP-EBUILTIN-TYPE: new requires exactly one type argument and is only a value expression
+testdir:maplinear.go	interpreted	BASHPP-ECOLLECTION-KEY: unsupported map key type float64
+testdir:method.go	interpreted	method.go:51:5: BASHPP-EEXPR-UNDEFINED: undefined callable computed function
+testdir:method1.go	interpreted	test/method1.go:21:6: f redeclared in this block
+testdir:method1.go	compiled	test/method1.go:21:6: f redeclared in this block
+testdir:method3.go	interpreted	method3.go:31:5: BASHPP-EEXPR-UNDEFINED: undefined callable computed function
+testdir:method4.go	interpreted	test/method4.dir/prog.go:78:9: gosource: unsupported expression *ast.InterfaceType
+testdir:method4.go	compiled	test/method4.dir/prog.go:78:9: gosource: unsupported expression *ast.InterfaceType
+testdir:method5.go	interpreted	method5.go:178:14: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPCompositeLit
+testdir:method5.go	compiled	panic: runtime error: invalid memory address or nil pointer dereference [recovered, repanicked]
+testdir:method7.go	interpreted	method7.go:42:7: gosource: unsupported expression *ast.InterfaceType
+testdir:method7.go	compiled	method7.go:42:7: gosource: unsupported expression *ast.InterfaceType
+testdir:named.go	interpreted	named.go:39:36: BASHPP-EASSERT-FAIL: interface value has dynamic type bool, not Bool
+testdir:nil.go	interpreted	nil.go:26:2: BASHPP-ECOLLECTION-KEY: unsupported map key type float32
+testdir:nilptr2.go	interpreted	type struct has no method fn
+testdir:noinit.go	interpreted	noinit.go:111:18: BASHPP-EEXPR-CONVERT: cannot convert String to float64
+testdir:noinit.go	compiled	noinit.go:298:1: LOWER-ETYPE: cannot use FS(int(7), int(8), int(9)) (value of type *S) as S value in variable declaration
+testdir:nosplit.go	interpreted	gosource: native slice retention or mutation is unsupported for io/ioutil.WriteFile
+testdir:nosplit.go	compiled	nosplit.go:212:1: LOWER-ETYPE: cannot use __gosource_import_0_7.MustCompile(string(`(?m)^#.*`)) (value of type *regexp.Regexp) as regexp.Regexp value in variable declaration
+testdir:nowritebarrier.go	interpreted	compilation succeeded unexpectedly
+testdir:nowritebarrier.go	compiled	compilation succeeded unexpectedly
+testdir:nul1.go	interpreted	nul1.go:21:20: BASHPP-ESELECTOR-ROOT: s is not a structured value
+testdir:nul1.go	compiled	/srv/sprint151/leaf-151/tmp/Testnul1.go1086322851/001/tmp__.go:4:20: illegal character NUL
+testdir:print.go	interpreted	print.go:14:24: BASHPP-EEXPR-NIL: nil is not a scalar
+testdir:prove.go	interpreted	test/prove.go:2518:4: gosource: unsupported labeled branch
+testdir:prove.go	compiled	test/prove.go:2518:4: gosource: unsupported labeled branch
+testdir:range4.go	interpreted	range4.go:230:10: BASHPP-EASSIGN-UNDECLARED: RHS nil is not declared
+testdir:rangegen.go	interpreted	gosource: fmt.Fprintf requires a dependency-owned writer; original Write callbacks are unsupported
+testdir:rangegen.go	compiled	/srv/sprint151/leaf-151/tmp/Testrangegen.go1310093576/001/tmp__.go:9:1: gosource: unsupported labeled branch
+testdir:recover.go	interpreted	BASHPP-ERETURN-CALL: return requires a declared callable
+testdir:recover2.go	interpreted	recover2.go:40:10: BASHPP-ECOLLECTION-BOUNDS: index 123 out of bounds for length 10
+testdir:recover3.go	interpreted	recover3.go:58:41: BASHPP-EEXPR-DIVZERO: division by zero
+testdir:recover3.go	compiled	BUG
+testdir:reflectmethod1.go	interpreted	reflectmethod1.go:26:2: gosource: computed call runtime is not implemented
+testdir:reflectmethod4.go	interpreted	reflectmethod4.go:26:2: gosource: computed call runtime is not implemented
+testdir:reflectmethod5.go	interpreted	reflectmethod5.go:20:1: unknown imported symbol or method: __gosource_import_0_0.Type
+testdir:reflectmethod6.go	interpreted	reflectmethod6.go:19:1: unknown imported symbol or method: __gosource_import_0_0.Type
+testdir:reorder2.go	interpreted	reorder2.go:80:5: gosource: computed call runtime is not implemented
+testdir:shift3.go	interpreted	shift3.go:27:2: shift3.go:27:4: BASHPP-EEXPR-SHIFT: shift count must be an unsigned integer
+testdir:shift3.go	compiled	shift3.go:13:1: LOWER-ETYPE: "math" imported as __gosource_import_0_1 and not used
+testdir:simassign.go	interpreted	simassign.go:75:9: Go value requires one result
+testdir:slice3.go	interpreted	slice3.go:47:6: BASHPP-ESELECTOR-ROOT: s is not a structured value
+testdir:slicecap.go	interpreted	BASHPP-ESELECTOR-EXPR: unsupported structured expression
+testdir:stackobj.go	interpreted	BASHPP-EBUILTIN-TYPE: new requires exactly one type argument and is only a value expression
+testdir:stackobj2.go	interpreted	BASHPP-EPOINTER-TARGET: expression is not a pointer
+testdir:stackobj3.go	interpreted	BASHPP-EBUILTIN-TYPE: new requires exactly one type argument and is only a value expression
+testdir:strcopy.go	interpreted	strcopy.go:26:5: BASHPP-ESELECTOR-ROOT: subh is not a structured value
+testdir:struct0.go	interpreted	struct0.go:17:1: BASHPP-ECOLLECTION-KEY: unsupported map key type interface
+testdir:switch.go	interpreted	switch.go:270:7: BASHPP-EEXPR-NIL: nil is not a scalar
+testdir:turing.go	interpreted	BASHPP-ESWITCH-TYPE: case expression type byte does not match switch tag type uint8
+testdir:typecheckloop.go	interpreted	test/typecheckloop.go:12:7: initialization cycle for A
+testdir:typecheckloop.go	compiled	test/typecheckloop.go:12:7: initialization cycle for A
+testdir:typeparam/absdiff2.go	interpreted	BASHPP-EGENERIC-CONSTRAINT: string does not satisfy constraint for T in OrderedAbsDifference
+testdir:typeparam/absdiff3.go	interpreted	BASHPP-EGENERIC-CONSTRAINT: string does not satisfy constraint for T in OrderedAbsDifference
+testdir:typeparam/absdiffimp2.go	interpreted	BASHPP-EGENERIC-CONSTRAINT: string does not satisfy constraint for T in __gosource_pkg_0_OrderedAbsDifference
+testdir:typeparam/append.go	interpreted	BASHPP-EBUILTIN-TYPE: make type must be a slice or map
+testdir:typeparam/boundmethod.go	interpreted	typeparam/boundmethod.go:36:9: BASHPP-EEXPR-CONVERT: cannot convert Int to Stringer
+testdir:typeparam/chans.go	interpreted	BASHPP-EGENERIC-INFER: cannot infer type arguments for _ReadAll
+testdir:typeparam/chansimp.go	interpreted	BASHPP-EGENERIC-INFER: cannot infer type arguments for __gosource_pkg_0_ReadAll
+testdir:typeparam/combine.go	interpreted	typeparam/combine.go:40:25: gosource: unsupported expression *ast.IndexListExpr
+testdir:typeparam/combine.go	compiled	typeparam/combine.go:40:25: gosource: unsupported expression *ast.IndexListExpr
+testdir:typeparam/cons.go	interpreted	typeparam/cons.go:86:9: BASHPP-EASSERT-OPERAND: type assertion operand must be an interface
+testdir:typeparam/devirtualize1.go	interpreted	typeparam/devirtualize1.go:21:2: gosource: computed call runtime is not implemented
+testdir:typeparam/devirtualize2.go	interpreted	typeparam/devirtualize2.go:27:2: gosource: computed call runtime is not implemented
+testdir:typeparam/dictionaryCapture-noinline.go	interpreted	BASHPP-ESELECTOR-ROOT: g0 is not a structured value
+testdir:typeparam/dictionaryCapture.go	interpreted	BASHPP-ESELECTOR-ROOT: g0 is not a structured value
+testdir:typeparam/dottype.go	interpreted	typeparam/dottype.go:10:9: BASHPP-EASSERT-FAIL: interface value has dynamic type float64, not int
+testdir:typeparam/eface.go	interpreted	typeparam/eface.go:46:18: BASHPP-EEXPR-CONVERT: cannot convert Int to (interface{})
+testdir:typeparam/equal.go	interpreted	BASHPP-EGENERIC-CONSTRAINT: string does not satisfy constraint for T in h
+testdir:typeparam/fact.go	interpreted	BASHPP-EGENERIC-CONSTRAINT: string does not satisfy constraint for T in fact
+testdir:typeparam/factimp.go	interpreted	BASHPP-EGENERIC-CONSTRAINT: string does not satisfy constraint for T in __gosource_pkg_0_Fact
+testdir:typeparam/gencrawler.go	interpreted	BASHPP-EGENERIC-INFER: conflicting type inference for __gosource_pkg_0_FnPrint
+testdir:typeparam/genembed.go	interpreted	BASHPP-EGENERIC-INFER: cannot infer type arguments for doGet
+testdir:typeparam/geninline.go	interpreted	test/typeparam/geninline.dir/a.go:27:6: /srv/sprint151/leaf-151/evidence/goroot/test/typeparam/geninline.dir/a.go:27:16: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPAddressExpr
+testdir:typeparam/graph.go	interpreted	BASHPP-ECOLLECTION-ELEMENT: typeparam/graph.go:69:10: BASHPP-EEXPR-OPERAND: from is not a scalar
+testdir:typeparam/ifaceconv.go	interpreted	typeparam/ifaceconv.go:65:40: BASHPP-ESELECTOR-EXPR: unsupported structured expression
+testdir:typeparam/index.go	interpreted	BASHPP-EGENERIC-INFER: conflicting type inference for Index
+testdir:typeparam/index2.go	interpreted	BASHPP-EGENERIC-CONSTRAINT: []int64 does not satisfy constraint for T in Index1
+testdir:typeparam/interfacearg.go	interpreted	BASHPP-EGENERIC-CONSTRAINT: string does not satisfy constraint for T in _F1
+testdir:typeparam/issue23536.go	interpreted	BASHPP-EGENERIC-CONSTRAINT: []MyByte does not satisfy constraint for T in f
+testdir:typeparam/issue376214.go	interpreted	BASHPP-EGENERIC-INFER: conflicting type inference for add
+testdir:typeparam/issue42758.go	interpreted	typeparam/issue42758.go:10:21: BASHPP-EEXPR-NIL: nil is not a scalar
+testdir:typeparam/issue44688.go	interpreted	BASHPP-ESELECTOR-ROOT: B1 is not a structured value
+testdir:typeparam/issue45722.go	interpreted	typeparam/issue45722.go:33:6: Go value requires one result
+testdir:typeparam/issue46472.go	interpreted	BASHPP-ETYPESWITCH-OPERAND: type switch operand must be an interface
+testdir:typeparam/issue46591.go	interpreted	typeparam/issue46591.go:11:1: BASHPP-ECOLLECTION-KEY: unsupported map key type interface
+testdir:typeparam/issue47258.go	interpreted	BASHPP-EGENERIC-CONSTRAINT: string does not satisfy constraint for T in inc
+testdir:typeparam/issue47676.go	interpreted	BASHPP-EGENERIC-INFER: conflicting type inference for diff
+testdir:typeparam/issue47684c.go	interpreted	typeparam/issue47684c.go:18:2: gosource: computed call runtime is not implemented
+testdir:typeparam/issue47713.go	interpreted	BASHPP-EINTERFACE-EMBED: interface Seralizable embeds non-interface __gosource_import_0_0.BinaryMarshaler
+testdir:typeparam/issue47716.go	interpreted	unknown imported symbol or method: __gosource_import_0_1.Sizeof
+testdir:typeparam/issue47723.go	interpreted	typeparam/issue47723.go:16:9: BASHPP-ECOLLECTION-INDEX: typeparam/issue47723.go:16:11: BASHPP-EEXPR-FORM: unsupported scalar call
+testdir:typeparam/issue47740b.go	interpreted	typeparam/issue47740b.go:17:7: BASHPP-EASSIGN-ARITY: 2 variable(s) but 1 value(s)
+testdir:typeparam/issue47740b.go	compiled	typeparam/issue47740b.go:17:2: LOWER-ETYPE: assignment mismatch: 2 variables but __bpp0_rt.MustValue returns 1 value
+testdir:typeparam/issue47775b.go	interpreted	typeparam/issue47775b.go:17:6: BASHPP-ESELECTOR-UNKNOWN: C[int] has no field or method "reset"
+testdir:typeparam/issue47877.go	interpreted	typeparam/issue47877.go:9:1: BASHPP-ECOLLECTION-KEY: unsupported map key type K
+testdir:typeparam/issue47901.go	interpreted	typeparam/issue47901.go:16:18: BASHPP-EEXPR-UNDEFINED: undefined callable make
+testdir:typeparam/issue47925.go	interpreted	typeparam/issue47925.go:19:2: gosource: computed call runtime is not implemented
+testdir:typeparam/issue47925b.go	interpreted	BASHPP-EGENERIC-CONSTRAINT: string does not satisfy constraint for T in f
+testdir:typeparam/issue47925b.go	compiled	typeparam/issue47925b.go:30:2: LOWER-EUNDEFINED: undefined: T
+testdir:typeparam/issue47925c.go	interpreted	BASHPP-EGENERIC-CONSTRAINT: string does not satisfy constraint for T in f
+testdir:typeparam/issue47925c.go	compiled	typeparam/issue47925c.go:33:2: LOWER-EUNDEFINED: undefined: T
+testdir:typeparam/issue47925d.go	interpreted	BASHPP-EGENERIC-CONSTRAINT: string does not satisfy constraint for T in f
+testdir:typeparam/issue47925d.go	compiled	typeparam/issue47925d.go:41:2: LOWER-EUNDEFINED: undefined: T
+testdir:typeparam/issue48016.go	interpreted	BASHPP-EARG-FUNCTYPE: test1 requires func(int)(int) for parameter fn
+testdir:typeparam/issue48030.go	interpreted	BASHPP-EGENERIC-ARITY: Seq2 expects 2 type argument(s); got 1
+testdir:typeparam/issue48094.go	interpreted	unknown imported symbol or method: __gosource_import_0_0_0.Sizeof
+testdir:typeparam/issue48137.go	interpreted	typeparam/issue48137.go:16:2: BASHPP-EASSIGN-TYPE: cannot assign func()(T) to Bar
+testdir:typeparam/issue48185b.go	interpreted	BASHPP-EGENERIC-INFER: cannot infer type arguments for __gosource_pkg_0_UnmarshalFuncV2
+testdir:typeparam/issue48253.go	interpreted	typeparam/issue48253.go:31:2: gosource: computed call runtime is not implemented
+testdir:typeparam/issue48337b.go	interpreted	BASHPP-ECOLLECTION-ELEMENT: cannot use map[string]interface {} value as string
+testdir:typeparam/issue48344.go	interpreted	BASHPP-EBUILTIN-TYPE: BASHPP-EASSIGN-MISMATCH: cannot use value as G[int]
+testdir:typeparam/issue48424.go	interpreted	typeparam/issue48424.go:50:1: type _ redeclared in this session
+testdir:typeparam/issue48453.go	interpreted	typeparam/issue48453.go:19:2: BASHPP-ECOLLECTION-KEY: unsupported map key type *string
+testdir:typeparam/issue48602.go	interpreted	BASHPP-EINTERFACE-SIGNATURE: IteratorFunc[R] method Iterate has wrong signature
+testdir:typeparam/issue48617.go	interpreted	BASHPP-EINTERFACE-SIGNATURE: Bar method CreateBar has wrong signature
+testdir:typeparam/issue48645b.go	interpreted	BASHPP-EINTERFACE-SIGNATURE: myIterator method Iterate has wrong signature
+testdir:typeparam/issue48716.go	interpreted	test/typeparam/issue48716.dir/a.go:22:1: BASHPP-ECOLLECTION-KEY: unsupported map key type K
+testdir:typeparam/issue48962.go	interpreted	test/typeparam/issue48962.dir/b.go:18:2: invalid recursive type A
+testdir:typeparam/issue48962.go	compiled	test/typeparam/issue48962.dir/b.go:18:2: invalid recursive type A
+testdir:typeparam/issue49295.go	interpreted	typeparam/issue49295.go:18:7: typeparam/issue49295.go:18:9: BASHPP-EEXPR-OPERAND: indexed value is not a scalar
+testdir:typeparam/issue49309.go	interpreted	BASHPP-EGENERIC-INFER: cannot infer type arguments for genfunc
+testdir:typeparam/issue49659b.go	interpreted	typeparam/issue49659b.go:21:2: BASHPP-EGENERIC-CONSTRAINT: []int does not satisfy constraint for T in A
+testdir:typeparam/issue50002.go	interpreted	BASHPP-EASSERT-IMPOSSIBLE: string cannot be asserted from I[byte]
+testdir:typeparam/issue50002.go	compiled	BASHPP-EASSERT-IMPOSSIBLE: A cannot be asserted from I[T]
+testdir:typeparam/issue50109.go	interpreted	BASHPP-EGENERIC-INFER: cannot infer type arguments for newAnyCache
+testdir:typeparam/issue50264.go	interpreted	BASHPP-EGENERIC-INFER: cannot infer type arguments for Applicative2
+testdir:typeparam/issue50419.go	interpreted	BASHPP-EGENERIC-RECEIVER: receiver type parameter _ redeclared
+testdir:typeparam/issue50481b.go	interpreted	BASHPP-EGENERIC-RECEIVER: receiver type parameter _ redeclared
+testdir:typeparam/issue50481c.go	interpreted	BASHPP-EINTERFACE-EMBED: interface __gosource_pkg_0_B embeds non-interface string
+testdir:typeparam/issue50642.go	interpreted	typeparam/issue50642.go:19:12: BASHPP-EASSERT-FAIL: interface value has dynamic type chan int, not chan T
+testdir:typeparam/issue50690a.go	interpreted	BASHPP-EGENERIC-INFER: cannot infer type arguments for PrintLedger
+testdir:typeparam/issue50690b.go	interpreted	BASHPP-EGENERIC-CONSTRAINT: string does not satisfy constraint for S in PrintWithPrinter
+testdir:typeparam/issue50690c.go	interpreted	BASHPP-EGENERIC-CONSTRAINT: string does not satisfy constraint for S in PrintWithPrinter
+testdir:typeparam/issue50833.go	interpreted	BASHPP-EGENERIC-CONSTRAINT: *S does not satisfy constraint for P in c
+testdir:typeparam/issue51236.go	interpreted	BASHPP-EINTERFACE-EMBED: interface I embeds non-interface []byte
+testdir:typeparam/issue51303.go	interpreted	typeparam/issue51303.go:32:9: typeparam/issue51303.go:32:48: BASHPP-EEXPR-OPERAND: x is not a scalar
+testdir:typeparam/issue51521.go	interpreted	typeparam/issue51521.go:17:35: gosource: unsupported expression *ast.InterfaceType
+testdir:typeparam/issue51521.go	compiled	typeparam/issue51521.go:17:35: gosource: unsupported expression *ast.InterfaceType
+testdir:typeparam/issue51522b.go	interpreted	BASHPP-ESWITCH-TYPE: case expression type myint does not match switch tag type fooer
+testdir:typeparam/issue51700.go	interpreted	BASHPP-ESELECTOR-EXPR: unsupported structured expression
+testdir:typeparam/issue52026.go	interpreted	BASHPP-ETYPESWITCH-OPERAND: type switch operand must be an interface
+testdir:typeparam/issue52026.go	compiled	typeparam/issue52026.go:37:2: LOWER-EUNDEFINED: undefined: T
+testdir:typeparam/issue52228.go	interpreted	BASHPP-ESELECTOR-EXPR: unsupported structured expression
+testdir:typeparam/issue52228.go	compiled	typeparam/issue52228.go:19:3: LOWER-ETYPE: assignment mismatch: 2 variables but __bpp0_rt.MustValue returns 1 value
+testdir:typeparam/issue53087.go	interpreted	typeparam/issue53087.go:23:1: BASHPP-ECOLLECTION-KEY: unsupported map key type K
+testdir:typeparam/issue53477.go	interpreted	typeparam/issue53477.go:28:9: BASHPP-EEXPR-CONVERT: cannot convert Int to Mer[T]
+testdir:typeparam/issue54456.go	interpreted	typeparam/issue54456.go:19:44: BASHPP-EEXPR-CONVERT: cannot convert Int to T[int]
+testdir:typeparam/issue54535.go	interpreted	typeparam/issue54535.go:25:6: typeparam/issue54535.go:25:6: BASHPP-ESELECTOR-ROOT: f is not a structured value
+testdir:typeparam/issue54537.go	interpreted	typeparam/issue54537.go:10:6: typeparam/issue54537.go:10:6: BASHPP-ESELECTOR-ROOT: F is not a structured value
+testdir:typeparam/issue54765.go	interpreted	compilation succeeded unexpectedly
+testdir:typeparam/issue58513.go	interpreted	typeparam/issue58513.go:23:9: BASHPP-ESELECTOR-ROOT: assert is not a structured value
+testdir:typeparam/list.go	interpreted	typeparam/list.go:21:1: BASHPP-EGENERIC-CONSTRAINT: T does not satisfy constraint for T in _List
+testdir:typeparam/list2.go	interpreted	BASHPP-EGENERIC-INFER: conflicting type inference for checkListPointers
+testdir:typeparam/listimp.go	interpreted	test/typeparam/listimp.dir/a.go:15:1: BASHPP-EGENERIC-CONSTRAINT: T does not satisfy constraint for T in __gosource_pkg_0_List
+testdir:typeparam/listimp2.go	interpreted	BASHPP-EGENERIC-INFER: conflicting type inference for __gosource_pkg_0_CheckListPointers
+testdir:typeparam/map.go	interpreted	BASHPP-EGENERIC-INFER: conflicting type inference for mapper
+testdir:typeparam/mapimp.go	interpreted	BASHPP-EGENERIC-INFER: conflicting type inference for __gosource_pkg_0_Mapper
+testdir:typeparam/maps.go	interpreted	BASHPP-EGENERIC-INFER: conflicting type inference for _Equal
+testdir:typeparam/mapsimp.go	interpreted	BASHPP-EGENERIC-INFER: conflicting type inference for __gosource_pkg_0_Equal
+testdir:typeparam/mdempsky/14.go	interpreted	typeparam/mdempsky/14.go:36:2: gosource: computed call runtime is not implemented
+testdir:typeparam/mdempsky/15.go	interpreted	typeparam/mdempsky/15.go:49:6: typeparam/mdempsky/15.go:49:6: BASHPP-ESELECTOR-ROOT: E is not a structured value
+testdir:typeparam/mdempsky/15.go	compiled	output should be empty when (optional) expected-output file typeparam/mdempsky/15.out is not present. Instead saw
+testdir:typeparam/mdempsky/16.go	interpreted	typeparam/mdempsky/16.go:32:6: BASHPP-ESELECTOR-EXPR: unsupported structured expression
+testdir:typeparam/mdempsky/16.go	compiled	BASHPP-EASSERT-FAIL: interface value has dynamic type ValueAbort, not __gosource_import_0_1.Error
+testdir:typeparam/mdempsky/17.go	interpreted	typeparam/mdempsky/17.go:18:2: gosource: computed call runtime is not implemented
+testdir:typeparam/mdempsky/18.go	interpreted	invalid select case
+testdir:typeparam/mdempsky/19.go	interpreted	BASHPP-EGENERIC-CONSTRAINT: string does not satisfy constraint for T in F
+testdir:typeparam/mdempsky/20.go	interpreted	BASHPP-EGENERIC-INFER: cannot infer type arguments for call
+testdir:typeparam/metrics.go	interpreted	typeparam/metrics.go:18:1: BASHPP-ECOLLECTION-KEY: unsupported map key type T
+testdir:typeparam/min.go	interpreted	min: cannot use "7/2" as float64 value for parameter x
+testdir:typeparam/minimp.go	interpreted	__gosource_pkg_0_Min: cannot use "7/2" as float64 value for parameter x
+testdir:typeparam/nested.go	interpreted	typeparam/nested.go:91:2: type Int redeclared in this session
+testdir:typeparam/ordered.go	interpreted	BASHPP-ECOLLECTION-ELEMENT: cannot use *interp.bashPPBridgeValue value as float64
+testdir:typeparam/orderedmap.go	interpreted	type *_Map[[]byte, int] has no method compare
+testdir:typeparam/orderedmapsimp.go	interpreted	type *__gosource_pkg_0_Map[[]byte, int] has no method compare
+testdir:typeparam/pair.go	interpreted	typeparam/pair.go:21:18: typeparam/pair.go:21:18: unknown imported symbol or method: __gosource_import_0_1.Sizeof
+testdir:typeparam/pairimp.go	interpreted	test/typeparam/pairimp.dir/main.go:15:18: /srv/sprint151/leaf-151/evidence/goroot/test/typeparam/pairimp.dir/main.go:15:18: unknown imported symbol or method: __gosource_import_0_2.Sizeof
+testdir:typeparam/select.go	interpreted	BASHPP-EGENERIC-INFER: cannot infer type arguments for __gosource_pkg_0_F
+testdir:typeparam/sets.go	interpreted	typeparam/sets.go:33:1: BASHPP-ECOLLECTION-KEY: unsupported map key type Elem
+testdir:typeparam/setsimp.go	interpreted	test/typeparam/setsimp.dir/a.go:26:1: BASHPP-ECOLLECTION-KEY: unsupported map key type Elem
+testdir:typeparam/settable.go	interpreted	BASHPP-EINTERFACE-EMBED: interface Setter embeds non-interface *B
+testdir:typeparam/shape1.go	interpreted	BASHPP-EGENERIC-CONSTRAINT: string does not satisfy constraint for T in f
+testdir:typeparam/shape_assert.go	interpreted	BASHPP-ETYPESWITCH-OPERAND: type switch operand must be an interface
+testdir:typeparam/sliceimp.go	interpreted	BASHPP-ECOLLECTION-ELEMENT: cannot use *interp.bashPPBridgeValue value as float64
+testdir:typeparam/slices.go	interpreted	BASHPP-ECOLLECTION-ELEMENT: cannot use *interp.bashPPBridgeValue value as float64
+testdir:typeparam/smallest.go	interpreted	typeparam/smallest.go:35:28: BASHPP-EEXPR-CONVERT: cannot convert String to float64
+testdir:typeparam/smoketest.go	interpreted	test/typeparam/smoketest.go:18:9: gosource: unsupported expression *ast.IndexListExpr
+testdir:typeparam/smoketest.go	compiled	test/typeparam/smoketest.go:18:9: gosource: unsupported expression *ast.IndexListExpr
+testdir:typeparam/sum.go	interpreted	typeparam/sum.go:43:9: BASHPP-EEXPR-CONVERT: cannot convert String to float64
+testdir:typeparam/tparam1.go	interpreted	test/typeparam/tparam1.go:24:7: T redeclared in this block
+testdir:typeparam/tparam1.go	compiled	test/typeparam/tparam1.go:24:7: T redeclared in this block
+testdir:typeparam/valimp.go	interpreted	BASHPP-EGENERIC-INFER: conflicting type inference for __gosource_pkg_0_Set
+testdir:typeparam/value.go	interpreted	BASHPP-EGENERIC-INFER: conflicting type inference for set
+testdir:typeswitch.go	interpreted	BASHPP-ETYPESWITCH-OPERAND: type switch operand must be an interface
+testdir:typeswitch1.go	interpreted	BASHPP-ETYPESWITCH-OPERAND: xx is not an interface
+testdir:uintptrescapes.go	interpreted	BASHPP-EPOINTER-TARGET: expression is not a pointer
+testdir:uintptrescapes.go	compiled	test/uintptrescapes.dir/main.go:28:1: LOWER-ETYPE: cannot use __gosource_pkg_0_GetT() (value of type *__gosource_pkg_0_t) as __gosource_pkg_0_t value in variable declaration
+testdir:uintptrkeepalive.go	interpreted	compilation succeeded unexpectedly
+testdir:uintptrkeepalive.go	compiled	compilation succeeded unexpectedly
+testdir:unsafe_slice_data.go	interpreted	BASHPP-ESELECTOR-EXPR: unsupported structured expression
+testdir:unsafe_string.go	interpreted	unsafe_string.go:15:5: unknown imported symbol or method: __gosource_import_0_0.String
+testdir:unsafe_string_data.go	interpreted	unsafe_string_data.go:17:48: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPAddressExpr
+testdir:unsafebuiltins.go	interpreted	unsafebuiltins.go:21:24: BASHPP-EEXPR-FORM: unsupported scalar expression *syntax.BashPPAddressExpr
+testdir:utf.go	interpreted	utf.go:28:3: BASHPP-EASSIGN-TYPE: cannot assign int32 to rune
+testdir:zerodivide.go	interpreted	BASHPP-ECOLLECTION-ELEMENT: cannot use *interp.bashPPBridgeValue value as float64
+typechecker:cmd/compile/internal/types2/TestCheck/builtins0.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/check/builtins0.go:91:2: no error expected: "undefined: assert"
+typechecker:cmd/compile/internal/types2/TestCheck/builtins0.go	compiled	check_test.go:256: ../../../../internal/types/testdata/check/builtins0.go:91:2: no error expected: "undefined: assert"
+typechecker:cmd/compile/internal/types2/TestCheck/builtins1.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/check/builtins1.go:257:2: no error expected: "undefined: assert"
+typechecker:cmd/compile/internal/types2/TestCheck/builtins1.go	compiled	check_test.go:256: ../../../../internal/types/testdata/check/builtins1.go:257:2: no error expected: "undefined: assert"
+typechecker:cmd/compile/internal/types2/TestCheck/const0.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/check/const0.go:195:8: no error expected: "undefined: assert"
+typechecker:cmd/compile/internal/types2/TestCheck/const0.go	compiled	check_test.go:256: ../../../../internal/types/testdata/check/const0.go:195:8: no error expected: "undefined: assert"
+typechecker:cmd/compile/internal/types2/TestCheck/const1.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/check/const1.go:57:6: no error expected: "undefined: assert"
+typechecker:cmd/compile/internal/types2/TestCheck/const1.go	compiled	check_test.go:256: ../../../../internal/types/testdata/check/const1.go:57:6: no error expected: "undefined: assert"
+typechecker:cmd/compile/internal/types2/TestCheck/constdecl.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/check/constdecl.go:150:2: no error expected: "undefined: assert"
+typechecker:cmd/compile/internal/types2/TestCheck/constdecl.go	compiled	check_test.go:256: ../../../../internal/types/testdata/check/constdecl.go:150:2: no error expected: "undefined: assert"
+typechecker:cmd/compile/internal/types2/TestCheck/conversions0.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/check/conversions0.go:21:2: no error expected: "undefined: assert"
+typechecker:cmd/compile/internal/types2/TestCheck/conversions0.go	compiled	check_test.go:256: ../../../../internal/types/testdata/check/conversions0.go:21:2: no error expected: "undefined: assert"
+typechecker:cmd/compile/internal/types2/TestCheck/cycles0.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/check/cycles0.go:14:2: no error expected: "\tT3 refers to T4"
+typechecker:cmd/compile/internal/types2/TestCheck/cycles0.go	compiled	check_test.go:256: ../../../../internal/types/testdata/check/cycles0.go:14:2: no error expected: "\tT3 refers to T4"
+typechecker:cmd/compile/internal/types2/TestCheck/cycles2.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/check/cycles2.go:73:6: no error expected: "\tT1 refers to x1"
+typechecker:cmd/compile/internal/types2/TestCheck/cycles2.go	compiled	check_test.go:256: ../../../../internal/types/testdata/check/cycles2.go:73:6: no error expected: "\tT1 refers to x1"
+typechecker:cmd/compile/internal/types2/TestCheck/cycles3.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/check/cycles3.go:51:2: no error expected: "\tU refers to V"
+typechecker:cmd/compile/internal/types2/TestCheck/cycles3.go	compiled	check_test.go:256: ../../../../internal/types/testdata/check/cycles3.go:51:2: no error expected: "\tU refers to V"
+typechecker:cmd/compile/internal/types2/TestCheck/cycles5.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/check/cycles5.go:106:2: no error expected: "\tT4 refers to T5"
+typechecker:cmd/compile/internal/types2/TestCheck/cycles5.go	compiled	check_test.go:256: ../../../../internal/types/testdata/check/cycles5.go:106:2: no error expected: "\tT4 refers to T5"
+typechecker:cmd/compile/internal/types2/TestCheck/cycles6.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/check/cycles6.go:51:6: no error expected: "\tT6 refers to T7"
+typechecker:cmd/compile/internal/types2/TestCheck/cycles6.go	compiled	check_test.go:256: ../../../../internal/types/testdata/check/cycles6.go:51:6: no error expected: "\tT6 refers to T7"
+typechecker:cmd/compile/internal/types2/TestCheck/decls0.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/check/decls0.go:74:2: no error expected: "\tother declaration of a"
+typechecker:cmd/compile/internal/types2/TestCheck/decls0.go	compiled	check_test.go:256: ../../../../internal/types/testdata/check/decls0.go:74:2: no error expected: "\tother declaration of a"
+typechecker:cmd/compile/internal/types2/TestCheck/decls2	interpreted	check_test.go:256: ../../../../internal/types/testdata/check/decls2/decls2a.go:108:7: no error expected: "\tother declaration of c_double"
+typechecker:cmd/compile/internal/types2/TestCheck/decls2	compiled	check_test.go:256: ../../../../internal/types/testdata/check/decls2/decls2a.go:108:7: no error expected: "\tother declaration of c_double"
+typechecker:cmd/compile/internal/types2/TestCheck/decls3.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/check/decls3.go:101:50: no error expected: "\tother declaration of Pointer"
+typechecker:cmd/compile/internal/types2/TestCheck/decls3.go	compiled	check_test.go:256: ../../../../internal/types/testdata/check/decls3.go:101:50: no error expected: "\tother declaration of Pointer"
+typechecker:cmd/compile/internal/types2/TestCheck/decls4.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/check/decls4.go:124:2: no error expected: "\tC3 refers to C4"
+typechecker:cmd/compile/internal/types2/TestCheck/decls4.go	compiled	check_test.go:256: ../../../../internal/types/testdata/check/decls4.go:124:2: no error expected: "\tC3 refers to C4"
+typechecker:cmd/compile/internal/types2/TestCheck/expr3.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/check/expr3.go:251:2: no error expected: "undefined: assert"
+typechecker:cmd/compile/internal/types2/TestCheck/expr3.go	compiled	check_test.go:256: ../../../../internal/types/testdata/check/expr3.go:251:2: no error expected: "undefined: assert"
+typechecker:cmd/compile/internal/types2/TestCheck/go1_13.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/check/go1_13.go:16:2: no error expected: "\tother declaration of method m"
+typechecker:cmd/compile/internal/types2/TestCheck/go1_13.go	compiled	check_test.go:256: ../../../../internal/types/testdata/check/go1_13.go:16:2: no error expected: "\tother declaration of method m"
+typechecker:cmd/compile/internal/types2/TestCheck/importdecl0	interpreted	check_test.go:256: ../../../../internal/types/testdata/check/importdecl0/importdecl0a.go:15:2: no error expected: "\tother declaration of reflect"
+typechecker:cmd/compile/internal/types2/TestCheck/importdecl0	compiled	check_test.go:256: ../../../../internal/types/testdata/check/importdecl0/importdecl0a.go:15:2: no error expected: "\tother declaration of reflect"
+typechecker:cmd/compile/internal/types2/TestCheck/init0.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/check/init0.go:13:2: no error expected: "\tx0 refers to y0"
+typechecker:cmd/compile/internal/types2/TestCheck/init0.go	compiled	check_test.go:256: ../../../../internal/types/testdata/check/init0.go:13:2: no error expected: "\tx0 refers to y0"
+typechecker:cmd/compile/internal/types2/TestCheck/init1.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/check/init1.go:17:5: no error expected: "\ty0 refers to m"
+typechecker:cmd/compile/internal/types2/TestCheck/init1.go	compiled	check_test.go:256: ../../../../internal/types/testdata/check/init1.go:17:5: no error expected: "\ty0 refers to m"
+typechecker:cmd/compile/internal/types2/TestCheck/init2.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/check/init2.go:12:5: no error expected: "\tx1 refers to f1"
+typechecker:cmd/compile/internal/types2/TestCheck/init2.go	compiled	check_test.go:256: ../../../../internal/types/testdata/check/init2.go:12:5: no error expected: "\tx1 refers to f1"
+typechecker:cmd/compile/internal/types2/TestCheck/labels.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/check/labels.go:27:1: no error expected: "\tother declaration of L6"
+typechecker:cmd/compile/internal/types2/TestCheck/labels.go	compiled	check_test.go:256: ../../../../internal/types/testdata/check/labels.go:27:1: no error expected: "\tother declaration of L6"
+typechecker:cmd/compile/internal/types2/TestCheck/literals.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/check/literals.go:13:2: no error expected: "undefined: assert"
+typechecker:cmd/compile/internal/types2/TestCheck/literals.go	compiled	check_test.go:256: ../../../../internal/types/testdata/check/literals.go:13:2: no error expected: "undefined: assert"
+typechecker:cmd/compile/internal/types2/TestCheck/main0.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/check/main0.go:7:6: no error expected: "\tother declaration of main"
+typechecker:cmd/compile/internal/types2/TestCheck/main0.go	compiled	check_test.go:256: ../../../../internal/types/testdata/check/main0.go:7:6: no error expected: "\tother declaration of main"
+typechecker:cmd/compile/internal/types2/TestCheck/stmt0.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/check/stmt0.go:395:8: no error expected: "\tinner declaration of var a int"
+typechecker:cmd/compile/internal/types2/TestCheck/stmt0.go	compiled	check_test.go:256: ../../../../internal/types/testdata/check/stmt0.go:395:8: no error expected: "\tinner declaration of var a int"
+typechecker:cmd/compile/internal/types2/TestCheck/typeparams.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/check/typeparams.go:17:8: no error expected: "\tother declaration of T"
+typechecker:cmd/compile/internal/types2/TestCheck/typeparams.go	compiled	check_test.go:256: ../../../../internal/types/testdata/check/typeparams.go:17:8: no error expected: "\tother declaration of T"
+typechecker:cmd/compile/internal/types2/TestExamples/types.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/examples/types.go:149:38: no error expected: "\tother declaration of int8"
+typechecker:cmd/compile/internal/types2/TestExamples/types.go	compiled	check_test.go:256: ../../../../internal/types/testdata/examples/types.go:149:38: no error expected: "\tother declaration of int8"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue39634.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue39634.go:18:11: no error expected: "\tother declaration of e"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue39634.go	compiled	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue39634.go:18:11: no error expected: "\tother declaration of e"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue39938.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue39938.go:26:6: no error expected: "\tT2 refers to E2[T2]"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue39938.go	compiled	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue39938.go:26:6: no error expected: "\tT2 refers to E2[T2]"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue41124.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue41124.go:9:6: no error expected: "\tNat refers to Succ"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue41124.go	compiled	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue41124.go:9:6: no error expected: "\tNat refers to Succ"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue42758.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue42758.go:14:7: no error expected: "\tprevious case"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue42758.go	compiled	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue42758.go:14:7: no error expected: "\tprevious case"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue48018.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue48018.go:15:9: no error expected: "\tA instantiated as Box[A]"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue48018.go	compiled	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue48018.go:15:9: no error expected: "\tA instantiated as Box[A]"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue48234.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue48234.go:8:2: no error expected: "\tother declaration of method m"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue48234.go	compiled	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue48234.go:8:2: no error expected: "\tother declaration of method m"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue48582.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue48582.go:11:6: no error expected: "\tA refers to B"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue48582.go	compiled	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue48582.go:11:6: no error expected: "\tA refers to B"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue48656.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue48656.go:12:9: no error expected: "\tP instantiated as *P"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue48656.go	compiled	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue48656.go:12:9: no error expected: "\tP instantiated as *P"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue48962.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue48962.go:11:6: no error expected: "\tT1 refers to T0[T1]"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue48962.go	compiled	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue48962.go:11:6: no error expected: "\tT1 refers to T0[T1]"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue48974.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue48974.go:15:41: no error expected: "\tF instantiated as *FooerImpl[F]"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue48974.go	compiled	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue48974.go:15:41: no error expected: "\tF instantiated as *FooerImpl[F]"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue49043.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue49043.go:9:11: no error expected: "\tM[P] refers to N[P]"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue49043.go	compiled	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue49043.go:9:11: no error expected: "\tM[P] refers to N[P]"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue49276.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue49276.go:9:6: no error expected: "\tS refers to s"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue49276.go	compiled	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue49276.go:9:6: no error expected: "\tS refers to s"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue51503.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue51503.go:14:38: no error expected: "\tother declaration of r"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue51503.go	compiled	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue51503.go:14:38: no error expected: "\tother declaration of r"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue52698.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue52698.go:12:6: no error expected: "\tS refers to T[S]"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue52698.go	compiled	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue52698.go:12:6: no error expected: "\tS refers to T[S]"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue59958.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue59958.go:15:4: no error expected: "gosource: unsupported expression *ast.IndexListExpr"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue59958.go	compiled	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue59958.go:15:4: no error expected: "gosource: unsupported expression *ast.IndexListExpr"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue65711.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue65711.go:11:6: no error expected: "\tC refers to B[C]"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue65711.go	compiled	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue65711.go:11:6: no error expected: "\tC refers to B[C]"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue66285.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue66285.go:16:2: no error expected: "\tother declaration of method Read"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue66285.go	compiled	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue66285.go:16:2: no error expected: "\tother declaration of method Read"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue6977.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue6977.go:35:21: no error expected: "\tother declaration of method m"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue6977.go	compiled	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue6977.go:35:21: no error expected: "\tother declaration of method m"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue75918.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue75918.go:9:6: no error expected: "\tA refers to S"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue75918.go	compiled	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue75918.go:9:6: no error expected: "\tA refers to S"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue76478.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue76478.go:18:6: no error expected: "\tE refers to F"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue76478.go	compiled	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue76478.go:18:6: no error expected: "\tE refers to F"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue79265.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue79265.go:10:6: no error expected: "\tA refers to T"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue79265.go	compiled	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue79265.go:10:6: no error expected: "\tA refers to T"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue80172.go	interpreted	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue80172.go:9:30: no error expected: "\tP instantiated as List[P]"
+typechecker:cmd/compile/internal/types2/TestFixedbugs/issue80172.go	compiled	check_test.go:256: ../../../../internal/types/testdata/fixedbugs/issue80172.go:9:30: no error expected: "\tP instantiated as List[P]"
+typechecker:cmd/compile/internal/types2/TestLocal/issue47996.go	interpreted	check_test.go:256: testdata/local/issue47996.go:8:56: no error expected: "expected '(', found m"
+typechecker:cmd/compile/internal/types2/TestLocal/issue47996.go	compiled	check_test.go:256: testdata/local/issue47996.go:8:56: no error expected: "expected '(', found m"
+typechecker:cmd/compile/internal/types2/TestLocal/issue68183.go	interpreted	check_test.go:256: testdata/local/issue68183.go:13:2: no error expected: "expected 'IDENT', found 'ILLEGAL'"
+typechecker:cmd/compile/internal/types2/TestLocal/issue68183.go	compiled	check_test.go:256: testdata/local/issue68183.go:13:2: no error expected: "expected 'IDENT', found 'ILLEGAL'"
+typechecker:cmd/compile/internal/types2/TestLocal/issue71254.go	interpreted	check_test.go:256: testdata/local/issue71254.go:9:2: no error expected: "initialization cycle for A"
+typechecker:cmd/compile/internal/types2/TestLocal/issue71254.go	compiled	check_test.go:256: testdata/local/issue71254.go:9:2: no error expected: "initialization cycle for A"
+typechecker:go/types/TestCheck/builtins0.go	interpreted	check_test.go:271: ../../internal/types/testdata/check/builtins0.go:91:2: no error expected: "undefined: assert"
+typechecker:go/types/TestCheck/builtins0.go	compiled	check_test.go:271: ../../internal/types/testdata/check/builtins0.go:91:2: no error expected: "undefined: assert"
+typechecker:go/types/TestCheck/builtins1.go	interpreted	check_test.go:271: ../../internal/types/testdata/check/builtins1.go:257:2: no error expected: "undefined: assert"
+typechecker:go/types/TestCheck/builtins1.go	compiled	check_test.go:271: ../../internal/types/testdata/check/builtins1.go:257:2: no error expected: "undefined: assert"
+typechecker:go/types/TestCheck/const0.go	interpreted	check_test.go:271: ../../internal/types/testdata/check/const0.go:195:8: no error expected: "undefined: assert"
+typechecker:go/types/TestCheck/const0.go	compiled	check_test.go:271: ../../internal/types/testdata/check/const0.go:195:8: no error expected: "undefined: assert"
+typechecker:go/types/TestCheck/const1.go	interpreted	check_test.go:271: ../../internal/types/testdata/check/const1.go:57:6: no error expected: "undefined: assert"
+typechecker:go/types/TestCheck/const1.go	compiled	check_test.go:271: ../../internal/types/testdata/check/const1.go:57:6: no error expected: "undefined: assert"
+typechecker:go/types/TestCheck/constdecl.go	interpreted	check_test.go:271: ../../internal/types/testdata/check/constdecl.go:150:2: no error expected: "undefined: assert"
+typechecker:go/types/TestCheck/constdecl.go	compiled	check_test.go:271: ../../internal/types/testdata/check/constdecl.go:150:2: no error expected: "undefined: assert"
+typechecker:go/types/TestCheck/conversions0.go	interpreted	check_test.go:271: ../../internal/types/testdata/check/conversions0.go:21:2: no error expected: "undefined: assert"
+typechecker:go/types/TestCheck/conversions0.go	compiled	check_test.go:271: ../../internal/types/testdata/check/conversions0.go:21:2: no error expected: "undefined: assert"
+typechecker:go/types/TestCheck/cycles0.go	interpreted	check_test.go:271: ../../internal/types/testdata/check/cycles0.go:14:2: no error expected: "\tT3 refers to T4"
+typechecker:go/types/TestCheck/cycles0.go	compiled	check_test.go:271: ../../internal/types/testdata/check/cycles0.go:14:2: no error expected: "\tT3 refers to T4"
+typechecker:go/types/TestCheck/cycles2.go	interpreted	check_test.go:271: ../../internal/types/testdata/check/cycles2.go:73:6: no error expected: "\tT1 refers to x1"
+typechecker:go/types/TestCheck/cycles2.go	compiled	check_test.go:271: ../../internal/types/testdata/check/cycles2.go:73:6: no error expected: "\tT1 refers to x1"
+typechecker:go/types/TestCheck/cycles3.go	interpreted	check_test.go:271: ../../internal/types/testdata/check/cycles3.go:51:2: no error expected: "\tU refers to V"
+typechecker:go/types/TestCheck/cycles3.go	compiled	check_test.go:271: ../../internal/types/testdata/check/cycles3.go:51:2: no error expected: "\tU refers to V"
+typechecker:go/types/TestCheck/cycles5.go	interpreted	check_test.go:271: ../../internal/types/testdata/check/cycles5.go:106:2: no error expected: "\tT4 refers to T5"
+typechecker:go/types/TestCheck/cycles5.go	compiled	check_test.go:271: ../../internal/types/testdata/check/cycles5.go:106:2: no error expected: "\tT4 refers to T5"
+typechecker:go/types/TestCheck/cycles6.go	interpreted	check_test.go:271: ../../internal/types/testdata/check/cycles6.go:51:6: no error expected: "\tT6 refers to T7"
+typechecker:go/types/TestCheck/cycles6.go	compiled	check_test.go:271: ../../internal/types/testdata/check/cycles6.go:51:6: no error expected: "\tT6 refers to T7"
+typechecker:go/types/TestCheck/decls0.go	interpreted	check_test.go:271: ../../internal/types/testdata/check/decls0.go:74:2: no error expected: "\tother declaration of a"
+typechecker:go/types/TestCheck/decls0.go	compiled	check_test.go:271: ../../internal/types/testdata/check/decls0.go:74:2: no error expected: "\tother declaration of a"
+typechecker:go/types/TestCheck/decls2	interpreted	check_test.go:271: ../../internal/types/testdata/check/decls2/decls2a.go:108:7: no error expected: "\tother declaration of c_double"
+typechecker:go/types/TestCheck/decls2	compiled	check_test.go:271: ../../internal/types/testdata/check/decls2/decls2a.go:108:7: no error expected: "\tother declaration of c_double"
+typechecker:go/types/TestCheck/decls3.go	interpreted	check_test.go:271: ../../internal/types/testdata/check/decls3.go:101:50: no error expected: "\tother declaration of Pointer"
+typechecker:go/types/TestCheck/decls3.go	compiled	check_test.go:271: ../../internal/types/testdata/check/decls3.go:101:50: no error expected: "\tother declaration of Pointer"
+typechecker:go/types/TestCheck/decls4.go	interpreted	check_test.go:271: ../../internal/types/testdata/check/decls4.go:124:2: no error expected: "\tC3 refers to C4"
+typechecker:go/types/TestCheck/decls4.go	compiled	check_test.go:271: ../../internal/types/testdata/check/decls4.go:124:2: no error expected: "\tC3 refers to C4"
+typechecker:go/types/TestCheck/expr3.go	interpreted	check_test.go:271: ../../internal/types/testdata/check/expr3.go:251:2: no error expected: "undefined: assert"
+typechecker:go/types/TestCheck/expr3.go	compiled	check_test.go:271: ../../internal/types/testdata/check/expr3.go:251:2: no error expected: "undefined: assert"
+typechecker:go/types/TestCheck/go1_13.go	interpreted	check_test.go:271: ../../internal/types/testdata/check/go1_13.go:16:2: no error expected: "\tother declaration of method m"
+typechecker:go/types/TestCheck/go1_13.go	compiled	check_test.go:271: ../../internal/types/testdata/check/go1_13.go:16:2: no error expected: "\tother declaration of method m"
+typechecker:go/types/TestCheck/importdecl0	interpreted	check_test.go:271: ../../internal/types/testdata/check/importdecl0/importdecl0a.go:15:2: no error expected: "\tother declaration of reflect"
+typechecker:go/types/TestCheck/importdecl0	compiled	check_test.go:271: ../../internal/types/testdata/check/importdecl0/importdecl0a.go:15:2: no error expected: "\tother declaration of reflect"
+typechecker:go/types/TestCheck/init0.go	interpreted	check_test.go:271: ../../internal/types/testdata/check/init0.go:13:2: no error expected: "\tx0 refers to y0"
+typechecker:go/types/TestCheck/init0.go	compiled	check_test.go:271: ../../internal/types/testdata/check/init0.go:13:2: no error expected: "\tx0 refers to y0"
+typechecker:go/types/TestCheck/init1.go	interpreted	check_test.go:271: ../../internal/types/testdata/check/init1.go:17:5: no error expected: "\ty0 refers to m"
+typechecker:go/types/TestCheck/init1.go	compiled	check_test.go:271: ../../internal/types/testdata/check/init1.go:17:5: no error expected: "\ty0 refers to m"
+typechecker:go/types/TestCheck/init2.go	interpreted	check_test.go:271: ../../internal/types/testdata/check/init2.go:12:5: no error expected: "\tx1 refers to f1"
+typechecker:go/types/TestCheck/init2.go	compiled	check_test.go:271: ../../internal/types/testdata/check/init2.go:12:5: no error expected: "\tx1 refers to f1"
+typechecker:go/types/TestCheck/labels.go	interpreted	check_test.go:271: ../../internal/types/testdata/check/labels.go:27:1: no error expected: "\tother declaration of L6"
+typechecker:go/types/TestCheck/labels.go	compiled	check_test.go:271: ../../internal/types/testdata/check/labels.go:27:1: no error expected: "\tother declaration of L6"
+typechecker:go/types/TestCheck/literals.go	interpreted	check_test.go:271: ../../internal/types/testdata/check/literals.go:13:2: no error expected: "undefined: assert"
+typechecker:go/types/TestCheck/literals.go	compiled	check_test.go:271: ../../internal/types/testdata/check/literals.go:13:2: no error expected: "undefined: assert"
+typechecker:go/types/TestCheck/main0.go	interpreted	check_test.go:271: ../../internal/types/testdata/check/main0.go:7:6: no error expected: "\tother declaration of main"
+typechecker:go/types/TestCheck/main0.go	compiled	check_test.go:271: ../../internal/types/testdata/check/main0.go:7:6: no error expected: "\tother declaration of main"
+typechecker:go/types/TestCheck/stmt0.go	interpreted	check_test.go:271: ../../internal/types/testdata/check/stmt0.go:395:8: no error expected: "\tinner declaration of var a int"
+typechecker:go/types/TestCheck/stmt0.go	compiled	check_test.go:271: ../../internal/types/testdata/check/stmt0.go:395:8: no error expected: "\tinner declaration of var a int"
+typechecker:go/types/TestCheck/typeparams.go	interpreted	check_test.go:271: ../../internal/types/testdata/check/typeparams.go:17:8: no error expected: "\tother declaration of T"
+typechecker:go/types/TestCheck/typeparams.go	compiled	check_test.go:271: ../../internal/types/testdata/check/typeparams.go:17:8: no error expected: "\tother declaration of T"
+typechecker:go/types/TestExamples/types.go	interpreted	check_test.go:271: ../../internal/types/testdata/examples/types.go:149:38: no error expected: "\tother declaration of int8"
+typechecker:go/types/TestExamples/types.go	compiled	check_test.go:271: ../../internal/types/testdata/examples/types.go:149:38: no error expected: "\tother declaration of int8"
+typechecker:go/types/TestFixedbugs/issue39634.go	interpreted	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue39634.go:18:11: no error expected: "\tother declaration of e"
+typechecker:go/types/TestFixedbugs/issue39634.go	compiled	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue39634.go:18:11: no error expected: "\tother declaration of e"
+typechecker:go/types/TestFixedbugs/issue39938.go	interpreted	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue39938.go:26:6: no error expected: "\tT2 refers to E2[T2]"
+typechecker:go/types/TestFixedbugs/issue39938.go	compiled	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue39938.go:26:6: no error expected: "\tT2 refers to E2[T2]"
+typechecker:go/types/TestFixedbugs/issue41124.go	interpreted	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue41124.go:9:6: no error expected: "\tNat refers to Succ"
+typechecker:go/types/TestFixedbugs/issue41124.go	compiled	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue41124.go:9:6: no error expected: "\tNat refers to Succ"
+typechecker:go/types/TestFixedbugs/issue42758.go	interpreted	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue42758.go:14:7: no error expected: "\tprevious case"
+typechecker:go/types/TestFixedbugs/issue42758.go	compiled	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue42758.go:14:7: no error expected: "\tprevious case"
+typechecker:go/types/TestFixedbugs/issue48018.go	interpreted	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue48018.go:15:9: no error expected: "\tA instantiated as Box[A]"
+typechecker:go/types/TestFixedbugs/issue48018.go	compiled	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue48018.go:15:9: no error expected: "\tA instantiated as Box[A]"
+typechecker:go/types/TestFixedbugs/issue48234.go	interpreted	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue48234.go:8:2: no error expected: "\tother declaration of method m"
+typechecker:go/types/TestFixedbugs/issue48234.go	compiled	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue48234.go:8:2: no error expected: "\tother declaration of method m"
+typechecker:go/types/TestFixedbugs/issue48582.go	interpreted	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue48582.go:11:6: no error expected: "\tA refers to B"
+typechecker:go/types/TestFixedbugs/issue48582.go	compiled	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue48582.go:11:6: no error expected: "\tA refers to B"
+typechecker:go/types/TestFixedbugs/issue48656.go	interpreted	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue48656.go:12:9: no error expected: "\tP instantiated as *P"
+typechecker:go/types/TestFixedbugs/issue48656.go	compiled	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue48656.go:12:9: no error expected: "\tP instantiated as *P"
+typechecker:go/types/TestFixedbugs/issue48962.go	interpreted	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue48962.go:11:6: no error expected: "\tT1 refers to T0[T1]"
+typechecker:go/types/TestFixedbugs/issue48962.go	compiled	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue48962.go:11:6: no error expected: "\tT1 refers to T0[T1]"
+typechecker:go/types/TestFixedbugs/issue48974.go	interpreted	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue48974.go:15:41: no error expected: "\tF instantiated as *FooerImpl[F]"
+typechecker:go/types/TestFixedbugs/issue48974.go	compiled	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue48974.go:15:41: no error expected: "\tF instantiated as *FooerImpl[F]"
+typechecker:go/types/TestFixedbugs/issue49043.go	interpreted	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue49043.go:9:11: no error expected: "\tM[P] refers to N[P]"
+typechecker:go/types/TestFixedbugs/issue49043.go	compiled	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue49043.go:9:11: no error expected: "\tM[P] refers to N[P]"
+typechecker:go/types/TestFixedbugs/issue49276.go	interpreted	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue49276.go:9:6: no error expected: "\tS refers to s"
+typechecker:go/types/TestFixedbugs/issue49276.go	compiled	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue49276.go:9:6: no error expected: "\tS refers to s"
+typechecker:go/types/TestFixedbugs/issue51503.go	interpreted	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue51503.go:14:38: no error expected: "\tother declaration of r"
+typechecker:go/types/TestFixedbugs/issue51503.go	compiled	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue51503.go:14:38: no error expected: "\tother declaration of r"
+typechecker:go/types/TestFixedbugs/issue52698.go	interpreted	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue52698.go:12:6: no error expected: "\tS refers to T[S]"
+typechecker:go/types/TestFixedbugs/issue52698.go	compiled	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue52698.go:12:6: no error expected: "\tS refers to T[S]"
+typechecker:go/types/TestFixedbugs/issue59958.go	interpreted	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue59958.go:15:4: no error expected: "gosource: unsupported expression *ast.IndexListExpr"
+typechecker:go/types/TestFixedbugs/issue59958.go	compiled	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue59958.go:15:4: no error expected: "gosource: unsupported expression *ast.IndexListExpr"
+typechecker:go/types/TestFixedbugs/issue65711.go	interpreted	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue65711.go:11:6: no error expected: "\tC refers to B[C]"
+typechecker:go/types/TestFixedbugs/issue65711.go	compiled	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue65711.go:11:6: no error expected: "\tC refers to B[C]"
+typechecker:go/types/TestFixedbugs/issue66285.go	interpreted	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue66285.go:16:2: no error expected: "\tother declaration of method Read"
+typechecker:go/types/TestFixedbugs/issue66285.go	compiled	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue66285.go:16:2: no error expected: "\tother declaration of method Read"
+typechecker:go/types/TestFixedbugs/issue6977.go	interpreted	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue6977.go:35:21: no error expected: "\tother declaration of method m"
+typechecker:go/types/TestFixedbugs/issue6977.go	compiled	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue6977.go:35:21: no error expected: "\tother declaration of method m"
+typechecker:go/types/TestFixedbugs/issue75918.go	interpreted	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue75918.go:9:6: no error expected: "\tA refers to S"
+typechecker:go/types/TestFixedbugs/issue75918.go	compiled	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue75918.go:9:6: no error expected: "\tA refers to S"
+typechecker:go/types/TestFixedbugs/issue76478.go	interpreted	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue76478.go:18:6: no error expected: "\tE refers to F"
+typechecker:go/types/TestFixedbugs/issue76478.go	compiled	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue76478.go:18:6: no error expected: "\tE refers to F"
+typechecker:go/types/TestFixedbugs/issue79265.go	interpreted	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue79265.go:10:6: no error expected: "\tA refers to T"
+typechecker:go/types/TestFixedbugs/issue79265.go	compiled	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue79265.go:10:6: no error expected: "\tA refers to T"
+typechecker:go/types/TestFixedbugs/issue80172.go	interpreted	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue80172.go:9:30: no error expected: "\tP instantiated as List[P]"
+typechecker:go/types/TestFixedbugs/issue80172.go	compiled	check_test.go:271: ../../internal/types/testdata/fixedbugs/issue80172.go:9:30: no error expected: "\tP instantiated as List[P]"

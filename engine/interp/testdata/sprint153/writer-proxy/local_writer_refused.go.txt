@@ -1,0 +1,13 @@
+package main
+
+import "fmt"
+
+type sink struct{ n int }
+
+func (s *sink) Write(p []byte) (int, error) { s.n += len(p); return len(p), nil }
+
+func main() {
+	var s sink
+	fmt.Fprintf(&s, "x=%d\n", 7)
+	fmt.Println(s.n)
+}

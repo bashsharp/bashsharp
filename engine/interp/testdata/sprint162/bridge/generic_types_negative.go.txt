@@ -1,0 +1,15 @@
+package main
+
+import "fmt"
+
+type Box[T any] struct {
+	items []T
+}
+
+func (b Box[T]) String() string {
+	var zero T
+	b.items[0] = zero
+	return "box"
+}
+
+func main() { fmt.Println(Box[int]{items: []int{1}}) }

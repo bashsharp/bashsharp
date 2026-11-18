@@ -1,0 +1,11 @@
+package main
+
+import "reflect"
+
+func TypeString[T any]() string {
+	return reflect.TypeOf(new(U)).Elem().String()
+}
+
+func main() {
+	println(TypeString[int]())
+}

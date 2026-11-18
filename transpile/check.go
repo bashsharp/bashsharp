@@ -9,9 +9,9 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/bashsharp/bashsharp/engine/lower"
+	"github.com/bashsharp/bashsharp/engine/syntax"
 	"github.com/bashsharp/bashsharp/front"
-	"mvdan.cc/sh/v3/lower"
-	"mvdan.cc/sh/v3/syntax"
 )
 
 func init() { front.ShellCheck = checkShell }

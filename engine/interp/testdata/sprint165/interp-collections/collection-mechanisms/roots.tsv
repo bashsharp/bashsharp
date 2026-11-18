@@ -1,0 +1,17 @@
+root	mechanism	evidence
+testdir:closure2.go	IIFE-in-index/slice-bound	call result accepted as integer collection index operand
+testdir:typeparam/issue47723.go	IIFE-in-index/slice-bound	call result accepted as integer collection index operand
+testdir:fixedbugs/bug499.go	blank-target value builtin	blank assignment evaluates and discards predeclared value builtin result
+testdir:fixedbugs/issue37975.go	blank-target value builtin	blank assignment evaluates and discards predeclared value builtin result
+testdir:fixedbugs/issue4085b.go	blank-target value builtin	blank assignment evaluates and discards predeclared value builtin result
+testdir:fixedbugs/issue72844.go	blank-target value builtin	blank assignment evaluates and discards predeclared value builtin result
+testdir:fixedbugs/issue78081.go	blank-target value builtin	blank assignment evaluates and discards predeclared value builtin result
+testdir:makeslice.go	blank-target value builtin	blank assignment evaluates and discards predeclared value builtin result
+testdir:fixedbugs/gcc61258.go	delete typed key	delete uses destination map key type and Sprint165 typed-key storage
+testdir:fixedbugs/issue19359.go	delete interface key	delete preserves interface dynamic key identity
+testdir:fixedbugs/issue2615.go	collection element numeric carrier	covered by Sprint165 string-to-uint64 mechanism
+testdir:fixedbugs/issue30116u.go	collection element numeric carrier	covered by Sprint165 string-to-uint64 mechanism
+testdir:fixedbugs/issue68227.go	collection element numeric carrier	covered by Sprint165 string-to-uint64 mechanism
+testdir:float_lit2.go	collection element numeric carrier	covered by Sprint165 string-to-uint64 mechanism
+testdir:complit.go	collection length const expression	covered by existing Sprint165 const-array-length evaluator
+testdir:fixedbugs/bug254.go	collection length const expression	covered by existing Sprint165 const-array-length evaluator

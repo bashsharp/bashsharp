@@ -25,12 +25,12 @@ import (
 	"strings"
 	"text/scanner"
 
+	"github.com/bashsharp/bashsharp/engine/expand"
+	"github.com/bashsharp/bashsharp/engine/interp"
+	"github.com/bashsharp/bashsharp/engine/polyglot"
+	"github.com/bashsharp/bashsharp/engine/syntax"
 	"github.com/bashsharp/bashsharp/front"
 	"github.com/bashsharp/bashsharp/transpile"
-	"mvdan.cc/sh/v3/expand"
-	"mvdan.cc/sh/v3/interp"
-	"mvdan.cc/sh/v3/polyglot"
-	"mvdan.cc/sh/v3/syntax"
 )
 
 // version is the language front's own version; the commit comes from the

@@ -1,0 +1,12 @@
+package main
+
+type dch struct{ nam int }
+type other struct{ nam int }
+
+type PS *dch
+
+func take(p PS) int { return p.nam }
+
+func main() {
+	println(take(&other{1}))
+}

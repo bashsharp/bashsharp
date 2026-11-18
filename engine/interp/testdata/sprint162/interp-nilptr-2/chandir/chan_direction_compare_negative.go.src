@@ -1,0 +1,8 @@
+package main
+
+func main() {
+	ch := make(chan int)
+	var send chan<- int = ch
+	var recv <-chan int = ch
+	println(send == recv)
+}

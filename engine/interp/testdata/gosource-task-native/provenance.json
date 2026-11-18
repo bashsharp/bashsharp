@@ -1,0 +1,20 @@
+{
+  "release": "go1.27.1",
+  "files": [
+    {
+      "path": "test/goprint.go",
+      "file": "goprint.go.txt",
+      "sha256": "707e00f08110b8a9968037634a9da70f19fc2f649dbf68ade6e04cbc70d011bd"
+    },
+    {
+      "path": "test/goprint.out",
+      "file": "goprint.out.txt",
+      "sha256": "8cf6a0958d362f5632998197339610f83828ea7f1a5a815038cd077fd17f5c27"
+    },
+    {
+      "path": "test/fixedbugs/issue25897b.go",
+      "file": "issue25897b.go.txt",
+      "sha256": "43e7dac9d14271a6782bb5770f8f06b0d98f36ed9d5dc40b5420e8c43212cb50"
+    }
+  ]
+}

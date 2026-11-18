@@ -4,17 +4,21 @@ go 1.27
 
 toolchain go1.27.2
 
-require mvdan.cc/sh/v3 v3.13.1
-
 require (
-	golang.org/x/mod v0.29.0 // indirect
-	golang.org/x/sys v0.42.0 // indirect
-	golang.org/x/term v0.41.0 // indirect
-	golang.org/x/text v0.9.0 // indirect
-	golang.org/x/tools v0.38.0 // indirect
+	github.com/creack/pty v1.1.24
+	github.com/ergochat/readline v0.1.3
+	github.com/go-quicktest/qt v1.101.0
+	github.com/google/go-cmp v0.7.0
+	github.com/qiangli/bash v0.0.0-20261117235306-adb3b4e0c28d
+	golang.org/x/mod v0.29.0
+	golang.org/x/sys v0.42.0
+	golang.org/x/term v0.41.0
+	golang.org/x/text v0.9.0
+	golang.org/x/tools v0.38.0
 )
 
-// Bash# (formerly Bash++) is a language over the qiangli/sh fork of mvdan.cc/sh (the engine
-// that carries the Bash++ evaluator, lowering compiler, Go front end and
-// fences). Flat sibling, umbrella convention: dhnt/sh next to dhnt/bashsharp.
-replace mvdan.cc/sh/v3 => github.com/qiangli/sh/v3 v3.0.0-20261025021234-6663c93a2d3c
+require (
+	github.com/kr/pretty v0.3.1 // indirect
+	github.com/kr/text v0.2.0 // indirect
+	github.com/rogpeppe/go-internal v1.14.1 // indirect
+)

@@ -1,0 +1,14 @@
+package main
+
+import (
+	"fmt"
+	"runtime"
+)
+
+func main() {
+	x := new([2]int32)
+	x[1] = 7
+	runtime.SetFinalizer(&x[1], func(p *int32) { fmt.Println("finalized", *p) })
+	runtime.GC()
+	fmt.Println("done")
+}

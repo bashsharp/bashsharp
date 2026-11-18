@@ -1,0 +1,12 @@
+package main
+
+func f() int { return 0 }
+
+func main() {
+	ch := make(chan int)
+	select {
+	case 1 = <-ch:
+	case f() = <-ch:
+	case a, b, c = <-ch:
+	}
+}

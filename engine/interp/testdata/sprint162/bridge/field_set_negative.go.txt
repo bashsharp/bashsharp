@@ -1,0 +1,8 @@
+package main
+
+import "os/exec"
+
+func main() {
+	cmd := exec.Command("/bin/echo")
+	cmd.Dir = 1
+}

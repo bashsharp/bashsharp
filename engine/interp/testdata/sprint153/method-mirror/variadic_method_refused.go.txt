@@ -1,0 +1,15 @@
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+type V int
+
+func (v V) Join(parts ...string) string { return "" }
+
+func main() {
+	out, err := json.Marshal(V(1))
+	fmt.Println(string(out), err)
+}

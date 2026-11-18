@@ -1,0 +1,21 @@
+package main
+
+import (
+	"fmt"
+	"strings"
+)
+
+type node struct {
+	next  *node
+	Value int
+}
+
+func main() {
+	b := &node{Value: 2}
+	a := &node{Value: 1, next: b}
+	// a → b → nil: no cycle, the pointee crosses whole and no back-reference
+	// is spelled.
+	fmt.Println(a.Value, b.Value, a.next == b, b.next == nil)
+	fmt.Println(fmt.Sprintf("%p", a) == fmt.Sprintf("%p", a), fmt.Sprintf("%p", a) == fmt.Sprintf("%p", b))
+	fmt.Println(fmt.Sprintf("%T", a), strings.HasPrefix(fmt.Sprint(a), "&{"), strings.Count(fmt.Sprint(b), "0x"))
+}

@@ -1,0 +1,59 @@
+package main
+
+import (
+	"fmt"
+	"os"
+)
+
+// A var declaration whose initializer spells a function value by name binds
+// the same closure the short declaration binds.
+
+func f(x int) string { return fmt.Sprint("f", x) }
+
+type T int
+
+func (t T) M() string   { return fmt.Sprint("M", int(t)) }
+func (t *T) P() string  { return fmt.Sprint("P", int(*t)) }
+func callRecover() bool { return recover() != nil }
+
+type S struct{ *T }
+
+type Box[T any] struct{ V T }
+
+func (b Box[T]) Get() T { return b.V }
+
+var (
+	fn      = f
+	fnTyped func(int) string = f
+	lit                      = func(x int) string { return fmt.Sprint("lit", x) }
+	seven   T                = 7
+	bound                    = seven.M
+	expr                     = T.M
+	ptrExpr                  = (*T).P
+	wrapper                  = S.M
+	generic                  = Box[string]{V: "boxed"}.Get
+)
+
+func mustPanic(g func()) (recovered bool) {
+	defer func() { recovered = recover() != nil }()
+	g()
+	return
+}
+
+func main() {
+	var local = f
+	fmt.Println(fn(1), fnTyped(2), lit(3), local(4))
+	fmt.Println(bound(), expr(seven), ptrExpr(&seven), wrapper(S{&seven}), generic())
+	var deferred = f
+	defer func() { fmt.Println("deferred", deferred(5)) }()
+	// A deferred call through a package-level function variable.
+	fmt.Println(mustPanic(func() {
+		var recoverer = callRecover
+		defer recoverer()
+		panic("x")
+	}))
+	// Positive control: the short-declaration form.
+	short := f
+	fmt.Println(short(6))
+	os.Exit(3)
+}

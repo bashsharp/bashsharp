@@ -1,0 +1,7 @@
+fixture_id	dialect	policy	input_sha256	path
+div/echo-close	bashsharp	sh-syntax	a4bfd8be312a93ddf964b2512a8860a27e530dc2834414664ac502fa02ff5265	testdata/grammar-oracle/div-echo-close.bsh
+div/group-after-semi	bashsharp	sh-syntax	884f67f0c210c1d6712451c58d8f693e0900ac3506f71954dd44e307891e8bfc	testdata/grammar-oracle/div-group-after-semi.bsh
+div/backtick-close	bashsharp	sh-syntax	801fb3bffd1b49a813681066d8d552090ad7ef00edd18a80fa91e5562caac882	testdata/grammar-oracle/div-backtick-close.bsh
+sites	bashsharp	sh-syntax	422a61c1a8fe059fbe4936e6350dc06fa5537f007d8d91f5bdd817b58c1a4f02	testdata/grammar-oracle/sites.bsh
+embed-absent	bashsharp	sh-syntax	e1ca93b1efd7cc49b6b439810b369073614407b3bac8933525dc4e384c9ebe67	testdata/grammar-oracle/embed-absent.bsh
+plain	bash	sh-syntax	2af7f34602ea02207ea3a51883a89b2f91c1eaa7702878c70b71d3f022c954ef	testdata/grammar-oracle/plain.sh

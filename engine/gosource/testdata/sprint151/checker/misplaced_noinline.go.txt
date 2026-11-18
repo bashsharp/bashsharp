@@ -1,0 +1,4 @@
+package p
+
+//go:noinline
+type T int

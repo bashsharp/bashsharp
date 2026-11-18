@@ -1,0 +1,27 @@
+package main
+
+import (
+	"fmt"
+	"math"
+	"os"
+	"strings"
+)
+
+// An untyped constant compared directly with a dependency call's result
+// takes the result's type, as Go converts it: float64 8 == 8, not int 8.
+
+func main() {
+	if math.Pow(2, 3) != 8 {
+		fmt.Println("pow != 8")
+	}
+	fmt.Println(math.Pow(2, 3) == 8, 8 == math.Pow(2, 3), math.Sqrt(2) == 1.4142135623730951)
+	fmt.Println(strings.Count("banana", "a") == 3, strings.ToUpper("x") == "X", math.Signbit(-1) == true)
+	// Positive control: the same comparisons through a variable, which
+	// already carried the result's type.
+	p := math.Pow(2, 3)
+	n := strings.Count("banana", "a")
+	fmt.Println(p == 8, p != 8, n == 3, n != 3)
+	if math.Floor(2.5) == 2 {
+		os.Exit(3)
+	}
+}

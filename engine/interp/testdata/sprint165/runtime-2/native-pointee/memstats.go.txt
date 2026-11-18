@@ -1,0 +1,22 @@
+package main
+
+import (
+	"fmt"
+	"runtime"
+)
+
+// chan/select2's shape: runtime.MemStats allocated with new, filled by
+// runtime.ReadMemStats through the pointer, then read field by field.
+func main() {
+	memstats := new(runtime.MemStats)
+	runtime.ReadMemStats(memstats)
+	alloc := memstats.Alloc
+	fmt.Println(alloc > 0, memstats.Sys >= memstats.HeapSys, memstats.Mallocs >= memstats.Frees)
+	before := memstats.Mallocs
+	runtime.ReadMemStats(memstats)
+	fmt.Println(memstats.Mallocs >= before, len(memstats.BySize), memstats.NumGC >= 0)
+	// Positive control: the variable spelling reads its fields directly.
+	var direct runtime.MemStats
+	runtime.ReadMemStats(&direct)
+	fmt.Println(direct.Sys > 0, direct.HeapSys <= direct.Sys)
+}

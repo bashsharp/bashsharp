@@ -1,0 +1,19 @@
+package main
+
+import (
+	"fmt"
+	"runtime"
+)
+
+// Negative (wrong-status): a field read through a nil pointer to an
+// imported struct type is the nil dereference Go reports, recovered as a
+// runtime.Error.
+func main() {
+	defer func() {
+		r := recover()
+		_, isRuntime := r.(runtime.Error)
+		fmt.Println(isRuntime, r)
+	}()
+	var p *runtime.MemStats
+	fmt.Println(p.Alloc)
+}

@@ -1,0 +1,47 @@
+~~~python as py
+import io, sys
+def factory():
+    class Factory:
+        label = 42
+        def make(self): return io.StringIO("chain")
+        def fail(self):
+            print("method-out")
+            print("method-err", file=sys.stderr)
+            raise ValueError("method boom")
+    return Factory()
+def make(): return io.StringIO("read")
+~~~
+h, err := py.make()
+v, err := h.read()
+echo "$v:$err"
+h, err = py.make()
+single := h.read()
+echo "$single"
+f, err := py.factory()
+h, err = f.make()
+v, err = h.read()
+echo "$v:$err"
+n, err := h.tell()
+echo "$n:$err"
+v, err = f.fail()
+echo "$err"
+v, err = f.missing()
+echo "$err"
+v, err = f.label()
+echo "$err"
+type Counter int
+func (h Counter) read() string { return "typed" }
+func typed(h Counter) string {
+    return h.read()
+}
+typedValue := typed(1)
+echo "$typedValue"
+child, childErr := f.make()
+text, childErr := child.read()
+echo "$text:$childErr"
+var assigned any
+assigned, childErr = f.make()
+text, childErr = assigned.read()
+echo "$text:$childErr"
+failed, problem := f.missing()
+echo "caught=$problem clear=$childErr"

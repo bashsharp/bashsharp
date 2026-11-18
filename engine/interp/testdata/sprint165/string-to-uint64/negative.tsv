@@ -1,0 +1,7 @@
+# name	source_type	text	want
+plain-string	string	12	unhandled
+bad-float	float32	not-a-float	cannot convert String to uint64
+signed-unsigned	uint64	-1	cannot convert String to uint64
+overflow-named-byte	uint8	256	cannot convert String to uint64
+overflow-signed-source	int8	128	cannot convert String to uint64
+missing-type		12	unhandled

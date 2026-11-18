@@ -1,0 +1,1 @@
+func (r Report) F( { return 1 }

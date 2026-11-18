@@ -1,0 +1,57 @@
+package main
+
+import (
+	"errors"
+	"fmt"
+	"os"
+	"strings"
+)
+
+// A method call resolves by the receiver's TYPE: a local type's method runs
+// the original body even when the value is held natively; a method of a
+// dependency-owned value reached through a computed receiver runs there.
+
+type Listener chan int
+
+func (l Listener) Addr() error { return errors.New("listener-addr") }
+func (l Listener) Accept() int { return <-l }
+
+type Iterator interface{ Iterate() string }
+
+type IteratorFunc func(int) bool
+
+func (f IteratorFunc) Iterate() string {
+	if f == nil {
+		return "nil iterator"
+	}
+	return fmt.Sprint("iterator ", f(1))
+}
+
+func fromIterator(it Iterator) string { return it.Iterate() }
+
+func addr() error { return errors.New("plain-addr") }
+
+func builder() *strings.Builder {
+	var b strings.Builder
+	b.WriteString("built")
+	return &b
+}
+
+func main() {
+	var l Listener = make(chan int, 1)
+	l <- 7
+	fmt.Println(l.Addr().Error(), l.Accept())
+
+	fmt.Println(fromIterator(IteratorFunc(nil)))
+	var f IteratorFunc
+	fmt.Println(fromIterator(f))
+	positive := func(n int) bool { return n > 0 }
+	fmt.Println(fromIterator(IteratorFunc(positive)))
+
+	// Positive control: the named native receiver, and the same value through
+	// a variable.
+	e := addr()
+	fmt.Println(e.Error(), addr().Error(), builder().String(), builder().Len())
+	fmt.Println(errors.New("wrapped").Error())
+	os.Exit(3)
+}

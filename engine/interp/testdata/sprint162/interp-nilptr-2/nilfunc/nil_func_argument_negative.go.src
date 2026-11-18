@@ -1,0 +1,7 @@
+package main
+
+func h(p func() struct{}) bool { return p() == struct{}{} }
+
+func main() {
+	h(func() int { return 1 })
+}

@@ -31,7 +31,7 @@ func TestBashPPImportsOnlyTheEngine(t *testing.T) {
 			t.Errorf("bashpp must not import %s — the language depends on the sh engine only (D1)", forbidden)
 		}
 	}
-	if !strings.Contains(deps, "mvdan.cc/sh/v3/interp") {
-		t.Error("bashpp should import mvdan.cc/sh/v3/interp — the engine is where the language runs")
+	if !strings.Contains(deps, "github.com/bashsharp/bashsharp/engine/interp") {
+		t.Error("bashpp should import github.com/bashsharp/bashsharp/engine/interp — the engine is where the language runs")
 	}
 }

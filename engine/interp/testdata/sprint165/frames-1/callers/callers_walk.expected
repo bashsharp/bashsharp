@@ -1,0 +1,22 @@
+Caller(0): main.h line=30 ok=true
+Caller(1): main.g line=38 ok=true
+Caller(2): main.f line=42 ok=true
+Caller(3): main.caller line=48 ok=true
+Caller(4): main.main line=141 ok=true
+Caller(5): runtime.main ok=true
+Caller(6): runtime.goexit ok=true
+Caller(7):  line=0 ok=false
+Callers(0): runtime.Callers main.callers main.names main.main
+Callers(1): main.callers main.names main.main
+Callers(3): main.main
+Frames(0): runtime.Callers main.callers@56 main.frames@77 main.main@151
+Frames(2): main.frames@77 main.main@152
+no counters: true 0 false
+unknown counter: true
+literals: main.T.M.func1 main.gen[...] main.main.func1.1
+chain during unwind: main.unwind.func1 runtime.gopanic main.fault main.unwind main.main
+trace starts with debug.Stack: true
+trace has panic frame: true
+trace has fault: true
+runtime.Stack starts with the caller: true
+after unwind: main.callers main.names main.main

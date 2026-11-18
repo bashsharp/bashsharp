@@ -1,0 +1,9 @@
+package main
+
+type S struct{ xs []int }
+
+func main() {
+	// Go refuses to compare a struct containing a slice; the checker must
+	// still refuse it (invalid operation: ... cannot be compared).
+	_ = (S{}) == (S{})
+}

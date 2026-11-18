@@ -1,0 +1,12 @@
+plain call at line 22
+implicit return at line 23
+explicit return at line 28
+callee of the return at line 34
+return of a call at line 40
+loop defer at line 47
+loop defer at line 47
+nested deferred call at line 51
+literal inside a deferred call at line 54
+method return at line 62
+panicking frame at line 71
+literal return at line 84

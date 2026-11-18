@@ -1,0 +1,9 @@
+main.main
+main.init.func1
+main.T.M.func1 main.(*T).P.func1
+main.Box[...].Get main.gen[...]
+main.outer.func2 main.outer.func2.1.1 main.outer.func2.1 main.outer.func2.2
+main.outer.func1
+main.outer.func3
+main.outer.func4
+main.main.func1

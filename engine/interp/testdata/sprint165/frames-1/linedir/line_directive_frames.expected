@@ -1,0 +1,16 @@
+physical: <dir>/line_directive_frames.go:51
+physical self: <dir>/line_directive_frames.go:52
+physical is absolute: true
+absolute: /foo/bar.go:123
+cleared: ??:1
+relative: rel.go:7
+relative next line: rel.go:8
+column keeps the name: rel.go:11
+comment cleared: ??:10
+comment relative: foo.go:20
+after comment directive: foo.go:21
+colon in the name: c:/foo/bar.go:987
+self under directive: /nested/self.go:40
+same name relative: line_directive_frames.go:1000
+trace names the adjusted fault file: true
+trace names the directive at the call: true

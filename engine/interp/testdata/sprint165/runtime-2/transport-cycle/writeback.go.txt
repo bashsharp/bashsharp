@@ -1,0 +1,48 @@
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+type node struct {
+	next, prev *node
+	Value      int
+}
+
+type ring struct {
+	root node
+	len  int
+}
+
+func newRing() *ring {
+	r := &ring{}
+	r.root.next = &r.root
+	r.root.prev = &r.root
+	return r
+}
+
+func (r *ring) insert(n, at *node) *node {
+	n.prev = at
+	n.next = at.next
+	n.prev.next = n
+	n.next.prev = n
+	r.len++
+	return n
+}
+
+func main() {
+	r := newRing()
+	a := r.insert(&node{Value: 1}, r.root.prev)
+	b := r.insert(&node{Value: 2}, r.root.prev)
+	// The dependency writes through a pointer whose pointee is cyclic: the
+	// write comes back finitely and lands on the original storage.
+	if err := json.Unmarshal([]byte(`{"Value":7}`), a); err != nil {
+		panic(err)
+	}
+	fmt.Println(a.Value, b.Value, b.prev.Value, r.len)
+	if err := json.Unmarshal([]byte(`{"Value":9}`), b.prev); err != nil {
+		panic(err)
+	}
+	fmt.Println(a.Value, r.root.next.Value)
+}

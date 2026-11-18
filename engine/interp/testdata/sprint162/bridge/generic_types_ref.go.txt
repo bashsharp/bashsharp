@@ -1,0 +1,12 @@
+package main
+
+import "fmt"
+
+type pair struct {
+	left  int
+	right string
+}
+
+func (p pair) String() string { return fmt.Sprintf("%d:%s", p.left, p.right) }
+
+func main() { fmt.Println(pair{left: 3, right: "ok"}) }

@@ -1,0 +1,15 @@
+package main
+
+import "fmt"
+
+// An inferred-length array literal ([...]T) must cross the dependency boundary
+// with its realised length so the reflect-based type resolver can rebuild it,
+// rather than the "..." placeholder the declared type carries.
+func main() {
+	a := [...]int{10, 20, 30}
+	fmt.Println("array:", a, "len:", len(a))
+	names := [...]string{"x", "y"}
+	fmt.Println("names:", names)
+	grid := [...][2]int{{1, 2}, {3, 4}}
+	fmt.Println("grid:", grid)
+}

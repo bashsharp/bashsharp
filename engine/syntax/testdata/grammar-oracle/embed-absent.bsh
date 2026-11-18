@@ -1,0 +1,1 @@
+embed python "./absent.py" as py

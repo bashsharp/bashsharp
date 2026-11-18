@@ -1,0 +1,25 @@
+package main
+
+import (
+	"fmt"
+)
+
+type Option[T any] struct {
+	ok  bool
+	val T
+}
+
+func (o Option[T]) String() string {
+	if o.ok {
+		return fmt.Sprintf("Some(%v)", o.val)
+	}
+	return "None"
+}
+
+func Some[T any](val T) Option[T] { return Option[T]{ok: true, val: val} }
+
+func main() {
+	a := Some[int](1)
+	b := Option[int]{}
+	fmt.Println(a, b)
+}

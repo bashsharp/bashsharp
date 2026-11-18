@@ -1,0 +1,69 @@
+package main
+
+import (
+	"errors"
+	"fmt"
+	"os"
+	"strings"
+)
+
+// A dependency-owned dynamic value asserted to an interface — local or
+// imported — answers from the dependency: an assertion, its comma-ok form, a
+// type switch, and a recovered dependency error.
+
+type Named interface{ Error() string }
+
+func classify(v any) string {
+	switch x := v.(type) {
+	case error:
+		return "error:" + x.Error()
+	case fmt.Stringer:
+		return "stringer:" + x.String()
+	case int:
+		return "int"
+	default:
+		return fmt.Sprintf("other:%T", x)
+	}
+}
+
+var errBase = errors.New("base")
+
+func recovered() (text string) {
+	defer func() {
+		r := recover()
+		err := r.(error)
+		text = fmt.Sprint(err.Error(), "|", err, "|", errors.Is(err, errBase))
+	}()
+	panic(fmt.Errorf("wrapped: %w", errBase))
+}
+
+func main() {
+	var e any = errors.New("x")
+	err, ok := e.(error)
+	fmt.Println(ok, err, e.(error).Error())
+	var w any = fmt.Errorf("w: %w", err)
+	_, isStringer := w.(fmt.Stringer)
+	n, isNamed := w.(Named)
+	fmt.Println(isStringer, isNamed, n)
+
+	var b strings.Builder
+	b.WriteString("sb")
+	var v any = &b
+	s, isS := v.(fmt.Stringer)
+	fmt.Println(isS, s.String())
+
+	fmt.Println(classify(errors.New("e")), classify(&b), classify(3), classify("s"))
+	fmt.Println(classify(fmt.Errorf("w: %w", errors.New("inner"))))
+	fmt.Println(recovered())
+	// Positive control: interpreter-owned dynamic values keep their own
+	// method-set answer.
+	var local any = localErr{}
+	_, localOK := local.(error)
+	_, localStringer := local.(fmt.Stringer)
+	fmt.Println(localOK, localStringer, classify(localErr{}))
+	os.Exit(3)
+}
+
+type localErr struct{}
+
+func (localErr) Error() string { return "local" }

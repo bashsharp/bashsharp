@@ -1,0 +1,196 @@
+// Spike S (S154.3, findings only): parse the Part 1 parser/scanner-stage
+// roots with gc's own cmd/compile/internal/syntax (Go 1.27.0 copy, std-only
+// imports) and re-run the same line-keyed comparison on its diagnostics.
+// Out of tree on purpose: scratch/ is .git/info/exclude'd.
+package spike
+
+import (
+	"bytes"
+	"fmt"
+	"os"
+	"sort"
+	"strings"
+	"testing"
+
+	audit "mvdan.cc/sh/v3/gosource/testdata/sprint154/parser"
+	syntax "mvdan.cc/sh/v3/scratch/gcsyntax"
+)
+
+// gcParse mirrors what gc's noder hands base.ErrorfAt, including its
+// per-line filter (cmd/compile/internal/base/print.go, Go 1.27.0):
+//
+//	if strings.HasPrefix(msg, "syntax error") {
+//		// only one syntax error per line, no matter what error
+//		if sameline(lasterror.syntax, pos) { return }
+//	} else {
+//		// only one of multiple equal non-syntax errors per line
+//		if sameline(lasterror.other, pos) && lasterror.msg == msg { return }
+//	}
+func gcParse(spec audit.RootSpec) []audit.Diag {
+	var diags []audit.Diag
+	lastSyntax, lastOther, lastMsg := -1, -1, ""
+	errh := func(err error) {
+		raw := err.Error()
+		msg := raw
+		if e, ok := err.(syntax.Error); ok {
+			msg = e.Msg
+		}
+		line := audit.LineOf(raw)
+		if strings.HasPrefix(msg, "syntax error") {
+			if line == lastSyntax {
+				return
+			}
+			lastSyntax = line
+		} else {
+			if line == lastOther && msg == lastMsg {
+				return
+			}
+			lastOther, lastMsg = line, msg
+		}
+		stage := audit.StageParser
+		if audit.IsGcScannerMessage(msg) {
+			stage = audit.StageScanner
+		}
+		for _, line := range audit.SplitOutput(raw) {
+			diags = append(diags, audit.Diag{Raw: line, Line: audit.LineOf(line), Stage: stage})
+		}
+	}
+	syntax.Parse(syntax.NewFileBase(spec.Short), bytes.NewReader(spec.Src), errh, nil, syntax.CheckBranches)
+	return diags
+}
+
+func md(s string) string {
+	s = strings.ReplaceAll(s, "|", "\\|")
+	s = strings.ReplaceAll(s, "\n", " ⏎ ")
+	if len(s) > 110 {
+		s = s[:107] + "..."
+	}
+	return "`" + s + "`"
+}
+
+func TestSpikeS(t *testing.T) {
+	corpus := os.Getenv("BASHPP_AUDIT_CORPUS")
+	if corpus == "" {
+		t.Skip("BASHPP_AUDIT_CORPUS not set")
+	}
+	roots, err := audit.ReadRoots(os.Getenv("BASHPP_AUDIT_ROOTS"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	type row struct {
+		root, p1Stage, p1Class, gcVerdict, detail string
+		nGc                                       int
+	}
+	var syntaxRows, otherRows []row
+	closed, remain := 0, map[string]int{}
+	var acceptReject []string // go/parser rejects, gc syntax accepts (or the reverse)
+	for _, root := range roots {
+		spec, err := audit.LoadRoot(corpus, root)
+		if err != nil {
+			t.Fatal(err)
+		}
+		p1, err := audit.Audit(spec)
+		if err != nil {
+			t.Fatal(err)
+		}
+		wants, _ := audit.WantedErrors(spec.Src, spec.Short)
+		p1Diags, _ := audit.FrontEnd(spec)
+		goParserRejects := false
+		for _, d := range p1Diags {
+			if d.Stage != audit.StageChecker {
+				goParserRejects = true
+			}
+		}
+		gcDiags := gcParse(spec)
+		gc := audit.Classify(root, spec.Header, wants, gcDiags)
+		gcRejects := len(gcDiags) > 0
+		if goParserRejects != gcRejects {
+			side := "go/parser rejects, gc syntax accepts"
+			if gcRejects {
+				side = "go/parser accepts, gc syntax rejects"
+			}
+			first := ""
+			if gcRejects {
+				first = gcDiags[0].Raw
+			} else {
+				for _, d := range p1Diags {
+					if d.Stage != audit.StageChecker {
+						first = d.Raw
+						break
+					}
+				}
+			}
+			acceptReject = append(acceptReject, fmt.Sprintf("| %s | %s/%s | %s | %s |", root, p1.FirstStage(), p1.FirstClass(), side, md(first)))
+		}
+		verdict, detail := "pass", ""
+		if len(gc.Failures) > 0 {
+			f := gc.Failures[0]
+			if !gcRejects {
+				verdict = "gc-accepts"
+			} else {
+				verdict = fmt.Sprintf("%s/%s", f.Stage, f.Class)
+			}
+			detail = fmt.Sprintf("L%d", f.Line)
+			if f.Want != "" {
+				detail += " want " + md(f.Want)
+			}
+			if f.Got != "" {
+				detail += " got " + md(f.Got)
+			}
+			if n := len(gc.Failures); n > 1 {
+				detail += fmt.Sprintf(" (+%d more)", n-1)
+			}
+		}
+		r := row{root, p1.FirstStage().String(), p1.FirstClass().String(), verdict, detail, len(gcDiags)}
+		if p1.FirstStage() == audit.StageParser || p1.FirstStage() == audit.StageScanner {
+			syntaxRows = append(syntaxRows, r)
+			if verdict == "pass" {
+				closed++
+			} else {
+				remain[verdict]++
+			}
+		} else {
+			otherRows = append(otherRows, r)
+		}
+	}
+	var b strings.Builder
+	b.WriteString("\n## Spike S — gc `cmd/compile/internal/syntax` as the syntax verdict (findings only)\n\n")
+	b.WriteString("gc's Go 1.27.0 syntax package copied to an excluded scratch dir (16 non-test files, 7533 lines; `_test.go` files and `testdata/` dropped), built unmodified. Imports (all std): `fmt`, `go/build/constraint`, `go/constant`, `io`, `os`, `path/filepath`, `reflect`, `regexp`, `strconv`, `strings`, `unicode`, `unicode/utf8`. Driven as `syntax.Parse(NewFileBase(short), src, errh(collect all), nil, syntax.CheckBranches)`; gc's `syntax error: ` prefix kept, and gc's `base.ErrorfAt` per-line filter applied (one `syntax error` per line; equal non-syntax messages on one line collapsed — quoted in `gcParse`). The same `Classify` as Part 1 is run on its diagnostics. gc runs no type checker after a syntax error, so for a syntax-stage root every expectation must be met by the parser alone — a `checker/missing` verdict here means gc's parser accepted the file (an accept/reject divergence, listed below), not a checker gap.\n\n")
+	fmt.Fprintf(&b, "Part 1 scanner/parser-stage roots: %d. gc's parser alone turns **%d** of them to pass. Remaining %d:", len(syntaxRows), closed, len(syntaxRows)-closed)
+	keys := make([]string, 0, len(remain))
+	for k := range remain {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	for _, k := range keys {
+		fmt.Fprintf(&b, " %s=%d", k, remain[k])
+	}
+	b.WriteString("\n\n### Parser/scanner-stage roots under gc syntax\n\n| root | Part 1 | gc syntax verdict | gc diags | detail |\n|---|---|---|---|---|\n")
+	for _, r := range syntaxRows {
+		fmt.Fprintf(&b, "| %s | %s/%s | %s | %d | %s |\n", r.root, r.p1Stage, r.p1Class, r.gcVerdict, r.nGc, r.detail)
+	}
+	fmt.Fprintf(&b, "\n### Accept/reject divergences (all %d roots)\n\n", len(roots))
+	b.WriteString("Roots where one parser rejects the file and the other accepts it.\n\n| root | Part 1 | side | first syntax diagnostic |\n|---|---|---|---|\n")
+	for _, l := range acceptReject {
+		b.WriteString(l + "\n")
+	}
+	fmt.Fprintf(&b, "\n%d divergences.\n\n### Checker-stage and passing roots under gc syntax (control)\n\n| root | Part 1 | gc syntax verdict | gc diags | detail |\n|---|---|---|---|---|\n", len(acceptReject))
+	for _, r := range otherRows {
+		fmt.Fprintf(&b, "| %s | %s/%s | %s | %d | %s |\n", r.root, r.p1Stage, r.p1Class, r.gcVerdict, r.nGc, r.detail)
+	}
+	out := os.Getenv("BASHPP_AUDIT_FINDINGS")
+	if out == "" {
+		fmt.Print(b.String())
+		return
+	}
+	old, err := os.ReadFile(out)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if i := strings.Index(string(old), "\n## Spike S"); i >= 0 {
+		old = old[:i]
+	}
+	if err := os.WriteFile(out, append(old, b.String()...), 0o644); err != nil {
+		t.Fatal(err)
+	}
+}

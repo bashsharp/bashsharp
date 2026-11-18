@@ -1,0 +1,5 @@
+nothing to recover: <nil>
+nested defer sees: second
+helper: 50
+inner recovered: inner
+recovered: runtime error: invalid memory address or nil pointer dereference

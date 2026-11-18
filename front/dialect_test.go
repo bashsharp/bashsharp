@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"mvdan.cc/sh/v3/syntax"
+	"github.com/bashsharp/bashsharp/engine/syntax"
 )
 
 func envLookup(m map[string]string) func(string) (string, bool) {

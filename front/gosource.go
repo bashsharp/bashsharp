@@ -13,8 +13,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"mvdan.cc/sh/v3/interp"
-	"mvdan.cc/sh/v3/syntax"
+	"github.com/bashsharp/bashsharp/engine/interp"
+	"github.com/bashsharp/bashsharp/engine/syntax"
 )
 
 // Sprint 118, W1 (Bashy half): explicit Go-source input dispatch.

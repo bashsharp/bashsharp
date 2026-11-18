@@ -7,9 +7,9 @@ import (
 
 	"github.com/bashsharp/bashsharp/front"
 
-	"mvdan.cc/sh/v3/gosource"
-	"mvdan.cc/sh/v3/interp"
-	"mvdan.cc/sh/v3/lower"
+	"github.com/bashsharp/bashsharp/engine/gosource"
+	"github.com/bashsharp/bashsharp/engine/interp"
+	"github.com/bashsharp/bashsharp/engine/lower"
 )
 
 // Sprint 118, W1 (Bashy half): the only file in this repository that imports

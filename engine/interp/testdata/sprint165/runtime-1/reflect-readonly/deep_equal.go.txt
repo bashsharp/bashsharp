@@ -1,0 +1,43 @@
+package main
+
+import (
+	"fmt"
+	"os"
+	"reflect"
+)
+
+// reflect.DeepEqual over interpreter-owned values: it reads both operands
+// and answers; the operands are unchanged afterwards.
+
+type Point struct{ X, Y int }
+type MySlice []int
+type Nested struct {
+	Name string
+	Pts  []Point
+	M    map[string]int
+}
+
+func double(s MySlice) MySlice {
+	r := make(MySlice, len(s))
+	for i, v := range s {
+		r[i] = v + v
+	}
+	return r
+}
+
+func main() {
+	arg := MySlice{1, 2, 3}
+	want := MySlice{2, 4, 6}
+	got := double(arg)
+	fmt.Println(reflect.DeepEqual(got, want), reflect.DeepEqual(got, arg), reflect.DeepEqual(arg, MySlice{1, 2, 3}))
+	a := Nested{Name: "a", Pts: []Point{{1, 2}}, M: map[string]int{"k": 1}}
+	b := Nested{Name: "a", Pts: []Point{{1, 2}}, M: map[string]int{"k": 1}}
+	c := Nested{Name: "a", Pts: []Point{{1, 3}}, M: map[string]int{"k": 1}}
+	fmt.Println(reflect.DeepEqual(a, b), reflect.DeepEqual(a, c), reflect.DeepEqual(&a, &b))
+	// Unchanged afterwards: the operands are the interpreter's own storage.
+	got[0] = 9
+	fmt.Println(got, arg, want, a.Pts, len(a.M))
+	// Positive control: values of the dependency's own kinds.
+	fmt.Println(reflect.DeepEqual([]int{1}, []int{1}), reflect.DeepEqual("x", "y"))
+	os.Exit(3)
+}

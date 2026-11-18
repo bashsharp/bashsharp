@@ -1,0 +1,33 @@
+package main
+
+import (
+	"fmt"
+	"sort"
+)
+
+// The concrete (non-generic) in-place sorters reorder the interpreter's own
+// backing array through the transport writeback. An aliasing slice header must
+// observe the same reordering, and capacity beyond the sorted length must be
+// left untouched — exactly as native Go behaves.
+func main() {
+	s := []int{5, 3, 4, 1, 2}
+	alias := s
+	sort.Ints(s)
+	fmt.Println("sorted:", s)
+	fmt.Println("alias:", alias)
+
+	words := []string{"pear", "apple", "fig", "cherry"}
+	sort.Strings(words)
+	fmt.Println("words:", words)
+
+	// Only the visible length is reordered; the trailing capacity is preserved.
+	backing := []int{7, 6, 5, 4}
+	head := backing[:2]
+	sort.Ints(head)
+	fmt.Println("head:", head)
+	fmt.Println("backing:", backing)
+
+	prices := []float64{2.5, 1.25, 3.75}
+	sort.Float64s(prices)
+	fmt.Println("prices:", prices)
+}
