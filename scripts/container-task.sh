@@ -8,4 +8,4 @@ case "$task" in build|test|binary-smoke|build-test-tools) ;; *) echo 'unsupporte
 cpus=${BASHY_BUILD_CPUS:-8}
 export BASHY_BUILD_CPUS=$cpus
 export BASHY_BUILD_CACHE_VOLUME=${BASHY_BUILD_CACHE_VOLUME:-bashsharp-build-cache}
-exec tools/bashy-build/run.sh "$repo" -- "GOWORK=off GOMAXPROCS=$cpus GOFLAGS=-p=1 GOMEMLIMIT=2GiB /bashy dag --no-journal --force $task"
+exec "${BASHY:-bashy}" tools/bashy-build/run.sh "$repo" -- "GOWORK=off GOMAXPROCS=$cpus GOFLAGS=-p=1 GOMEMLIMIT=2GiB /bashy dag --no-journal --force $task"

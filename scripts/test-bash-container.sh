@@ -91,7 +91,7 @@ $OCI info >/dev/null
 OCI="$OCI" GO="$GO_CMD" SUITE=bash53 ARCH="$ARCH" IMAGE="$IMAGE" BASE_IMAGE="$BASE_IMAGE" SELFCHECK=inventory \
   BASH53_ARTIFACT="$ARTIFACT" \
   BASH53_TESTEE_BIN="$TESTEE_BIN" \
-  scripts/build-conformance-image.sh
+  "${BASHY:-bashy}" scripts/build-conformance-image.sh
 
 echo ">> running all 86 fixtures in the hermetic image" >&2
 if [ -n "$ARTIFACT" ]; then
