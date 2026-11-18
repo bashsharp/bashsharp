@@ -22,3 +22,12 @@ require (
 	github.com/kr/text v0.2.0 // indirect
 	github.com/rogpeppe/go-internal v1.14.1 // indirect
 )
+
+replace github.com/ergochat/readline => github.com/qiangli/readline v0.1.4-0.20261013004858-df59d4e258e4
+
+require (
+	github.com/aymanbagabas/go-pty v0.2.3
+	github.com/creack/pty/v2 v2.0.1
+	github.com/qiangli/coreutils v0.0.0-20261112194059-6dd7a3ee1858
+	github.com/qiangli/yoke v0.0.0-20261117162732-c9057f1e2028
+)
