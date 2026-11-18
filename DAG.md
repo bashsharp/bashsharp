@@ -119,7 +119,7 @@ BASH53_SOURCE_COMMIT="$(git rev-parse HEAD)" \
 BASH53_LOWER_PINS="github.com/qiangli/bash@$pin" \
 BASH53_BASE_IMAGE="$image@$digest" \
 BASH53_EVIDENCE="${BASH53_EVIDENCE:-bin/bashsharp-bash53-evidence.json}" \
-scripts/test-bash-container.sh
+"${BASHY:-bashy}" scripts/test-bash-container.sh
 ```
 
 ### vet
