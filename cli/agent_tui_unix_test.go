@@ -26,7 +26,7 @@ import (
 // becomes a turn that reaches the model.
 func TestAgentTUINativeOverPTY(t *testing.T) {
 	bin := builtBashyBin(t)
-	config, err := filepath.Abs("../../../ycode/examples/agent.yaml")
+	config, err := filepath.Abs("testdata/agent.yaml")
 	if err != nil {
 		t.Fatal(err)
 	}

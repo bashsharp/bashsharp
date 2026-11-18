@@ -1,0 +1,1476 @@
+apiVersion: ycode.dev/v1alpha1
+kind: Harness
+
+metadata:
+  name: ycode
+  version: 1
+  annotations:
+    dhnt.io/purpose: canonical-self-hosting-harness
+
+spec:
+  interfaces:
+    cli:
+      identity: {name: ycode, version: build, compatibility: "Native YAML harness CLI; provider execution follows the compiled graph. Foreign CLI profiles are outside this POC."}
+      bootstrap: {configFlags: [--file, -f, --config], profileFlags: {--yolo: agent-yolo.yaml}, defaultFile: agent.yaml, env: YCODE_CONFIG}
+      presentation:
+        formats: [text, json, table]
+        defaultFormat: text
+        color: never
+        quiet: false
+        redact: compiled
+        help:
+          flag: help
+          shorthand: h
+          flagUsage: Show command help
+          template: |
+            {{with (or .Long .Short)}}{{.}}
+
+            {{end}}{{if .HasExample}}Examples:
+            {{.Example}}
+
+            {{end}}{{.UsageString}}
+          usageTemplate: |
+            Usage:
+              {{.UseLine}}{{if .HasAvailableSubCommands}} [command]{{end}}
+            {{if .HasAvailableSubCommands}}
+            Available Commands:
+            {{range .Commands}}{{if (or .IsAvailableCommand (eq .Name "help"))}}  {{rpad .Name .NamePadding}} {{.Short}}
+            {{end}}{{end}}{{end}}{{if .HasAvailableLocalFlags}}
+            Flags:
+            {{.LocalFlags.FlagUsages | trimTrailingWhitespaces}}
+            {{end}}{{if .HasAvailableInheritedFlags}}
+            Global Flags:
+            {{.InheritedFlags.FlagUsages | trimTrailingWhitespaces}}
+            {{end}}
+        errors: {prefix: "error: ", usage: false}
+      exitCodes: {success: 0, usage: 2, configuration: 3, runtime: 1, unsupported: 4, interrupted: 130}
+      root:
+        name: ycode
+        usage: ycode [prompt]
+        short: Run the YAML-native ycode agent harness
+        args: {min: 0, max: -1}
+        flags:
+          - {name: file, shorthand: f, type: string, default: agent.yaml, usage: Strict harness configuration, scope: inherited, env: YCODE_CONFIG}
+          - {name: yolo, type: bool, default: "false", usage: Select the authored agent-yolo.yaml profile, scope: inherited}
+          - {name: session, type: string, default: "", usage: Continue a durable session id, scope: inherited}
+        dispatch:
+          operation: input
+          frontendRef: one-shot
+          triggerRef: interactive-input
+          agentRef: coder
+          input: {mode: auto, stdin: true, empty: reject, terminalFrontendRef: tui, payloadKey: request, sessionFlag: session}
+        commands:
+          - name: prompt
+            usage: prompt [message]
+            short: Submit one prompt through the configured one-shot frontend
+            args: {min: 1, max: -1}
+            dispatch:
+              operation: input
+              frontendRef: one-shot
+              triggerRef: interactive-input
+              agentRef: coder
+              input: {mode: args, stdin: false, empty: reject, payloadKey: request, sessionFlag: session}
+          - name: repl
+            short: Run the configured line-oriented REPL frontend
+            args: {min: 0, max: 0}
+            dispatch:
+              operation: input
+              frontendRef: repl
+              triggerRef: interactive-input
+              agentRef: coder
+              input: {mode: repl, stdin: true, empty: reject, payloadKey: request, sessionFlag: session}
+          - name: resume
+            usage: resume [SESSION]
+            short: Continue the latest session (or SESSION) on the terminal; inside a session, switch to it
+            args: {min: 0, max: 1}
+            dispatch:
+              operation: input
+              frontendRef: tui
+              triggerRef: interactive-input
+              agentRef: coder
+              input: {mode: repl, stdin: true, empty: reject, payloadKey: request, sessionFlag: session, sessionDefault: latest}
+          - name: pause
+            short: Pause the live turn at its next safe graph boundary
+            args: {min: 0, max: 0}
+            flags:
+              - {name: json, type: bool, default: false, usage: Structured output, scope: local}
+              - {name: dry-run, type: bool, default: false, usage: Preview without running the operation, scope: local}
+            dispatch: {operation: session, action: pause}
+          - name: say
+            short: Admit text as steering input for the session's own running turn, at its next turn boundary
+            args: {min: 1, max: -1}
+            flags:
+              - {name: json, type: bool, default: false, usage: Structured output, scope: local}
+              - {name: dry-run, type: bool, default: false, usage: Preview without running the operation, scope: local}
+            dispatch: {operation: session, action: say}
+          - name: btw
+            short: Answer a tool-free side query outside the transcript
+            args: {min: 1, max: -1}
+            flags:
+              - {name: json, type: bool, default: false, usage: Structured output, scope: local}
+              - {name: dry-run, type: bool, default: false, usage: Preview without running the operation, scope: local}
+            dispatch: {operation: session, action: btw, frontendRef: one-shot, triggerRef: interactive-input, agentRef: coder}
+          - name: retry
+            short: Replace the last turn and retry its input or a new request
+            args: {min: 0, max: -1}
+            flags:
+              - {name: json, type: bool, default: false, usage: Structured output, scope: local}
+              - {name: dry-run, type: bool, default: false, usage: Preview without running the operation, scope: local}
+            dispatch: {operation: session, action: retry, frontendRef: one-shot, triggerRef: interactive-input, agentRef: coder}
+          - name: revert
+            short: Rewind conversation history; file restoration is unsupported
+            args: {min: 0, max: 0}
+            flags:
+              - {name: json, type: bool, default: false, usage: Structured output, scope: local}
+              - {name: dry-run, type: bool, default: false, usage: Preview without running the operation, scope: local}
+            dispatch: {operation: session, action: revert}
+          - name: compact
+            short: Compact session history using the declared memory policy
+            args: {min: 0, max: 0}
+            flags:
+              - {name: json, type: bool, default: false, usage: Structured output, scope: local}
+              - {name: dry-run, type: bool, default: false, usage: Preview without running the operation, scope: local}
+            dispatch: {operation: session, action: compact}
+          - name: plan
+            short: Toggle planning mode or enter it with a request
+            args: {min: 0, max: -1}
+            flags:
+              - {name: json, type: bool, default: false, usage: Structured output, scope: local}
+              - {name: dry-run, type: bool, default: false, usage: Preview without running the operation, scope: local}
+            dispatch: {operation: session, action: plan, frontendRef: one-shot, triggerRef: interactive-input, agentRef: coder}
+          - name: continue
+            short: Continue a paused live turn without approving HITL
+            args: {min: 0, max: 0}
+            flags:
+              - {name: json, type: bool, default: false, usage: Structured output, scope: local}
+              - {name: dry-run, type: bool, default: false, usage: Preview without continuing, scope: local}
+            dispatch: {operation: session, action: continue}
+          - {name: new, short: Start a fresh session (the current one stays resumable) and print its id, args: {min: 0, max: 0}, dispatch: {operation: session, action: new}}
+          - {name: clear, short: Start a clean conversation keeping the model selection (the current session stays resumable) and print its id, args: {min: 0, max: 0}, flags: [{name: json, type: bool, default: "false", usage: Machine-readable JSON, scope: local}], dispatch: {operation: session, action: clear}}
+          - name: status
+            short: Show the agent, model and the session this terminal is on (else the latest)
+            args: {min: 0, max: 0}
+            flags:
+              - {name: json, type: bool, default: "false", usage: Machine-readable JSON, scope: local}
+            dispatch: {operation: session, action: status}
+          - name: session
+            short: List, show, export, search, rename and fork durable sessions
+            long: "Views over the canonical event log. Sessions are listed newest first; SESSION is an id or a unique id prefix and defaults to the latest session."
+            args: {min: 0, max: 0}
+            flags:
+              - {name: json, type: bool, default: "false", usage: Machine-readable JSON, scope: inherited}
+            commands:
+              - {name: list, short: List sessions newest first, args: {min: 0, max: 0}, dispatch: {operation: session, action: list}}
+              - {name: show, usage: "show [SESSION]", short: Print a session's summary and transcript, args: {min: 0, max: 1}, dispatch: {operation: session, action: show}}
+              - {name: export, usage: "export [SESSION]", short: Print a session's transcript as Markdown, args: {min: 0, max: 1}, dispatch: {operation: session, action: export}}
+              - {name: search, usage: "search QUERY...", short: Find transcript text across sessions, args: {min: 1, max: -1}, dispatch: {operation: session, action: search}}
+              - {name: rename, usage: "rename SESSION TITLE...", short: Record a session title, args: {min: 2, max: -1}, dispatch: {operation: session, action: rename}}
+              - {name: fork, usage: "fork [SESSION]", short: Start a child session from the latest committed turn and print its id, args: {min: 0, max: 1}, dispatch: {operation: session, action: fork}}
+          - {name: version, short: Print version information, args: {min: 0, max: 0}, dispatch: {operation: version}}
+          - {name: doctor, short: Compile the harness and report provider readiness, args: {min: 0, max: 0}, dispatch: {operation: readiness, agentRef: coder}}
+          - {name: validate, short: Validate and compile an agent.yaml harness, args: {min: 0, max: 0}, dispatch: {operation: validate}}
+          - {name: schema, short: Print the agent.yaml JSON Schema, args: {min: 0, max: 0}, dispatch: {operation: schema}}
+          - name: config
+            short: Inspect the compiled agent.yaml harness
+            long: "agent.yaml is the sole source of truth. These views are read-only; a custom file is selected with --file, never merged."
+            args: {min: 0, max: 0}
+            commands:
+              - {name: show, short: Print the compiled harness as JSON, args: {min: 0, max: 0}, dispatch: {operation: inspect, resource: document, action: show}}
+              - {name: path, short: Print the compiled harness path, args: {min: 0, max: 0}, dispatch: {operation: inspect, resource: document, action: path}}
+              - {name: get, usage: "get <key>", short: Print one dot-separated compiled field, args: {min: 1, max: 1}, dispatch: {operation: inspect, resource: document, action: get}}
+              - {name: source, short: Print the effective configuration file and how it was selected, args: {min: 0, max: 0}, dispatch: {operation: config, action: source}}
+              - {name: use, usage: "use FILE", short: Validate a custom configuration file to select with --file, args: {min: 1, max: 1}, dispatch: {operation: config, action: use}}
+          - name: model
+            short: Inspect models compiled from agent.yaml
+            args: {min: 0, max: 0}
+            commands:
+              - {name: current, short: Print the session model resource, args: {min: 0, max: 0}, dispatch: {operation: session, action: model-current}}
+              - name: use
+                short: Select a declared model resource for this session
+                args: {min: 1, max: 1}
+                flags:
+                  - {name: json, type: bool, default: false, usage: Structured output, scope: local}
+                  - {name: dry-run, type: bool, default: false, usage: Preview without selecting, scope: local}
+                dispatch: {operation: session, action: model-use}
+              - name: list
+                short: List configured model resources
+                args: {min: 0, max: 0}
+                flags:
+                  - {name: json, type: bool, default: "false", usage: Machine-readable JSON, scope: local}
+                dispatch: {operation: inspect, resource: models, action: list, columns: [id, providerRef]}
+          - name: tools
+            short: Inspect the sole Bashy tool compiled from agent.yaml
+            args: {min: 0, max: 0}
+            flags:
+              - {name: json, type: bool, default: "false", usage: Machine-readable JSON, scope: inherited}
+            commands:
+              - {name: list, short: Print the configured Bashy contract, args: {min: 0, max: 0}, dispatch: {operation: inspect, resource: bashy, action: list}}
+          - name: memory
+            short: Inspect memory policies compiled from agent.yaml
+            args: {min: 0, max: 0}
+            commands:
+              - {name: list, short: List configured memory resources, args: {min: 0, max: 0}, dispatch: {operation: inspect, resource: memories, action: list, columns: [provider, recall.rings, recall.maxItems]}}
+              - {name: show, usage: "show <name>", short: Show one configured memory policy, args: {min: 1, max: 1}, dispatch: {operation: inspect, resource: memories, action: show}}
+          - name: skill
+            short: Inspect skills compiled from agent.yaml
+            args: {min: 0, max: 0}
+            commands:
+              - {name: list, short: List configured skill resources, args: {min: 0, max: 0}, dispatch: {operation: inspect, resource: skills, action: list, columns: [version, source.catalogRef, effectsCeiling]}}
+              - {name: show, usage: "show <name>", short: Show one configured skill resource, args: {min: 1, max: 1}, dispatch: {operation: inspect, resource: skills, action: show}}
+          - name: features
+            short: List and verify the shipped-capability registry
+            args: {min: 0, max: 0}
+            commands:
+              - {name: list, short: List all features and their tiers, args: {min: 0, max: 0}, dispatch: {operation: features, action: list}}
+              - name: readme
+                short: Print the stable features as markdown
+                args: {min: 0, max: 0}
+                flags:
+                  - {name: write, type: string, default: "", usage: Replace BEGIN/END FEATURES markers in a file, scope: local}
+                dispatch: {operation: features, action: readme}
+              - {name: verify, short: Verify registry structure and source paths, args: {min: 0, max: 0}, dispatch: {operation: features, action: verify}}
+          - name: docs
+            usage: docs [topic]
+            short: Agent-facing capability prompts (embedded; works offline)
+            args: {min: 0, max: 1}
+            flags:
+              - {name: list, type: bool, default: "false", usage: Print a JSON list of topics, scope: local, conflicts: [all, search]}
+              - {name: all, type: bool, default: "false", usage: Concatenate every topic, scope: local, conflicts: [list, search]}
+              - {name: search, type: string, default: "", usage: Substring match on topic summary and when, scope: local, conflicts: [list, all]}
+            dispatch: {operation: docs}
+            commands:
+              - name: catalog
+                short: Task to capability surfaces matrix
+                args: {min: 0, max: 0}
+                flags:
+                  - {name: json, type: bool, default: "false", usage: Emit JSON, scope: local}
+                  - {name: task, type: string, default: "", usage: Substring filter on the task field, scope: local}
+                dispatch: {operation: docs, action: catalog}
+          - name: shell
+            aliases: [bash]
+            short: Execute one command through the compiled Bashy contract
+            args: {min: 0, max: 0}
+            flags:
+              - {name: command, shorthand: c, type: string, default: "", usage: Command to execute, scope: local, required: true}
+              - {name: workdir, type: string, default: "", usage: Working directory within the compiled workspace, scope: local}
+              - {name: timeout, type: string, default: "", usage: Execution timeout bounded by agent.yaml, scope: local}
+              - {name: login, shorthand: l, type: bool, default: "false", usage: Shell-wrapper transport compatibility flag, scope: local}
+            dispatch: {operation: shell, agentRef: coder}
+          - name: serve
+            short: Serve the network frontends declared by agent.yaml
+            args: {min: 0, max: 0}
+            dispatch: {operation: serve, frontendRef: http, triggerRef: interactive-input, agentRef: coder}
+          - name: acp
+            short: Serve the configured ACP frontend over stdio
+            args: {min: 0, max: 0}
+            flags:
+              - {name: config, type: string, default: agent.yaml, usage: Compiled harness configuration path, scope: local}
+            dispatch: {operation: acp, frontendRef: acp, triggerRef: interactive-input, agentRef: coder}
+          - name: completion
+            usage: "completion <shell>"
+            short: Generate completion for the declared command tree
+            args: {min: 1, max: 1, enum: [bash, zsh, fish, powershell]}
+            dispatch: {operation: completion}
+          - name: help
+            usage: help [command]
+            short: Show help for a declared command
+            args: {min: 0, max: -1}
+            dispatch: {operation: help}
+
+  runtime:
+    defaultAgentRef: coder
+    workspace: .
+    readableRoots: [.]
+    writableRoots: [.]
+    controlRoot:
+      platformDataDir: ycode/harness
+    rootOverlap: deny
+
+  sources:
+    identity:
+      text: You are a software-engineering agent. Use Bashy for every action.
+      limits: {maxBytes: 4096}
+    # The umbrella convention: AGENTS.md first, CLAUDE.md as the fallback
+    # name, both read from the workspace this agent is operating in.
+    project-instructions:
+      file: {paths: [AGENTS.md, CLAUDE.md], base: workspace, required: false}
+      limits: {maxBytes: 65536}
+      snapshot: before-run
+    final-step:
+      text: This is the final permitted model step. Return the best complete answer now.
+      limits: {maxBytes: 4096}
+    # S379 1d4096a6c973: a headless one-shot turn has no human to answer a
+    # question, so a turn that ends on one gets nudged to act instead.
+    headless-continuation:
+      text: No human is available. Proceed with the approach the request names, or the first option you listed; make the change, verify it, and report.
+      limits: {maxBytes: 4096}
+    compaction-checkpoint:
+      file: {path: prompts/compaction-checkpoint.md, required: false}
+      limits: {maxBytes: 8192}
+      exported: true
+    compaction-update:
+      file: {path: prompts/compaction-update.md, required: false}
+      limits: {maxBytes: 8192}
+      exported: true
+
+  providers:
+    openai:
+      protocol: openai-compatible
+      endpoint:
+        valueFrom:
+          env: OPENAI_BASE_URL
+          default: https://api.openai.com/v1
+      credentials:
+        apiKey:
+          secretRef: {provider: env, name: OPENAI_API_KEY}
+      transport:
+        connectTimeoutMs: 10000
+        requestTimeoutMs: 120000
+        maxResponseBytes: 16777216
+
+  models:
+    primary:
+      providerRef: openai
+      id: gpt-5.6
+      limits:
+        contextTokens: 128000
+        maxOutputTokens: 16384
+      capabilities:
+        streaming: true
+        toolCalls: true
+        parallelToolCalls: true
+        structuredOutput: true
+
+  routes:
+    main:
+      attempts:
+        - modelRef: primary
+          transportRetry:
+            maxAttempts: 2
+            backoff: {initialMs: 250, multiplier: 2, maxMs: 2000, jitter: full}
+            retryOn: [transport, rate-limit, server, stream-before-first-event]
+          timeoutMs: 120000
+      fallbackOn: [transport-exhausted, rate-limit-exhausted, server-exhausted]
+      providerSession: turn
+      budget:
+        maxInputTokens: 500000
+        maxOutputTokens: 100000
+        maxCostUSD: 25
+      quotaPool: {strategy: least-used, onExhausted: fail}
+
+  bashy:
+    contract: bashy-run-v1
+    requestType: ycode.bashy-request/v1
+    resultType: ycode.bashy-result/v1
+    operations: [execute, start, poll, signal, cancel]
+    execution:
+      cwdRoot: workspace
+      environment:
+        inherit: allowlist
+        names: [PATH, LANG, LC_ALL, TERM]
+      commandResolution: embedded-and-pinned-only
+      timeoutMs: 60000
+      jobLifetimeMs: 900000
+      maxOutputChars: 32768
+      maxSpillBytes: 16777216
+      maxParallel: 2
+      permissionCeiling: workspace-write
+      effectsCeiling: [read, write, exec, net]
+      preflight: required
+      incompletePreflight: deny
+      hostFallback: deny
+
+  contexts:
+    coding:
+      fragments:
+        - id: identity
+          sourceRef: identity
+          role: system
+          cache: {scope: stable, breakAfter: true}
+        - id: project
+          sourceRef: project-instructions
+          role: system
+          cache: {scope: workspace, breakAfter: true}
+      budget: {maxTokens: 16000, overflow: fail}
+
+  # Memory is pure policy over the bashy-kb front door: recall and persist
+  # run as harness-authored bashy.run nodes whose scripts are compiled from
+  # these values ({{memory.rings}}, {{memory.forms}}, {{memory.budget}},
+  # {{memory.k}}). The harness opens no memory store of its own.
+  memories:
+    main:
+      provider: bashy-kb
+      recall:
+        rings: [agent, repo, host]
+        forms: [note, page, relation]
+        maxItems: 8
+        maxTokens: 3000
+      write:
+        everyTurns: 1
+      compaction:
+        preserveRecentTokens: 24000
+        preserveUserMessagesTokens: 4000
+        reserveTokens: 8000
+        routeRef: main
+        promptSourceRef: compaction-checkpoint
+        updatePromptSourceRef: compaction-update
+        onFailure: fallback-deterministic
+
+  queues:
+    interactive:
+      store: {controlPath: queues/interactive}
+      discipline: priority-fifo
+      capacity: 100
+      overflow: reject-new
+      priorities: {interrupt: 100, steering: 80, user: 50, scheduled: 10}
+      leaseMs: 120000
+      staleLease: requeue
+      deduplicateBy: idempotency-key
+
+  sessions:
+    durable:
+      events:
+        format: ycode-event-v1
+        store: jsonl
+        directory: {controlPath: sessions}
+        fsync: each-event
+        permissions: {directory: 0700, file: 0600}
+        sequence: monotonic-per-branch
+        integrity: hash-chain
+      payloads:
+        store: content-addressed
+        directory: {controlPath: payloads}
+        digest: sha256
+        inlineMaxBytes: 4096
+        retainModelVisibleBytes: true
+      checkpoints:
+        directory: {controlPath: checkpoints}
+        bind: [config-digest, event-sequence, typed-state, leases, placement]
+      branches: {enabled: true, copyEvents: through-checkpoint}
+      history:
+        maxTokens: 20000
+        unit: turns
+        clearToolResults:
+          olderThanTurns: 4
+          placeholder: "[tool result omitted from older session history]"
+        repair: tool-pairs
+      retention: {maxAgeDays: 90, maxBytes: 1073741824, preserveReferencedPayloads: true}
+
+  lifecycles:
+    turn:
+      initial: admitted
+      terminal: [completed, failed, cancelled]
+      transitions:
+        - {from: admitted, to: running}
+        - {from: running, to: waiting-human}
+        - {from: waiting-human, to: running}
+        - {from: running, to: completed}
+        - {from: running, to: failed}
+        - {from: running, to: cancelled}
+
+  policies:
+    workspace:
+      unavailableHuman: deny
+      incompletePreflight: deny
+      rules:
+        - id: unsupported
+          match: {preflightComplete: false}
+          decision: deny
+        - id: destructive
+          match: {effectsAny: [destroy, priv, persist, cred]}
+          decision: ask
+        - id: network-or-remote
+          match: {effectsAny: [net, remote, spend]}
+          decision: ask
+        - id: workspace-work
+          match:
+            effectsAllWithin: [read, write, exec]
+            pathsAllWithin: [workspace]
+          decision: allow
+        - id: default
+          match: {always: true}
+          decision: deny
+      resume: [approve, edit, reject]
+      maxEdits: 2
+      approvalBinding: execution-context-digest-v1
+
+  placements:
+    local-workspace:
+      kind: local
+      workspace: runtime
+      isolation: workspace
+      mounts: [workspace]
+      network: policy
+      supportedPlatforms: [darwin-amd64, darwin-arm64, linux-amd64, linux-arm64, windows-amd64]
+      unsupportedEffect: reject
+
+  locks:
+    mutation:
+      backend: session-store
+      resourceKey: {literal: global-workspace-mutation}
+      mode: exclusive
+      leaseMs: 120000
+      renewEveryMs: 30000
+      fencing: monotonic
+      onTimeout: fail
+
+  hooks:
+    after-tool-audit:
+      phase: after-bashy-execute
+      pipelineRef: audit-tool
+      inputType: ycode.tool-audit/v1
+      outputType: ycode.tool-audit/v1
+      order: 10
+      maxInvocations: 25
+      reentrant: false
+      failure: fail
+
+  pipelines:
+    audit-tool:
+      exported: true
+      inputs: {audit: ycode.tool-audit/v1}
+      state: {}
+      outputs: {audit: ycode.tool-audit/v1}
+      concurrency: 1
+      failFast: true
+      nodes:
+        - id: record
+          needs: []
+          run:
+            stage: event.annotate
+            in: {value: audit}
+            out: {value: audit}
+
+    compact-state:
+      inputs: {state: ycode.agent-loop/v1}
+      state:
+        compacted: {type: ycode.agent-loop/v1, writer: single}
+      outputs: {state: ycode.agent-loop/v1}
+      concurrency: 1
+      failFast: true
+      nodes:
+        - id: checkpoint
+          needs: []
+          run:
+            stage: checkpoint.save
+            with: {sessionRef: durable, reason: compaction}
+            in: {state: state}
+            out: {checkpoint: compacted.checkpoint}
+        - id: clear-tool-results
+          needs: [checkpoint]
+          run:
+            stage: messages.clear-tool-results
+            with:
+              olderThanTurns: 4
+              placeholder: "[tool result omitted before compaction]"
+            in: {state: state}
+            out: {state: state}
+        - id: compact
+          needs: [clear-tool-results]
+          run:
+            stage: memory.compact
+            with: {memoryRef: main}
+            in: {state: state, checkpoint: compacted.checkpoint}
+            out: {state: state}
+
+    preserve-state:
+      inputs: {state: ycode.agent-loop/v1}
+      state: {}
+      outputs: {state: ycode.agent-loop/v1}
+      concurrency: 1
+      failFast: true
+      nodes:
+        - id: forward
+          needs: []
+          run:
+            stage: state.forward
+            in: {value: state}
+            out: {value: state}
+
+    truncate-tool-results-state:
+      inputs: {state: ycode.agent-loop/v1}
+      state: {}
+      outputs: {state: ycode.agent-loop/v1}
+      concurrency: 1
+      failFast: true
+      nodes:
+        - id: clear-tool-results
+          needs: []
+          run:
+            stage: messages.clear-tool-results
+            with:
+              olderThanTurns: 4
+              placeholder: "[tool result omitted before model retry]"
+            in: {state: state}
+            out: {state: state}
+
+    finish-step:
+      inputs: {state: ycode.agent-loop/v1}
+      state: {}
+      outputs: {state: ycode.agent-loop/v1}
+      concurrency: 1
+      failFast: true
+      nodes:
+        - id: finish
+          needs: []
+          run:
+            stage: loop.finish
+            with: {maxContinuations: 2, sourceRef: headless-continuation}
+            in: {state: state}
+            out: {state: state}
+
+    invalid-step:
+      inputs: {state: ycode.agent-loop/v1}
+      state: {}
+      outputs: {state: ycode.agent-loop/v1}
+      concurrency: 1
+      failFast: true
+      nodes:
+        - id: fail
+          needs: []
+          run:
+            stage: outcome.fail
+            with: {class: invalid-model-step}
+            in: {state: state}
+            out: {state: state}
+
+    allow-command:
+      inputs: {state: ycode.command-state/v1}
+      state:
+        lock: {type: ycode.lock-lease/v1, writer: single}
+      outputs: {state: ycode.command-state/v1}
+      concurrency: 1
+      failFast: false
+      nodes:
+        - id: acquire
+          needs: []
+          run:
+            stage: lock.acquire
+            with: {lockRef: mutation}
+            out: {lease: lock}
+        - id: execute
+          needs: [acquire]
+          run:
+            stage: bashy.execute
+            in:
+              intent: state.intent
+              authorization: state.authorization
+              fencingToken: lock.fencingToken
+            out: {result: state.result}
+        - id: release
+          needs: [execute]
+          runOn: [succeeded, observed, failed]
+          run:
+            stage: lock.release
+            with: {lockRef: mutation}
+            in: {lease: lock}
+        - id: terminal
+          needs: [release]
+          run:
+            stage: command.finish
+            in: {state: state}
+            out: {state: state}
+
+    deny-command:
+      inputs: {state: ycode.command-state/v1}
+      state: {}
+      outputs: {state: ycode.command-state/v1}
+      concurrency: 1
+      failFast: true
+      nodes:
+        - id: deny
+          needs: []
+          run:
+            stage: bashy.deny
+            in: {intent: state.intent, decision: state.policy}
+            out: {result: state.result, terminal: state.terminal}
+
+    approve-command:
+      inputs: {state: ycode.command-state/v1}
+      state: {}
+      outputs: {state: ycode.command-state/v1}
+      concurrency: 1
+      failFast: true
+      nodes:
+        - id: bind
+          needs: []
+          run:
+            stage: policy.bind-approval
+            in: {state: state}
+            out: {state: state}
+        - id: execute
+          needs: [bind]
+          run:
+            pipelineRef: allow-command
+            in: {state: state}
+            out: {state: state}
+
+    reject-command:
+      inputs: {state: ycode.command-state/v1}
+      state: {}
+      outputs: {state: ycode.command-state/v1}
+      concurrency: 1
+      failFast: true
+      nodes:
+        - id: reject
+          needs: []
+          run:
+            stage: bashy.reject
+            in: {intent: state.intent, resolution: state.resolution}
+            out: {result: state.result, terminal: state.terminal}
+
+    edit-command:
+      inputs: {state: ycode.command-state/v1}
+      state: {}
+      outputs: {state: ycode.command-state/v1}
+      concurrency: 1
+      failFast: true
+      nodes:
+        - id: edit
+          needs: []
+          run:
+            stage: command.apply-edit
+            in: {state: state, editedIntent: state.resolution.editedIntent}
+            out: {state: state}
+
+    ask-command:
+      inputs: {state: ycode.command-state/v1}
+      state: {}
+      outputs: {state: ycode.command-state/v1}
+      concurrency: 1
+      failFast: true
+      nodes:
+        - id: checkpoint
+          needs: []
+          run:
+            stage: checkpoint.save
+            with: {sessionRef: durable, reason: hitl}
+            in: {state: state}
+            out: {checkpoint: state.checkpoint}
+        - id: waiting
+          needs: [checkpoint]
+          run:
+            stage: lifecycle.transition
+            with: {lifecycleRef: turn, to: waiting-human}
+        - id: review
+          needs: [waiting]
+          run:
+            stage: hitl.review
+            with: {unavailable: deny, oneUseDecision: true}
+            in:
+              checkpoint: state.checkpoint
+              intent: state.intent
+              preflight: state.preflight
+              decision: state.policy
+            out: {resolution: state.resolution}
+        - id: running
+          needs: [review]
+          run:
+            stage: lifecycle.transition
+            with: {lifecycleRef: turn, to: running}
+        - id: resolve
+          needs: [running]
+          run:
+            switch:
+              cases:
+                - when: {eq: [{field: state.resolution.action}, {literal: approve}]}
+                  pipelineRef: approve-command
+                - when: {eq: [{field: state.resolution.action}, {literal: edit}]}
+                  pipelineRef: edit-command
+                - when: {eq: [{field: state.resolution.action}, {literal: reject}]}
+                  pipelineRef: reject-command
+              noMatch: fail
+              in: {state: state}
+              out: {state: state}
+
+    command-attempt:
+      inputs: {state: ycode.command-state/v1}
+      state: {}
+      outputs: {state: ycode.command-state/v1}
+      concurrency: 1
+      failFast: true
+      nodes:
+        - id: preflight
+          needs: []
+          run:
+            stage: bashy.preflight
+            in: {intent: state.intent}
+            out: {report: state.preflight}
+        - id: evaluate
+          needs: [preflight]
+          run:
+            stage: policy.evaluate
+            with: {policyRef: workspace, placementRef: local-workspace}
+            in: {intent: state.intent, preflight: state.preflight}
+            out: {decision: state.policy, authorization: state.authorization}
+        - id: decide
+          needs: [evaluate]
+          run:
+            switch:
+              cases:
+                - when: {eq: [{field: state.policy.decision}, {literal: allow}]}
+                  pipelineRef: allow-command
+                - when: {eq: [{field: state.policy.decision}, {literal: ask}]}
+                  pipelineRef: ask-command
+                - when: {eq: [{field: state.policy.decision}, {literal: deny}]}
+                  pipelineRef: deny-command
+              noMatch: fail
+              in: {state: state}
+              out: {state: state}
+
+    execute-one-tool:
+      inputs: {call: ycode.bashy-call/v1}
+      state:
+        command: {type: ycode.command-state/v1, writer: loop-carried}
+      outputs: {result: ycode.bashy-result/v1}
+      concurrency: 1
+      failFast: true
+      nodes:
+        - id: initialize
+          needs: []
+          run:
+            stage: command.initialize
+            with: {maxEdits: 2}
+            in: {call: call}
+            out: {state: command}
+        - id: guard-and-run
+          needs: [initialize]
+          run:
+            repeat:
+              pipelineRef: command-attempt
+              maxIterations: 3
+              carry: {state: command}
+              until: {eq: [{field: command.terminal}, {literal: true}]}
+              out: {state: command}
+        - id: audit
+          needs: [guard-and-run]
+          run:
+            hook.invoke: after-tool-audit
+            in: {audit: command.audit}
+            out: {audit: command.audit}
+        - id: result
+          needs: [audit]
+          run:
+            stage: state.project
+            in: {value: command.result}
+            out: {value: result}
+
+    execute-tool-calls:
+      inputs:
+        state: ycode.agent-loop/v1
+        calls: ycode.bashy-calls/v1
+      state:
+        results: {type: ycode.bashy-results/v1, writer: single, merge: input-order}
+        steering: {type: ycode.queue-items/v1, writer: single}
+      outputs: {state: ycode.agent-loop/v1}
+      concurrency: 2
+      failFast: true
+      nodes:
+        - id: execute
+          needs: []
+          run:
+            forEach:
+              items: {field: calls}
+              as: call
+              maxItems: 16
+              maxParallel: 2
+              ordered: true
+              pipelineRef: execute-one-tool
+              in: {call: call}
+              collect: {result: results}
+        - id: append-results
+          needs: [execute]
+          run:
+            stage: messages.append-tool-results
+            in: {state: state, results: results}
+            out: {state: state}
+        - id: drain-after-tool
+          needs: [append-results]
+          run:
+            stage: queue.drain
+            with: {queueRef: interactive, classes: [interrupt, steering]}
+            out: {items: steering}
+        - id: apply-steering
+          needs: [drain-after-tool]
+          run:
+            stage: messages.apply-input
+            in: {state: state, items: steering}
+            out: {state: state}
+
+    call-model:
+      inputs: {state: ycode.agent-loop/v1}
+      state: {}
+      outputs: {state: ycode.agent-loop/v1}
+      concurrency: 1
+      failFast: true
+      nodes:
+        - id: model
+          needs: []
+          run:
+            stage: llm.call
+            with:
+              routeRef: main
+              tool: bashy
+              responseType: ycode.provider-response/v1
+            in: {messages: state.messages, providerSession: state.providerSession}
+            out: {response: state.response, providerSession: state.providerSession}
+
+    compact-and-call-model:
+      inputs: {state: ycode.agent-loop/v1}
+      state: {}
+      outputs: {state: ycode.agent-loop/v1}
+      concurrency: 1
+      failFast: true
+      nodes:
+        - id: compact
+          needs: []
+          run:
+            pipelineRef: compact-state
+            in: {state: state}
+            out: {state: state}
+        - id: model
+          needs: [compact]
+          run:
+            pipelineRef: call-model
+            in: {state: state}
+            out: {state: state}
+
+    agent-step:
+      inputs: {state: ycode.agent-loop/v1}
+      state:
+        steering: {type: ycode.queue-items/v1, writer: single}
+        prepared: {type: ycode.agent-loop/v1, writer: single}
+      outputs: {state: ycode.agent-loop/v1}
+      concurrency: 1
+      failFast: true
+      nodes:
+        - id: drain-before-model
+          needs: []
+          run:
+            stage: queue.drain
+            with: {queueRef: interactive, classes: [interrupt, steering]}
+            out: {items: steering}
+        - id: apply-steering
+          needs: [drain-before-model]
+          run:
+            stage: messages.apply-input
+            in: {state: state, items: steering}
+            out: {state: state}
+        - id: measure
+          needs: [apply-steering]
+          run:
+            stage: context.measure
+            with:
+              memoryRef: main
+              routeRef: main
+              safetyMargin: 1.15
+            in: {messages: state.messages}
+            out:
+              tokens: state.contextTokens
+              contextBudget: state.contextBudget
+              truncateBudget: state.truncateBudget
+              measured: state.contextMeasured
+        - id: prepare
+          needs: [measure]
+          run:
+            switch:
+              cases:
+                - when: {gte: [{field: state.contextTokens}, {field: state.contextBudget}]}
+                  pipelineRef: compact-state
+                - when: {gte: [{field: state.contextTokens}, {field: state.truncateBudget}]}
+                  pipelineRef: truncate-tool-results-state
+              defaultPipelineRef: preserve-state
+              in: {state: state}
+              out: {state: prepared}
+        - id: final-instruction
+          needs: [prepare]
+          when: {eq: [{field: prepared.remainingIterations}, {literal: 1}]}
+          run:
+            stage: messages.append-source
+            with: {sourceRef: final-step, role: system}
+            in: {state: prepared}
+            out: {state: prepared}
+        - id: model
+          needs: [prepare, final-instruction]
+          acceptsSkipped: [final-instruction]
+          run:
+            fallback:
+              maxAttempts: 2
+              attempts:
+                - pipelineRef: call-model
+                  on: [context-overflow]
+                - pipelineRef: compact-and-call-model
+                  on: [context-overflow]
+              noMatch: fail
+              in: {state: prepared}
+              out: {state: prepared}
+        - id: normalize
+          needs: [model]
+          run:
+            stage: messages.normalize-provider-response
+            with:
+              deterministicCallIds: true
+              duplicateCalls: drop-identical
+              malformedToolResult: repair-explicitly
+            in: {state: prepared, response: prepared.response}
+            out: {state: prepared}
+        - id: append-assistant
+          needs: [normalize]
+          run:
+            stage: messages.append-assistant
+            in: {state: prepared, response: prepared.response}
+            out: {state: prepared}
+        - id: dispatch
+          needs: [append-assistant]
+          run:
+            switch:
+              cases:
+                - when: {eq: [{field: prepared.response.hasToolCalls}, {literal: true}]}
+                  pipelineRef: execute-tool-calls
+                  in: {state: prepared, calls: prepared.response.toolCalls}
+                - when: {eq: [{field: prepared.response.finished}, {literal: true}]}
+                  pipelineRef: finish-step
+                  in: {state: prepared}
+              defaultPipelineRef: invalid-step
+              in: {state: prepared}
+              out: {state: state}
+
+    # Recall through the one knowledge front door: `bashy kb context --json`
+    # with the compiled memory policy as flags. {{task}} is substituted as a
+    # single-quoted literal at stage time (never a shell variable expansion:
+    # the intent analyzer proves only static arguments), so the digest-bound
+    # authorization covers the fully composed command.
+    load-knowledge:
+      inputs: {task: string}
+      state: {}
+      outputs: {knowledge: ycode.kb-context/v1}
+      concurrency: 1
+      failFast: true
+      nodes:
+        - id: kb-context
+          needs: []
+          run:
+            stage: bashy.run
+            with:
+              memoryRef: main
+              script: "bashy kb context --json --for {{task}} --rings {{memory.rings}} --forms {{memory.forms}} --budget {{memory.budget}} --k {{memory.k}}"
+              timeoutMs: 10000
+              effects: [read]
+            in: {task: task}
+            out: {knowledge: knowledge}
+
+    # Degraded assembly is a YAML decision: when the kb call is denied or
+    # fails, the turn proceeds with an honest abstained envelope instead of a
+    # fabricated one. The denial itself stays on the event log.
+    empty-knowledge:
+      inputs: {}
+      state: {}
+      outputs: {knowledge: ycode.kb-context/v1}
+      concurrency: 1
+      failFast: true
+      nodes:
+        - id: kb-context-empty
+          needs: []
+          run:
+            stage: bashy.run
+            with:
+              script: >-
+                printf '%s' '{"context_version":1,"for":"","budget":{"limit":0,"used":0},"abstained":true,"rings":[],"blocks":[]}'
+              timeoutMs: 5000
+              effects: [read]
+            out: {knowledge: knowledge}
+
+    # Persist once per turn (memories.main.write.everyTurns: 1): a candidate
+    # agent-ring note keyed to this session as the episode; the transcript
+    # arrives on the composed command's stdin as one JSON object.
+    persist-knowledge:
+      inputs: {transcript: ycode.messages/v1}
+      state: {}
+      outputs: {noted: string}
+      concurrency: 1
+      failFast: true
+      nodes:
+        - id: kb-note-add
+          needs: []
+          run:
+            stage: bashy.run
+            with:
+              memoryRef: main
+              script: "bashy kb note add --candidate --ring agent --episode {{session}} --json"
+              timeoutMs: 10000
+              effects: [read, write]
+            in: {transcript: transcript}
+            out: {noted: noted}
+
+    skip-persist:
+      inputs: {}
+      state: {}
+      outputs: {noted: string}
+      concurrency: 1
+      failFast: true
+      nodes:
+        - id: kb-note-skip
+          needs: []
+          run:
+            stage: bashy.run
+            with:
+              script: "printf 'kb-note-skipped'"
+              timeoutMs: 5000
+              effects: [read]
+            out: {noted: noted}
+
+    turn:
+      inputs: {request: ycode.input/v1}
+      state:
+        input: {type: ycode.input/v1, writer: single}
+        task: {type: string, writer: single}
+        context: {type: ycode.context/v1, writer: single}
+        knowledge: {type: ycode.kb-context/v1, writer: single}
+        history: {type: ycode.session-history/v1, writer: single}
+        probe: {type: string, writer: single}
+        noted: {type: string, writer: single}
+        loop: {type: ycode.agent-loop/v1, writer: loop-carried}
+        messagesRef: {type: string, writer: single}
+      outputs: {output: ycode.output/v1, messagesRef: string}
+      concurrency: 4
+      failFast: true
+      nodes:
+        - id: running
+          needs: []
+          run:
+            stage: lifecycle.transition
+            with: {lifecycleRef: turn, from: admitted, to: running}
+        - id: input
+          needs: [running]
+          run:
+            stage: input.normalize
+            in: {request: request}
+            out: {input: input, text: task}
+        - id: context
+          needs: [input]
+          run:
+            stage: context.load
+            with: {contextRef: coding}
+            out: {context: context}
+        # Harness-authored Bashy call: same preflight -> policy -> digest-bound
+        # execution path as a model tool call. Inputs arrive as YCODE_IN_<PORT>
+        # env scalars plus one stdin JSON object; stdout lands in the out port.
+        - id: workspace-probe
+          needs: [input]
+          run:
+            stage: bashy.run
+            with:
+              script: "printf 'workspace-ready'"
+              timeoutMs: 5000
+              effects: [read]
+            in: {request: input}
+            out: {probe: probe}
+        - id: knowledge
+          needs: [input]
+          run:
+            fallback:
+              maxAttempts: 2
+              attempts:
+                - pipelineRef: load-knowledge
+                  on: [bashy.run-denied, bashy.run-failed]
+                  in: {task: task}
+                - pipelineRef: empty-knowledge
+                  on: [bashy.run-failed]
+              noMatch: fail
+              out: {knowledge: knowledge}
+        - id: history
+          needs: [input]
+          run:
+            stage: session.load
+            with: {sessionRef: durable}
+            out: {history: history}
+        - id: assemble
+          needs: [context, knowledge, history]
+          run:
+            stage: prompt.assemble
+            with: {order: [context, knowledge, history, input]}
+            in: {input: input, context: context, knowledge: knowledge, history: history}
+            out: {state: loop}
+        - id: checkpoint
+          needs: [assemble]
+          run:
+            stage: checkpoint.save
+            with: {sessionRef: durable, reason: before-agent-loop}
+            in: {state: loop}
+            out: {checkpoint: loop.checkpoint}
+        - id: loop
+          needs: [checkpoint]
+          run:
+            repeat:
+              pipelineRef: agent-step
+              maxIterations: 25
+              carry: {state: loop}
+              until: {eq: [{field: loop.finished}, {literal: true}]}
+              out: {state: loop}
+        - id: commit
+          needs: [loop]
+          run:
+            stage: session.commit
+            with: {sessionRef: durable}
+            in: {state: loop}
+            out: {messagesRef: messagesRef}
+        - id: remember
+          needs: [commit]
+          run:
+            fallback:
+              maxAttempts: 2
+              attempts:
+                - pipelineRef: persist-knowledge
+                  on: [bashy.run-denied, bashy.run-failed]
+                  in: {transcript: loop.messages}
+                - pipelineRef: skip-persist
+                  on: [bashy.run-failed]
+              noMatch: fail
+              out: {noted: noted}
+        - id: output
+          needs: [commit]
+          run:
+            stage: output.emit
+            with: {sinkRefs: [primary-output]}
+            in: {messages: loop.messages}
+            out: {output: output}
+        - id: completed
+          needs: [remember, output]
+          run:
+            stage: lifecycle.transition
+            with: {lifecycleRef: turn, from: running, to: completed}
+
+    # Tool-free controls keep context, hooks, loop budgets and delivery in YAML.
+    session-control:
+      exported: true
+      inputs: {request: ycode.input/v1}
+      state:
+        input: {type: ycode.input/v1, writer: single}
+        task: {type: string, writer: single}
+        context: {type: ycode.context/v1, writer: single}
+        history: {type: ycode.session-history/v1, writer: single}
+        loop: {type: ycode.agent-loop/v1, writer: loop-carried}
+        messagesRef: {type: string, writer: single}
+      outputs: {output: ycode.output/v1, messagesRef: string}
+      concurrency: 4
+      failFast: true
+      nodes:
+        - id: running
+          needs: []
+          run:
+            stage: lifecycle.transition
+            with: {lifecycleRef: turn, from: admitted, to: running}
+        - id: input
+          needs: [running]
+          run:
+            stage: input.normalize
+            in: {request: request}
+            out: {input: input, text: task}
+        - id: context
+          needs: [input]
+          run:
+            stage: context.load
+            with: {contextRef: coding}
+            out: {context: context}
+        - id: history
+          needs: [input]
+          run:
+            stage: session.load
+            with: {sessionRef: durable}
+            out: {history: history}
+        - id: assemble
+          needs: [context, history]
+          run:
+            stage: prompt.assemble
+            with: {order: [context, history, input]}
+            in: {input: input, context: context, history: history}
+            out: {state: loop}
+        - id: checkpoint
+          needs: [assemble]
+          run:
+            stage: checkpoint.save
+            with: {sessionRef: durable, reason: before-agent-loop}
+            in: {state: loop}
+            out: {checkpoint: loop.checkpoint}
+        - id: loop
+          needs: [checkpoint]
+          run:
+            repeat:
+              pipelineRef: agent-step
+              maxIterations: 25
+              carry: {state: loop}
+              until: {eq: [{field: loop.finished}, {literal: true}]}
+              out: {state: loop}
+        - id: commit
+          needs: [loop]
+          run:
+            stage: session.commit
+            with: {sessionRef: durable}
+            in: {state: loop}
+            out: {messagesRef: messagesRef}
+        - id: output
+          needs: [commit]
+          run:
+            stage: output.emit
+            with: {sinkRefs: [primary-output]}
+            in: {messages: loop.messages}
+            out: {output: output}
+        - id: completed
+          needs: [output]
+          run:
+            stage: lifecycle.transition
+            with: {lifecycleRef: turn, from: running, to: completed}
+
+  agents:
+    coder:
+      sessionControls:
+        pipelineRef: session-control
+        planPrompt: "Produce a plan for the request. Do not execute tools or claim to have changed files."
+        btwPrompt: "Answer this side question from the available conversation context. Do not execute tools or claim changes."
+      displayName: Ycode Coder
+      description: General software-engineering agent using one governed Bashy tool.
+      inputSchema:
+        type: object
+        additionalProperties: false
+        properties:
+          request: {type: string, minLength: 1}
+        required: [request]
+      outputSchema:
+        type: object
+        additionalProperties: false
+        properties:
+          text: {type: string}
+        required: [text]
+      contextRef: coding
+      modelRouteRef: main
+      pipelineRef: turn
+      memoryRef: main
+      queueRef: interactive
+      sessionRef: durable
+      policyRef: workspace
+      placementRef: local-workspace
+      lifecycleRef: turn
+      hookRefs: [after-tool-audit]
+      permissionCeiling: workspace-write
+      effectsCeiling: [read, write, exec, net]
+      delegations:
+        - agentRef: reviewer
+          modelRouteRef: main
+          maxDepth: 1
+          maxParallel: 2
+          timeoutMs: 120000
+          permissionCeiling: read-only
+          effectsCeiling: [read]
+          budget: {maxInputTokens: 100000, maxOutputTokens: 20000, maxCostUSD: 5}
+          session: {branch: child, join: handoff, cancel: with-parent}
+      presentation: {icon: code, category: engineering}
+    reviewer:
+      displayName: Ycode Reviewer
+      description: Read-only review agent.
+      inputSchema:
+        type: object
+        additionalProperties: false
+        properties:
+          request: {type: string, minLength: 1}
+        required: [request]
+      outputSchema:
+        type: object
+        additionalProperties: false
+        properties:
+          text: {type: string}
+        required: [text]
+      contextRef: coding
+      modelRouteRef: main
+      pipelineRef: turn
+      memoryRef: main
+      queueRef: interactive
+      sessionRef: durable
+      policyRef: workspace
+      placementRef: local-workspace
+      lifecycleRef: turn
+      hookRefs: [after-tool-audit]
+      permissionCeiling: read-only
+      effectsCeiling: [read]
+      delegations: []
+      presentation: {icon: search, category: engineering}
+
+  frontends:
+    one-shot:
+      kind: one-shot
+      trust: local-user
+      limits: {maxInputBytes: 1048576}
+    repl:
+      kind: repl
+      trust: local-user
+      hitl: true
+      limits: {maxInputBytes: 1048576}
+    tui:
+      kind: tui
+      trust: local-user
+      hitl: true
+      limits: {maxInputBytes: 1048576}
+    http:
+      kind: http
+      listen: {network: tcp, address: "127.0.0.1:31415"}
+      tls: {mode: disabled-loopback-only}
+      auth: {mode: bearer, secretRef: {provider: env, name: YCODE_HTTP_TOKEN}}
+      limits: {maxInputBytes: 1048576, maxConcurrent: 32}
+    websocket:
+      kind: websocket
+      listen: {network: tcp, address: "127.0.0.1:31416"}
+      tls: {mode: disabled-loopback-only}
+      auth: {mode: bearer, secretRef: {provider: env, name: YCODE_WS_TOKEN}}
+      limits: {maxInputBytes: 1048576, maxConcurrent: 32}
+    nats:
+      kind: nats
+      endpoint: nats://127.0.0.1:4222
+      tls: {mode: disabled-loopback-only}
+      auth: {mode: token, secretRef: {provider: env, name: YCODE_NATS_TOKEN}}
+      subject: ycode.input
+      limits: {maxInputBytes: 1048576, maxConcurrent: 32}
+    acp:
+      kind: acp
+      transport: stdio
+      trust: local-user
+      resume: true
+      fork: true
+      limits: {maxInputBytes: 1048576}
+    embed:
+      kind: go-embed
+      trust: caller
+      limits: {maxInputBytes: 1048576}
+
+  triggers:
+    interactive-input:
+      kind: frontend
+      frontendRefs: [one-shot, repl, tui, http, websocket, nats, acp, embed]
+      route:
+        agentRef: coder
+        queueRef: interactive
+      inputMapping: canonical-v1
+      idempotency: required
+      admission: {maxPendingPerPrincipal: 16, onLimit: reject}
+
+  sinks:
+    primary-output:
+      kind: frontend-response
+      frontendRefs: [one-shot, repl, tui, http, websocket, nats, acp, embed]
+      destinationAllowlist: [originating-frontend]
+      redact: secrets-and-control-paths
+      delivery:
+        mode: at-least-once
+        deduplicateBy: event-id
+        retry: {maxAttempts: 3, backoffMs: 250, maxBackoffMs: 2000}
+        deadLetter: {controlPath: dead-letter}
+
+  observability:
+    enabled: true
+    exporter: otlp
+    endpoint:
+      valueFrom:
+        env: OTEL_EXPORTER_OTLP_ENDPOINT
+        default: ""
+    recordContent: false
+    attributes: {service.name: ycode}
+
+  extensions: {}

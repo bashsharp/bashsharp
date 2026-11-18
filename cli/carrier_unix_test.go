@@ -51,7 +51,7 @@ func builtBashBin(t *testing.T) string {
 		}
 		testCleanups = append(testCleanups, func() { os.RemoveAll(dir) })
 		bashBinPath = filepath.Join(dir, "bash")
-		out, err := exec.Command("go", "build", "-o", bashBinPath, "github.com/qiangli/bashy/cmd/bash").CombinedOutput()
+		out, err := exec.Command("go", "build", "-o", bashBinPath, "github.com/qiangli/bash/cmd/bash").CombinedOutput()
 		if err != nil {
 			bashBinErr = fmt.Errorf("building cmd/bash: %v\n%s", err, out)
 		}

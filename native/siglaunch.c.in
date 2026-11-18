@@ -1,0 +1,152 @@
+// Copyright (c) 2026 qiangli
+// See LICENSE for licensing information
+
+// siglaunch is the native, pre-Go entry point for the shipped Unix shells.
+// The Go runtime replaces most inherited SIG_IGN dispositions before main,
+// but a POSIX shell must remember them forever.  Snapshot them here and pass
+// the names through the interpreter's private process-boundary sideband.
+#define _POSIX_C_SOURCE 200809L
+#define _XOPEN_SOURCE 700
+
+#include <errno.h>
+#include <limits.h>
+#include <signal.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+
+#ifdef __APPLE__
+#include <mach-o/dyld.h>
+#endif
+
+struct signal_name { int number; const char *name; };
+
+static const struct signal_name signals[] = {
+    {SIGHUP, "HUP"}, {SIGINT, "INT"}, {SIGQUIT, "QUIT"},
+    {SIGILL, "ILL"}, {SIGABRT, "ABRT"}, {SIGFPE, "FPE"},
+    {SIGSEGV, "SEGV"}, {SIGPIPE, "PIPE"}, {SIGALRM, "ALRM"},
+    {SIGTERM, "TERM"},
+#ifdef SIGBUS
+    {SIGBUS, "BUS"},
+#endif
+#ifdef SIGUSR1
+    {SIGUSR1, "USR1"},
+#endif
+#ifdef SIGUSR2
+    {SIGUSR2, "USR2"},
+#endif
+#ifdef SIGTSTP
+    {SIGTSTP, "TSTP"},
+#endif
+#ifdef SIGTTIN
+    {SIGTTIN, "TTIN"},
+#endif
+#ifdef SIGTTOU
+    {SIGTTOU, "TTOU"},
+#endif
+#ifdef SIGCONT
+    {SIGCONT, "CONT"},
+#endif
+#ifdef SIGXCPU
+    {SIGXCPU, "XCPU"},
+#endif
+#ifdef SIGXFSZ
+    {SIGXFSZ, "XFSZ"},
+#endif
+};
+
+static int executable_path(char *dst, size_t size) {
+    char raw[PATH_MAX];
+#if defined(__APPLE__)
+    uint32_t raw_size = (uint32_t)sizeof raw;
+    if (_NSGetExecutablePath(raw, &raw_size) != 0) {
+        errno = ENAMETOOLONG;
+        return -1;
+    }
+#elif defined(__linux__)
+    ssize_t n = readlink("/proc/self/exe", raw, sizeof raw - 1);
+    if (n < 0)
+        return -1;
+    if ((size_t)n >= sizeof raw - 1) {
+        errno = ENAMETOOLONG;
+        return -1;
+    }
+    raw[n] = '\0';
+#else
+#error "siglaunch is supported only on Darwin and Linux"
+#endif
+
+    // Resolve an installation symlink to the launcher it names.  The payload
+    // is a property of that installed launcher, not of the symlink directory.
+    char resolved[PATH_MAX];
+    if (!realpath(raw, resolved))
+        return -1;
+    size_t resolved_len = strlen(resolved);
+    if (resolved_len >= size) {
+        errno = ENAMETOOLONG;
+        return -1;
+    }
+    memcpy(dst, resolved, resolved_len + 1);
+    return 0;
+}
+
+int main(int argc, char **argv) {
+    (void)argc;
+    char ignored[512] = "";
+    const char *prior = getenv("BASHY_HARD_IGNORE");
+    char *prior_encoded = "0";
+    if (prior) {
+        size_t length = strlen(prior);
+        prior_encoded = malloc(length + 2);
+        if (!prior_encoded) {
+            perror("bashy signal launcher: preserve caller environment");
+            return 126;
+        }
+        prior_encoded[0] = '1';
+        memcpy(prior_encoded + 1, prior, length + 1);
+    }
+    // The Go payload starts after this launcher has enriched its environment.
+    // Carry enough provenance for non-shell front ends to reconstruct the
+    // caller's exact BASHY_HARD_IGNORE entry while the interpreter continues
+    // to consume the enriched signal sideband below.
+    if (setenv("BASHY_LAUNCHER_HARD_IGNORE_ORIGINAL", prior_encoded, 1) != 0) {
+        perror("bashy signal launcher: preserve caller environment");
+        if (prior) free(prior_encoded);
+        return 126;
+    }
+    if (prior) free(prior_encoded);
+    if (prior && *prior) snprintf(ignored, sizeof ignored, "%s", prior);
+    for (size_t i = 0; i < sizeof signals / sizeof signals[0]; i++) {
+        struct sigaction action;
+        if (sigaction(signals[i].number, NULL, &action) != 0 ||
+            action.sa_handler != SIG_IGN)
+            continue;
+        size_t used = strlen(ignored);
+        snprintf(ignored + used, sizeof ignored - used, "%s%s",
+                 used ? "," : "", signals[i].name);
+    }
+    if (*ignored && setenv("BASHY_HARD_IGNORE", ignored, 1) != 0) {
+        perror("bashy signal launcher: setenv");
+        return 126;
+    }
+
+    char launcher[PATH_MAX], payload[PATH_MAX];
+    const char *payload_override = getenv("BASHY_SIGNAL_PAYLOAD");
+    if (payload_override && *payload_override) {
+        if (snprintf(payload, sizeof payload, "%s", payload_override) >= (int)sizeof payload) {
+            errno = ENAMETOOLONG;
+            perror("bashy signal launcher: resolve payload override");
+            return 126;
+        }
+    } else {
+        if (executable_path(launcher, sizeof launcher) != 0 ||
+            snprintf(payload, sizeof payload, "%s.real", launcher) >= (int)sizeof payload) {
+            perror("bashy signal launcher: resolve executable");
+            return 126;
+        }
+    }
+    execv(payload, argv);
+    fprintf(stderr, "bashy signal launcher: exec %s: %s\n", payload, strerror(errno));
+    return errno == ENOENT ? 127 : 126;
+}

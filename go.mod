@@ -52,3 +52,7 @@ replace github.com/hashicorp/go-multierror => github.com/qiangli/yoke/external/m
 replace github.com/hashicorp/errwrap => github.com/qiangli/yoke/external/errwrap v0.0.0-20261021020216-636e2fd289e9
 replace github.com/cyphar/filepath-securejoin => github.com/qiangli/yoke/external/securejoin v0.0.0-20261021020216-636e2fd289e9
 replace github.com/mattn/go-runewidth => github.com/qiangli/yoke/external/runewidth v0.0.0-20261025041311-99ef13338402
+
+require github.com/qiangli/bashy v0.0.0-20261118042223-9a6d5824cf95
+
+replace github.com/qiangli/ycode/examples/genie v0.0.0 => github.com/qiangli/ycode/examples/genie v0.0.0-20261118041524-e5be31355b48

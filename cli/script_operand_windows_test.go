@@ -24,8 +24,8 @@ func TestWindowsPOSIXPathScriptOperand(t *testing.T) {
 		t.Fatal(err)
 	}
 	bash := filepath.Join(bin, "bash.exe")
-	build := exec.Command("go", "build", "-buildvcs=false", "-o", bash, "./cmd/bash")
-	build.Dir = filepath.Join("..", "..")
+	build := exec.Command("go", "build", "-buildvcs=false", "-o", bash, "github.com/qiangli/bash/cmd/bash")
+	build.Dir = filepath.Join("..")
 	if out, err := build.CombinedOutput(); err != nil {
 		t.Fatalf("build bash: %v\n%s", err, out)
 	}

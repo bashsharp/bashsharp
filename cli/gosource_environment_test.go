@@ -56,7 +56,7 @@ func TestGoSourceExecutableEnvironment(t *testing.T) {
 		if err != nil {
 			t.Skip("cc is required to exercise the shipped signal launcher")
 		}
-		cmd := exec.CommandContext(ctx, cc, "-x", "c", "-std=c11", "-O2", "-Wall", "-Wextra", "-Werror", "-o", bashy, "../../native/siglaunch.c.in")
+		cmd := exec.CommandContext(ctx, cc, "-x", "c", "-std=c11", "-O2", "-Wall", "-Wextra", "-Werror", "-o", bashy, "../native/siglaunch.c.in")
 		if output, err := cmd.CombinedOutput(); err != nil {
 			t.Fatalf("signal launcher build: %v %s", err, output)
 		}

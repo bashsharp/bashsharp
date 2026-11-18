@@ -16,15 +16,15 @@ func TestOwnedExecLargeArgAndEnv(t *testing.T) {
 		t.Skip("builds focused child binaries")
 	}
 	dir := t.TempDir()
-	root := filepath.Join("..", "..")
+	root := filepath.Join("..")
 	suffix := ""
 	if runtime.GOOS == "windows" {
 		suffix = ".exe"
 	}
 	bash, yoke := filepath.Join(dir, "bash"+suffix), filepath.Join(dir, "yoke"+suffix)
-	for _, build := range []struct{ out, pkg, dir string }{{bash, "./cmd/bash", root}, {yoke, "github.com/qiangli/yoke/cmd/yoke", root}} {
+	for _, build := range []struct{ out, pkg, dir string }{{bash, "github.com/qiangli/bash/cmd/bash", root}, {yoke, "github.com/qiangli/yoke/cmd/yoke", root}} {
 		args := []string{"build", "-buildvcs=false"}
-		if build.pkg == "./cmd/bash" {
+		if build.pkg == "github.com/qiangli/bash/cmd/bash" {
 			args = append(args, "-tags=ownedexecprobe")
 		}
 		args = append(args, "-o", build.out, build.pkg)

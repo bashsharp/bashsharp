@@ -29,7 +29,7 @@ func builtCoreutilsBin(t *testing.T) string {
 			return
 		}
 		coreutilsBinPath = filepath.Join(dir, "coreutils")
-		root, err := filepath.Abs(filepath.Join("..", ".."))
+		root, err := filepath.Abs(filepath.Join(".."))
 		if err != nil {
 			coreutilsBinErr = err
 			return
