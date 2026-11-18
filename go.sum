@@ -51,3 +51,7 @@ golang.org/x/tools v0.38.0 h1:Hx2Xv8hISq8Lm16jvBZ2VQf+RLmbd7wVUsALibYI/IQ=
 golang.org/x/tools v0.38.0/go.mod h1:yEsQ/d/YK8cjh0L6rZlY8tgtlKiBNTL14pGDJPJpYQs=
 golang.org/x/tools v0.50.0 h1:c2ifzfcuY7L90lZ2aKd8S4K2NpASF08SZx9ZuJkHmSU=
 golang.org/x/tools v0.50.0/go.mod h1:7ulVMw3831Mwi5EZD6RomGyffr4VFjuNYXf2BbCEAV0=
+github.com/qiangli/coreutils v0.0.0-20261118041055-ababb9f1c79a h1:Yn54IAhl34sssXR+Na4kEm3r1nfH5MFINpGGDeLWU84=
+github.com/qiangli/coreutils v0.0.0-20261118041055-ababb9f1c79a/go.mod h1:MdwReGhg4TcXTIZIKEAF9MwPmA7iHIvFTytRWP2W5/s=
+github.com/qiangli/yoke v0.0.0-20261118041247-79fe8f90bb05 h1:kI3Wxzztkal5f5c3teCA1EPvbRyIPllYhzXO5pDim/g=
+github.com/qiangli/yoke v0.0.0-20261118041247-79fe8f90bb05/go.mod h1:40OmUyWSEJuvaBt2+BZTNJD5QI1ECuWrbjnhVWB/IWY=

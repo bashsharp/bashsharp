@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "suite": "bash-5.3",
+  "chunk_count": 8,
+  "measurement": {
+    "measured_at": "2026-07-12",
+    "runner": "tools/bash53suite",
+    "command": "go run ./tools/bash53suite -tests-dir /path/to/bash-5.3/tests -bash bin/bash",
+    "result": "86 passed, 0 failed, 0 skipped, 0 timed out",
+    "duration_source": "serial local run; per-fixture DURATION lines emitted by tools/bash53suite"
+  },
+  "chunks": [
+    {
+      "id": 1,
+      "duration_seconds": 112.326,
+      "fixtures": [
+        { "name": "jobs", "duration_seconds": 112.326 }
+      ]
+    },
+    {
+      "id": 2,
+      "duration_seconds": 17.109,
+      "fixtures": [
+        { "name": "trap", "duration_seconds": 17.109 }
+      ]
+    },
+    {
+      "id": 3,
+      "duration_seconds": 7.241,
+      "fixtures": [
+        { "name": "func", "duration_seconds": 5.094 },
+        { "name": "glob-test", "duration_seconds": 0.938 },
+        { "name": "glob-bracket", "duration_seconds": 0.449 },
+        { "name": "errors", "duration_seconds": 0.246 },
+        { "name": "heredoc", "duration_seconds": 0.137 },
+        { "name": "array2", "duration_seconds": 0.099 },
+        { "name": "rhs-exp", "duration_seconds": 0.089 },
+        { "name": "type", "duration_seconds": 0.073 },
+        { "name": "histexpand", "duration_seconds": 0.051 },
+        { "name": "case", "duration_seconds": 0.029 },
+        { "name": "ifs", "duration_seconds": 0.015 },
+        { "name": "input-test", "duration_seconds": 0.009 },
+        { "name": "precedence", "duration_seconds": 0.007 },
+        { "name": "posixpat", "duration_seconds": 0.005 }
+      ]
+    },
+    {
+      "id": 4,
+      "duration_seconds": 7.241,
+      "fixtures": [
+        { "name": "read", "duration_seconds": 4.828 },
+        { "name": "comsub2", "duration_seconds": 1.029 },
+        { "name": "ifs-posix", "duration_seconds": 0.45 },
+        { "name": "alias", "duration_seconds": 0.352 },
+        { "name": "intl", "duration_seconds": 0.141 },
+        { "name": "set-e", "duration_seconds": 0.122 },
+        { "name": "nquote1", "duration_seconds": 0.092 },
+        { "name": "cond", "duration_seconds": 0.079 },
+        { "name": "getopts", "duration_seconds": 0.058 },
+        { "name": "quotearray", "duration_seconds": 0.033 },
+        { "name": "rsh", "duration_seconds": 0.022 },
+        { "name": "mapfile", "duration_seconds": 0.014 },
+        { "name": "posixpipe", "duration_seconds": 0.01 },
+        { "name": "dbg-support2", "duration_seconds": 0.006 },
+        { "name": "complete", "duration_seconds": 0.005 }
+      ]
+    },
+    {
+      "id": 5,
+      "duration_seconds": 7.237,
+      "fixtures": [
+        { "name": "assoc", "duration_seconds": 4.417 },
+        { "name": "builtins", "duration_seconds": 1.422 },
+        { "name": "dollars", "duration_seconds": 0.638 },
+        { "name": "posix2", "duration_seconds": 0.276 },
+        { "name": "quote", "duration_seconds": 0.131 },
+        { "name": "invocation", "duration_seconds": 0.096 },
+        { "name": "extglob", "duration_seconds": 0.087 },
+        { "name": "arith", "duration_seconds": 0.071 },
+        { "name": "vredir", "duration_seconds": 0.045 },
+        { "name": "herestr", "duration_seconds": 0.027 },
+        { "name": "set-x", "duration_seconds": 0.014 },
+        { "name": "invert", "duration_seconds": 0.008 },
+        { "name": "casemod", "duration_seconds": 0.005 }
+      ]
+    },
+    {
+      "id": 6,
+      "duration_seconds": 7.237,
+      "fixtures": [
+        { "name": "new-exp", "duration_seconds": 3.829 },
+        { "name": "array", "duration_seconds": 1.758 },
+        { "name": "posixexp", "duration_seconds": 0.726 },
+        { "name": "more-exp", "duration_seconds": 0.348 },
+        { "name": "varenv", "duration_seconds": 0.14 },
+        { "name": "printf", "duration_seconds": 0.12 },
+        { "name": "nquote", "duration_seconds": 0.092 },
+        { "name": "globstar", "duration_seconds": 0.082 },
+        { "name": "lastpipe", "duration_seconds": 0.054 },
+        { "name": "parser", "duration_seconds": 0.038 },
+        { "name": "dbg-support", "duration_seconds": 0.018 },
+        { "name": "braces", "duration_seconds": 0.016 },
+        { "name": "tilde", "duration_seconds": 0.009 },
+        { "name": "strip", "duration_seconds": 0.007 }
+      ]
+    },
+    {
+      "id": 7,
+      "duration_seconds": 7.237,
+      "fixtures": [
+        { "name": "coproc", "duration_seconds": 3.254 },
+        { "name": "procsub", "duration_seconds": 2.116 },
+        { "name": "execscript", "duration_seconds": 0.843 },
+        { "name": "shopt", "duration_seconds": 0.378 },
+        { "name": "redir", "duration_seconds": 0.194 },
+        { "name": "iquote", "duration_seconds": 0.128 },
+        { "name": "nquote2", "duration_seconds": 0.093 },
+        { "name": "comsub-posix", "duration_seconds": 0.082 },
+        { "name": "comsub", "duration_seconds": 0.064 },
+        { "name": "nquote4", "duration_seconds": 0.032 },
+        { "name": "attr", "duration_seconds": 0.021 },
+        { "name": "arith-for", "duration_seconds": 0.015 },
+        { "name": "cprint", "duration_seconds": 0.011 },
+        { "name": "posixexp2", "duration_seconds": 0.006 }
+      ]
+    },
+    {
+      "id": 8,
+      "duration_seconds": 7.241,
+      "fixtures": [
+        { "name": "test", "duration_seconds": 3.243 },
+        { "name": "dynvar", "duration_seconds": 3.028 },
+        { "name": "exp-tests", "duration_seconds": 0.36 },
+        { "name": "nameref", "duration_seconds": 0.179 },
+        { "name": "history", "duration_seconds": 0.117 },
+        { "name": "exportfunc", "duration_seconds": 0.091 },
+        { "name": "nquote3", "duration_seconds": 0.079 },
+        { "name": "nquote5", "duration_seconds": 0.053 },
+        { "name": "comsub-eof", "duration_seconds": 0.037 },
+        { "name": "appendop", "duration_seconds": 0.017 },
+        { "name": "tilde2", "duration_seconds": 0.017 },
+        { "name": "extglob2", "duration_seconds": 0.008 },
+        { "name": "dirstack", "duration_seconds": 0.007 },
+        { "name": "extglob3", "duration_seconds": 0.005 }
+      ]
+    }
+  ]
+}

@@ -21,9 +21,9 @@ require (
 	github.com/ergochat/readline v0.1.3
 	github.com/go-quicktest/qt v1.101.0
 	github.com/google/go-cmp v0.7.0
-	github.com/qiangli/bash v0.0.0-20261117235306-adb3b4e0c28d
-	github.com/qiangli/coreutils v0.0.0-20261112194059-6dd7a3ee1858
-	github.com/qiangli/yoke v0.0.0-20261117162732-c9057f1e2028
+	github.com/qiangli/bash v0.0.0-20261118045742-083ce721d139
+	github.com/qiangli/coreutils v0.0.0-20261118041055-ababb9f1c79a
+	github.com/qiangli/yoke v0.0.0-20261118041247-79fe8f90bb05
 	golang.org/x/mod v0.41.0
 	golang.org/x/sys v0.48.0
 	golang.org/x/term v0.46.0

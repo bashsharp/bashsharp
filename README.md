@@ -9,9 +9,12 @@ It runs inside [bashy](https://github.com/qiangli/bashy), a pure-Go Bash 5.3
 for Linux, macOS and Windows. This repo is the language: its definition, its
 front door (`front/`, `transpile/`, `cmd/bashsharp`), its design decisions,
 and the status pages that say exactly what is measured. The engine that parses
-and runs it lives in [qiangli/sh](https://github.com/qiangli/sh); the tests
+and runs it lives in [qiangli/bash](https://github.com/qiangli/bash); the tests
 that decide every claim live in
 [bashsharp/bashsharp-tests](https://github.com/bashsharp/bashsharp-tests).
+
+Build and test this repository independently using the
+[standalone DAG and Dockerfile](docs/standalone-build.md).
 
 > **Alpha.** Syntax may change before 1.0. The way to change it is a two-page
 > RFC (see [ROADMAP.md](ROADMAP.md)); the way to help is the conformance suite,

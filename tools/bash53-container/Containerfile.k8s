@@ -1,0 +1,80 @@
+# Self-contained bash-5.3 conformance image for k8s / DKS (Argo Workflows).
+#
+# k8s pods cannot mount your laptop, so unlike the local container lane
+# (tools/bash53-container/Containerfile, which runs a bind-mounted /work) this
+# image BAKES everything a chunk needs: the Linux testee + harness, the fixture
+# tree (incl support/ helper sources — the harness rebuilds recho/zecho/xcase at
+# run time), and the pinned chunks.json. Staged into the build context by
+# scripts/build-conformance-image.sh. Runs non-root (uid 1000) so the fixtures
+# that refuse to run as root behave (mirror of the lane's --user 1000).
+ARG BASE_IMAGE=docker.io/library/ubuntu@sha256:33ceb71981b602c1a7443a53469e4dba065f7503eab3078a2d7a57a2ab987517
+FROM ${BASE_IMAGE}
+# The pinned apt snapshot of tools/bashy-build/image.lock: the gate image is
+# never a moving target. The official build image (BASE_IMAGE for the
+# release gate) runs as an unprivileged user, so install as root.
+ARG APT_SNAPSHOT=20260821T190000Z
+USER 0:0
+# The testee runs among plain system tools, as on a bare distro: drop the
+# build tooling's bashy-as-sh (/opt/bashy/bin, which `command -p` searches
+# first) and its PATH, so fixtures such as execscript reach the system sh.
+RUN rm -rf /opt/bashy/bin
+ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+# locales the suite exercises (intl/glob-test/…) + compiler/helper tools; same
+# Ubuntu 24.04 substrate intended for the later POSIX profile images.
+RUN set -eux; \
+    apt-get update --snapshot "${APT_SNAPSHOT}"; \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+      build-essential locales tzdata bsdextrautils ca-certificates; \
+    rm -rf /var/lib/apt/lists/*; \
+    printf '%s\n' \
+      'C.UTF-8 UTF-8' 'en_US.UTF-8 UTF-8' 'en_US ISO-8859-1' \
+      'de_DE.UTF-8 UTF-8' 'de_DE ISO-8859-1' 'fr_FR.UTF-8 UTF-8' 'fr_FR ISO-8859-1' \
+      'ja_JP.UTF-8 UTF-8' 'ja_JP EUC-JP' 'ja_JP.SJIS SHIFT_JIS' 'zh_TW BIG5' \
+      > /etc/locale.gen; \
+    locale-gen
+
+# sigdfl: reset the realtime signals to SIG_DFL, then exec its args. A CRI
+# runtime (containerd/k8s) sets SIGRTMIN..SIGRTMAX to SIG_IGN on the pod's PID 1;
+# SIG_IGN survives exec, so a bash fixture inherits it and `trap -p` prints a
+# spurious `trap -- '' SIGRTMIN`, failing trap/varenv/execscript ONLY under k8s.
+# This MUST run ahead of the Go harness: the Go runtime snapshots startup-ignored
+# signals and re-ignores them in every child it execs, so the reset is unreachable
+# from inside Go (see tools/bash53suite/proc_unix.go). podman run does not inject
+# the mask, so sigdfl is a harmless no-op there.
+RUN printf '%s\n' \
+      '#include <signal.h>' \
+      '#include <unistd.h>' \
+      'int main(int argc, char **argv){' \
+      '  for (int s = SIGRTMIN; s <= SIGRTMAX; s++) signal(s, SIG_DFL);' \
+      '  if (argc < 2) return 0;' \
+      '  execvp(argv[1], argv+1);' \
+      '  return 127;' \
+      '}' > /tmp/sigdfl.c \
+    && gcc -O2 -o /usr/local/bin/sigdfl /tmp/sigdfl.c \
+    && rm -f /tmp/sigdfl.c
+
+# baked conformance payload (staged by the build script)
+COPY bin/       /work/bin/
+COPY chunks.json /work/chunks.json
+COPY bash53/    /bash53/
+
+# uid 1000 must own the workdir it writes helper builds / private trees under
+RUN getent passwd 1000 >/dev/null || useradd -u 1000 -m runner; \
+    chown -R 1000:1000 /work /bash53; \
+    install -d -o 1000 -g 1000 /home/bash53
+WORKDIR /work
+USER 1000:1000
+# The gate image's own contract, whatever BASE_IMAGE is: CMD runs as given
+# (the official build image's ENTRYPOINT is /bashy, which would take "sh" as
+# a script name), and uid 1000 has a HOME it owns (that image's HOME belongs
+# to its build account).
+ENTRYPOINT []
+ENV HOME=/home/bash53
+
+# default: run one chunk (CHUNK=I/N env), through sigdfl so the realtime-signal
+# mask a CRI runtime injects never reaches the harness. The k8s Job / Argo
+# Workflow overrides command/args per chunk (and prepends sigdfl the same way);
+# this makes `podman run -e CHUNK=3/8 <image>` work standalone too.
+ENV BASH53_ARCH=amd64
+CMD ["sh","-c","sigdfl ./bin/bash53suite-linux-${BASH53_ARCH} -tests-dir /bash53/tests -chunk ${CHUNK:-1/8} -bash ./bin/bash-linux-${BASH53_ARCH}/bash"]
