@@ -111,13 +111,15 @@ Effects: exec, net, read, write
 set -e
 image=$(sed -n 's/^image=//p' tools/bashy-build/image.lock)
 digest=$(sed -n 's/^image_digest=//p' tools/bashy-build/image.lock)
+oci="${BASHY:-bashy} oci"
+[ "$($oci image inspect --format '{{.Digest}}' "$image")" = "$digest" ]
 pin=$(sed -n 's/^[[:space:]]*github.com\/qiangli\/bash[[:space:]]*\([^[:space:]]*\).*/\1/p' go.mod)
 [ -n "$pin" ]
 BASH53_ARTIFACT=B BASH53_BASHPP=1 BASH53_GATE=1 \
 BASH53_TESTEE_BIN="$PWD/bin/shell/bash" \
 BASH53_SOURCE_COMMIT="$(git rev-parse HEAD)" \
 BASH53_LOWER_PINS="github.com/qiangli/bash@$pin" \
-BASH53_BASE_IMAGE="$image@$digest" \
+BASH53_BASE_IMAGE="$image" \
 BASH53_EVIDENCE="${BASH53_EVIDENCE:-bin/bashsharp-bash53-evidence.json}" \
 "${BASHY:-bashy}" scripts/test-bash-container.sh
 ```
