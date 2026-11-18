@@ -3,9 +3,11 @@ id: cf2ca27023ef
 kind: refactor
 title: B0 Relocate owned Bash# engine and wire language front to it
 seq: 3
-status: todo
+status: assigned
 priority: p0
 created: 2026-11-17T23:09:37.536406Z
+weave: 1
+assignee: agy-gemini3.8-flash
 sprint: 575
 sprint_id: 65ce85f5-87c0-5863-bf55-62de86f5df36
 sprint_title: 'Layer separation: Classic <- Bash# <- Yoke import-graph delineation'
