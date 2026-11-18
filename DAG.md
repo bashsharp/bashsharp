@@ -96,7 +96,7 @@ not repository source or a runtime dependency.
 Effects: exec, net, read, write
 
 ```bash
-scripts/ensure-bash53-fixtures.sh
+"${BASHY:-bashy}" scripts/ensure-bash53-fixtures.sh
 ```
 
 ### test-bash53
