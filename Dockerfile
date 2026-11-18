@@ -1,5 +1,6 @@
 # Standalone source build: no umbrella checkout or sibling module overlays.
-FROM localhost/bashy-build:v1.0.0-rc.37-go1.27.2-c99fcb7318b2@sha256:c99fcb7318b23ed06b3775368ee3966795a5498fb9a050a92d6f21866680b7ba AS build
+ARG BUILD_IMAGE=localhost/bashy-build:v1.0.0-rc.37-go1.27.2-c99fcb7318b2
+FROM ${BUILD_IMAGE} AS build
 WORKDIR /work
 COPY --chown=10001:10001 . .
 ENV BASHY_BUILD_RUN=1 GOWORK=off GOFLAGS=-p=1 GOMAXPROCS=8 GOMEMLIMIT=2GiB BASHY=/bashy

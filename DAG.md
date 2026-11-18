@@ -122,6 +122,19 @@ BASH53_EVIDENCE="${BASH53_EVIDENCE:-bin/bashsharp-bash53-evidence.json}" \
 "${BASHY:-bashy}" scripts/test-bash-container.sh
 ```
 
+### docker-build
+Build the standalone Dockerfile after verifying the locked base image digest.
+Effects: exec, net, read, write
+
+```bash
+set -eu
+oci="${BASHY:-bashy} oci"
+image=$(sed -n 's/^image=//p' tools/bashy-build/image.lock)
+digest=$(sed -n 's/^image_digest=//p' tools/bashy-build/image.lock)
+[ "$($oci image inspect --format '{{.Digest}}' "$image")" = "$digest" ]
+$oci build --pull=never --build-arg "BUILD_IMAGE=$image" -t "${BASHSHARP_IMAGE:-localhost/bashsharp-standalone:dev}" -f Dockerfile .
+```
+
 ### vet
 Run static Go checks in the same official image using `container-test` for
 regression coverage; this leaf is intended for an image session.
