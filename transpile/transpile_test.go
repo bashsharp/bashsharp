@@ -141,7 +141,7 @@ func TestTranspileStandaloneOnlyAddsModule(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	wantModule := fmt.Sprintf("module main\n\ngo 1.27\n\nrequire mvdan.cc/sh/v3 v3.13.1\n\nreplace mvdan.cc/sh/v3 => github.com/qiangli/sh/v3 %s\n", revision)
+	wantModule := fmt.Sprintf("module main\n\ngo 1.27\n\nrequire github.com/bashsharp/bashsharp %s\n", revision)
 	if string(moduleData) != wantModule {
 		t.Errorf("go.mod = %q, want %q", moduleData, wantModule)
 	}
@@ -329,11 +329,9 @@ func TestTranspileGoBuildAndStandaloneExecute(t *testing.T) {
 		binFile += ".exe"
 	}
 
-	shDir, err := filepath.Abs("../../sh")
-	if err != nil {
-		t.Fatal(err)
-	}
-	goModContent := fmt.Sprintf("module testpkg\n\ngo 1.22\n\nrequire mvdan.cc/sh/v3 v3.0.0\nreplace mvdan.cc/sh/v3 => %s\n", shDir)
+	_, this, _, _ := runtime.Caller(0)
+	root := filepath.Dir(filepath.Dir(this))
+	goModContent := fmt.Sprintf("module testpkg\n\ngo 1.22\n\nrequire github.com/bashsharp/bashsharp v0.0.0\nreplace github.com/bashsharp/bashsharp => %s\n", root)
 	if err := os.WriteFile(filepath.Join(dir, "go.mod"), []byte(goModContent), 0644); err != nil {
 		t.Fatal(err)
 	}

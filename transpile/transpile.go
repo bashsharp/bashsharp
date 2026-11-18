@@ -18,21 +18,21 @@ import (
 )
 
 // Standalone binaries emitted by the lower compiler depend on the plain runtime
-// base (mvdan.cc/sh/v3/lower/shellrt) using standard Go library primitives.
+// base (github.com/bashsharp/bashsharp/engine/lower/shellrt) using standard Go library primitives.
 // Dynamic features requiring the shell execution engine are compiled to explicit
 // shellrt bridge calls rather than unanalyzed interp invocations.
 // See docs/transpile.md for complete build recipe and runtime details.
 
 const (
 	sourceMapSchemaVersion = "bashy-transpile-map-v1"
-	shellRuntimeVersion    = "v3.13.1"
+	shellRuntimeVersion    = "v0.0.0"
 )
 
-// ShellRuntimeCommit is the qiangli/sh revision written by --standalone. Bashy
+// ShellRuntimeCommit is the bashsharp revision written by --standalone. Bashy
 // release builds stamp it and its commit time from the exact sibling pin with
 // -ldflags -X; both are needed to form the canonical Go pseudo-version.
-var ShellRuntimeCommit = "d41a702bb4823523deabdfa4ce698a7ae1dbb580"
-var ShellRuntimeCommitTime = "2026-09-18T10:41:04-07:00"
+var ShellRuntimeCommit = "6423f904a42ccfef5c01147a88baf6ba9071f83d"
+var ShellRuntimeCommitTime = "2026-11-17T15:57:36-08:00"
 
 type mapEntry struct {
 	GoLine       int    `json:"go_line"`
@@ -931,7 +931,7 @@ func standaloneModuleData() ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	return []byte(fmt.Sprintf("module main\n\ngo 1.27\n\nrequire mvdan.cc/sh/v3 %s\n\nreplace mvdan.cc/sh/v3 => github.com/qiangli/sh/v3 %s\n", shellRuntimeVersion, revision)), nil
+	return []byte(fmt.Sprintf("module main\n\ngo 1.27\n\nrequire github.com/bashsharp/bashsharp %s\n", revision)), nil
 }
 
 func shellRuntimeRevision() (string, error) {
@@ -949,7 +949,7 @@ func shellRuntimeRevision() (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("standalone shell runtime commit time is invalid")
 	}
-	return fmt.Sprintf("v3.0.0-%s-%s", commitTime.UTC().Format("20060102150405"), commit[:12]), nil
+	return fmt.Sprintf("v0.0.0-%s-%s", commitTime.UTC().Format("20060102150405"), commit[:12]), nil
 }
 
 // checkTranspileInputCollision refuses to write an output or map file over an
