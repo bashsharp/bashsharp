@@ -1,4 +1,0 @@
-// errorcheck -lang=go1.12
-package p
-
-var _ = 0b101

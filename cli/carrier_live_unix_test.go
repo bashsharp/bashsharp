@@ -11,7 +11,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/bashsharp/bashsharp/engine/interp"
+	"github.com/qiangli/bash/interp"
 )
 
 func TestCarrierLiveSignalEvents(t *testing.T) {

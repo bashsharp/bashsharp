@@ -19,9 +19,9 @@ import (
 	coreutilsshell "github.com/qiangli/coreutils/shell"
 	_ "github.com/qiangli/yoke/cmds/all"
 
-	"github.com/bashsharp/bashsharp/engine/expand"
-	"github.com/bashsharp/bashsharp/engine/interp"
-	"github.com/bashsharp/bashsharp/engine/syntax"
+	"github.com/qiangli/bash/expand"
+	"github.com/qiangli/bash/interp"
+	"github.com/qiangli/bash/syntax"
 )
 
 func TestStartupInheritedFdsDiscoversOpenFD(t *testing.T) {

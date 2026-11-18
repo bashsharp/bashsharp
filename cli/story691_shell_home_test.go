@@ -7,8 +7,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/bashsharp/bashsharp/engine/expand"
-	"github.com/bashsharp/bashsharp/engine/interp"
+	"github.com/qiangli/bash/expand"
+	"github.com/qiangli/bash/interp"
 )
 
 // Sprint 246, story 691 (~/.bash_logout on Windows): invocation.tests runs

@@ -9,11 +9,11 @@ import (
 
 	"github.com/bashsharp/bashsharp/front"
 
-	"github.com/bashsharp/bashsharp/engine/interp"
+	"github.com/qiangli/bash/interp"
 )
 
 // Sprint 118, W1 (Bashy half): regressions for the Go-source front end as it
-// is actually linked — this package imports github.com/bashsharp/bashsharp/engine/gosource in the
+// is actually linked — this package imports github.com/qiangli/bash/gosource in the
 // DEFAULT build, so everything here loads real Go source through it.
 
 // TestGoSourcePackageFilesHonorsBuildConstraints is review finding 6. A

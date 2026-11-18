@@ -6,7 +6,7 @@ package front
 import (
 	"strings"
 
-	"github.com/bashsharp/bashsharp/engine/syntax"
+	"github.com/qiangli/bash/syntax"
 )
 
 // Sprint 98, Story #125 (B1): the resolved Bash++ dialect/selector model.

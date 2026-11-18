@@ -1,7 +1,0 @@
-package p
-
-var _ int = "x"
-
-var _, _ = 0x, 0x
-
-func T [P] m () {}

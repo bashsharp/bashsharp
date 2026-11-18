@@ -14,7 +14,7 @@ import (
 	"sync"
 	"syscall"
 
-	"github.com/bashsharp/bashsharp/engine/interp"
+	"github.com/qiangli/bash/interp"
 )
 
 // platformJobCarrier returns the OS-backed job carrier for Windows: one

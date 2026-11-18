@@ -13,12 +13,12 @@ import (
 
 	"github.com/bashsharp/bashsharp/front"
 
-	"github.com/bashsharp/bashsharp/engine/lower"
-	"github.com/bashsharp/bashsharp/engine/syntax"
+	"github.com/qiangli/bash/lower"
+	"github.com/qiangli/bash/syntax"
 )
 
 // Standalone binaries emitted by the lower compiler depend on the plain runtime
-// base (github.com/bashsharp/bashsharp/engine/lower/shellrt) using standard Go library primitives.
+// base (github.com/qiangli/bash/lower/shellrt) using standard Go library primitives.
 // Dynamic features requiring the shell execution engine are compiled to explicit
 // shellrt bridge calls rather than unanalyzed interp invocations.
 // See docs/transpile.md for complete build recipe and runtime details.

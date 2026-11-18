@@ -1,7 +1,0 @@
-package diag
-
-var _ = s[1::]
-
-var x int = )
-
-var _ int = "a"

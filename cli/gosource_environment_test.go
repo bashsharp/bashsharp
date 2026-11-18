@@ -11,7 +11,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/bashsharp/bashsharp/engine/gosource"
+	"github.com/qiangli/bash/gosource"
 )
 
 // offlineGoEnv forces the installed SDK and the local module cache, making

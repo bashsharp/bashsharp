@@ -1,6 +1,0 @@
-// -fakeImportC
-package p
-
-import "C"
-
-var _ = missing

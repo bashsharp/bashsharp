@@ -13,9 +13,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/bashsharp/bashsharp/engine/interp"
+	"github.com/qiangli/bash/interp"
 	"github.com/qiangli/bash/pattern"
-	"github.com/bashsharp/bashsharp/engine/syntax"
+	"github.com/qiangli/bash/syntax"
 )
 
 // rlEmu is a minimal readline emulation backing `bash -i` with a

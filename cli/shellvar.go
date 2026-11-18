@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/bashsharp/bashsharp/engine/expand"
+	"github.com/qiangli/bash/expand"
 )
 
 // GNU Bash 5.3 startup (variables.c, initialize_shell_variables) binds a

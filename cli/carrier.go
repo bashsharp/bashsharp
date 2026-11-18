@@ -9,7 +9,7 @@ import (
 	"os"
 	"runtime"
 
-	"github.com/bashsharp/bashsharp/engine/interp"
+	"github.com/qiangli/bash/interp"
 )
 
 // carrierHelperArg is the argv[1] marker that turns this executable into a

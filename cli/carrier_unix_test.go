@@ -21,7 +21,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/bashsharp/bashsharp/engine/interp"
+	"github.com/qiangli/bash/interp"
 )
 
 // These tests drive the real bin/bash binary end to end: the OS-backed job

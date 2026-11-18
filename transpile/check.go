@@ -9,8 +9,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/bashsharp/bashsharp/engine/lower"
-	"github.com/bashsharp/bashsharp/engine/syntax"
+	"github.com/qiangli/bash/lower"
+	"github.com/qiangli/bash/syntax"
 	"github.com/bashsharp/bashsharp/front"
 )
 

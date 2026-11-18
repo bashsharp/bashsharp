@@ -13,8 +13,8 @@ import (
 	"time"
 
 	"golang.org/x/sys/windows"
-	"github.com/bashsharp/bashsharp/engine/interp"
-	"github.com/bashsharp/bashsharp/engine/syntax"
+	"github.com/qiangli/bash/interp"
+	"github.com/qiangli/bash/syntax"
 )
 
 // stillActiveExitCode is GetExitCodeProcess's "has not exited" pseudo code

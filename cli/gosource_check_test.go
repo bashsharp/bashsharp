@@ -12,7 +12,7 @@ import (
 
 	"github.com/bashsharp/bashsharp/front"
 	_ "github.com/bashsharp/bashsharp/transpile" // wires front.ShellCheck, as cmd/bashy does
-	"github.com/bashsharp/bashsharp/engine/syntax"
+	"github.com/qiangli/bash/syntax"
 )
 
 func withCommandGiven(t *testing.T, given bool) {

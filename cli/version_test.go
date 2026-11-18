@@ -6,9 +6,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/bashsharp/bashsharp/engine/expand"
-	"github.com/bashsharp/bashsharp/engine/interp"
-	"github.com/bashsharp/bashsharp/engine/syntax"
+	"github.com/qiangli/bash/expand"
+	"github.com/qiangli/bash/interp"
+	"github.com/qiangli/bash/syntax"
 )
 
 func TestStartupUnderscore(t *testing.T) {

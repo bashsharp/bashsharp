@@ -18,7 +18,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/bashsharp/bashsharp/engine/interp"
+	"github.com/qiangli/bash/interp"
 )
 
 // platformJobCarrier returns the OS-backed job carrier: one re-exec of this

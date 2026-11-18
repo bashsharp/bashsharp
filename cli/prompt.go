@@ -12,7 +12,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/bashsharp/bashsharp/engine/shell"
+	"github.com/qiangli/bash/shell"
 )
 
 // expandPrompt expands Bash-style prompt escape sequences in s, then performs

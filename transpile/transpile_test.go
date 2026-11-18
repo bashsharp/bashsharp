@@ -13,8 +13,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/bashsharp/bashsharp/engine/lower"
-	"github.com/bashsharp/bashsharp/engine/syntax"
+	"github.com/qiangli/bash/lower"
+	"github.com/qiangli/bash/syntax"
 )
 
 func TestTranspileDispatchArgs(t *testing.T) {

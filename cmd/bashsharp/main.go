@@ -25,10 +25,10 @@ import (
 	"strings"
 	"text/scanner"
 
-	"github.com/bashsharp/bashsharp/engine/expand"
-	"github.com/bashsharp/bashsharp/engine/interp"
-	"github.com/bashsharp/bashsharp/engine/polyglot"
-	"github.com/bashsharp/bashsharp/engine/syntax"
+	"github.com/qiangli/bash/expand"
+	"github.com/qiangli/bash/interp"
+	"github.com/qiangli/bash/polyglot"
+	"github.com/qiangli/bash/syntax"
 	"github.com/bashsharp/bashsharp/front"
 	"github.com/bashsharp/bashsharp/transpile"
 )

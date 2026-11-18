@@ -1,7 +1,0 @@
-package diag
-
-import _ "unicode//utf8"
-import _ "/abs/b"
-import _ "main"
-import ""
-import _ "a:b"

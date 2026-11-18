@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/bashsharp/bashsharp/engine/syntax"
+	"github.com/qiangli/bash/syntax"
 )
 
 func TestBashPPPOSIXSessionRuntime(t *testing.T) {

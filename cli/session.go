@@ -9,8 +9,8 @@ import (
 
 	"github.com/bashsharp/bashsharp/front"
 
-	"github.com/bashsharp/bashsharp/engine/expand"
-	"github.com/bashsharp/bashsharp/engine/interp"
+	"github.com/qiangli/bash/expand"
+	"github.com/qiangli/bash/interp"
 )
 
 // SessionIO carries the per-request stdio/env/dir for a command run inside a

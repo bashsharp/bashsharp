@@ -1,8 +1,0 @@
-package diag
-
-func f() {
-	for range 10 {
-	}
-	for range 10 {
-	}
-}

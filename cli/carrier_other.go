@@ -5,7 +5,7 @@
 
 package cli
 
-import "github.com/bashsharp/bashsharp/engine/interp"
+import "github.com/qiangli/bash/interp"
 
 // platformJobCarrier reports that this platform has no OS-backed job carrier:
 // it can neither re-exec this binary as a stand-in process nor recover the

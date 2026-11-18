@@ -1,3 +1,0 @@
-package p
-
-func F(x int) int { return x * 2 }

@@ -8,7 +8,7 @@ package cli
 import (
 	"os"
 
-	"github.com/bashsharp/bashsharp/engine/interp"
+	"github.com/qiangli/bash/interp"
 )
 
 // startProcessSignalServer makes this standalone shell signallable by a

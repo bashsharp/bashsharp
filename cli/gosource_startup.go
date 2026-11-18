@@ -15,7 +15,7 @@ import (
 
 	"github.com/bashsharp/bashsharp/front"
 
-	"github.com/bashsharp/bashsharp/engine/interp"
+	"github.com/qiangli/bash/interp"
 )
 
 // resolveStartupGoSource validates the captured selection once the Bash++ and

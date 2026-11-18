@@ -12,7 +12,7 @@ import (
 
 	"github.com/bashsharp/bashsharp/front"
 
-	"github.com/bashsharp/bashsharp/engine/gosource"
+	"github.com/qiangli/bash/gosource"
 )
 
 func TestSprint198PackageToken(t *testing.T) {

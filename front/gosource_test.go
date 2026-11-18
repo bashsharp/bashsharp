@@ -12,8 +12,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/bashsharp/bashsharp/engine/interp"
-	"github.com/bashsharp/bashsharp/engine/syntax"
+	"github.com/qiangli/bash/interp"
+	"github.com/qiangli/bash/syntax"
 )
 
 // Sprint 118, W1: tests for the Go-source selector. This package is the SHARED

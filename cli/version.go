@@ -7,7 +7,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/bashsharp/bashsharp/engine/expand"
+	"github.com/qiangli/bash/expand"
 )
 
 // bashVersion identifies bashy as a Bash 5.3 compatible shell. It is a var,

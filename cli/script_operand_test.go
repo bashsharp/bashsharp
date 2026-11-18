@@ -6,8 +6,8 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/bashsharp/bashsharp/engine/expand"
-	"github.com/bashsharp/bashsharp/engine/interp"
+	"github.com/qiangli/bash/expand"
+	"github.com/qiangli/bash/interp"
 	"github.com/qiangli/bash/pathconv"
 )
 

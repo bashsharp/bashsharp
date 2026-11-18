@@ -12,10 +12,10 @@ import (
 	"strings"
 
 	"github.com/ergochat/readline"
-	"github.com/bashsharp/bashsharp/engine/expand"
-	"github.com/bashsharp/bashsharp/engine/interactive"
-	"github.com/bashsharp/bashsharp/engine/interp"
-	"github.com/bashsharp/bashsharp/engine/syntax"
+	"github.com/qiangli/bash/expand"
+	"github.com/qiangli/bash/interactive"
+	"github.com/qiangli/bash/interp"
+	"github.com/qiangli/bash/syntax"
 )
 
 // ignoreEOFLimit decodes the IGNOREEOF environment variable into the
