@@ -25,13 +25,14 @@ Effects: exec, net, read, write
 ```bash
 set -e
 if [ "${BASHY_BUILD_RUN:-}" != 1 ]; then
-  exec "${BASHY:-bashy}" scripts/container-task.sh build
-fi
+  "${BASHY:-bashy}" scripts/container-task.sh build
+else
 export GOWORK=off
 mkdir -p bin
 go build -mod=readonly ./...
 go build -mod=readonly -trimpath -o bin/bashsharp ./cmd/bashsharp
 "${BASHY:-bashy}" scripts/build-shell.sh
+fi
 ```
 
 ### test
@@ -41,9 +42,10 @@ Effects: exec, net, read, write
 ```bash
 set -e
 if [ "${BASHY_BUILD_RUN:-}" != 1 ]; then
-  exec "${BASHY:-bashy}" scripts/container-task.sh test
-fi
+  "${BASHY:-bashy}" scripts/container-task.sh test
+else
 GOWORK=off go test -mod=readonly -count=1 ./...
+fi
 ```
 
 ### binary-smoke
@@ -54,10 +56,11 @@ Effects: exec, read
 ```bash
 set -e
 if [ "${BASHY_BUILD_RUN:-}" != 1 ]; then
-  exec "${BASHY:-bashy}" scripts/container-task.sh binary-smoke
-fi
+  "${BASHY:-bashy}" scripts/container-task.sh binary-smoke
+else
 [ "$(bin/bashsharp -c 'printf "%s\n" bashsharp-smoke')" = bashsharp-smoke ]
 [ "$(bin/shell/bash --bashpp -c 'printf "%s\n" bashsharp-shell-smoke')" = bashsharp-shell-smoke ]
+fi
 ```
 
 ### container-build
@@ -85,9 +88,10 @@ Effects: exec, net, read, write
 ```bash
 set -e
 if [ "${BASHY_BUILD_RUN:-}" != 1 ]; then
-  exec "${BASHY:-bashy}" scripts/container-task.sh build-test-tools
-fi
+  "${BASHY:-bashy}" scripts/container-task.sh build-test-tools
+else
 "${BASHY:-bashy}" scripts/build-test-tools.sh
+fi
 ```
 
 ### test-bash-fixtures
