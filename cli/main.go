@@ -754,6 +754,7 @@ func newRunner() (*interp.Runner, error) {
 	interactive := shouldRunInteractive(stdinIsTTY)
 	opts := []interp.RunnerOption{
 		interp.OwnedExecutablePaths(ownedExecutablePaths()...),
+		interp.MirrorUmask(true),
 		interp.Lang(startupBashPP.LangVariant()),
 		interp.Interactive(interactive),
 		// `bash -n` (and `bash -o noexec`) suppress execution even in an
