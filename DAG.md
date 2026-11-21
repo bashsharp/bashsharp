@@ -63,6 +63,46 @@ else
 fi
 ```
 
+### build-bsh
+Emit `bin/bsh`, the certified shell: Bash 5.3 + Bash# + the POSIX-required
+coreutils in one stripped executable. `cmd/bsh` is its own module (requiring
+only bashsharp, bash and coreutils), so it builds from its own go.mod with
+`GOWORK=off` and links no Yoke, Bashy or ycode package. Prints size and time.
+Effects: exec, net, read, write
+
+```bash
+set -e
+if [ "${BASHY_BUILD_RUN:-}" != 1 ]; then
+  "${BASHY:-bashy}" scripts/container-task.sh build-bsh
+else
+mkdir -p bin
+out="$PWD/bin/bsh"
+cd cmd/bsh
+start=$(date +%s)
+GOWORK=off go build -mod=readonly -trimpath \
+  -ldflags "-s -w -X 'github.com/bashsharp/bashsharp/cli.bashVersion=5.3.0(1)-bsh-${VERSION:-dev}'" \
+  -o "$out" .
+end=$(date +%s)
+echo "built bin/bsh ($(wc -c < "$out" | tr -d ' ') bytes, $((end - start))s)"
+fi
+```
+
+### test-bsh
+Test the `cmd/bsh` module alone: the zero-Yoke/zero-Bashy link proof (no
+allowlist), the go.mod requirement check, argv0 routing, and the binary smoke
+(Bash 5.3, Bash# default, in-process coreutils under an empty PATH).
+Effects: exec, net, read, write
+
+```bash
+set -e
+if [ "${BASHY_BUILD_RUN:-}" != 1 ]; then
+  "${BASHY:-bashy}" scripts/container-task.sh test-bsh
+else
+cd cmd/bsh
+GOWORK=off go test -mod=readonly -count=1 .
+fi
+```
+
 ### container-build
 Build independently in the immutable official image.
 Effects: exec, net, read, write

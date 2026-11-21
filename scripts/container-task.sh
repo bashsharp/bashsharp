@@ -4,7 +4,7 @@ set -eu
 repo=$(CDPATH= cd -P "$(dirname "$0")/.." && pwd)
 cd "$repo"
 task=${1:?DAG target required}
-case "$task" in build|test|binary-smoke|build-test-tools) ;; *) echo 'unsupported container task' >&2; exit 2;; esac
+case "$task" in build|test|binary-smoke|build-test-tools|build-bsh|test-bsh) ;; *) echo 'unsupported container task' >&2; exit 2;; esac
 cpus=${BASHY_BUILD_CPUS:-8}
 export BASHY_BUILD_CPUS=$cpus
 export BASHY_BUILD_CACHE_VOLUME=${BASHY_BUILD_CACHE_VOLUME:-bashsharp-build-cache}
