@@ -3,9 +3,11 @@ id: fa807380a5b2
 kind: test
 title: 'Benchmark bsh vs GNU bash + GNU coreutils: small-call-heavy scripts and large-data throughput'
 seq: 8
-status: todo
+status: assigned
 priority: p3
 created: 2026-11-21T15:15:01.114219Z
+weave: 4
+assignee: agy-gemini4-carbon
 ---
 
 Operator 2026-11-21: file a todo for the bsh vs GNU benchmark (after everything works; not planned now). First data point (dev host, macOS arm64, 2026-11-21): a 500-iteration loop with basename, echo|tr|cut and two command substitutions, same output: bsh (in-process coreutils, empty PATH) 0.22 s; GNU bash 5.3 + GNU coreutils 2.46 s; GNU bash 5.3 + BSD utils 1.91 s (bsh ~11x faster). Startup (-c true, median of 20): bsh 21 ms vs bashy 56 ms. Hypothesis: bsh wins on small-call-heavy scripts (no fork/exec per utility; in-process command substitution/pipelines) but may lose on large-data single-call throughput (sort/grep/awk over GB) where GNU C per-byte speed dominates. Scope when picked up: a reproducible benchmark suite (script shapes: utility loops, pipelines, command substitution, startup; data shapes: sort/grep/awk/sed/wc on 10 MB-10 GB) run on Linux/macOS/Windows on the gate host, bsh built through the product build path, GNU versions recorded; publish per-shape results without cherry-picking. Related: Bash# build performance todo 7922c8e2.
@@ -31,3 +33,8 @@ Run the same per-command benchmark on three OSes, one venue each, claiming each 
 - Windows: the gate host's native Windows lane (claim `elephant.windows-native`), not WSL. Baseline = Git for Windows bash + its bundled GNU coreutils; record versions; commands it lacks are listed as no-baseline.
 - Linux: a NEW throwaway DigitalOcean droplet (smallest size that runs the 1 GB throughput cases), created for this run and DESTROYED when done (verify deletion); tag it with the story id; never touch existing droplets or bashy.dhnt.io; DigitalOcean via curl with the vault token (doctl ignores tokens). Install GNU bash 5.3 + GNU coreutils from the distro.
 bsh: built per OS from bashsharp/cmd/bsh at origin/main (cross-build where Go is absent). Results per OS in bench/results/<os>/; one summary table across OSes. Hosts by role only in committed text.
+
+
+## Linux venue correction 2026-11-21 (operator: "use aws? ... for linux")
+
+Linux runs on AWS, not DigitalOcean: reuse the existing throwaway Lightsail fleet route (`bashy e2e-fleet`): one instance, created for this run and destroyed when done (verify deletion), within the AWS budget cap; never touch other instances. Install GNU bash 5.3 + GNU coreutils from the distro.
