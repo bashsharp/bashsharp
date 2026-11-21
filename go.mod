@@ -2,7 +2,7 @@ module github.com/bashsharp/bashsharp
 
 go 1.27.0
 
-toolchain go1.27.2
+toolchain go1.27.4
 
 require (
 	contrib.go.opencensus.io/exporter/prometheus v0.4.2 // indirect
