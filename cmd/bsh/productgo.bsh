@@ -1,0 +1,457 @@
+#!/usr/bin/env -S bashy --bashsharp
+// Copyright (c) 2026 qiangli
+// See LICENSE for licensing information
+//
+// productgo.bsh builds a product binary with the pinned Go runtime inherited-signal
+// overlay. The installed Go source tree stays read-only; unknown toolchains or
+// runtime sources fail closed.
+
+set -euo pipefail
+
+func parseTrimpathSpec(spec string) string {
+	if spec == "=1" || spec == "=t" || spec == "=T" || spec == "=TRUE" || spec == "=true" || spec == "=True" {
+		return "ok"
+	}
+	return "bad"
+}
+
+func patchRuntimeText(prefix string, insertion string, suffix string, helpers string) string {
+	return prefix + "\tt := &sigtable[sig]\n" + insertion + "\tif t.flags&_SigSetStack != 0 {" + suffix + helpers
+}
+
+func overlayRecord(escSrc string, escDst string) string {
+	return "{\"Replace\":{\"" + escSrc + "\":\"" + escDst + "\"}}"
+}
+
+die() {
+	printf 'productgo: %s\n' "$*" >&2
+	exit 1
+}
+
+run_go() {
+	if [[ -n "${BASHY_EXE:-}" ]]; then
+		"$BASHY_EXE" go "$@"
+	else
+		go "$@"
+	fi
+}
+
+sha256_file() {
+	local line
+	line=$(sha256sum "$1") || return 1
+	REPLY="${line%% *}"
+}
+
+sha256_str() {
+	local line
+	line=$(printf '%s' "$1" | sha256sum) || return 1
+	REPLY="${line%% *}"
+}
+
+read_exact_file() {
+	local path="$1"
+	[[ -f "$path" ]] || die "cannot read $path"
+	local raw
+	raw=$(cat "$path"; printf 'X') || die "cannot read $path"
+	REPLY="${raw%X}"
+}
+
+json_escape() {
+	local s="$1"
+	out := ""
+	local -i i=0 n=${#s}
+	local ch
+	for (( i = 0; i < n; i++ )); do
+		ch="${s:i:1}"
+		case "$ch" in
+			'\') out="${out}\\\\" ;;
+			'"') out="${out}\\\"" ;;
+			'&') out="${out}\\u0026" ;;
+			'<') out="${out}\\u003c" ;;
+			'>') out="${out}\\u003e" ;;
+			$'\b') out="${out}\\b" ;;
+			$'\f') out="${out}\\f" ;;
+			$'\n') out="${out}\\n" ;;
+			$'\r') out="${out}\\r" ;;
+			$'\t') out="${out}\\t" ;;
+			*) out="${out}${ch}" ;;
+		esac
+	done
+	REPLY="$out"
+}
+
+is_inside_path() {
+	local parent="${1//\\//}"
+	local child="${2//\\//}"
+	[[ -n "$parent" ]] || return 1
+	[[ "$parent" != "/" ]] && parent="${parent%/}"
+	[[ "$child" != "/" ]] && child="${child%/}"
+	if [[ "$child" == "$parent" ]]; then
+		return 0
+	fi
+	if [[ "$parent" == "/" ]]; then
+		[[ "$child" == "/"* ]]
+		return
+	fi
+	[[ "$child" == "$parent/"* ]]
+}
+
+require_trimpath() {
+	local flag spec parsed
+	for flag in "$@"; do
+		while [[ -n "$flag" ]]; do
+			case "$flag" in
+				\"*|\'*) flag="${flag:1}" ;;
+				*\"|*\') flag="${flag:0:${#flag}-1}" ;;
+				*) break ;;
+			esac
+		done
+		if [[ "$flag" == -trimpath=* ]]; then
+			spec="=${flag#-trimpath=}"
+			parsed := parseTrimpathSpec(spec)
+			if [[ "$parsed" != "ok" ]]; then
+				die "product builds require -trimpath; unsupported \"$flag\""
+			fi
+		fi
+	done
+}
+
+write_file_if_changed() {
+	local path="$1"
+	local content="$2"
+	if [[ -f "$path" ]]; then
+		local raw existing
+		if raw=$(cat "$path" 2>/dev/null; printf 'X'); then
+			existing="${raw%X}"
+			if [[ "$existing" == "$content" ]]; then
+				return 0
+			fi
+		fi
+	fi
+	local parent
+	parent=$(dirname "$path")
+	mkdir -p "$parent"
+	chmod 0700 "$parent" 2>/dev/null || true
+	local tmp
+	tmp=$(mktemp "$parent/.tmp-XXXXXX") || die "create temp file in $parent"
+	chmod 0600 "$tmp" || { rm -f "$tmp"; die "chmod temp file $tmp"; }
+	printf '%s' "$content" > "$tmp" || { rm -f "$tmp"; die "write temp file $tmp"; }
+	mv "$tmp" "$path" || { rm -f "$tmp"; die "publish $path"; }
+}
+
+toolchainVersion := "go1.27.4"
+sourceHash := "a9dd82ee8b8089ec69dc90cc8a2d3553839db41b3f01807311507c7fc117a3e0"
+snapshotTag := "bashy_runtime_snapshot"
+anchor := "\tt := &sigtable[sig]\n\tif t.flags&_SigSetStack != 0 {"
+
+insertion='
+	// Bashy'\''s product entry preserves inherited ignores for ordinary async
+	// signals before any Go code runs. Keep faults and runtime-owned signals
+	// on the stock path. initsig records the ignored bit; Notify can still
+	// install a handler, and Stop returns to the inherited ignore.
+	if bashyInheritedIgnore == "1" && !isarchive && !islibrary &&
+		atomic.Loaduintptr(&fwdSig[sig]) == _SIG_IGN &&
+		t.flags&_SigNotify != 0 && t.flags&(_SigPanic|_SigUnblock|_SigSetStack) == 0 &&
+		sig != sigPreempt && sig != _SIGPROF && sig != sigPerThreadSyscall {
+		return false
+	}
+'
+
+helpers='
+// Default off. Only the Bashy product build links this immutable value to "1".
+var bashyInheritedIgnore string
+
+// bashyInheritedIgnoredSignals reports the caller'\''s inherited SIG_IGN
+// dispositions as a bitmask (bit n is signal n), without cgo. initsig snapshots
+// runtime-managed signals in fwdSig before installing handlers; _SigDefault
+// signals keep their inherited action until Notify, so read those live.
+//
+//go:linkname bashyInheritedIgnoredSignals
+func bashyInheritedIgnoredSignals() uint64 {
+	var mask uint64
+	for i := uint32(1); i < _NSIG && i < 64; i++ {
+		t := &sigtable[i]
+		if t.flags == 0 {
+			continue
+		}
+		if t.flags&_SigDefault != 0 {
+			if atomic.Load(&handlingSig[i]) == 0 && getsig(i) == _SIG_IGN {
+				mask |= 1 << i
+			}
+			continue
+		}
+		if atomic.Loaduintptr(&fwdSig[i]) == _SIG_IGN {
+			mask |= 1 << i
+		}
+	}
+	return mask
+}
+'
+
+verify_and_patch_runtime() {
+	local src_path="$1"
+	read_exact_file "$src_path"
+	local orig="$REPLY"
+	if [[ "$orig" != *"$anchor"* ]]; then
+		die "runtime patch anchor not unique; unrecognized Go runtime source"
+	fi
+	local prefix="${orig%%"$anchor"*}"
+	local suffix="${orig#*"$anchor"}"
+	if [[ "$suffix" == *"$anchor"* ]]; then
+		die "runtime patch anchor not unique"
+	fi
+	if [[ "${prefix}${anchor}${suffix}" != "$orig" ]]; then
+		die "runtime patch anchor split failed"
+	fi
+	sha256_file "$src_path" || die "hash $src_path"
+	local got_hash="$REPLY"
+	if [[ "$got_hash" != "$sourceHash" ]]; then
+		die "unrecognized Go runtime source"
+	fi
+	patched := patchRuntimeText(prefix, insertion, suffix, helpers)
+	REPLY="$patched"
+}
+
+resolve_cache_base() {
+	local modcache="$1"
+	local host_os="$2"
+	local base="${BASHY_PRODUCTGO_CACHE:-}"
+	base="${base#"${base%%[![:space:]]*}"}"
+	base="${base%"${base##*[![:space:]]}"}"
+	if [[ -z "$base" ]]; then
+		if [[ "$host_os" == "darwin" && -n "${HOME:-}" ]]; then
+			base="$HOME/Library/Caches/bashy/productgo"
+		elif [[ "$host_os" == "windows" && -n "${LOCALAPPDATA:-}" ]]; then
+			base="$LOCALAPPDATA/bashy/productgo"
+		elif [[ -n "${XDG_CACHE_HOME:-}" ]]; then
+			base="$XDG_CACHE_HOME/bashy/productgo"
+		elif [[ -n "${HOME:-}" ]]; then
+			base="$HOME/.cache/bashy/productgo"
+		else
+			base="${TMPDIR:-/tmp}/bashy-productgo-cache"
+		fi
+	fi
+	mkdir -p "$base" || die "create productgo cache dir: $base"
+	chmod 0700 "$base" 2>/dev/null || true
+	local resolved
+	resolved=$(realpath "$base") || die "resolve productgo cache dir: $base"
+	if [[ -n "$modcache" ]]; then
+		local resolved_modcache="$modcache"
+		if [[ -e "$modcache" ]]; then
+			resolved_modcache=$(realpath "$modcache" 2>/dev/null || printf '%s' "$modcache")
+		fi
+		if is_inside_path "$resolved_modcache" "$resolved"; then
+			die "productgo cache directory must be outside GOMODCACHE; set BASHY_PRODUCTGO_CACHE outside $resolved_modcache"
+		fi
+	fi
+	REPLY="$resolved"
+}
+
+if (( $# == 0 )); then
+	die "usage: productgo.bsh build [args]"
+fi
+
+subcmd="$1"
+case "$subcmd" in
+	build)
+		shift
+		;;
+	test|run)
+		printf 'productgo: only product builds are supported\n' >&2
+		exit 2
+		;;
+	*)
+		die "unsupported product command \"$subcmd\""
+		;;
+esac
+
+raw_args=("$@")
+
+goflags_tokens=()
+if [[ -n "${GOFLAGS:-}" ]]; then
+	read -r -a goflags_tokens <<< "${GOFLAGS}"
+fi
+require_trimpath ${goflags_tokens[@]+"${goflags_tokens[@]}"} ${raw_args[@]+"${raw_args[@]}"}
+
+goroot=$(run_go env GOROOT) || die "query GOROOT"
+goversion=$(run_go env GOVERSION) || die "query GOVERSION"
+target_goos=$(run_go env GOOS) || die "query GOOS"
+gomodcache=$(run_go env GOMODCACHE) || die "query GOMODCACHE"
+host_os=$(run_go env GOHOSTOS 2>/dev/null || true)
+host_arch=$(run_go env GOHOSTARCH 2>/dev/null || true)
+if [[ -z "$host_os" ]]; then
+	host_os=$(uname -s | tr '[:upper:]' '[:lower:]')
+fi
+if [[ -z "$host_arch" ]]; then
+	host_arch=$(uname -m)
+	case "$host_arch" in
+		x86_64) host_arch="amd64" ;;
+		aarch64) host_arch="arm64" ;;
+	esac
+fi
+
+if [[ "$goversion" != "$toolchainVersion" ]]; then
+	die "requires $toolchainVersion, found $goversion"
+fi
+
+if [[ "$target_goos" != "linux" && "$target_goos" != "darwin" ]]; then
+	rc=0
+	run_go build -trimpath ${raw_args[@]+"${raw_args[@]}"} || rc=$?
+	if (( rc != 0 )); then
+		die "go exited $rc"
+	fi
+	exit 0
+fi
+
+source_file="$goroot/src/runtime/signal_unix.go"
+verify_and_patch_runtime "$source_file"
+patched_source="$REPLY"
+
+resolve_cache_base "$gomodcache" "$host_os"
+cache_base="$REPLY"
+
+canonical_root=$(realpath "$goroot") || die "resolve GOROOT: $goroot"
+resolved_modcache="$gomodcache"
+if [[ -n "$gomodcache" && -e "$gomodcache" ]]; then
+	resolved_modcache=$(realpath "$gomodcache" 2>/dev/null || printf '%s' "$gomodcache")
+fi
+
+sha256_str "$patched_source" || die "hash patched runtime"
+patch_sum="$REPLY"
+key_line=$(printf '%s\0%s\0%s\0%s/%s' "$goversion" "$sourceHash" "$patch_sum" "$host_os" "$host_arch" | sha256sum) || die "compute cache key"
+key_full="${key_line%% *}"
+cache_key="${key_full:0:32}"
+
+build_root="$canonical_root"
+if [[ -n "$resolved_modcache" ]] && is_inside_path "$resolved_modcache" "$canonical_root"; then
+	sdk_parent="$cache_base/sdk-$cache_key"
+	sdk_dir="$sdk_parent/goroot"
+	if [[ ! -f "$sdk_dir/src/runtime/signal_unix.go" ]]; then
+		stage=$(mktemp -d "$cache_base/.stage-sdk-XXXXXX") || die "create staging dir"
+		symlinks=$(find "$canonical_root" -type l -print) || { chmod -R u+w "$stage" 2>/dev/null || true; rm -rf "$stage"; die "scan toolchain symlinks"; }
+		if [[ -n "$symlinks" ]]; then
+			rm -rf "$stage"
+			die "copy managed toolchain: symlinks are unsupported in $canonical_root"
+		fi
+		if ! cp -R "$canonical_root" "$stage/goroot"; then
+			chmod -R u+w "$stage" 2>/dev/null || true
+			rm -rf "$stage"
+			die "copy managed toolchain from $canonical_root"
+		fi
+		chmod -R u+w "$stage/goroot" 2>/dev/null || true
+		if [[ ! -f "$stage/goroot/src/runtime/signal_unix.go" ]]; then
+			rm -rf "$stage"
+			die "staged toolchain missing signal_unix.go"
+		fi
+		# Re-verify staged copy before publishing.
+		verify_and_patch_runtime "$stage/goroot/src/runtime/signal_unix.go"
+		if ! mv "$stage" "$sdk_parent" 2>/dev/null; then
+			chmod -R u+w "$stage" 2>/dev/null || true
+			rm -rf "$stage"
+			if [[ ! -f "$sdk_dir/src/runtime/signal_unix.go" ]]; then
+				die "publish cached toolchain to $sdk_parent"
+			fi
+		fi
+	fi
+	build_root="$sdk_dir"
+fi
+
+build_source="$build_root/src/runtime/signal_unix.go"
+verify_and_patch_runtime "$build_source"
+
+overlay_dir="$cache_base/overlay-$cache_key"
+replacement_path="$overlay_dir/signal_unix.go"
+write_file_if_changed "$replacement_path" "$patched_source"
+read_exact_file "$replacement_path"
+if [[ "$REPLY" != "$patched_source" ]]; then
+	die "cached overlay signal_unix.go verification failed"
+fi
+
+sha256_str "$build_root" || die "hash build root"
+root_tag="${REPLY:0:16}"
+
+json_escape "$build_source"
+esc_source="$REPLY"
+json_escape "$replacement_path"
+esc_replacement="$REPLY"
+overlay_json := overlayRecord(esc_source, esc_replacement)
+
+overlay_path="$overlay_dir/overlay-$root_tag.json"
+write_file_if_changed "$overlay_path" "$overlay_json"
+read_exact_file "$overlay_path"
+if [[ "$REPLY" != "$overlay_json" ]]; then
+	die "cached overlay json verification failed"
+fi
+
+args_with_trimpath=("-trimpath" ${raw_args[@]+"${raw_args[@]}"})
+ldflags=""
+tags="$snapshotTag"
+remaining=()
+local_idx=0
+total_args=${#args_with_trimpath[@]}
+while (( local_idx < total_args )); do
+	arg="${args_with_trimpath[local_idx]}"
+	if [[ "$arg" == "-overlay" || "$arg" == -overlay=* ]]; then
+		die "caller overlay unsupported; refusing to replace it"
+	fi
+	if [[ "$arg" == "-tags" || "$arg" == -tags=* ]]; then
+		if [[ "$arg" == -tags=* ]]; then
+			tag_val="${arg#-tags=}"
+		else
+			(( local_idx += 1 ))
+			if (( local_idx >= total_args )); then
+				die "missing -tags value"
+			fi
+			tag_val="${args_with_trimpath[local_idx]}"
+		fi
+		tag_norm="${tag_val//,/ }"
+		tag_fields=()
+		if [[ -n "$tag_norm" ]]; then
+			read -r -a tag_fields <<< "$tag_norm"
+		fi
+		if (( ${#tag_fields[@]} > 0 )); then
+			joined=""
+			for tf in "${tag_fields[@]}"; do
+				if [[ -z "$joined" ]]; then
+					joined="$tf"
+				else
+					joined="${joined},${tf}"
+				fi
+			done
+			tags="${joined},${snapshotTag}"
+		fi
+		(( local_idx += 1 ))
+		continue
+	fi
+	if [[ "$arg" == "-ldflags" ]]; then
+		(( local_idx += 1 ))
+		if (( local_idx >= total_args )); then
+			die "missing -ldflags value"
+		fi
+		ldflags="${ldflags} ${args_with_trimpath[local_idx]}"
+	elif [[ "$arg" == -ldflags=* ]]; then
+		ldflags="${ldflags} ${arg#-ldflags=}"
+	else
+		remaining+=("$arg")
+	fi
+	(( local_idx += 1 ))
+done
+
+if [[ "${GOFLAGS:-}" == *"-overlay"* || "${GOFLAGS:-}" == *"-ldflags"* || "${GOFLAGS:-}" == *"-tags"* ]]; then
+	die "GOFLAGS overlay/ldflags/tags unsupported; pass flags explicitly"
+fi
+if [[ "$ldflags" == *"runtime.bashyInheritedIgnore"* ]]; then
+	die "caller cannot override the product startup contract"
+fi
+ldflags="${ldflags} -X runtime.bashyInheritedIgnore=1"
+
+go_bin="$build_root/bin/go"
+if [[ ! -x "$go_bin" && -x "$build_root/bin/go.exe" ]]; then
+	go_bin="$build_root/bin/go.exe"
+fi
+
+rc=0
+GOROOT="$build_root" GOTOOLCHAIN=local "$go_bin" build "-overlay=$overlay_path" "-ldflags=$ldflags" "-tags=$tags" ${remaining[@]+"${remaining[@]}"} || rc=$?
+if (( rc != 0 )); then
+	die "go exited $rc"
+fi

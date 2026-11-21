@@ -65,9 +65,11 @@ fi
 
 ### build-bsh
 Emit `bin/bsh`, the certified shell: Bash 5.3 + Bash# + the POSIX-required
-coreutils in one stripped executable. `cmd/bsh` is its own module (requiring
-only bashsharp, bash and coreutils), so it builds from its own go.mod with
-`GOWORK=off` and links no Yoke, Bashy or ycode package. Prints size and time.
+coreutils in one stripped executable, built through `cmd/bsh/productgo.bsh`
+with the inherited-signal runtime overlay. `cmd/bsh` is its own module
+(requiring only bashsharp, bash and coreutils), so it builds from its own
+go.mod with `GOWORK=off` and links no Yoke, Bashy or ycode package. Prints
+size and time.
 Effects: exec, net, read, write
 
 ```bash
@@ -79,7 +81,7 @@ mkdir -p bin
 out="$PWD/bin/bsh"
 cd cmd/bsh
 start=$(date +%s)
-GOWORK=off go build -mod=readonly -trimpath \
+GOWORK=off "${BASHY:-bashy}" --bashsharp ./productgo.bsh build -mod=readonly \
   -ldflags "-s -w -X 'github.com/bashsharp/bashsharp/cli.bashVersion=5.3.0(1)-bsh-${VERSION:-dev}'" \
   -o "$out" .
 end=$(date +%s)
