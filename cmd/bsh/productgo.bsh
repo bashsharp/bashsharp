@@ -8,13 +8,6 @@
 
 set -euo pipefail
 
-func parseTrimpathSpec(spec string) string {
-	if spec == "=1" || spec == "=t" || spec == "=T" || spec == "=TRUE" || spec == "=true" || spec == "=True" {
-		return "ok"
-	}
-	return "bad"
-}
-
 func patchRuntimeText(prefix string, insertion string, suffix string, helpers string) string {
 	return prefix + "\tt := &sigtable[sig]\n" + insertion + "\tif t.flags&_SigSetStack != 0 {" + suffix + helpers
 }
@@ -60,7 +53,7 @@ json_escape() {
 	local s="$1"
 	out := ""
 	local -i i=0 n=${#s}
-	local ch
+	local ch code
 	for (( i = 0; i < n; i++ )); do
 		ch="${s:i:1}"
 		case "$ch" in
@@ -74,7 +67,14 @@ json_escape() {
 			$'\n') out="${out}\\n" ;;
 			$'\r') out="${out}\\r" ;;
 			$'\t') out="${out}\\t" ;;
-			*) out="${out}${ch}" ;;
+			*)
+				# encoding/json: other C0 controls and U+2028/U+2029 as \uXXXX.
+				printf -v code '%d' "'$ch"
+				if (( (code >= 0 && code < 32) || code == 8232 || code == 8233 )); then
+					printf -v ch '\\u%04x' "$code"
+				fi
+				out="${out}${ch}"
+				;;
 		esac
 	done
 	REPLY="$out"
@@ -97,7 +97,7 @@ is_inside_path() {
 }
 
 require_trimpath() {
-	local flag spec parsed
+	local flag
 	for flag in "$@"; do
 		while [[ -n "$flag" ]]; do
 			case "$flag" in
@@ -107,11 +107,11 @@ require_trimpath() {
 			esac
 		done
 		if [[ "$flag" == -trimpath=* ]]; then
-			spec="=${flag#-trimpath=}"
-			parsed := parseTrimpathSpec(spec)
-			if [[ "$parsed" != "ok" ]]; then
-				die "product builds require -trimpath; unsupported \"$flag\""
-			fi
+			# Go's boolean spellings; never silently override an explicit opt-out.
+			case "${flag#-trimpath=}" in
+				1|t|T|TRUE|true|True) ;;
+				*) die "product builds require -trimpath; unsupported \"$flag\"" ;;
+			esac
 		fi
 	done
 }
@@ -130,13 +130,17 @@ write_file_if_changed() {
 	fi
 	local parent
 	parent=$(dirname "$path")
-	mkdir -p "$parent"
-	chmod 0700 "$parent" 2>/dev/null || true
+	[[ -d "$parent" ]] || mkdir -p -m 0700 "$parent" || die "create $parent"
 	local tmp
 	tmp=$(mktemp "$parent/.tmp-XXXXXX") || die "create temp file in $parent"
 	chmod 0600 "$tmp" || { rm -f "$tmp"; die "chmod temp file $tmp"; }
 	printf '%s' "$content" > "$tmp" || { rm -f "$tmp"; die "write temp file $tmp"; }
 	mv "$tmp" "$path" || { rm -f "$tmp"; die "publish $path"; }
+}
+
+drop_stage() {
+	chmod -R u+w "$stage" 2>/dev/null || true
+	rm -rf "$stage"
 }
 
 toolchainVersion := "go1.27.4"
@@ -219,20 +223,24 @@ resolve_cache_base() {
 	base="${base#"${base%%[![:space:]]*}"}"
 	base="${base%"${base##*[![:space:]]}"}"
 	if [[ -z "$base" ]]; then
-		if [[ "$host_os" == "darwin" && -n "${HOME:-}" ]]; then
-			base="$HOME/Library/Caches/bashy/productgo"
-		elif [[ "$host_os" == "windows" && -n "${LOCALAPPDATA:-}" ]]; then
-			base="$LOCALAPPDATA/bashy/productgo"
-		elif [[ -n "${XDG_CACHE_HOME:-}" ]]; then
-			base="$XDG_CACHE_HOME/bashy/productgo"
-		elif [[ -n "${HOME:-}" ]]; then
-			base="$HOME/.cache/bashy/productgo"
+		# os.UserCacheDir, else the temporary directory.
+		local ucd=""
+		if [[ "$host_os" == "darwin" ]]; then
+			ucd="${HOME:+$HOME/Library/Caches}"
+		elif [[ "$host_os" == "windows" ]]; then
+			ucd="${LOCALAPPDATA:-}"
+		elif [[ "${XDG_CACHE_HOME:-}" == /* ]]; then
+			ucd="$XDG_CACHE_HOME"
+		elif [[ -z "${XDG_CACHE_HOME:-}" ]]; then
+			ucd="${HOME:+$HOME/.cache}"
+		fi
+		if [[ -n "$ucd" ]]; then
+			base="$ucd/bashy/productgo"
 		else
 			base="${TMPDIR:-/tmp}/bashy-productgo-cache"
 		fi
 	fi
-	mkdir -p "$base" || die "create productgo cache dir: $base"
-	chmod 0700 "$base" 2>/dev/null || true
+	[[ -d "$base" ]] || mkdir -p -m 0700 "$base" || die "create productgo cache dir: $base"
 	local resolved
 	resolved=$(realpath "$base") || die "resolve productgo cache dir: $base"
 	if [[ -n "$modcache" ]]; then
@@ -269,26 +277,21 @@ raw_args=("$@")
 
 goflags_tokens=()
 if [[ -n "${GOFLAGS:-}" ]]; then
-	read -r -a goflags_tokens <<< "${GOFLAGS}"
+	read -r -d '' -a goflags_tokens <<< "${GOFLAGS}" || true
 fi
 require_trimpath ${goflags_tokens[@]+"${goflags_tokens[@]}"} ${raw_args[@]+"${raw_args[@]}"}
 
-goroot=$(run_go env GOROOT) || die "query GOROOT"
-goversion=$(run_go env GOVERSION) || die "query GOVERSION"
-target_goos=$(run_go env GOOS) || die "query GOOS"
-gomodcache=$(run_go env GOMODCACHE) || die "query GOMODCACHE"
-host_os=$(run_go env GOHOSTOS 2>/dev/null || true)
-host_arch=$(run_go env GOHOSTARCH 2>/dev/null || true)
-if [[ -z "$host_os" ]]; then
-	host_os=$(uname -s | tr '[:upper:]' '[:lower:]')
+probe=$(run_go env GOROOT GOMODCACHE GOVERSION GOOS GOHOSTOS GOHOSTARCH) || die "query go env"
+mapfile -t goenv <<< "$probe"
+if (( ${#goenv[@]} != 6 )); then
+	die "query go env: unexpected output"
 fi
-if [[ -z "$host_arch" ]]; then
-	host_arch=$(uname -m)
-	case "$host_arch" in
-		x86_64) host_arch="amd64" ;;
-		aarch64) host_arch="arm64" ;;
-	esac
-fi
+goroot="${goenv[0]}"
+gomodcache="${goenv[1]}"
+goversion="${goenv[2]}"
+target_goos="${goenv[3]}"
+host_os="${goenv[4]}"
+host_arch="${goenv[5]}"
 
 if [[ "$goversion" != "$toolchainVersion" ]]; then
 	die "requires $toolchainVersion, found $goversion"
@@ -324,34 +327,28 @@ cache_key="${key_full:0:32}"
 
 build_root="$canonical_root"
 if [[ -n "$resolved_modcache" ]] && is_inside_path "$resolved_modcache" "$canonical_root"; then
+	# Go rejects overlays anywhere beneath GOMODCACHE, including downloaded SDKs.
+	# Copy those SDKs out once per cache key; never hard-link or edit the shared
+	# installation.
 	sdk_parent="$cache_base/sdk-$cache_key"
 	sdk_dir="$sdk_parent/goroot"
 	if [[ ! -f "$sdk_dir/src/runtime/signal_unix.go" ]]; then
 		stage=$(mktemp -d "$cache_base/.stage-sdk-XXXXXX") || die "create staging dir"
-		symlinks=$(find "$canonical_root" -type l -print) || { chmod -R u+w "$stage" 2>/dev/null || true; rm -rf "$stage"; die "scan toolchain symlinks"; }
+		trap drop_stage EXIT
+		symlinks=$(find "$canonical_root" -type l -print) || die "scan toolchain symlinks"
 		if [[ -n "$symlinks" ]]; then
-			rm -rf "$stage"
 			die "copy managed toolchain: symlinks are unsupported in $canonical_root"
 		fi
-		if ! cp -R "$canonical_root" "$stage/goroot"; then
-			chmod -R u+w "$stage" 2>/dev/null || true
-			rm -rf "$stage"
-			die "copy managed toolchain from $canonical_root"
-		fi
+		cp -R "$canonical_root" "$stage/goroot" || die "copy managed toolchain from $canonical_root"
 		chmod -R u+w "$stage/goroot" 2>/dev/null || true
-		if [[ ! -f "$stage/goroot/src/runtime/signal_unix.go" ]]; then
-			rm -rf "$stage"
-			die "staged toolchain missing signal_unix.go"
-		fi
 		# Re-verify staged copy before publishing.
 		verify_and_patch_runtime "$stage/goroot/src/runtime/signal_unix.go"
-		if ! mv "$stage" "$sdk_parent" 2>/dev/null; then
-			chmod -R u+w "$stage" 2>/dev/null || true
-			rm -rf "$stage"
-			if [[ ! -f "$sdk_dir/src/runtime/signal_unix.go" ]]; then
-				die "publish cached toolchain to $sdk_parent"
-			fi
+		# -T: a concurrent build may have published sdk_parent first; never nest.
+		if ! mv -T "$stage" "$sdk_parent" 2>/dev/null; then
+			drop_stage
+			[[ -f "$sdk_dir/src/runtime/signal_unix.go" ]] || die "publish cached toolchain to $sdk_parent"
 		fi
+		trap - EXIT
 	fi
 	build_root="$sdk_dir"
 fi

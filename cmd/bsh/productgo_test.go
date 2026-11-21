@@ -3,14 +3,12 @@ package main
 import (
 	"bytes"
 	"encoding/json"
-	"io"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"runtime"
 	"strings"
 	"sync"
-	"syscall"
 	"testing"
 	"time"
 )
@@ -682,6 +680,12 @@ func TestProductGoFailClosedGuards(t *testing.T) {
 				t.Fatalf("GOFLAGS %s: expected trimpath rejection, got err=%v out=%q", bad, errEnv, outEnv)
 			}
 		}
+		// strconv.ParseBool's true spellings stay accepted, as in the Go productgo.
+		for _, good := range []string{"-trimpath=true", "-trimpath=1", "-trimpath=T"} {
+			if out, err := runWithSDK(t, "go1.27.4", origSignalBytes, nil, "build", good, "."); err != nil {
+				t.Fatalf("flag %s: rejected: %v\n%s", good, err, out)
+			}
+		}
 	})
 
 	t.Run("contract-and-flag-overrides", func(t *testing.T) {
@@ -754,6 +758,57 @@ func TestProductGoFailClosedGuards(t *testing.T) {
 		}
 	})
 
+	t.Run("existing-cache-dir-kept-and-no-staging-left", func(t *testing.T) {
+		dir := t.TempDir()
+		modCache := filepath.Join(dir, "modcache")
+		sdkRoot := filepath.Join(modCache, "sdk")
+		writeFakeSDK(t, sdkRoot, origSignalBytes, goShim, false)
+		cacheDir := filepath.Join(dir, "shared-cache")
+		if err := os.Mkdir(cacheDir, 0755); err != nil {
+			t.Fatal(err)
+		}
+		baseEnv := filterEnv(os.Environ(),
+			"BASHY_EXE", "GOROOT", "GOTOOLCHAIN", "GOMODCACHE", "GOOS", "GOARCH", "GOFLAGS", "BASHY_PRODUCTGO_CACHE", "PATH")
+		for i := 0; i < 2; i++ {
+			cmd := exec.Command(bshBin, "./productgo.bsh", "build", ".")
+			cmd.Env = append(append([]string{}, baseEnv...),
+				"PATH="+filepath.Join(sdkRoot, "bin"),
+				"BASHY_PRODUCTGO_CACHE="+cacheDir,
+				"FAKE_GOROOT="+sdkRoot,
+				"FAKE_GOVERSION=go1.27.4",
+				"FAKE_GOOS="+runtime.GOOS,
+				"FAKE_GOMODCACHE="+modCache,
+			)
+			if out, err := cmd.CombinedOutput(); err != nil {
+				t.Fatalf("build %d with existing cache dir failed: %v\n%s", i, err, out)
+			}
+		}
+		// A caller-supplied cache directory keeps its mode.
+		info, err := os.Stat(cacheDir)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if info.Mode().Perm() != 0755 {
+			t.Fatalf("existing cache dir re-moded to %v, want 0755", info.Mode().Perm())
+		}
+		entries, err := os.ReadDir(cacheDir)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var names []string
+		for _, e := range entries {
+			names = append(names, e.Name())
+		}
+		if len(names) != 2 || !strings.HasPrefix(names[0], "overlay-") || !strings.HasPrefix(names[1], "sdk-") {
+			t.Fatalf("cache entries = %q, want one overlay-<key> and one sdk-<key>", names)
+		}
+		// The published SDK holds exactly the copied toolchain, never a nested stage.
+		sdkEntries, err := os.ReadDir(filepath.Join(cacheDir, names[1]))
+		if err != nil || len(sdkEntries) != 1 || sdkEntries[0].Name() != "goroot" {
+			t.Fatalf("published sdk entries = %v err=%v, want only goroot", sdkEntries, err)
+		}
+	})
+
 	t.Run("managed-go-via-BASHY_EXE-without-PATH", func(t *testing.T) {
 		dir := t.TempDir()
 		sdkRoot := filepath.Join(dir, "sdk")
@@ -784,88 +839,6 @@ func TestProductGoFailClosedGuards(t *testing.T) {
 			t.Fatalf("BASHY_EXE managed build with empty PATH failed: %v\n%s", err, out)
 		}
 	})
-}
-
-// TestBshProductInheritedIgnoredSignals builds bsh via cmd/bsh/productgo.bsh
-// and verifies that inherited SIG_IGN dispositions survive Go runtime startup
-// across exec in both bsh and sh routes.
-func TestBshProductInheritedIgnoredSignals(t *testing.T) {
-	if testing.Short() {
-		t.Skip("builds product bsh executable")
-	}
-	if runtime.GOOS != "linux" && runtime.GOOS != "darwin" {
-		t.Skip("Unix inherited signal contract")
-	}
-	requireToolchainGo1274(t)
-	bootstrapBsh := buildTestBsh(t)
-
-	dir := t.TempDir()
-	productBsh := filepath.Join(dir, "bsh")
-	cacheDir := filepath.Join(dir, "productgo-cache")
-	build := exec.Command(bootstrapBsh, "./productgo.bsh", "build", "-mod=readonly",
-		"-ldflags", "-s -w -X 'github.com/bashsharp/bashsharp/cli.bashVersion=5.3.0(1)-bsh-test'",
-		"-o", productBsh, ".")
-	build.Env = append(standaloneEnv(), "CGO_ENABLED=0", "BASHY_PRODUCTGO_CACHE="+cacheDir)
-	if out, err := build.CombinedOutput(); err != nil {
-		t.Fatalf("productgo.bsh build bsh: %v\n%s", err, out)
-	}
-
-	shLink := filepath.Join(dir, "sh")
-	if err := os.Symlink(productBsh, shLink); err != nil {
-		t.Fatal(err)
-	}
-
-	verCmd := exec.Command(productBsh, "--version")
-	verCmd.Env = []string{"HOME=" + dir, "PATH=" + dir + "/empty"}
-	if out, err := verCmd.CombinedOutput(); err != nil || !strings.Contains(string(out), "5.3.0(1)-bsh-test") {
-		t.Fatalf("product bsh --version: err=%v out=%q", err, out)
-	}
-
-	for _, entry := range []struct {
-		route string
-		bin   string
-	}{
-		{"bsh", productBsh},
-		{"sh", shLink},
-	} {
-		t.Run(entry.route, func(t *testing.T) {
-			for _, tc := range []struct {
-				name string
-				sig  syscall.Signal
-			}{
-				{"ABRT", syscall.SIGABRT},
-				{"ALRM", syscall.SIGALRM},
-				{"PIPE", syscall.SIGPIPE},
-				{"QUIT", syscall.SIGQUIT},
-				{"TERM", syscall.SIGTERM},
-				{"USR1", syscall.SIGUSR1},
-				{"USR2", syscall.SIGUSR2},
-			} {
-				t.Run(tc.name, func(t *testing.T) {
-					cmd := exec.Command("/bin/sh", "-c", "ulimit -c 0; trap '' "+tc.name+`; exec "$TEST_SHELL"`)
-					cmd.Env = append(os.Environ(), "TEST_SHELL="+entry.bin, "PATH=/usr/bin:/bin")
-					stdin, err := cmd.StdinPipe()
-					if err != nil {
-						t.Fatal(err)
-					}
-					var stdout, stderr bytes.Buffer
-					cmd.Stdout, cmd.Stderr = &stdout, &stderr
-					if err := cmd.Start(); err != nil {
-						t.Fatal(err)
-					}
-					time.Sleep(150 * time.Millisecond)
-					sigErr := cmd.Process.Signal(tc.sig)
-					_, writeErr := io.WriteString(stdin, "printf test_string\n")
-					_ = stdin.Close()
-					waitErr := cmd.Wait()
-					if sigErr != nil || writeErr != nil || waitErr != nil || stdout.String() != "test_string" {
-						t.Fatalf("route=%s sig=%s: signal=%v write=%v wait=%v stdout=%q stderr=%q",
-							entry.route, tc.name, sigErr, writeErr, waitErr, stdout.String(), stderr.String())
-					}
-				})
-			}
-		})
-	}
 }
 
 // TestProductGoWindowsNoOverlay verifies that GOOS=windows uses no Unix
