@@ -4,10 +4,13 @@ kind: test
 title: 'Benchmark bsh vs GNU bash + GNU coreutils: small-call-heavy scripts and large-data throughput'
 seq: 8
 status: assigned
-priority: p3
+priority: p2
 created: 2026-11-21T15:15:01.114219Z
 weave: 4
 assignee: agy-gemini4-carbon
+sprint: 677
+sprint_id: 334e4662-d75c-5c5f-8671-7b62ea882de1
+sprint_title: Fast build, small core binary, and shapeable Yoke CLI modularization
 ---
 
 Operator 2026-11-21: file a todo for the bsh vs GNU benchmark (after everything works; not planned now). First data point (dev host, macOS arm64, 2026-11-21): a 500-iteration loop with basename, echo|tr|cut and two command substitutions, same output: bsh (in-process coreutils, empty PATH) 0.22 s; GNU bash 5.3 + GNU coreutils 2.46 s; GNU bash 5.3 + BSD utils 1.91 s (bsh ~11x faster). Startup (-c true, median of 20): bsh 21 ms vs bashy 56 ms. Hypothesis: bsh wins on small-call-heavy scripts (no fork/exec per utility; in-process command substitution/pipelines) but may lose on large-data single-call throughput (sort/grep/awk over GB) where GNU C per-byte speed dominates. Scope when picked up: a reproducible benchmark suite (script shapes: utility loops, pipelines, command substitution, startup; data shapes: sort/grep/awk/sed/wc on 10 MB-10 GB) run on Linux/macOS/Windows on the gate host, bsh built through the product build path, GNU versions recorded; publish per-shape results without cherry-picking. Related: Bash# build performance todo 7922c8e2.
@@ -38,3 +41,8 @@ bsh: built per OS from bashsharp/cmd/bsh at origin/main (cross-build where Go is
 ## Linux venue correction 2026-11-21 (operator: "use aws? ... for linux")
 
 Linux runs on AWS, not DigitalOcean: reuse the existing throwaway Lightsail fleet route (`bashy e2e-fleet`): one instance, created for this run and destroyed when done (verify deletion), within the AWS budget cap; never touch other instances. Install GNU bash 5.3 + GNU coreutils from the distro.
+
+## Operator additions 2026-11-21
+
+1. Reproducibility: keep the whole test harness (scripts, data generators with fixed seeds, environment capture, exact versions, run instructions) committed under bench/ so independent parties can reproduce every number. Results files record host role, OS, CPU, versions and commit ids.
+2. Real-world scripts (phase 2, after the per-command tables): collect the real shell scripts that bashy's third-party apps and toolchains use for building and testing (e.g. bashy/builds/*/fork build and test scripts, toolchain provisioner scripts, example app scripts), and run each under bashy and under GNU bash 5.3 inside containers on the gate host (official image, claimed elephant lane other than the S677 integration lane), same inputs; record wall time, pass/fail and output equality per script. A script that behaves differently is a finding to root-cause, not a speed data point.
