@@ -23,3 +23,11 @@ Output: one table per command (latency and throughput, bsh vs GNU, ratio), plus 
 ## Venue correction 2026-11-21 (operator: "on macos")
 
 Run on macOS: the macOS QA host (claim it first, release after; work in a fresh per-run directory there), NOT the developer workstation (no heavy runs there) and not the Linux gate host. bsh built for darwin from bashsharp/cmd/bsh at origin/main; GNU bash 5.3 + GNU coreutils as installed on that host (record versions and paths; if GNU coreutils is absent there, stop and report rather than installing system packages). Name the host by role only in anything committed.
+
+## Venues (operator 2026-11-21, supersedes the venue lines above)
+
+Run the same per-command benchmark on three OSes, one venue each, claiming each before use and releasing after:
+- macOS: the macOS QA host. Install GNU coreutils there with Homebrew (`brew install coreutils`; GNU tools under its gnubin directory, system tools untouched) - operator-approved.
+- Windows: the gate host's native Windows lane (claim `elephant.windows-native`), not WSL. Baseline = Git for Windows bash + its bundled GNU coreutils; record versions; commands it lacks are listed as no-baseline.
+- Linux: a NEW throwaway DigitalOcean droplet (smallest size that runs the 1 GB throughput cases), created for this run and DESTROYED when done (verify deletion); tag it with the story id; never touch existing droplets or bashy.dhnt.io; DigitalOcean via curl with the vault token (doctl ignores tokens). Install GNU bash 5.3 + GNU coreutils from the distro.
+bsh: built per OS from bashsharp/cmd/bsh at origin/main (cross-build where Go is absent). Results per OS in bench/results/<os>/; one summary table across OSes. Hosts by role only in committed text.
