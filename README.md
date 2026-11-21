@@ -22,7 +22,7 @@ Build and test this repository independently using the
 
 ## Bash# is how shapes are written
 
-**Software shaping lets anyone tell an agent, in plain words, how a running tool should work, and get their own verified, reversible version, while everyone else keeps theirs.** See [software shaping](https://github.com/qiangli/bashy/blob/main/docs/software-shaping.md). Bash# is the language shapes are written in:
+**Software shaping lets anyone tell an agent, in plain words, how a running tool should work, and get their own verified, reversible version, while everyone else keeps theirs.** See [software shaping](https://github.com/qiangli/bashy/blob/main/docs/software-shaping.md). In bashy's pitch (one system, one language, one app, one agent: [bashy is all you need](https://github.com/qiangli/bashy#bashy)), Bash# is the one language, and the language shapes are written in:
 
 - One file is both script and skill, so the agent's instructions and the
   automation never drift.
@@ -83,7 +83,8 @@ Each clause names its gate; the numbers are in [docs/claims.md](docs/claims.md).
    (generics and all) via `--source=go`; every construct lowers to ordinary
    Go. *Gate: the upstream Go 1.27.1 test corpus, the Go Tour, Go by Example.*
 4. **Polyglot — fenced islands.** `~~~python`, `~~~typescript`, `~~~rust`,
-   `~~~c`/`~~~cpp`, `~~~go`, `~~~bash`/`~~~sh` blocks become ordinary
+   `~~~c`/`~~~cpp`, `~~~csharp`, `~~~go`, `~~~bash`/`~~~sh` and
+   `~~~powershell` blocks become ordinary
    callables with typed values crossing the boundary. A fence never
    resolves its tool from `PATH`: under bashy each island's toolchain is
    provisioned — pinned, checksum-verified, cached — so the same program
@@ -116,17 +117,17 @@ spelling](docs/bashsharp-for-agents.md#familiar-spelling).
 
 ## Grammar
 
-**The Bash# grammar is normative.** The production parser (`sh/syntax`) must
+**The Bash# grammar is normative.** The production parser (`syntax/` in [qiangli/bash](https://github.com/qiangli/bash)) must
 conform to it; where the parser and the grammar disagree, the parser is wrong
 (operator decision, 2026-10-19).
 
 | piece | role |
 |---|---|
 | [Combined grammar](https://github.com/bashsharp/bashsharp-tests/tree/main/tools/grammar-oracle/grammar/bashsharp) (`BashSharpLexer.g4`, `BashSharpParser.g4`) | the normative Bash 5.3 + Bash# + Go grammar |
-| [Bash# delta](https://github.com/qiangli/sh/blob/master/grammar/delta.ebnf) (executable twin `delta.gbnf`) | the productions Bash# adds to Bash 5.3 |
+| [Bash# delta](https://github.com/qiangli/bash/blob/main/grammar/delta.ebnf) (executable twin `delta.gbnf`) | the productions Bash# adds to Bash 5.3 |
 | [Go delta](docs/go-delta.md) (this repo) | where Bash# differs from Go |
 | [Oracle contract](https://github.com/bashsharp/bashsharp-tests/blob/main/docs/grammar-oracle/CONTRACT.md) | how the parser is checked against the grammar |
-| [Production parser](https://github.com/qiangli/sh/tree/master/syntax) | the implementation, which conforms to the grammar |
+| [Production parser](https://github.com/qiangli/bash/tree/main/syntax) | the implementation, which conforms to the grammar |
 
 dhnt-lang defines the words; this grammar defines the syntax and grammar of
 dhnt-lang and Bash# (see [Vocabulary and syntax](#vocabulary-and-syntax) above).
@@ -182,7 +183,7 @@ tutorials. Start with the tour.
 All pure Go, one identical toolset on Linux, macOS and Windows:
 
 - [qiangli/bashy](https://github.com/qiangli/bashy) — the shell you install; Bash# is what `bashy --bashsharp` speaks.
-- [qiangli/sh](https://github.com/qiangli/sh) — the Bash 5.3 engine, a fork of [mvdan/sh](https://github.com/mvdan/sh).
+- [qiangli/bash](https://github.com/qiangli/bash) — the Bash 5.3 engine (a fork of [mvdan/sh](https://github.com/mvdan/sh)) with the pinned coreutils userland.
 - [qiangli/coreutils](https://github.com/qiangli/coreutils) — the POSIX-required and GNU coreutils applets.
 - [qiangli/yoke](https://github.com/qiangli/yoke) — the agentic userland (`git`, `jq`, `tar`, the fleet/kb/meet hub, managed toolchains).
 - [bashsharp/bashsharp-tests](https://github.com/bashsharp/bashsharp-tests) — the conformance gate.
@@ -190,4 +191,4 @@ All pure Go, one identical toolset on Linux, macOS and Windows:
 
 ## License
 
-BSD-3-Clause, the same as `sh` (derived from `mvdan.cc/sh`). See [NOTICE](NOTICE).
+BSD-3-Clause, the same as the engine (derived from `mvdan.cc/sh`). See [NOTICE](NOTICE).
