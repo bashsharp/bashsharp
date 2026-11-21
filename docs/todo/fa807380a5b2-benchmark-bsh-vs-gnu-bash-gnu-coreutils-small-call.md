@@ -19,3 +19,7 @@ SCOPE NOW: for EVERY coreutils command bsh carries (the POSIX-required set plus 
 - throughput: one invocation on 10 MB and 1 GB inputs where the command processes data (sort, grep, sed, awk, wc, cut, tr, head/tail, uniq, cat, od, cksum, ...);
 - correctness guard: outputs must match (or the difference is recorded); never report speed for a mismatching run.
 Output: one table per command (latency and throughput, bsh vs GNU, ratio), plus a summary of commands where bsh is slower. Results and the scripts go in bashsharp under bench/ (reproducible). Venue: the Linux gate host in elephant.lane3 ONLY (lane1/lane2 stay free for the S677 integration run), official image, session attached; macOS/Windows later. bsh built from bashsharp/cmd/bsh at origin/main; record GNU versions. Measurement only: no fixes.
+
+## Venue correction 2026-11-21 (operator: "on macos")
+
+Run on macOS: the macOS QA host (claim it first, release after; work in a fresh per-run directory there), NOT the developer workstation (no heavy runs there) and not the Linux gate host. bsh built for darwin from bashsharp/cmd/bsh at origin/main; GNU bash 5.3 + GNU coreutils as installed on that host (record versions and paths; if GNU coreutils is absent there, stop and report rather than installing system packages). Name the host by role only in anything committed.
