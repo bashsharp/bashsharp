@@ -2,4 +2,5 @@
 /bashpp
 /bin/
 
-/external/
+/external/*
+!/external/runewidth/

@@ -53,3 +53,7 @@ require (
 replace github.com/ergochat/readline => github.com/qiangli/readline v0.1.4-0.20261013004858-df59d4e258e4
 
 replace github.com/benhoyt/goawk => github.com/qiangli/coreutils/third_party/goawk v0.0.0-20261121101804-c5832f99ccf6
+
+// Preserve v0.0.27 width results while deferring Unicode tables until first use.
+// Keep this shell-owned fork local: bsh must not link the yoke module graph.
+replace github.com/mattn/go-runewidth => ../../external/runewidth
