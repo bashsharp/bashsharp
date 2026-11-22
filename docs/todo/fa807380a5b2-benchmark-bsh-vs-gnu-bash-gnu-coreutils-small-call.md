@@ -23,7 +23,7 @@ SCOPE NOW: for EVERY coreutils command bsh carries (the POSIX-required set plus 
 - per-call latency: one invocation on tiny input, median of N, inside a bsh script vs inside GNU bash 5.3 with GNU coreutils on PATH (fork/exec included);
 - throughput: one invocation on 10 MB and 1 GB inputs where the command processes data (sort, grep, sed, awk, wc, cut, tr, head/tail, uniq, cat, od, cksum, ...);
 - correctness guard: outputs must match (or the difference is recorded); never report speed for a mismatching run.
-Output: one table per command (latency and throughput, bsh vs GNU, ratio), plus a summary of commands where bsh is slower. Results and the scripts go in bashsharp under bench/ (reproducible). Venue: the Linux gate host in elephant.lane3 ONLY (lane1/lane2 stay free for the S677 integration run), official image, session attached; macOS/Windows later. bsh built from bashsharp/cmd/bsh at origin/main; record GNU versions. Measurement only: no fixes.
+Output: one table per command (latency and throughput, bsh vs GNU, ratio), plus a summary of commands where bsh is slower. Results and the scripts go in bashsharp under bench/ (reproducible). Venue: the Linux gate host in the gate-host lane 3 resource ONLY (lane1/lane2 stay free for the S677 integration run), official image, session attached; macOS/Windows later. bsh built from bashsharp/cmd/bsh at origin/main; record GNU versions. Measurement only: no fixes.
 
 ## Venue correction 2026-11-21 (operator: "on macos")
 
@@ -33,7 +33,7 @@ Run on macOS: the macOS QA host (claim it first, release after; work in a fresh 
 
 Run the same per-command benchmark on three OSes, one venue each, claiming each before use and releasing after:
 - macOS: the macOS QA host. Install GNU coreutils there with Homebrew (`brew install coreutils`; GNU tools under its gnubin directory, system tools untouched) - operator-approved.
-- Windows: the gate host's native Windows lane (claim `elephant.windows-native`), not WSL. Baseline = Git for Windows bash + its bundled GNU coreutils; record versions; commands it lacks are listed as no-baseline.
+- Windows: the gate host's native Windows lane (claim `the gate-host native Windows lane`), not WSL. Baseline = Git for Windows bash + its bundled GNU coreutils; record versions; commands it lacks are listed as no-baseline.
 - Linux: a NEW throwaway DigitalOcean droplet (smallest size that runs the 1 GB throughput cases), created for this run and DESTROYED when done (verify deletion); tag it with the story id; never touch existing droplets or bashy.dhnt.io; DigitalOcean via curl with the vault token (doctl ignores tokens). Install GNU bash 5.3 + GNU coreutils from the distro.
 bsh: built per OS from bashsharp/cmd/bsh at origin/main (cross-build where Go is absent). Results per OS in bench/results/<os>/; one summary table across OSes. Hosts by role only in committed text.
 
@@ -45,4 +45,4 @@ Linux runs on AWS, not DigitalOcean: reuse the existing throwaway Lightsail flee
 ## Operator additions 2026-11-21
 
 1. Reproducibility: keep the whole test harness (scripts, data generators with fixed seeds, environment capture, exact versions, run instructions) committed under bench/ so independent parties can reproduce every number. Results files record host role, OS, CPU, versions and commit ids.
-2. Real-world scripts (phase 2, after the per-command tables): collect the real shell scripts that bashy's third-party apps and toolchains use for building and testing (e.g. bashy/builds/*/fork build and test scripts, toolchain provisioner scripts, example app scripts), and run each under bashy and under GNU bash 5.3 inside containers on the gate host (official image, claimed elephant lane other than the S677 integration lane), same inputs; record wall time, pass/fail and output equality per script. A script that behaves differently is a finding to root-cause, not a speed data point.
+2. Real-world scripts (phase 2, after the per-command tables): collect the real shell scripts that bashy's third-party apps and toolchains use for building and testing (e.g. bashy/builds/*/fork build and test scripts, toolchain provisioner scripts, example app scripts), and run each under bashy and under GNU bash 5.3 inside containers on the gate host (official image, claimed the gate host lane other than the S677 integration lane), same inputs; record wall time, pass/fail and output equality per script. A script that behaves differently is a finding to root-cause, not a speed data point.
