@@ -3,10 +3,9 @@ id: fa807380a5b2
 kind: test
 title: 'Benchmark bsh vs GNU bash + GNU coreutils: small-call-heavy scripts and large-data throughput'
 seq: 8
-status: assigned
+status: todo
 priority: p2
 created: 2026-11-21T15:15:01.114219Z
-weave: 4
 assignee: agy-gemini4-carbon
 sprint: 677
 sprint_id: 334e4662-d75c-5c5f-8671-7b62ea882de1
