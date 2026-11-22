@@ -7,9 +7,7 @@ status: todo
 priority: p2
 created: 2026-11-21T15:15:01.114219Z
 assignee: agy-gemini4-carbon
-sprint: 677
-sprint_id: 334e4662-d75c-5c5f-8671-7b62ea882de1
-sprint_title: Fast build, small core binary, and shapeable Yoke CLI modularization
+sprint: 692
 ---
 
 Operator 2026-11-21: file a todo for the bsh vs GNU benchmark (after everything works; not planned now). First data point (dev host, macOS arm64, 2026-11-21): a 500-iteration loop with basename, echo|tr|cut and two command substitutions, same output: bsh (in-process coreutils, empty PATH) 0.22 s; GNU bash 5.3 + GNU coreutils 2.46 s; GNU bash 5.3 + BSD utils 1.91 s (bsh ~11x faster). Startup (-c true, median of 20): bsh 21 ms vs bashy 56 ms. Hypothesis: bsh wins on small-call-heavy scripts (no fork/exec per utility; in-process command substitution/pipelines) but may lose on large-data single-call throughput (sort/grep/awk over GB) where GNU C per-byte speed dominates. Scope when picked up: a reproducible benchmark suite (script shapes: utility loops, pipelines, command substitution, startup; data shapes: sort/grep/awk/sed/wc on 10 MB-10 GB) run on Linux/macOS/Windows on the gate host, bsh built through the product build path, GNU versions recorded; publish per-shape results without cherry-picking. Related: Bash# build performance todo 7922c8e2.
