@@ -56,4 +56,4 @@ replace github.com/benhoyt/goawk => github.com/qiangli/coreutils/third_party/goa
 
 // Preserve v0.0.27 width results while deferring Unicode tables until first use.
 // Keep this shell-owned fork local: bsh must not link the yoke module graph.
-replace github.com/mattn/go-runewidth => ../../external/runewidth
+replace github.com/mattn/go-runewidth => github.com/bashsharp/bashsharp/external/runewidth v0.0.0-20261122160503-f06822e26775
