@@ -117,11 +117,11 @@ require (
 	github.com/prometheus/common v0.67.5 // indirect
 	github.com/prometheus/procfs v0.20.1 // indirect
 	github.com/prometheus/statsd_exporter v0.29.0 // indirect
-	github.com/qiangli/bonsai v0.0.0-20261121101804-e25a870a0d4a // indirect
+	github.com/qiangli/bonsai v0.0.0-20261123172747-32d78887eb27 // indirect
 	github.com/qiangli/gfy v0.0.0-20261121101804-aab4f6fad5be // indirect
-	github.com/qiangli/yoke/pkg/llmgw v0.0.0-20261123172121-abae5390d798 // indirect
-	github.com/qiangli/yoke/pkg/oci v0.0.0-20261123172121-abae5390d798 // indirect
-	github.com/qiangli/yoke/pkg/provider v0.0.0-20261123172121-abae5390d798 // indirect
+	github.com/qiangli/yoke/pkg/llmgw v0.0.0-20261123174545-4bafb600b776 // indirect
+	github.com/qiangli/yoke/pkg/oci v0.0.0-20261123174545-4bafb600b776 // indirect
+	github.com/qiangli/yoke/pkg/provider v0.0.0-20261123174545-4bafb600b776 // indirect
 	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect
 	github.com/richardlehane/mscfb v1.0.8 // indirect
 	github.com/richardlehane/msoleps v1.0.6 // indirect
@@ -202,7 +202,7 @@ require (
 replace github.com/ergochat/readline => github.com/qiangli/readline v0.1.4-0.20261121101804-6ed12265d8dd
 
 // Public dependency replacements are not inherited from imported modules.
-replace github.com/benhoyt/goawk => github.com/qiangli/coreutils/third_party/goawk v0.0.0-20261122134330-47dbc82478bc
+replace github.com/benhoyt/goawk => github.com/qiangli/coreutils/third_party/goawk v0.0.0-20261123172741-e0184192020b
 
 replace github.com/jaegertracing/jaeger => github.com/qiangli/jaeger v0.0.0-20260426223533-5aaa7eb1f040
 
@@ -235,8 +235,8 @@ require (
 	github.com/creack/pty/v2 v2.0.1
 	github.com/ergochat/readline v0.1.3
 	github.com/qiangli/bash v0.0.0-20261122134408-5c52281f7136
-	github.com/qiangli/coreutils v0.0.0-20261122134330-47dbc82478bc
-	github.com/qiangli/yoke v0.0.0-20261123172121-abae5390d798
+	github.com/qiangli/coreutils v0.0.0-20261123172741-e0184192020b
+	github.com/qiangli/yoke v0.0.0-20261123174545-4bafb600b776
 	golang.org/x/sys v0.50.0
 	golang.org/x/term v0.48.0
 )
