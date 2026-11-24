@@ -25,7 +25,10 @@ Build and test this repository independently using the
 **Software shaping lets anyone tell an agent, in plain words, how a running tool should work, and get their own verified, reversible version, while everyone else keeps theirs.** See [software shaping](https://github.com/qiangli/bashy/blob/main/docs/software-shaping.md). In bashy's pitch (one system, one language, one app, one agent: [bashy is all you need](https://github.com/qiangli/bashy#bashy)), Bash# is the one language, and the language shapes are written in:
 
 - One file is both script and skill, so the agent's instructions and the
-  automation never drift.
+  automation never drift. The skill text rides in the script as a `~~~skill`
+  fence ([tour, chapter 8](https://github.com/bashsharp/tour/tree/main/08-text-fences)).
+  This is a property of the file format; no measured claim about how well
+  agents follow a skill is made ([docs/claims.md](docs/claims.md)).
 - Contracts (`@require` / `@ensure` / `@guard`) and `agentic {}` blocks mean a
   model's output is judged by ordinary commands, never trusted.
 - A Bash# skill-script plus its JSON config hook (bashy's
