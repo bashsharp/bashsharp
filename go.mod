@@ -106,6 +106,8 @@ require (
 	github.com/ncruces/go-strftime v1.0.0 // indirect
 	github.com/nguyenthenguyen/docx v0.0.0-20230621112118-9c8e795a11db // indirect
 	github.com/odvcencio/gotreesitter v0.16.0 // indirect
+	github.com/opencontainers/go-digest v1.0.0 // indirect
+	github.com/opencontainers/image-spec v1.1.1 // indirect
 	github.com/pelletier/go-toml/v2 v2.3.1 // indirect
 	github.com/pjbgf/sha1cd v0.7.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
@@ -118,9 +120,9 @@ require (
 	github.com/prometheus/statsd_exporter v0.29.0 // indirect
 	github.com/qiangli/bonsai v0.0.0-20261123172747-32d78887eb27 // indirect
 	github.com/qiangli/gfy v0.0.0-20261121101804-aab4f6fad5be // indirect
-	github.com/qiangli/yoke/pkg/llmgw v0.0.0-20261126092849-17bf1a1dda58 // indirect
-	github.com/qiangli/yoke/pkg/oci v0.0.0-20261126092849-17bf1a1dda58 // indirect
-	github.com/qiangli/yoke/pkg/provider v0.0.0-20261126092849-17bf1a1dda58 // indirect
+	github.com/qiangli/yoke/pkg/llmgw v0.0.0-20261126213049-bbe744c93fee // indirect
+	github.com/qiangli/yoke/pkg/oci v0.0.0-20261126213049-bbe744c93fee // indirect
+	github.com/qiangli/yoke/pkg/provider v0.0.0-20261126213049-bbe744c93fee // indirect
 	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect
 	github.com/richardlehane/mscfb v1.0.8 // indirect
 	github.com/richardlehane/msoleps v1.0.6 // indirect
@@ -196,13 +198,14 @@ require (
 	modernc.org/mathutil v1.7.1 // indirect
 	modernc.org/memory v1.12.1 // indirect
 	modernc.org/sqlite v1.59.0 // indirect
+	oras.land/oras-go/v2 v2.7.0 // indirect
 	resty.dev/v3 v3.0.0-rc.2 // indirect
 )
 
 replace github.com/ergochat/readline => github.com/qiangli/readline v0.1.4-0.20261121101804-6ed12265d8dd
 
 // Public dependency replacements are not inherited from imported modules.
-replace github.com/benhoyt/goawk => github.com/qiangli/coreutils/third_party/goawk v0.0.0-20261126092031-5f9da9132e14
+replace github.com/benhoyt/goawk => github.com/qiangli/coreutils/third_party/goawk v0.0.0-20261126163007-96e079612fa5
 
 replace github.com/jaegertracing/jaeger => github.com/qiangli/jaeger v0.0.0-20260426223533-5aaa7eb1f040
 
@@ -235,8 +238,8 @@ require (
 	github.com/creack/pty/v2 v2.0.1
 	github.com/ergochat/readline v0.1.3
 	github.com/qiangli/bash v0.0.0-20261122134408-5c52281f7136
-	github.com/qiangli/coreutils v0.0.0-20261126092031-5f9da9132e14
-	github.com/qiangli/yoke v0.0.0-20261126092849-17bf1a1dda58
+	github.com/qiangli/coreutils v0.0.0-20261126163007-96e079612fa5
+	github.com/qiangli/yoke v0.0.0-20261126213049-bbe744c93fee
 	golang.org/x/sys v0.50.0
 	golang.org/x/term v0.48.0
 )
