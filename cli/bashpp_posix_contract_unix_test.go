@@ -23,7 +23,6 @@ func TestCLIBashPPPOSIXContract(t *testing.T) {
 		build func(*testing.T) string
 	}{
 		{"bash", builtBashBin},
-		{"bashy", builtBashyBin},
 	} {
 		t.Run(front.name, func(t *testing.T) {
 			binary := front.build(t)

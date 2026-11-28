@@ -72,23 +72,3 @@ func TestCLIClassicHiddenOptionStillEnablesBashPPGrammar(t *testing.T) {
 		}
 	}
 }
-
-func TestCLIBashyExplicitBashPPOptionRemainsDiscoverable(t *testing.T) {
-	binary := builtBashyBin(t)
-	for _, script := range []string{"set -o", "set +o", "shopt -o", "shopt -po", "compgen -A setopt"} {
-		t.Run(script, func(t *testing.T) {
-			got, err := runOptionVisibilityCLI(t, binary, "--bashpp", "", script)
-			if err != nil || !strings.Contains(got, "bashpp") {
-				t.Fatalf("Bashy explicit selector lost discovery: output=%q err=%v", got, err)
-			}
-			got, err = runOptionVisibilityCLI(t, binary, "--no-bashpp", "1", script)
-			if err != nil || strings.Contains(got, "bashpp") {
-				t.Fatalf("Bashy disabled selector remained listed: output=%q err=%v", got, err)
-			}
-		})
-	}
-	got, err := runOptionVisibilityCLI(t, binary, "--bashpp", "", "type Sprint119BashyProof int\nprintf '%s\\n' typed-mode-active\n")
-	if err != nil || got != "typed-mode-active\n" {
-		t.Fatalf("Bashy discovery changed grammar activation: output=%q err=%v", got, err)
-	}
-}

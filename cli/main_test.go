@@ -16,8 +16,8 @@ import (
 	"strings"
 	"testing"
 
+	_ "github.com/qiangli/coreutils/cmds/all"
 	coreutilsshell "github.com/qiangli/coreutils/shell"
-	_ "github.com/qiangli/yoke/cmds/all"
 
 	"github.com/qiangli/bash/expand"
 	"github.com/qiangli/bash/interp"

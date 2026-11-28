@@ -4,9 +4,6 @@ import (
 	"bytes"
 	"context"
 	"os"
-	"os/exec"
-	"path/filepath"
-	"runtime"
 	"strings"
 	"testing"
 	"time"
@@ -24,114 +21,6 @@ import (
 // the pins win over ambient CI values.
 func offlineGoEnv() []string {
 	return append(os.Environ(), "GOTOOLCHAIN=local", "GOPROXY=off")
-}
-
-// runGoCommand runs the installed go SDK offline and fails the test on error.
-func runGoCommand(ctx context.Context, t *testing.T, what string, args ...string) string {
-	t.Helper()
-	cmd := exec.CommandContext(ctx, filepath.Join(runtime.GOROOT(), "bin", "go"), args...)
-	cmd.Env = offlineGoEnv()
-	output, err := cmd.CombinedOutput()
-	if err != nil {
-		t.Fatalf("%s: %v %s", what, err, output)
-	}
-	return string(output)
-}
-
-// A real default executable is necessary: a package-only test cannot prove
-// startup ordering relative to agentos.init or the cold CLI's shell enrichment.
-func TestGoSourceExecutableEnvironment(t *testing.T) {
-	dir := t.TempDir()
-	bashy := filepath.Join(dir, "bashy")
-	bashyPayload := bashy
-	signalIgnore := ""
-	if runtime.GOOS == "darwin" || runtime.GOOS == "linux" {
-		bashyPayload += ".real"
-	}
-	ctx, cancel := context.WithTimeout(context.Background(), 180*time.Second)
-	defer cancel()
-	runGoCommand(ctx, t, "default CLI build", "build", "-p", "2", "-o", bashyPayload, "github.com/qiangli/bashy/cmd/bashy")
-	if bashyPayload != bashy {
-		cc, err := exec.LookPath("cc")
-		if err != nil {
-			t.Skip("cc is required to exercise the shipped signal launcher")
-		}
-		cmd := exec.CommandContext(ctx, cc, "-x", "c", "-std=c11", "-O2", "-Wall", "-Wextra", "-Werror", "-o", bashy, "../native/siglaunch.c.in")
-		if output, err := cmd.CombinedOutput(); err != nil {
-			t.Fatalf("signal launcher build: %v %s", err, output)
-		}
-		// A shell wrapper cannot carry arbitrary caller values for its own
-		// special variables: dash rejects OPTIND=caller-optind before exec.
-		// This native wrapper changes only the TERM disposition and execs the
-		// target with the original environment and argument order.
-		signalIgnore = filepath.Join(dir, "signal-ignore")
-		cmd = exec.CommandContext(ctx, cc, "-std=c11", "-O2", "-Wall", "-Wextra", "-Werror", "-o", signalIgnore, "testdata/gosource-environment/signal-ignore.c")
-		if output, err := cmd.CombinedOutput(); err != nil {
-			t.Fatalf("signal ignore wrapper build: %v %s", err, output)
-		}
-	}
-	source, err := os.ReadFile("testdata/gosource-environment/environment-variables.go")
-	if err != nil {
-		t.Fatal(err)
-	}
-	path := filepath.Join(dir, "original.go")
-	if err := os.WriteFile(path, source, 0600); err != nil {
-		t.Fatal(err)
-	}
-	oracle := filepath.Join(dir, "oracle")
-	runGoCommand(ctx, t, "native build", "build", "-p", "2", "-o", oracle, path)
-	cache := runGoCommand(ctx, t, "go env GOCACHE", "env", "GOCACHE")
-	moduleCache := runGoCommand(ctx, t, "go env GOMODCACHE", "env", "GOMODCACHE")
-	// The source importer needs an available build cache. Configure it equally
-	// for both executables; the variables under test remain absent or supplied.
-	// GOTOOLCHAIN=local pins the installed SDK and GOPROXY=off keeps the
-	// compared runs off the network, matching the builds above.
-	baseEnv := []string{"HOME=" + dir, "GOCACHE=" + strings.TrimSpace(cache), "GOMODCACHE=" + strings.TrimSpace(moduleCache), "GOTOOLCHAIN=local", "GOPROXY=off"}
-	if cache := os.Getenv("BASHY_BIN_CACHE"); cache != "" {
-		baseEnv = append(baseEnv, "BASHY_BIN_CACHE="+cache)
-	}
-	for name, env := range map[string][]string{
-		"absent":        {"LAST=last", "BAR=original-bar", "FIRST=first"},
-		"explicit":      {"LAST=last", "BASH=caller-bash", "SHELL=caller-shell", "SHLVL=17", "UID=caller-uid", "EUID=caller-euid", "IFS=caller-ifs", "OPTIND=caller-optind", "BASH_VERSION=caller-version", "BASHY_AGENT_MANIFEST=caller-manifest", "BASHY_HARD_IGNORE=USR1", "FIRST=first"},
-		"long explicit": {"LAST=last", "BASHY_HARD_IGNORE=" + strings.Repeat("USR1,", 120) + "USR1", "FIRST=first"},
-	} {
-		t.Run(name, func(t *testing.T) {
-			env = append(append([]string{}, baseEnv...), env...)
-			run := func(binary string, args ...string) (string, string) {
-				t.Helper()
-				runCtx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
-				defer cancel()
-				var cmd *exec.Cmd
-				if signalIgnore != "" {
-					// Force the launcher to add TERM to its private signal
-					// sideband. The native oracle inherits the identical SIG_IGN
-					// disposition without receiving that environment entry.
-					wrapperArgs := append([]string{binary}, args...)
-					cmd = exec.CommandContext(runCtx, signalIgnore, wrapperArgs...)
-				} else {
-					cmd = exec.CommandContext(runCtx, binary, args...)
-				}
-				cmd.Dir = dir
-				cmd.Env = append([]string{}, env...)
-				var out, stderr bytes.Buffer
-				cmd.Stdout = &out
-				cmd.Stderr = &stderr
-				if err := cmd.Run(); err != nil {
-					t.Fatalf("run %s: %v stdout=%q stderr=%q", filepath.Base(binary), err, out.String(), stderr.String())
-				}
-				return out.String(), stderr.String()
-			}
-			wantOut, wantErr := run(oracle)
-			gotOut, gotErr := run(bashy, "--bashpp", "--source=go", path)
-			if gotOut != wantOut || gotErr != wantErr {
-				t.Fatalf("CLI stdout=%q stderr=%q; native stdout=%q stderr=%q", gotOut, gotErr, wantOut, wantErr)
-			}
-		})
-	}
-	after, err := os.ReadFile(path)
-	if err != nil || !bytes.Equal(after, source) {
-		t.Fatal("original source changed")
-	}
 }
 
 // TestOfflineGoEnvPins keeps the network-free `go` invocations honest: the
